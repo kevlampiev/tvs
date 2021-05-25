@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin;
+use App\Http\Controllers\Admin\ManufacurersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +31,16 @@ Route::group([
         Route::match(['post', 'get'],'add',[\App\Http\Controllers\Admin\TypesController::class, 'addType'])->name('admin.addType');
         Route::match(['post', 'get'],'{type}/edit',[\App\Http\Controllers\Admin\TypesController::class, 'editType'])->name('admin.editType');
         Route::match(['post', 'get'], '{type}/delete',[\App\Http\Controllers\Admin\TypesController::class, 'deleteType'])->name('admin.deleteType');
+        }
+    );
+    Route::group([
+        'prefix'=>'manufacturers'
+    ],
+        function () {
+            Route::get('/',[\App\Http\Controllers\Admin\ManufacturersController::class,'index'])->name('admin.manufacturers');
+            Route::match(['post', 'get'],'add',[\App\Http\Controllers\Admin\ManufacturersController::class, 'addManufacturer'])->name('admin.addManufacturer');
+            Route::match(['post', 'get'],'{manufacturer}/edit',[\App\Http\Controllers\Admin\ManufacturersController::class, 'editManufacturer'])->name('admin.editManufacturer');
+            Route::match(['post', 'get'], '{manufacturer}/delete',[\App\Http\Controllers\Admin\ManufacturersController::class, 'deleteManufacturer'])->name('admin.deleteManufacturer');
         }
     );
 }

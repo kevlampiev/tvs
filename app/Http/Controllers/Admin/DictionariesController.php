@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\VehicleType;
 use Illuminate\Http\Request;
 
 class DictionariesController extends Controller
 {
-    public function index(Request $request):string
+    public function allVehicleTypes(Request $request):string
     {
-        return "тут будут все типы техники";
+        return view('Admin.types', ['types'=>VehicleType::all()]);
     }
 }

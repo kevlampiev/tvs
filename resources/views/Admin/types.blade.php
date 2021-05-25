@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('Admin.layout')
 
 @section('title')
     Администратор| Справочники

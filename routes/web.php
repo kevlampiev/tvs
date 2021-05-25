@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,15 @@ Route::group([
 ],
     function() {
     Route::get('/',[\App\Http\Controllers\Admin\HomeController::class,'index']);
-
+    Route::group([
+        'prefix'=>'types'
+    ],
+        function () {
+        Route::get('/',[\App\Http\Controllers\Admin\TypesController::class,'index'])->name('admin.vehicleTypes');
+        Route::match(['post', 'get'],'add',[\App\Http\Controllers\Admin\TypesController::class, 'addType'])->name('admin.addType');
+        Route::match(['post', 'get'],'{type}/edit',[\App\Http\Controllers\Admin\TypesController::class, 'editType'])->name('admin.editType');
+        Route::match(['post', 'get'], '{type}/delete',[\App\Http\Controllers\Admin\TypesController::class, 'deleteType'])->name('admin.deleteType');
+        }
+    );
 }
 );

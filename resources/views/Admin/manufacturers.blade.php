@@ -7,7 +7,7 @@
 @section('content')
 
     <div class="row">
-        <h2>Типы техники</h2>
+        <h2>Производители</h2>
     </div>
 
     <div class="row">

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\ManufacurersController;
+use App\Http\Controllers\Admin\ManufacturersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,5 +43,16 @@ Route::group([
             Route::match(['post', 'get'], '{manufacturer}/delete',[\App\Http\Controllers\Admin\ManufacturersController::class, 'deleteManufacturer'])->name('admin.deleteManufacturer');
         }
     );
+
+        Route::group([
+            'prefix'=>'vehicles'
+        ],
+            function () {
+                Route::get('/',[\App\Http\Controllers\Admin\VehicleController::class,'index'])->name('admin.vehicles');
+                Route::match(['post', 'get'],'add',[\App\Http\Controllers\Admin\VehicleController::class, 'addVehicle'])->name('admin.addVehicle');
+                Route::match(['post', 'get'],'{vehicle}/edit',[\App\Http\Controllers\Admin\VehicleController::class, 'editVehicle'])->name('admin.editVehicle');
+                Route::match(['post', 'get'], '{vehicle}/delete',[\App\Http\Controllers\Admin\VehicleController::class, 'deleteVehicle'])->name('admin.deleteVehicle');
+            }
+        );
 }
 );

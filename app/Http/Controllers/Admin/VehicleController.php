@@ -55,4 +55,9 @@ class VehicleController extends Controller
         $vehicle->delete();
         return redirect()->route('admin.vehicles');
     }
+
+    public function vehicleSummary(Vehicle $vehicle)
+    {
+        return view('Admin/vehicle-summary', ['vehicle' => $vehicle]);
+    }
 }

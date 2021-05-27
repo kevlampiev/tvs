@@ -8,7 +8,6 @@
     <h3> @if ($vehicle->id) Изменение описания @else Добавить новую единицу техники @endif</h3>
     <form action="{{route($route, $vehicle->id)}}" method="POST">
         @csrf
-        <form>
 
 
             <div class="row">
@@ -126,8 +125,6 @@
                 @if ($vehicle->id)  Изменить @else Добавить @endif
             </button>
             <a class="btn btn-secondary" href="{{route('admin.vehicles')}}">Отмена</a>
-
-        </form>
 
     </form>
 

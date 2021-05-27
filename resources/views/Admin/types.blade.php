@@ -27,12 +27,12 @@
                 </thead>
                 <tbody>
                 @forelse($types as $type)
-                <tr>
-                    <th scope="row">{{$type->id}}</th>
-                    <td>{{$type->name}}</td>
-                    <td><a href="{{route('admin.editType',['type'=>$type])}}"> &#9998;Изменить </a> </td>
-                    <td><a href="{{route('admin.deleteType',['type'=>$type])}}"> 	&#10008;Удалить </a> </td>
-                </tr>
+                    <tr>
+                        <th scope="row">{{$type->id}}</th>
+                        <td>{{$type->name}}</td>
+                        <td><a href="{{route('admin.editType',['type'=>$type])}}"> &#9998;Изменить </a></td>
+                        <td><a href="{{route('admin.deleteType',['type'=>$type])}}"> &#10008;Удалить </a></td>
+                    </tr>
                 @empty
                     <p>Нет записей</p>
                 @endforelse

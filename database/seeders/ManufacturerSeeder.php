@@ -22,13 +22,13 @@ class ManufacturerSeeder extends Seeder
     private function getData()
     {
         return [
-            ['name'=>'Komatsu'],
-            ['name'=>'Mitsubishi'],
-            ['name'=>'Atlas'],
-            ['name'=>'John Deere'],
-            ['name'=>'Caterpillar'],
-            ['name'=>'Белаз'],
-            ['name'=>'МАЗ'],
+            ['name' => 'Komatsu'],
+            ['name' => 'Mitsubishi'],
+            ['name' => 'Atlas'],
+            ['name' => 'John Deere'],
+            ['name' => 'Caterpillar'],
+            ['name' => 'Белаз'],
+            ['name' => 'МАЗ'],
         ];
     }
 }

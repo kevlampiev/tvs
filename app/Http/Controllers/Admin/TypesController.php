@@ -11,8 +11,8 @@ class TypesController extends Controller
 {
     public function index(Request $request)
     {
-        return view('Admin.types', ['types'=>VehicleType::all()]);
-     }
+        return view('Admin.types', ['types' => VehicleType::all()]);
+    }
 
     public function addType(Request $request)
     {

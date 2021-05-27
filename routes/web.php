@@ -19,40 +19,40 @@ Route::get('/', function () {
 });
 
 Route::group([
-    'prefix'=>'admin'
+    'prefix' => 'admin'
 ],
-    function() {
-    Route::get('/',[\App\Http\Controllers\Admin\HomeController::class,'index']);
-    Route::group([
-        'prefix'=>'types'
-    ],
-        function () {
-        Route::get('/',[\App\Http\Controllers\Admin\TypesController::class,'index'])->name('admin.vehicleTypes');
-        Route::match(['post', 'get'],'add',[\App\Http\Controllers\Admin\TypesController::class, 'addType'])->name('admin.addType');
-        Route::match(['post', 'get'],'{type}/edit',[\App\Http\Controllers\Admin\TypesController::class, 'editType'])->name('admin.editType');
-        Route::match(['post', 'get'], '{type}/delete',[\App\Http\Controllers\Admin\TypesController::class, 'deleteType'])->name('admin.deleteType');
-        }
-    );
-    Route::group([
-        'prefix'=>'manufacturers'
-    ],
-        function () {
-            Route::get('/',[\App\Http\Controllers\Admin\ManufacturersController::class,'index'])->name('admin.manufacturers');
-            Route::match(['post', 'get'],'add',[\App\Http\Controllers\Admin\ManufacturersController::class, 'addManufacturer'])->name('admin.addManufacturer');
-            Route::match(['post', 'get'],'{manufacturer}/edit',[\App\Http\Controllers\Admin\ManufacturersController::class, 'editManufacturer'])->name('admin.editManufacturer');
-            Route::match(['post', 'get'], '{manufacturer}/delete',[\App\Http\Controllers\Admin\ManufacturersController::class, 'deleteManufacturer'])->name('admin.deleteManufacturer');
-        }
-    );
-
+    function () {
+        Route::get('/', [\App\Http\Controllers\Admin\HomeController::class, 'index']);
         Route::group([
-            'prefix'=>'vehicles'
+            'prefix' => 'types'
         ],
             function () {
-                Route::get('/',[\App\Http\Controllers\Admin\VehicleController::class,'index'])->name('admin.vehicles');
-                Route::match(['post', 'get'],'add',[\App\Http\Controllers\Admin\VehicleController::class, 'addVehicle'])->name('admin.addVehicle');
-                Route::match(['post', 'get'],'{vehicle}/edit',[\App\Http\Controllers\Admin\VehicleController::class, 'editVehicle'])->name('admin.editVehicle');
-                Route::match(['post', 'get'], '{vehicle}/delete',[\App\Http\Controllers\Admin\VehicleController::class, 'deleteVehicle'])->name('admin.deleteVehicle');
+                Route::get('/', [\App\Http\Controllers\Admin\TypesController::class, 'index'])->name('admin.vehicleTypes');
+                Route::match(['post', 'get'], 'add', [\App\Http\Controllers\Admin\TypesController::class, 'addType'])->name('admin.addType');
+                Route::match(['post', 'get'], '{type}/edit', [\App\Http\Controllers\Admin\TypesController::class, 'editType'])->name('admin.editType');
+                Route::match(['post', 'get'], '{type}/delete', [\App\Http\Controllers\Admin\TypesController::class, 'deleteType'])->name('admin.deleteType');
             }
         );
-}
+        Route::group([
+            'prefix' => 'manufacturers'
+        ],
+            function () {
+                Route::get('/', [\App\Http\Controllers\Admin\ManufacturersController::class, 'index'])->name('admin.manufacturers');
+                Route::match(['post', 'get'], 'add', [\App\Http\Controllers\Admin\ManufacturersController::class, 'addManufacturer'])->name('admin.addManufacturer');
+                Route::match(['post', 'get'], '{manufacturer}/edit', [\App\Http\Controllers\Admin\ManufacturersController::class, 'editManufacturer'])->name('admin.editManufacturer');
+                Route::match(['post', 'get'], '{manufacturer}/delete', [\App\Http\Controllers\Admin\ManufacturersController::class, 'deleteManufacturer'])->name('admin.deleteManufacturer');
+            }
+        );
+
+        Route::group([
+            'prefix' => 'vehicles'
+        ],
+            function () {
+                Route::get('/', [\App\Http\Controllers\Admin\VehicleController::class, 'index'])->name('admin.vehicles');
+                Route::match(['post', 'get'], 'add', [\App\Http\Controllers\Admin\VehicleController::class, 'addVehicle'])->name('admin.addVehicle');
+                Route::match(['post', 'get'], '{vehicle}/edit', [\App\Http\Controllers\Admin\VehicleController::class, 'editVehicle'])->name('admin.editVehicle');
+                Route::match(['post', 'get'], '{vehicle}/delete', [\App\Http\Controllers\Admin\VehicleController::class, 'deleteVehicle'])->name('admin.deleteVehicle');
+            }
+        );
+    }
 );

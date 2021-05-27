@@ -2,7 +2,8 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class IndexTest extends TestCase
@@ -14,10 +15,9 @@ class IndexTest extends TestCase
      */
     public function test_example()
     {
-        $response = $this->get('/admin');
-
-        $response->assertStatus(200)
-        ->assertSeeText('Справочники')
+        $response = $this->get('/admin')
+            ->assertStatus(200)
+            ->assertSeeText('Справочники')
             ->assertSeeText('Список техники');
     }
 }

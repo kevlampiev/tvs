@@ -27,12 +27,14 @@
                 </thead>
                 <tbody>
                 @forelse($manufacturers as $manufacturer)
-                <tr>
-                    <th scope="row">{{$manufacturer->id}}</th>
-                    <td>{{$manufacturer->name}}</td>
-                    <td><a href="{{route('admin.editManufacturer',['manufacturer'=>$manufacturer])}}"> &#9998;Изменить </a> </td>
-                    <td><a href="{{route('admin.deleteManufacturer',['manufacturer'=>$manufacturer])}}"> 	&#10008;Удалить </a> </td>
-                </tr>
+                    <tr>
+                        <th scope="row">{{$manufacturer->id}}</th>
+                        <td>{{$manufacturer->name}}</td>
+                        <td><a href="{{route('admin.editManufacturer',['manufacturer'=>$manufacturer])}}"> &#9998;Изменить </a>
+                        </td>
+                        <td><a href="{{route('admin.deleteManufacturer',['manufacturer'=>$manufacturer])}}"> &#10008;Удалить </a>
+                        </td>
+                    </tr>
                 @empty
                     <p>Нет записей</p>
                 @endforelse

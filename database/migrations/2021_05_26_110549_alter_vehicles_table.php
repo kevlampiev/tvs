@@ -13,8 +13,7 @@ class AlterVehiclesTable extends Migration
      */
     public function up()
     {
-        Schema::table('vehicles', function (Blueprint $table)
-        {
+        Schema::table('vehicles', function (Blueprint $table) {
             $table->string('trademark')->comment('марка (HITACHI)');
             $table->string('model')->comment('модель (типа EX1250)');
             $table->float('market_price')->comment('рыночная стоимость на дату приобретения');
@@ -30,8 +29,7 @@ class AlterVehiclesTable extends Migration
      */
     public function down()
     {
-        Schema::table('vehicles', function (Blueprint $table)
-        {
+        Schema::table('vehicles', function (Blueprint $table) {
             $table->dropColumn('trademark');
             $table->dropColumn('model');
             $table->dropColumn('model');

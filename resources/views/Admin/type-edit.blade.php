@@ -12,7 +12,7 @@
             <div class="form-group">
                 <label for="inputType">Наименование типа</label>
                 <input type="text" class="form-control" id="inputType" placeholder="Введите название типа" name="name"
-                value="{{$type->name}}">
+                       value="{{$type->name}}">
             </div>
 
             <button type="submit" class="btn btn-primary">

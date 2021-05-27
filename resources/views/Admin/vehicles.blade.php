@@ -36,23 +36,23 @@
                 </thead>
                 <tbody>
                 @forelse($vehicles as $vehicle)
-                <tr>
-                    <th scope="row">{{$vehicle->id}}</th>
-                    <td>{{$vehicle->vehicleType->name}}</td>
-                    <td>{{$vehicle->manufacturer->name}}</td>
-                    <td>{{$vehicle->name}}</td>
-                    <td>{{$vehicle->vin}}</td>
-                    <td>{{$vehicle->bort_number}}</td>
-                    <td>{{$vehicle->prod_year}}</td>
-                    <td>{{$vehicle->model}}</td>
-                    <td>{{$vehicle->market_price}}</td>
-                    <td>{{$vehicle->currency}}</td>
-                    <td>{{$vehicle->estimate_date}}</td>
-                    <td><a href="{{route('admin.editVehicle',['vehicle'=>$vehicle])}}"> &#9998;Изменить </a> </td>
-                    <td><a href="{{route('admin.deleteVehicle',['vehicle'=>$vehicle])}}"> 	&#10008;Удалить </a> </td>
-                </tr>
+                    <tr>
+                        <th scope="row">{{$vehicle->id}}</th>
+                        <td>{{$vehicle->vehicleType->name}}</td>
+                        <td>{{$vehicle->manufacturer->name}}</td>
+                        <td>{{$vehicle->name}}</td>
+                        <td>{{$vehicle->vin}}</td>
+                        <td>{{$vehicle->bort_number}}</td>
+                        <td>{{$vehicle->prod_year}}</td>
+                        <td>{{$vehicle->model}}</td>
+                        <td>{{$vehicle->market_price}}</td>
+                        <td>{{$vehicle->currency}}</td>
+                        <td>{{$vehicle->estimate_date}}</td>
+                        <td><a href="{{route('admin.editVehicle',['vehicle'=>$vehicle])}}"> &#9998;Изменить </a></td>
+                        <td><a href="{{route('admin.deleteVehicle',['vehicle'=>$vehicle])}}"> &#10008;Удалить </a></td>
+                    </tr>
                 @empty
-                    <p>Нет записей</p>
+                    <td>Нет записей</td>
                 @endforelse
                 </tbody>
             </table>

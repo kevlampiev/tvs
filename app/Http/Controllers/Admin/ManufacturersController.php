@@ -11,7 +11,7 @@ class ManufacturersController extends Controller
 {
     public function index(Request $request)
     {
-        return view('Admin.manufacturers', ['manufacturers'=>Manufacturer::all()]);
+        return view('Admin.manufacturers', ['manufacturers' => Manufacturer::all()]);
     }
 
     public function addManufacturer(Request $request)

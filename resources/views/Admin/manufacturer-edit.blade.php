@@ -11,8 +11,9 @@
         <form>
             <div class="form-group">
                 <label for="inputType">Наименование производителя</label>
-                <input type="text" class="form-control" id="inputType" placeholder="Введите название производителя" name="name"
-                value="{{$manufacturer->name}}">
+                <input type="text" class="form-control" id="inputType" placeholder="Введите название производителя"
+                       name="name"
+                       value="{{$manufacturer->name}}">
             </div>
 
             <button type="submit" class="btn btn-primary">

@@ -27,10 +27,10 @@
                     <th scope="col">Бортовой номер</th>
                     <th scope="col">Год выпуска</th>
                     <th scope="col">Модель</th>
-                    <th scope="col">Рыночная цена</th>
+                    <th scope="col">Цена приобретения</th>
                     <th scope="col">Валюта</th>
-                    <th scope="col">Дата оценки</th>
-                    <th scope="col"></th>0
+                    <th scope="col">Дата приобретения</th>
+                    <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
                 </thead>

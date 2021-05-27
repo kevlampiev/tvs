@@ -16,10 +16,11 @@ use App\Http\Controllers\Admin\ManufacturersController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('auth');
 
 Route::group([
-    'prefix' => 'admin'
+    'prefix' => 'admin',
+    'middleware' => 'is.admin'
 ],
     function () {
         Route::get('/', [\App\Http\Controllers\Admin\HomeController::class, 'index']);
@@ -57,3 +58,10 @@ Route::group([
         );
     }
 );
+
+//Auth::routes();
+Route::get('login', [\App\Http\Controllers\Auth\LoginController::class,'showLoginForm'])->name('login');
+Route::post('login', [\App\Http\Controllers\Auth\LoginController::class,'login']);
+Route::get('logout', [\App\Http\Controllers\Auth\LoginController::class,'logout'])->name('logout');
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

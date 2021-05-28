@@ -13,10 +13,10 @@ use App\Http\Controllers\Admin\ManufacturersController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-})->middleware('auth');
+//
+//Route::get('/', function () {
+//    return view('welcome');
+//})->middleware('auth');
 
 Route::group([
     'prefix' => 'admin',
@@ -64,4 +64,8 @@ Route::get('login', [\App\Http\Controllers\Auth\LoginController::class,'showLogi
 Route::post('login', [\App\Http\Controllers\Auth\LoginController::class,'login']);
 Route::get('logout', [\App\Http\Controllers\Auth\LoginController::class,'logout'])->name('logout');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');

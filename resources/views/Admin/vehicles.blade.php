@@ -46,15 +46,15 @@
                         <td>{{$vehicle->bort_number}}</td>
                         <td>{{$vehicle->prod_year}}</td>
                         <td>{{$vehicle->model}}</td>
-                        <td>{{$vehicle->market_price}}</td>
+                        <td>{{$vehicle->price}}</td>
                         <td>{{$vehicle->currency}}</td>
-                        <td>{{$vehicle->estimate_date}}</td>
+                        <td>{{$vehicle->purchase_date}}</td>
                         <td><a href="{{route('admin.vehicleSummary',['vehicle'=>$vehicle])}}"> &#10149;Связи </a></td>
                         <td><a href="{{route('admin.editVehicle',['vehicle'=>$vehicle])}}"> &#9998;Изменить </a></td>
                         <td><a href="{{route('admin.deleteVehicle',['vehicle'=>$vehicle])}}"> &#10008;Удалить </a></td>
                     </tr>
                 @empty
-                    <td>Нет записей</td>
+                    <td colspan="14">Нет записей</td>
                 @endforelse
                 </tbody>
             </table>

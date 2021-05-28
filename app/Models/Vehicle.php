@@ -18,9 +18,9 @@ class Vehicle extends Model
         'prod_year',
         'trademark',
         'model',
-        'market_price',
+        'price',
         'currency',
-        'estimate_date'];
+        'purchase_date'];
 
     public function vehicleType()
     {

@@ -83,8 +83,8 @@
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="market_price">Стоимость</span>
                         <input type="number" class="form-control" aria-describedby="market_price"
-                               placeholder="Введите название модели" name="market_price"
-                               value="{{$vehicle->market_price}}">
+                               placeholder="Введите цену приобретения" name="price"
+                               value="{{$vehicle->price}}">
                         <select name="currency" id="currency" class="form-control">
                             @foreach ($currencies as $currency)
                                 <option value="{{$currency}}" {{($currency == $vehicle->currency) ? 'selected' : ''}}>
@@ -98,8 +98,8 @@
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="estimate_date">Дата приобретения</span>
                         <input type="date" class="form-control" aria-describedby="model"
-                               placeholder="Введите дату приобретения" name="estimate_date"
-                               value="{{$vehicle->estimate_date}}">
+                               placeholder="Введите дату приобретения" name="purchase_date"
+                               value="{{$vehicle->purchase_date}}">
                     </div>
 
                 </div>

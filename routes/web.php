@@ -45,6 +45,25 @@ Route::group([
         );
 
         Route::group([
+            'prefix' => 'agrTypes'
+        ],
+            function () {
+                Route::get('/', [\App\Http\Controllers\Admin\AgreementTypeController::class, 'index'])
+                    ->name('admin.agrTypes');
+                Route::match(['post', 'get'],
+                    'add', [\App\Http\Controllers\Admin\AgreementTypeController::class, 'addType'])
+                    ->name('admin.addAgrType');
+                Route::match(['post', 'get'],
+                    '{agrType}/edit', [\App\Http\Controllers\Admin\AgreementTypeController::class, 'editType'])
+                    ->name('admin.agrType');
+                Route::match(['post', 'get'],
+                    '{agrType}/delete', [\App\Http\Controllers\Admin\AgreementTypeController::class, 'deleteType'])
+                    ->name('admin.deleteAgrType');
+            }
+        );
+
+
+        Route::group([
             'prefix' => 'vehicles'
         ],
             function () {

@@ -32,6 +32,8 @@
                     Справочники
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{route('admin.companies')}}">Компании группы</a>
+                    <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{route('admin.vehicleTypes')}}">Типы техники</a>
                     <a class="dropdown-item" href="{{route('admin.manufacturers')}}">Производители</a>
                     <div class="dropdown-divider"></div>

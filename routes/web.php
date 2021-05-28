@@ -81,6 +81,23 @@ Route::group([
             }
         );
 
+        Route::group([
+            'prefix' => 'companies'
+        ],
+            function () {
+                Route::get('/', [\App\Http\Controllers\Admin\CompanyController::class, 'index'])
+                    ->name('admin.companies');
+                Route::match(['post', 'get'],
+                    'add', [\App\Http\Controllers\Admin\CompanyController::class, 'addCompany'])
+                    ->name('admin.addCompany');
+                Route::match(['post', 'get'],
+                    '{company}/edit', [\App\Http\Controllers\Admin\CompanyController::class, 'editCompany'])
+                    ->name('admin.editCompany');
+                Route::match(['post', 'get'],
+                    '{company}/delete', [\App\Http\Controllers\Admin\CompanyController::class, 'deleteCompany'])
+                    ->name('admin.deleteCompany');
+            }
+        );
 
         Route::group([
             'prefix' => 'vehicles'

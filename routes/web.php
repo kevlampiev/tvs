@@ -23,7 +23,7 @@ Route::group([
     'middleware' => 'is.admin'
 ],
     function () {
-        Route::get('/', [\App\Http\Controllers\Admin\HomeController::class, 'index']);
+        Route::get('/', [\App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.main');
         Route::group([
             'prefix' => 'types'
         ],

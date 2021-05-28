@@ -56,7 +56,7 @@ Route::group([
                     ->name('admin.addAgrType');
                 Route::match(['post', 'get'],
                     '{agrType}/edit', [\App\Http\Controllers\Admin\AgreementTypeController::class, 'editType'])
-                    ->name('admin.agrType');
+                    ->name('admin.editAgrType');
                 Route::match(['post', 'get'],
                     '{agrType}/delete', [\App\Http\Controllers\Admin\AgreementTypeController::class, 'deleteType'])
                     ->name('admin.deleteAgrType');

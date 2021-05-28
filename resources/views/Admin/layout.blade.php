@@ -35,7 +35,7 @@
                     <a class="dropdown-item" href="{{route('admin.vehicleTypes')}}">Типы техники</a>
                     <a class="dropdown-item" href="{{route('admin.manufacturers')}}">Производители</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                    <a class="dropdown-item" href="{{route('admin.agrTypes')}}">Типы договоров</a>
                 </div>
             </li>
             <li class="nav-item">

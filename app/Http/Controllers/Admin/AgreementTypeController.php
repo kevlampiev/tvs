@@ -28,23 +28,23 @@ class AgreementTypeController extends Controller
         }
     }
 
-    public function editType(Request $request, AgreementType $type)
+    public function editType(Request $request, AgreementType $agrType)
     {
         if ($request->isMethod('post')) {
-            $type->fill($request->only('name'));
-            $type->save();
+            $agrType->fill($request->only('name'));
+            $agrType->save();
             return redirect()->route('admin.agrTypes');
         } else {
             return view('Admin/agreement-type-edit', [
-                'agrType' => $type,
+                'agrType' => $agrType,
                 'route' => 'admin.editAgrType',
             ]);
         }
     }
 
-    public function deleteType(AgreementType $type)
+    public function deleteType(AgreementType $agrType)
     {
-        $type->delete();
+        $agrType->delete();
         return redirect()->route('admin.agrTypes');
     }
 }

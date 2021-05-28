@@ -36,6 +36,7 @@
                     <a class="dropdown-item" href="{{route('admin.manufacturers')}}">Производители</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{route('admin.agrTypes')}}">Типы договоров</a>
+                    <a class="dropdown-item" href="{{route('admin.counterparties')}}">Контрагенты</a>
                 </div>
             </li>
             <li class="nav-item">

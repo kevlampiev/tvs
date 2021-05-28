@@ -63,6 +63,24 @@ Route::group([
             }
         );
 
+        Route::group([
+            'prefix' => 'counterparties'
+        ],
+            function () {
+                Route::get('/', [\App\Http\Controllers\Admin\CounterpartyController::class, 'index'])
+                    ->name('admin.counterparties');
+                Route::match(['post', 'get'],
+                    'add', [\App\Http\Controllers\Admin\CounterpartyController::class, 'addCounterparty'])
+                    ->name('admin.addCounterparty');
+                Route::match(['post', 'get'],
+                    '{counterparty}/edit', [\App\Http\Controllers\Admin\CounterpartyController::class, 'editCounterparty'])
+                    ->name('admin.editCounterparty');
+                Route::match(['post', 'get'],
+                    '{counterparty}/delete', [\App\Http\Controllers\Admin\CounterpartyController::class, 'deleteCounterparty'])
+                    ->name('admin.deleteCounterparty');
+            }
+        );
+
 
         Route::group([
             'prefix' => 'vehicles'

@@ -110,6 +110,23 @@ Route::group([
                 Route::get( '{vehicle}/summary', [\App\Http\Controllers\Admin\VehicleController::class, 'vehicleSummary'])->name('admin.vehicleSummary');
             }
         );
+
+        Route::group([
+            'prefix' => 'agreements'
+        ],
+            function () {
+                Route::get('/', [\App\Http\Controllers\Admin\AgreementController::class, 'index'])
+                    ->name('admin.agreements');
+                Route::match(['post', 'get'], 'add', [\App\Http\Controllers\Admin\AgreementController::class, 'add'])
+                    ->name('admin.addAgreement');
+                Route::match(['post', 'get'], '{agreement}/edit', [\App\Http\Controllers\Admin\AgreementController::class, 'edit'])
+                    ->name('admin.editAgreement');
+                Route::match(['post', 'get'], '{agreement}/delete', [\App\Http\Controllers\Admin\AgreementController::class, 'delete'])
+                    ->name('admin.deleteAgreement');
+                Route::get( '{agreement}/summary', [\App\Http\Controllers\Admin\AgreementController::class, 'summary'])
+                    ->name('admin.agreementSummary');
+            }
+        );
     }
 );
 

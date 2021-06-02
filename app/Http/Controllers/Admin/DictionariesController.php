@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 
 class DictionariesController extends Controller
 {
-    public function allVehicleTypes(Request $request):string
+    public function allVehicleTypes(Request $request): string
     {
-        return view('Admin.types', ['types'=>VehicleType::all()]);
+        return view('Admin.types', ['types' => VehicleType::all()]);
     }
 }

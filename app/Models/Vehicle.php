@@ -31,4 +31,9 @@ class Vehicle extends Model
     {
         return $this->belongsTo(Manufacturer::class);
     }
+
+    public function agreements()
+    {
+        return $this->belongsToMany(Agreement::class);
+    }
 }

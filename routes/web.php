@@ -125,6 +125,10 @@ Route::group([
                     ->name('admin.deleteAgreement');
                 Route::get( '{agreement}/summary', [\App\Http\Controllers\Admin\AgreementController::class, 'summary'])
                     ->name('admin.agreementSummary');
+                Route::match(['get', 'post'], '{agreement}/add-vehicle', [\App\Http\Controllers\Admin\AgreementController::class, 'addVehicle'])
+                    ->name('admin.agreementAddVehicle');
+                Route::get( '{agreement}/detach-vehicle/{vehicle}', [\App\Http\Controllers\Admin\AgreementController::class, 'detachVehicle'])
+                    ->name('admin.agreementDetachVehicle');
             }
         );
     }

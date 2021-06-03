@@ -6,6 +6,7 @@ use App\Models\Agreement;
 use App\Models\AgreementType;
 use App\Models\Company;
 use App\Models\Counterparty;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -60,6 +61,28 @@ class AgreementController extends Controller
 
     public function summary(Agreement $agreement)
     {
-        return '<h2> тут будет интересно про договор </h2>';
+        return view('Admin/agreement-summary', ['agreement' => $agreement]);
     }
+
+    public function addVehicle(Request $request, Agreement $agreement, Vehicle $vehicle)
+    {
+        if ($request->isMethod('post')) {
+            $vehicle = Vehicle::find($request->vehicle_id);
+            $agreement->vehicles()->save($vehicle);
+            return redirect()->route('admin.agreementSummary', [ 'agreement' => $agreement]);
+        } else {
+            return view('Admin/agreement-add-vehicle', [
+                'agreement' => $agreement,
+                'vehicles' => Vehicle::all(),
+            ]);
+        }
+    }
+
+    public function detachVehicle(Request $request, Agreement $agreement, Vehicle $vehicle)
+    {
+        $agreement->vehicles()->detach($vehicle);
+        return redirect()->back();
+//        return redirect()->route('admin.agreementSummary', [ 'agreement' => $agreement]);
+    }
+
 }

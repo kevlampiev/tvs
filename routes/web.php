@@ -129,6 +129,13 @@ Route::group([
                     ->name('admin.agreementAddVehicle');
                 Route::get( '{agreement}/detach-vehicle/{vehicle}', [\App\Http\Controllers\Admin\AgreementController::class, 'detachVehicle'])
                     ->name('admin.agreementDetachVehicle');
+                Route::match(['get', 'post'], '{agreement}/add-payment', [\App\Http\Controllers\Admin\AgreementPaymentController::class, 'add'])
+                    ->name('admin.addAgrPayment');
+                Route::match(['get', 'post'], '{agreement}/edit-payment/{payment}', [\App\Http\Controllers\Admin\AgreementPaymentController::class, 'edit'])
+                    ->name('admin.editAgrPayment');
+                Route::match(['get', 'post'], '{agreement}/delete-payment/{payment}', [\App\Http\Controllers\Admin\AgreementPaymentController::class, 'delete'])
+                    ->name('admin.deleteAgrPayment');
+
             }
         );
     }

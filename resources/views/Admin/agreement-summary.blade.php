@@ -43,7 +43,7 @@
             Отзывы...
         </div>
         <div class="tab-pane fade" id="payments">
-            Отзывы...
+            @include('Admin.components.payment-tables')
         </div>
 
     </div>

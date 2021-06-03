@@ -30,4 +30,9 @@ class Agreement extends Model
     {
         return $this->belongsToMany(Vehicle::class);
     }
+
+    public function payments()
+    {
+        return $this->hasMany(AgreementPayment::class);
+    }
 }

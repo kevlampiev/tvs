@@ -69,7 +69,7 @@ class AgreementController extends Controller
         if ($request->isMethod('post')) {
             $vehicle = Vehicle::find($request->vehicle_id);
             $agreement->vehicles()->save($vehicle);
-            return redirect()->route('admin.agreementSummary', [ 'agreement' => $agreement]);
+            return redirect()->route('admin.agreementSummary', [ 'agreement' => $agreement, 'page'=>'vehicles']);
         } else {
             return view('Admin/agreement-add-vehicle', [
                 'agreement' => $agreement,

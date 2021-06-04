@@ -19,12 +19,12 @@
             </tr>
             </thead>
             <tbody>
-            @forelse($agreement->payments as $index => $payment)
+            @forelse($payments as $index => $payment)
                 <tr>
                     <th scope="row">{{$index}}</th>
                     <td>{{$payment->payment_date}}</td>
-                    <td>{{$payment->amount}}</td>
-                    <td>{{$payment->currency}}</td>
+                    <td class="text-right">{{number_format($payment->amount, 2, ',', ' ')}}</td>
+                    <td class="text-left">{{$payment->currency}}</td>
                     <td><a href="{{route('admin.editAgrPayment', ['agreement'=>$agreement, 'payment' => $payment])}}">
                             &#9998;Изменить  </a></td>
                     <td><a href="{{route('admin.deleteAgrPayment', ['agreement'=>$agreement, 'payment' => $payment])}}">

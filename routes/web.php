@@ -123,7 +123,7 @@ Route::group([
                     ->name('admin.editAgreement');
                 Route::match(['post', 'get'], '{agreement}/delete', [\App\Http\Controllers\Admin\AgreementController::class, 'delete'])
                     ->name('admin.deleteAgreement');
-                Route::get( '{agreement}/summary', [\App\Http\Controllers\Admin\AgreementController::class, 'summary'])
+                Route::get( '{agreement}/summary/{page?}', [\App\Http\Controllers\Admin\AgreementController::class, 'summary'])
                     ->name('admin.agreementSummary');
                 Route::match(['get', 'post'], '{agreement}/add-vehicle', [\App\Http\Controllers\Admin\AgreementController::class, 'addVehicle'])
                     ->name('admin.agreementAddVehicle');

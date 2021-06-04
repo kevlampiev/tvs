@@ -34,7 +34,7 @@
             @if ($payment->id)  Изменить @else Добавить @endif
         </button>
 
-        <a class="btn btn-secondary" href="{{route('admin.agreementSummary', ['agreement' => $agreement])}}">Отмена</a>
+        <a class="btn btn-secondary" href="{{route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'payments'])}}">Отмена</a>
 
 
     </form>

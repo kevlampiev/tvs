@@ -25,14 +25,9 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade show active" id="additions">
-            Описание товара...
+            Тут будут все допсоглашения
         </div>
         <div class="tab-pane fade" id="vehicles">
-
-{{--            @php--}}
-{{--                {{$vehicles = $agreement->vehicles}};--}}
-{{--            @endphp--}}
-
             <h4>Техника, приобретаемая по данному договору</h4>
             <div class="row">
                 <a class="btn btn-outline-info" href="{{route('admin.agreementAddVehicle', ['agreement'=>$agreement])}}">Добавить единицу техники</a>
@@ -43,9 +38,26 @@
             Отзывы...
         </div>
         <div class="tab-pane fade" id="payments">
+            @php  $payments = $agreement->payments->sortBy('payment_date'); @endphp
             @include('Admin.components.payment-tables')
         </div>
 
     </div>
+
+@endsection
+
+@section('scripts')
+<script>
+    function autoSelectPage()
+    {
+        let urlArr = document.location.pathname.split('/')
+        if (urlArr.length===6) {
+            let tabName= '[href="#'+urlArr[5] +'"'
+            $(tabName).tab('show')
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", autoSelectPage);
+</script>
 
 @endsection

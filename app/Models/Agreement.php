@@ -25,4 +25,14 @@ class Agreement extends Model
     {
         return $this->belongsTo(Counterparty::class);
     }
+
+    public function vehicles()
+    {
+        return $this->belongsToMany(Vehicle::class);
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(AgreementPayment::class);
+    }
 }

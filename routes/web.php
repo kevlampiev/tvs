@@ -20,7 +20,7 @@ use App\Http\Controllers\Admin\ManufacturersController;
 
 Route::group([
     'prefix' => 'admin',
-    'middleware' => 'is.admin'
+    'middleware' => 'is.manager'
 ],
     function () {
         Route::get('/', [\App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.main');
@@ -138,6 +138,24 @@ Route::group([
 
             }
         );
+
+        Route::group([
+            'prefix' => 'users',
+            'middleware' => 'is.admin'
+        ],
+            function () {
+                Route::get('/', [\App\Http\Controllers\Admin\UsersController::class, 'index'])
+                    ->name('admin.users');
+                Route::match(['post', 'get'], 'add', [\App\Http\Controllers\Admin\UsersController::class, 'add'])
+                    ->name('admin.addUser');
+                Route::match(['post', 'get'], '{user}/edit', [\App\Http\Controllers\Admin\UsersController::class, 'edit'])
+                    ->name('admin.editUser');
+                Route::match(['post', 'get'], '{user}/delete', [\App\Http\Controllers\Admin\UsersController::class, 'delete'])
+                    ->name('admin.deleteUser');
+            }
+        );
+
+
     }
 );
 

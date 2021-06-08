@@ -44,6 +44,7 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{route('admin.agrTypes')}}">Типы договоров</a>
                     <a class="dropdown-item" href="{{route('admin.counterparties')}}">Контрагенты</a>
+                    <a class="dropdown-item" href="{{route('admin.users')}}">Пользователи</a>
                 </div>
             </li>
             <li class="nav-item">

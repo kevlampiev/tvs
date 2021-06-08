@@ -33,9 +33,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        @if (Auth::user()&&(Auth::user()->role=='admin'))
+                        @if (Auth::user()&&(Auth::user()->role!='user'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('admin.main')}}">Панель администратора</a>
+                                <a class="nav-link" href="{{route('admin.main')}}">Панель управления</a>
                             </li>
                         @endif
 

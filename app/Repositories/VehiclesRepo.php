@@ -13,7 +13,7 @@ class VehiclesRepo
     {
         $filter = ($request->get('searchStr'))?$request->get('searchStr'): '';
         if ($filter==='') {
-            $vehicles = Vehicle::query()->orderBy('name')->get();
+            $vehicles = Vehicle::query()->orderBy('name')->paginate(15);
         } else {
             $searchStr = '%'.str_replace(' ', '%', $filter).'%';
             $vehicles = Vehicle::query()
@@ -22,7 +22,7 @@ class VehiclesRepo
                 ->orWhere('bort_number','like', $searchStr)
                 ->orWhere('model','like', $searchStr)
                 ->orWhere('trademark','like', $searchStr)
-                ->get();
+                ->paginate(15);
                 }
         return ['vehicles'=> $vehicles,
                 'filter'=> $filter];

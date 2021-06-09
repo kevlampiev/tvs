@@ -39,7 +39,11 @@
         </div>
         <div class="tab-pane fade" id="payments">
             @php  $payments = $agreement->payments->sortBy('payment_date'); @endphp
-            @include('Admin.components.payment-tables')
+            @php  $realPayments = $agreement->realPayments->sortBy('payment_date'); @endphp
+            <div class="row">
+                @include('Admin.components.payment-tables')
+                @include('Admin.components.real-payment-tables')
+            </div>
         </div>
 
     </div>

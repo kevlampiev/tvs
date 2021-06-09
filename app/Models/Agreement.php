@@ -35,4 +35,8 @@ class Agreement extends Model
     {
         return $this->hasMany(AgreementPayment::class);
     }
+    public function realPayments()
+    {
+        return $this->hasMany(RealPayment::class);
+    }
 }

@@ -59,7 +59,7 @@
                 @endforelse
                 </tbody>
             </table>
-            {{$agreements->links()}}
+            {!! $agreements->links() !!}
         </div>
     </div>
 @endsection

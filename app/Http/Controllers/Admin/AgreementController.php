@@ -14,8 +14,10 @@ class AgreementController extends Controller
 {
     public function index(Request $request)
     {
+        $searchStr = ($request->get('searchStr'))?$request->get('searchStr'): '';
         return view('Admin.agreements', [
-            'agreements' => Agreement::all()]);
+            'agreements' => Agreement::query()->where('agr_number','like', '%'.$searchStr.'%')->paginate(15),
+        'filter'=> $searchStr]);
     }
 
     public function add(Request $request)

@@ -26,6 +26,7 @@ class AgreementsRepo
 //                ->orWhere('Counterparty','like', $searchStr)
                 ->orderBy('Company_id')
                 ->orderBy('Counterparty')
+                ->orderBy('date_open')
                 ->paginate(15);
                 }
         return ['agreements'=> $agreements,

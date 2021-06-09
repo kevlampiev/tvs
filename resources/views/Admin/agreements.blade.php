@@ -8,7 +8,14 @@
 
     <div class="row">
         <h2>Заключенные договоры</h2>
+
     </div>
+
+    @if ($filter!=='')
+        <div class="row">
+            <h4>Фильтр по номеру {{$filter}} </h4>
+        </div>
+    @endif
 
     <div class="row">
         <a class="btn btn-outline-info" href="{{route('admin.addAgreement')}}">Новый договор</a>
@@ -52,6 +59,7 @@
                 @endforelse
                 </tbody>
             </table>
+            {{$agreements->links()}}
         </div>
     </div>
 @endsection

@@ -14,7 +14,7 @@ class VehicleController extends Controller
     public function index(Request $request)
     {
         return view('Admin.vehicles', [
-            'vehicles' => Vehicle::all()]);
+            'vehicles' => Vehicle::all(), 'filter' => '']);
     }
 
     public function addVehicle(Request $request)

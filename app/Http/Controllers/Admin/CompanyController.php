@@ -10,7 +10,7 @@ class CompanyController extends Controller
 {
     public function index(Request $request)
     {
-        return view('Admin.companies', ['companies' => Company::all()]);
+        return view('Admin.companies', ['companies' => Company::all(), 'filter' => '']);
     }
 
     public function addCompany(Request $request)

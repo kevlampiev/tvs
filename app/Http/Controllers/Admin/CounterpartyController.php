@@ -10,7 +10,7 @@ class CounterpartyController extends Controller
 {
     public function index(Request $request)
     {
-        return view('Admin.counterparties', ['counterparties' => Counterparty::all()]);
+        return view('Admin.counterparties', ['counterparties' => Counterparty::all() , 'filter' => '']);
     }
 
     public function addCounterparty(Request $request)

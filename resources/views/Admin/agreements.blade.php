@@ -12,8 +12,8 @@
     </div>
 
     @if ($filter!=='')
-        <div class="row">
-            <h4>Фильтр по номеру {{$filter}} </h4>
+        <div class="alert alert-primary" role="alert">
+            Установлен фильстр по номеру договора " <strong> {{$filter}} </strong> "
         </div>
     @endif
 

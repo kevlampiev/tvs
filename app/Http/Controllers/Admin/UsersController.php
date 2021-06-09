@@ -12,7 +12,7 @@ class UsersController extends Controller
 {
     public function index(Request $request)
     {
-        return view('Admin.users', ['users' => User::all()]);
+        return view('Admin.users', ['users' => User::all(), 'filter' => '']);
     }
 
     public function add(Request $request)

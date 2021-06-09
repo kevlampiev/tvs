@@ -40,9 +40,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($agreements as $agreement)
+                @forelse($agreements as $index=>$agreement)
                     <tr>
-                        <th scope="row">{{$agreement->id}}</th>
+                        <th scope="row">{{($index+1)}}</th>
                         <td>{{$agreement->name}}</td>
                         <td>{{$agreement->company->name}}</td>
                         <td>{{$agreement->counterparty->name}}</td>

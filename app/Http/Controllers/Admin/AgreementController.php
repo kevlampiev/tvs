@@ -7,6 +7,7 @@ use App\Models\AgreementType;
 use App\Models\Company;
 use App\Models\Counterparty;
 use App\Models\Vehicle;
+use App\Repositories\AgreementsRepo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,10 +15,8 @@ class AgreementController extends Controller
 {
     public function index(Request $request)
     {
-        $searchStr = ($request->get('searchStr'))?$request->get('searchStr'): '';
-        return view('Admin.agreements', [
-            'agreements' => Agreement::query()->where('agr_number','like', '%'.$searchStr.'%')->paginate(15),
-        'filter'=> $searchStr]);
+//        $searchStr = ($request->get('searchStr'))?$request->get('searchStr'): '';
+        return view('Admin.agreements', AgreementsRepo::getAgreements($request));
     }
 
     public function add(Request $request)

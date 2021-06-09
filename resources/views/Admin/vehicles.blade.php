@@ -42,9 +42,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($vehicles as $vehicle)
+                @forelse($vehicles as $index => $vehicle)
                     <tr>
-                        <th scope="row">{{$vehicle->id}}</th>
+                        <th scope="row">{{($index+1)}}</th>
                         <td>{{$vehicle->vehicleType->name}}</td>
                         <td>{{$vehicle->manufacturer->name}}</td>
                         <td>{{$vehicle->name}}</td>

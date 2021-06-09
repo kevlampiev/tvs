@@ -7,14 +7,14 @@ use App\Http\Requests\VehicleRequest;
 use App\Models\Manufacturer;
 use App\Models\Vehicle;
 use App\Models\VehicleType;
+use App\Repositories\VehiclesRepo;
 use Illuminate\Http\Request;
 
 class VehicleController extends Controller
 {
     public function index(Request $request)
     {
-        return view('Admin.vehicles', [
-            'vehicles' => Vehicle::all(), 'filter' => '']);
+        return view('Admin.vehicles', VehiclesRepo::getVehicles($request));
     }
 
     public function addVehicle(Request $request)

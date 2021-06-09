@@ -10,6 +10,12 @@
         <h2>Техника в наличии</h2>
     </div>
 
+    @if ($filter!=='')
+        <div class="alert alert-primary" role="alert">
+            Установлен фильстр " <strong> {{$filter}} </strong> "
+        </div>
+    @endif
+
     <div class="row">
         <a class="btn btn-outline-info" href="{{route('admin.addVehicle')}}">Новая единица</a>
     </div>

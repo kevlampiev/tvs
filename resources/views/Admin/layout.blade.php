@@ -96,7 +96,7 @@
     </ul>
 </nav>
 
-<div class="container">
+<div class="container-fluid m-3">
     @yield('content')
 </div>
 

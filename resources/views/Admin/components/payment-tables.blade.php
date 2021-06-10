@@ -21,7 +21,7 @@
             <tbody>
             @forelse($payments as $index => $payment)
                 <tr>
-                    <th scope="row">{{$index}}</th>
+                    <th scope="row">{{$index+1}}</th>
                     <td>{{$payment->payment_date}}</td>
                     <td class="text-right">{{number_format($payment->amount, 2, ',', ' ')}}</td>
                     <td class="text-left">{{$payment->currency}}</td>

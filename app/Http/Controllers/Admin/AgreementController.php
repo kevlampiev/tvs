@@ -62,6 +62,7 @@ class AgreementController extends Controller
 
     public function summary(Agreement $agreement)
     {
+        $agreement->payments()->orderBy('payment_date');
         return view('Admin/agreement-summary', ['agreement' => $agreement]);
     }
 

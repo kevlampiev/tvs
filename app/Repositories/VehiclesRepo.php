@@ -23,7 +23,7 @@ class VehiclesRepo
                 ->orWhere('bort_number','like', $searchStr)
                 ->orWhere('model','like', $searchStr)
                 ->orWhere('trademark','like', $searchStr)
-                ->orWhereHas('Type',function (Builder $query) use($searchStr) {
+                ->orWhereHas('VehicleType',function (Builder $query) use($searchStr) {
                     $query->where('name','like',$searchStr);
                 })
                 ->orWhereHas('Manufacturer',function (Builder $query) use($searchStr) {

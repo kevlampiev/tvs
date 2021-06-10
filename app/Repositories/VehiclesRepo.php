@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 
 use App\Models\Vehicle;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class VehiclesRepo
@@ -22,6 +23,12 @@ class VehiclesRepo
                 ->orWhere('bort_number','like', $searchStr)
                 ->orWhere('model','like', $searchStr)
                 ->orWhere('trademark','like', $searchStr)
+                ->orWhereHas('Type',function (Builder $query) use($searchStr) {
+                    $query->where('name','like',$searchStr);
+                })
+                ->orWhereHas('Manufacturer',function (Builder $query) use($searchStr) {
+                    $query->where('name','like',$searchStr);
+                })
                 ->paginate(15);
                 }
         return ['vehicles'=> $vehicles,

@@ -9,6 +9,6 @@ class DictionariesController extends Controller
 {
     public function allVehicleTypes(Request $request): string
     {
-        return view('Admin.types', ['types' => VehicleType::all(), 'filter' => '']);
+        return view('Admin.types', ['types' => VehicleType::withCount('vehicles')->get(), 'filter' => '']);
     }
 }

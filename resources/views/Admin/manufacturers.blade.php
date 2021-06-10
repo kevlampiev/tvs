@@ -32,8 +32,13 @@
                         <td>{{$manufacturer->name}}</td>
                         <td><a href="{{route('admin.editManufacturer',['manufacturer'=>$manufacturer])}}"> &#9998;Изменить </a>
                         </td>
-                        <td><a href="{{route('admin.deleteManufacturer',['manufacturer'=>$manufacturer])}}"> &#10008;Удалить </a>
-                        </td>
+
+                        @if ($manufacturer->vehicles_count===0)
+                            <td><a href="{{route('admin.deleteManufacturer',['manufacturer'=>$manufacturer])}}"> &#10008;Удалить </a>
+                            </td>
+                        @else
+                            <td> <p class="text-muted">&#10008;Удалить </p></td>
+                        @endif
                     </tr>
                 @empty
                     <p>Нет записей</p>

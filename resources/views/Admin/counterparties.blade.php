@@ -32,8 +32,12 @@
                         <td>{{$counterparty->name}}</td>
                         <td><a href="{{route('admin.editCounterparty',['counterparty'=>$counterparty])}}"> &#9998;Изменить </a>
                         </td>
-                        <td><a href="{{route('admin.deleteCounterparty',['counterparty'=>$counterparty])}}"> &#10008;Удалить </a>
-                        </td>
+                        @if ($counterparty->agreements_count===0)
+                            <td><a href="{{route('admin.deleteCounterparty',['counterparty'=>$counterparty])}}"> &#10008;Удалить </a>
+                            </td>
+                        @else
+                            <td> <p class="text-muted">&#10008;Удалить </p></td>
+                        @endif
                     </tr>
                 @empty
                     <td colspan="4">Нет записей</td>

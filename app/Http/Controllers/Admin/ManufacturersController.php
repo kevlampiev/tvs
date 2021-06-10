@@ -11,7 +11,8 @@ class ManufacturersController extends Controller
 {
     public function index(Request $request)
     {
-        return view('Admin.manufacturers', ['manufacturers' => Manufacturer::all(), 'filter' => '']);
+        return view('Admin.manufacturers',
+            ['manufacturers' => Manufacturer::withCount('vehicles')->get(), 'filter' => '']);
     }
 
     public function addManufacturer(Request $request)

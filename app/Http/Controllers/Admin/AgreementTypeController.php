@@ -10,7 +10,7 @@ class AgreementTypeController extends Controller
 {
     public function index(Request $request)
     {
-        return view('Admin.agreement-types', ['agrTypes' => AgreementType::all()]);
+        return view('Admin.agreement-types', ['agrTypes' => AgreementType::withCount('agreements')->get()]);
     }
 
     public function addType(Request $request)

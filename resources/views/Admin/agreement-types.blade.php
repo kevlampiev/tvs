@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-
     <div class="row">
         <h2>Виды договоров</h2>
     </div>
@@ -31,7 +30,11 @@
                         <th scope="row">{{$type->id}}</th>
                         <td>{{$type->name}}</td>
                         <td><a href="{{route('admin.editAgrType',['agrType'=>$type])}}"> &#9998;Изменить </a></td>
-                        <td><a href="{{route('admin.deleteAgrType',['agrType'=>$type])}}"> &#10008;Удалить </a></td>
+                        @if ($type->agreements_count===0)
+                            <td><a href="{{route('admin.deleteAgrType',['agrType'=>$type])}}"> &#10008;Удалить </a></td>
+                        @else
+                            <td> <p class="text-muted">&#10008;Удалить </p></td>
+                        @endif
                     </tr>
                 @empty
                     <td colspan="4">Нет записей</td>

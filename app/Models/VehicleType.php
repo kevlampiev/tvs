@@ -10,4 +10,9 @@ class VehicleType extends Model
     use HasFactory;
 
     protected $fillable = ['name'];
+
+    public function vehicles()
+    {
+        return $this->hasMany(Vehicle::class);
+    }
 }

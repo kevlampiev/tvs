@@ -46,7 +46,9 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{route('admin.agrTypes')}}">Типы договоров</a>
                     <a class="dropdown-item" href="{{route('admin.counterparties')}}">Контрагенты</a>
+                    @if (Auth::user()->role=='admin')
                     <a class="dropdown-item" href="{{route('admin.users')}}">Пользователи</a>
+                    @endif
                 </div>
             </li>
             <li class="nav-item">
@@ -82,14 +84,7 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{{ route('logout') }}">
                         Выйти из системы
-{{--                       onclick="event.preventDefault();--}}
-{{--                                                     document.getElementById('logout-form').submit();">--}}
-{{--                        {{ __('Logout') }}--}}
                     </a>
-
-{{--                    <form id="logout-form" action="{{ route('logout') }}" method="GET" class="d-none">--}}
-{{--                        @csrf--}}
-{{--                    </form>--}}
                 </div>
             </li>
         @endguest

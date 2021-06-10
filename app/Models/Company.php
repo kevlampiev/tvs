@@ -10,4 +10,9 @@ class Company extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'code'];
+
+    public function agreements()
+    {
+        return $this->hasMany(Agreement::class);
+    }
 }

@@ -16,7 +16,7 @@ class AgreementPaymentController extends Controller
         if ($request->isMethod('post')) {
             $agrPayment->fill($request->all());
             $agrPayment->save();
-            return redirect()->route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'payments']);
+            return redirect()->back()->with('message', 'Запись успешно добавлена');
         } else {
             $agrPayment->agreement_id = $agreement->id;
             $agrPayment->payment_date = date('Y-m-d');;

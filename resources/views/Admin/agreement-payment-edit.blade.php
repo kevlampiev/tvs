@@ -5,6 +5,13 @@
 @endsection
 
 @section('content')
+
+    @if(session()->has('message'))
+        <div class="alert alert-success">
+            {{ session()->get('message') }}
+        </div>
+    @endif
+
     <h3> @if ($payment->id) Изменение платежа @else Добавить платеж @endif</h3>
     <form action="#" method="POST">
         @csrf

@@ -19,10 +19,14 @@ class ManufacturersController extends Controller
     {
         $manufacturer = new Manufacturer();
         if ($request->isMethod('post')) {
+            $this->validate($request,Manufacturer::rules());
             $manufacturer->fill($request->only('name'));
             $manufacturer->save();
             return redirect()->route('admin.manufacturers');
         } else {
+            if (!empty($request->old())) {
+                $manufacturer->fill($request->old());
+            }
             return view('Admin/manufacturer-edit', [
                 'manufacturer' => $manufacturer,
                 'route' => 'admin.addManufacturer',
@@ -33,10 +37,14 @@ class ManufacturersController extends Controller
     public function editManufacturer(Request $request, Manufacturer $manufacturer)
     {
         if ($request->isMethod('post')) {
+            $this->validate($request,Manufacturer::rules());
             $manufacturer->fill($request->only('name'));
             $manufacturer->save();
             return redirect()->route('admin.manufacturers');
         } else {
+            if (!empty($request->old())) {
+                $manufacturer->fill($request->old());
+            }
             return view('Admin/manufacturer-edit', [
                 'manufacturer' => $manufacturer,
                 'route' => 'admin.editManufacturer',

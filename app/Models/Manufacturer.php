@@ -15,4 +15,11 @@ class Manufacturer extends Model
     {
         return $this->hasMany(Vehicle::class);
     }
+
+    public static function rules()
+    {
+        return [
+            'name'=> 'required|string|min:4'
+        ];
+    }
 }

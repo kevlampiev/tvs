@@ -44,11 +44,11 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="agreementTypes">Контрагент </span>
+                        <span class="input-group-text" id="agreementTypes">Тип договора </span>
                         <select name="agreement_type_id" class="form-control" aria-describedby="agreementTypes">
                             @foreach ($agreementTypes as $type)
                                 <option
-                                    value="{{$type->id}}" {{($type->id == $agreement->agrrement_type_id) ? 'selected' : ''}}>
+                                    value="{{$type->id}}" {{($type->id == $agreement->agreement_type_id) ? 'selected' : ''}}>
                                     {{$type->name}}
                                 </option>
                             @endforeach
@@ -70,6 +70,29 @@
                         <input type="date" class="form-control" aria-describedby="date_close"
                                placeholder="Планируемая дата окончания" name="date_close"
                                value="{{$agreement->date_close}}">
+                    </div>
+
+                    @php $currencies = ['RUR', 'USD', 'EUR', 'CNY', 'YPN'] @endphp
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="principal_amount">Основной долг/стоимость имущества</span>
+                        <input type="number" step="0.01" min="0"
+                               class="form-control" aria-describedby="principal_amount"
+                               placeholder="Основной долг/стоимость имущества (для лизингов)" name="principal_amount"
+                               value="{{$agreement->principal_amount}}">
+                        <select name="currency" id="currency" class="form-control">
+                            @foreach ($currencies as $currency)
+                                <option value="{{$currency}}" {{($currency == $agreement->currency) ? 'selected' : ''}}>
+                                    {{$currency}}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="interest_rate">Процентная ставка (% годовых)</span>
+                        <input type="number" step="0.01" min="0" placeholder="0,00" class="form-control" aria-describedby="interest_rate"
+                               name="interest_rate"
+                               value="{{$agreement->interest_rate}}">
                     </div>
 
                     <div class="input-group mb-3">

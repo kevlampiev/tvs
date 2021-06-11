@@ -1,17 +1,18 @@
 @extends('Admin.layout')
 
 @section('title')
-    Администратор|Параметры договора
+    Администратор|Карточка договора
 @endsection
 
 @section('content')
-    <h3>Дополнительные данные по договору {{$agreement->name}} № {{$agreement->agr_number}} от {{$agreement->date_open}}</h3>
-
-
+    <h3>Карточка договора № {{$agreement->agr_number}} от {{$agreement->date_open}}</h3>
 
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#additions">Допсоглашения</a>
+            <a class="nav-link active" data-toggle="tab" href="#main-info">Основная информация</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#additions">Допсоглашения</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#vehicles">Приобретенная техника</a>
@@ -24,9 +25,15 @@
         </li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane fade show active" id="additions">
+        <div class="tab-pane fade show active" id="main-info">
+            <h4>Основные данные</h4>
+            @include('Admin.components.agreement-main')
+        </div>
+
+        <div class="tab-pane fade" id="additions">
             Тут будут все допсоглашения
         </div>
+
         <div class="tab-pane fade" id="vehicles">
             <h4>Техника, приобретаемая по данному договору</h4>
             <div class="row">

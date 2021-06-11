@@ -82,7 +82,8 @@
                     @php $currencies = ['RUR', 'USD', 'EUR', 'CNY', 'YPN'] @endphp
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="market_price">Стоимость</span>
-                        <input type="number" class="form-control" aria-describedby="market_price"
+                        <input type="number" step="0.01" min="0"
+                               class="form-control" aria-describedby="market_price"
                                placeholder="Введите цену приобретения" name="price"
                                value="{{$vehicle->price}}">
                         <select name="currency" id="currency" class="form-control">

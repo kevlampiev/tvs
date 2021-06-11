@@ -25,7 +25,8 @@
         @php $currencies = ['RUR', 'USD', 'EUR', 'CNY', 'YPN'] @endphp
         <div class="input-group mb-3">
             <span class="input-group-text" id="amount">Сумма</span>
-            <input type="number" class="form-control" aria-describedby="amount"
+            <input type="number" step="0.01" min="0"
+                   class="form-control" aria-describedby="amount"
                    name="amount"  value="{{$payment->amount}}">
             <select name="currency" class="form-control" aria-describedby="currecies">
                 @foreach ($currencies as $currency)

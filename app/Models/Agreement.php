@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Agreement extends Model
 {
     use HasFactory;
-    protected $guarded = ['agreementType', 'company', 'counterparty'];
+    protected $guarded = [];
 
     public function AgreementType(): BelongsTo
     {

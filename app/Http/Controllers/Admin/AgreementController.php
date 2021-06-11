@@ -15,7 +15,6 @@ class AgreementController extends Controller
 {
     public function index(Request $request)
     {
-//        $searchStr = ($request->get('searchStr'))?$request->get('searchStr'): '';
         return view('Admin.agreements', AgreementsRepo::getAgreements($request));
     }
 
@@ -27,13 +26,8 @@ class AgreementController extends Controller
             $agreement->save();
             return redirect()->route('admin.agreements');
         } else {
-            return view('Admin/agreement-edit', [
-                'agreement' => $agreement,
-                'route' => 'admin.addAgreement',
-                'agreementTypes' => AgreementType::all(),
-                'companies' => Company::all(),
-                'counterparties' => Counterparty::all(),
-            ]);
+            return view('Admin/agreement-edit',
+                AgreementsRepo::provideAgreementEditor($agreement, 'admin.addAgreement'));
         }
     }
 
@@ -42,15 +36,12 @@ class AgreementController extends Controller
         if ($request->isMethod('post')) {
             $agreement->fill($request->all());
             $agreement->save();
-            return redirect()->route('admin.agreements');
+            $route= session('previous_url', route('admin.agreements'));
+            return redirect()->to($route);
         } else {
-            return view('Admin/agreement-edit', [
-                'agreement' => $agreement,
-                'route' => 'admin.editAgreement',
-                'agreementTypes' => AgreementType::all(),
-                'companies' => Company::all(),
-                'counterparties' => Counterparty::all(),
-            ]);
+            session(['previous_url'=>url()->previous()]);
+            return view('Admin/agreement-edit',
+                AgreementsRepo::provideAgreementEditor($agreement,'admin.editAgreement'));
         }
     }
 
@@ -84,7 +75,6 @@ class AgreementController extends Controller
     {
         $agreement->vehicles()->detach($vehicle);
         return redirect()->back();
-//        return redirect()->route('admin.agreementSummary', [ 'agreement' => $agreement]);
     }
 
 }

@@ -5,6 +5,9 @@ namespace App\Repositories;
 
 
 use App\Models\Agreement;
+use App\Models\AgreementType;
+use App\Models\Company;
+use App\Models\Counterparty;
 use App\Models\Vehicle;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -40,5 +43,16 @@ class AgreementsRepo
                 }
         return ['agreements'=> $agreements,
                 'filter'=> $filter];
+    }
+
+    public static function provideAgreementEditor(Agreement $agreement,  $routeName):array
+    {
+        return [
+            'agreement' => $agreement,
+            'route' => $routeName,
+            'agreementTypes' => AgreementType::all(),
+            'companies' => Company::all(),
+            'counterparties' => Counterparty::all(),
+        ];
     }
 }

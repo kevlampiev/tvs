@@ -11,15 +11,37 @@
         <form>
             <div class="form-group">
                 <label for="inputType">Наименование</label>
-                <input type="text" class="form-control" id="inputType" placeholder="Введите название" name="name"
+                <input type="text"
+                       class="{{($errors->has('name')?'form-control is-invalid':'form-control')}}"
+                       id="inputType" placeholder="Введите название" name="name"
                        value="{{$company->name}}">
             </div>
+            @if($errors->has('name'))
+                <div class="alert alert-danger">
+                    <ul class="p-0 m-0">
+                        @foreach($errors->get('name') as $error)
+                            <li class="m-0 p-0"> {{$error}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             <div class="form-group">
                 <label for="inputCode">Код</label>
-                <input type="text" class="form-control" id="inputCode" placeholder="Введите краткий код" name="code"
+                <input type="text"
+                       class="{{($errors->has('code'))?'form-control is-invalid':'form-control'}}"
+                       id="inputCode" placeholder="Введите краткий код" name="code"
                        value="{{$company->code}}">
             </div>
+            @if($errors->has('code'))
+                <div class="alert alert-danger">
+                    <ul class="p-0 m-0">
+                        @foreach($errors->get('code') as $error)
+                            <li class="m-0 p-0"> {{$error}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             <button type="submit" class="btn btn-primary">
                 @if ($company->id)  Изменить @else Добавить @endif

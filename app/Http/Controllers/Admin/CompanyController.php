@@ -17,10 +17,14 @@ class CompanyController extends Controller
     {
         $company = new Company();
         if ($request->isMethod('post')) {
+            $this->validate($request,Company::rules());
             $company->fill($request->only(['name', 'code']));
             $company->save();
             return redirect()->route('admin.companies');
         } else {
+            if (!empty($request->old())) {
+                $company->fill($request->old());
+            }
             return view('Admin/company-edit', [
                 'company' => $company,
                 'route' => 'admin.addCompany',
@@ -31,10 +35,14 @@ class CompanyController extends Controller
     public function editCompany(Request $request, Company $company)
     {
         if ($request->isMethod('post')) {
+            $this->validate($request,Company::rules());
             $company->fill($request->only(['name', 'code']));
             $company->save();
             return redirect()->route('admin.companies');
         } else {
+            if (!empty($request->old())) {
+                $company->fill($request->old());
+            }
             return view('Admin/company-edit', [
                 'company' => $company,
                 'route' => 'admin.editCompany',

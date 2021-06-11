@@ -11,8 +11,17 @@ class AgreementType extends Model
 
     protected $fillable = ['name'];
 
+    public static function rules()
+    {
+        return [
+          'name'=>'required|min:3',
+        ];
+    }
+
     public function agreements()
     {
         return $this->hasMany(Agreement::class);
     }
+
+
 }

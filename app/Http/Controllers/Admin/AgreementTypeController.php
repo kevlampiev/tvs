@@ -17,10 +17,14 @@ class AgreementTypeController extends Controller
     {
         $type = new AgreementType();
         if ($request->isMethod('post')) {
+            $this->validate($request, AgreementType::rules());
             $type->fill($request->only('name'));
             $type->save();
             return redirect()->route('admin.agrTypes');
         } else {
+            if (!empty($request->old())) {
+                $type->fill($request->old());
+            }
             return view('Admin/agreement-type-edit', [
                 'agrType' => $type,
                 'route' => 'admin.addAgrType',
@@ -31,6 +35,7 @@ class AgreementTypeController extends Controller
     public function editType(Request $request, AgreementType $agrType)
     {
         if ($request->isMethod('post')) {
+            $this->validate($request, AgreementType::rules());
             $agrType->fill($request->only('name'));
             $agrType->save();
             return redirect()->route('admin.agrTypes');

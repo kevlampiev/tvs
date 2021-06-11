@@ -14,12 +14,17 @@ class AgreementPaymentController extends Controller
     {
         $agrPayment = new AgreementPayment();
         if ($request->isMethod('post')) {
+            $this->validate($request, AgreementPayment::rules());
             $agrPayment->fill($request->all());
             $agrPayment->save();
             return redirect()->back()->with('message', 'Запись успешно добавлена');
         } else {
-            $agrPayment->agreement_id = $agreement->id;
-            $agrPayment->payment_date = date('Y-m-d');;
+            if (!empty($request->old())) {
+                $agrPayment->fill($request->old());
+            } else {
+                $agrPayment->agreement_id = $agreement->id;
+                $agrPayment->payment_date = date('Y-m-d');;
+            }
             return view('Admin/agreement-payment-edit', [
                 'payment' => $agrPayment,
                 'agreement' => $agreement
@@ -30,6 +35,7 @@ class AgreementPaymentController extends Controller
     public function edit(Request $request, Agreement $agreement, AgreementPayment $payment)
     {
         if ($request->isMethod('post')) {
+            $this->validate($request, AgreementPayment::rules());
             $payment->fill($request->all());
             $payment->save();
             return redirect()->route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'payments']);

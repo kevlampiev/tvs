@@ -16,10 +16,10 @@
                    aria-describedby="payment_date"
                     name="payment_date"  value="{{$payment->payment_date}}">
         </div>
-        @if($errors->has('payment_dat'))
+        @if($errors->has('payment_date'))
             <div class="alert alert-danger">
                 <ul class="p-0 m-0">
-                    @foreach($errors->get('payment_dat') as $error)
+                    @foreach($errors->get('payment_date') as $error)
                         <li class="m-0 p-0"> {{$error}}</li>
                     @endforeach
                 </ul>

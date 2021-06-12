@@ -135,6 +135,12 @@ Route::group([
                     ->name('admin.editAgrPayment');
                 Route::match(['get', 'post'], '{agreement}/delete-payment/{payment}', [\App\Http\Controllers\Admin\AgreementPaymentController::class, 'delete'])
                     ->name('admin.deleteAgrPayment');
+                Route::match(['get', 'post'], '{agreement}/add-real-payment', [\App\Http\Controllers\Admin\RealPaymentController::class, 'add'])
+                    ->name('admin.addRealPayment');
+                Route::match(['get', 'post'], '{agreement}/edit-real-payment/{payment}', [\App\Http\Controllers\Admin\RealPaymentController::class, 'edit'])
+                    ->name('admin.editRealPayment');
+                Route::match(['get', 'post'], '{agreement}/delete-real-payment/{payment}', [\App\Http\Controllers\Admin\RealPaymentController::class, 'delete'])
+                    ->name('admin.deleteRealPayment');
 
             }
         );

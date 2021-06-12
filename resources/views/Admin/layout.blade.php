@@ -11,6 +11,8 @@
 </head>
 <body>
 
+
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -44,7 +46,9 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{route('admin.agrTypes')}}">Типы договоров</a>
                     <a class="dropdown-item" href="{{route('admin.counterparties')}}">Контрагенты</a>
+                    @if (Auth::user()->role=='admin')
                     <a class="dropdown-item" href="{{route('admin.users')}}">Пользователи</a>
+                    @endif
                 </div>
             </li>
             <li class="nav-item">
@@ -52,7 +56,7 @@
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" method="GET">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchStr">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchStr" value="{{isset($filter)?$filter:''}}">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
     </div>
@@ -80,21 +84,14 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{{ route('logout') }}">
                         Выйти из системы
-{{--                       onclick="event.preventDefault();--}}
-{{--                                                     document.getElementById('logout-form').submit();">--}}
-{{--                        {{ __('Logout') }}--}}
                     </a>
-
-{{--                    <form id="logout-form" action="{{ route('logout') }}" method="GET" class="d-none">--}}
-{{--                        @csrf--}}
-{{--                    </form>--}}
                 </div>
             </li>
         @endguest
     </ul>
 </nav>
 
-<div class="container">
+<div class="container-fluid m-3">
     @yield('content')
 </div>
 

@@ -10,6 +10,12 @@
         <h2>Техника в наличии</h2>
     </div>
 
+    @if ($filter!=='')
+        <div class="alert alert-primary" role="alert">
+            Установлен фильстр " <strong> {{$filter}} </strong> "
+        </div>
+    @endif
+
     <div class="row">
         <a class="btn btn-outline-info" href="{{route('admin.addVehicle')}}">Новая единица</a>
     </div>
@@ -36,9 +42,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($vehicles as $vehicle)
+                @forelse($vehicles as $index => $vehicle)
                     <tr>
-                        <th scope="row">{{$vehicle->id}}</th>
+                        <th scope="row">{{($index+1)}}</th>
                         <td>{{$vehicle->vehicleType->name}}</td>
                         <td>{{$vehicle->manufacturer->name}}</td>
                         <td>{{$vehicle->name}}</td>
@@ -58,6 +64,7 @@
                 @endforelse
                 </tbody>
             </table>
+            {{$vehicles->links()}}
         </div>
     </div>
 @endsection

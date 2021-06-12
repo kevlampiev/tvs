@@ -12,8 +12,8 @@
     </div>
 
     @if ($filter!=='')
-        <div class="row">
-            <h4>Фильтр по номеру {{$filter}} </h4>
+        <div class="alert alert-primary" role="alert">
+            Установлен фильстр по номеру договора " <strong> {{$filter}} </strong> "
         </div>
     @endif
 
@@ -40,9 +40,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($agreements as $agreement)
+                @forelse($agreements as $index=>$agreement)
                     <tr>
-                        <th scope="row">{{$agreement->id}}</th>
+                        <th scope="row">{{($index+1)}}</th>
                         <td>{{$agreement->name}}</td>
                         <td>{{$agreement->company->name}}</td>
                         <td>{{$agreement->counterparty->name}}</td>
@@ -50,7 +50,7 @@
                         <td>{{$agreement->agr_number}}</td>
                         <td>{{$agreement->date_open}}</td>
                         <td>{{$agreement->real_date_close}}</td>
-                        <td><a href="{{route('admin.agreementSummary',['agreement'=>$agreement])}}"> &#10149;Связи </a></td>
+                        <td><a href="{{route('admin.agreementSummary',['agreement'=>$agreement])}}"> &#9776;Карточка </a></td>
                         <td><a href="{{route('admin.editAgreement',['agreement'=>$agreement])}}"> &#9998;Изменить </a></td>
                         <td><a href="{{route('admin.deleteAgreement',['agreement'=>$agreement])}}"> &#10008;Удалить </a></td>
                     </tr>
@@ -59,7 +59,7 @@
                 @endforelse
                 </tbody>
             </table>
-            {{$agreements->links()}}
+            {!! $agreements->links() !!}
         </div>
     </div>
 @endsection

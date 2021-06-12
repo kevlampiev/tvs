@@ -10,4 +10,16 @@ class Manufacturer extends Model
     use HasFactory;
 
     protected $fillable = ['name'];
+
+    public function vehicles()
+    {
+        return $this->hasMany(Vehicle::class);
+    }
+
+    public static function rules()
+    {
+        return [
+            'name'=> 'required|string|min:4'
+        ];
+    }
 }

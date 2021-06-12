@@ -7,24 +7,28 @@ use App\Http\Requests\VehicleRequest;
 use App\Models\Manufacturer;
 use App\Models\Vehicle;
 use App\Models\VehicleType;
+use App\Repositories\VehiclesRepo;
 use Illuminate\Http\Request;
 
 class VehicleController extends Controller
 {
     public function index(Request $request)
     {
-        return view('Admin.vehicles', [
-            'vehicles' => Vehicle::all()]);
+        return view('Admin.vehicles', VehiclesRepo::getVehicles($request));
     }
 
     public function addVehicle(Request $request)
     {
         $vehicle = new Vehicle();
         if ($request->isMethod('post')) {
+            $this->validate($request, Vehicle::rules());
             $vehicle->fill($request->except(['id', 'created_at', 'updated_at']));
             $vehicle->save();
             return redirect()->route('admin.vehicles');
         } else {
+            if (!empty($request->old())) {
+                $vehicle->fill($request->old());
+            }
             return view('Admin/vehicle-edit', [
                 'vehicle' => $vehicle,
                 'route' => 'admin.addVehicle',
@@ -37,10 +41,16 @@ class VehicleController extends Controller
     public function editVehicle(VehicleRequest $request, Vehicle $vehicle)
     {
         if ($request->isMethod('post')) {
+            $this->validate($request, Vehicle::rules());
             $vehicle->fill($request->except(['id', 'created_at', 'updated_at']));
             $vehicle->save();
-            return redirect()->route('admin.vehicles');
+            $route= session('previous_url', route('admin.vehicles'));
+            return redirect()->to($route);
         } else {
+            if (!empty($request->old())) {
+                $vehicle->fill($request->old());
+            }
+            if (url()->previous()!==url()->current()) session(['previous_url'=>url()->previous()]);
             return view('Admin/vehicle-edit', [
                 'vehicle' => $vehicle,
                 'route' => 'admin.editVehicle',

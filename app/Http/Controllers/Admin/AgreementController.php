@@ -7,6 +7,7 @@ use App\Models\AgreementType;
 use App\Models\Company;
 use App\Models\Counterparty;
 use App\Models\Vehicle;
+use App\Repositories\AgreementsRepo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,44 +15,41 @@ class AgreementController extends Controller
 {
     public function index(Request $request)
     {
-        $searchStr = ($request->get('searchStr'))?$request->get('searchStr'): '';
-        return view('Admin.agreements', [
-            'agreements' => Agreement::query()->where('agr_number','like', '%'.$searchStr.'%')->paginate(15),
-        'filter'=> $searchStr]);
+        return view('Admin.agreements', AgreementsRepo::getAgreements($request));
     }
 
     public function add(Request $request)
     {
         $agreement = new Agreement();
         if ($request->isMethod('post')) {
+            $this->validate($request, Agreement::rules());
             $agreement->fill($request->except(['id']));
             $agreement->save();
             return redirect()->route('admin.agreements');
         } else {
-            return view('Admin/agreement-edit', [
-                'agreement' => $agreement,
-                'route' => 'admin.addAgreement',
-                'agreementTypes' => AgreementType::all(),
-                'companies' => Company::all(),
-                'counterparties' => Counterparty::all(),
-            ]);
+            if (!empty($request->old())) {
+                $agreement->fill($request->old());
+            }
+            return view('Admin/agreement-edit',
+                AgreementsRepo::provideAgreementEditor($agreement, 'admin.addAgreement'));
         }
     }
 
     public function edit(Request $request, Agreement $agreement)
     {
         if ($request->isMethod('post')) {
+            $this->validate($request, Agreement::rules());
             $agreement->fill($request->all());
             $agreement->save();
-            return redirect()->route('admin.agreements');
+            $route= session('previous_url', route('admin.agreements'));
+            return redirect()->to($route);
         } else {
-            return view('Admin/agreement-edit', [
-                'agreement' => $agreement,
-                'route' => 'admin.editAgreement',
-                'agreementTypes' => AgreementType::all(),
-                'companies' => Company::all(),
-                'counterparties' => Counterparty::all(),
-            ]);
+            if (!empty($request->old())) {
+                $agreement->fill($request->old());
+            }
+            if (url()->previous()!==url()->current()) session(['previous_url'=>url()->previous()]);
+            return view('Admin/agreement-edit',
+                AgreementsRepo::provideAgreementEditor($agreement,'admin.editAgreement'));
         }
     }
 
@@ -63,6 +61,7 @@ class AgreementController extends Controller
 
     public function summary(Agreement $agreement)
     {
+        $agreement->payments()->orderBy('payment_date');
         return view('Admin/agreement-summary', ['agreement' => $agreement]);
     }
 
@@ -84,7 +83,6 @@ class AgreementController extends Controller
     {
         $agreement->vehicles()->detach($vehicle);
         return redirect()->back();
-//        return redirect()->route('admin.agreementSummary', [ 'agreement' => $agreement]);
     }
 
 }

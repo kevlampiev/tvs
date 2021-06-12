@@ -11,9 +11,20 @@
         <form>
             <div class="form-group">
                 <label for="inputType">Наименование</label>
-                <input type="text" class="form-control" id="inputType" placeholder="Введите название" name="name"
+                <input type="text"
+                       class="{{($errors->has('name')?'form-control is-invalid':'form-control')}}"
+                       id="inputType" placeholder="Введите название" name="name"
                        value="{{$counterparty->name}}">
             </div>
+            @if($errors->has('name'))
+                <div class="alert alert-danger">
+                    <ul class="p-0 m-0">
+                        @foreach($errors->get('name') as $error)
+                            <li class="m-0 p-0"> {{$error}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             <button type="submit" class="btn btn-primary">
                 @if ($counterparty->id)  Изменить @else Добавить @endif

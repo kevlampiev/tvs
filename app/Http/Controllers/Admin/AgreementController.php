@@ -22,10 +22,14 @@ class AgreementController extends Controller
     {
         $agreement = new Agreement();
         if ($request->isMethod('post')) {
+            $this->validate($request, Agreement::rules());
             $agreement->fill($request->except(['id']));
             $agreement->save();
             return redirect()->route('admin.agreements');
         } else {
+            if (!empty($request->old())) {
+                $agreement->fill($request->old());
+            }
             return view('Admin/agreement-edit',
                 AgreementsRepo::provideAgreementEditor($agreement, 'admin.addAgreement'));
         }
@@ -34,12 +38,16 @@ class AgreementController extends Controller
     public function edit(Request $request, Agreement $agreement)
     {
         if ($request->isMethod('post')) {
+            $this->validate($request, Agreement::rules());
             $agreement->fill($request->all());
             $agreement->save();
             $route= session('previous_url', route('admin.agreements'));
             return redirect()->to($route);
         } else {
-            session(['previous_url'=>url()->previous()]);
+            if (!empty($request->old())) {
+                $agreement->fill($request->old());
+            }
+            if (url()->previous()!==url()->current()) session(['previous_url'=>url()->previous()]);
             return view('Admin/agreement-edit',
                 AgreementsRepo::provideAgreementEditor($agreement,'admin.editAgreement'));
         }

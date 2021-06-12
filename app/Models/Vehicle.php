@@ -45,7 +45,7 @@ class Vehicle extends Model
             'manufacturer_id' => 'required|exists:manufacturers,id',
             'name' => 'required|string|min:3',
             'vin' => 'required|string|min:10',
-            'bort_number' => 'required|string|min:10',
+            'bort_number' => 'required|string|min:3',
             'prod_year' => 'required|numeric|min:1980',
             'trademark' => 'required|string|min:3',
             'model' => 'required|string|min:3',

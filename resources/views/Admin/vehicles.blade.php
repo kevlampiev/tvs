@@ -55,7 +55,7 @@
                         <td>{{$vehicle->price}}</td>
                         <td>{{$vehicle->currency}}</td>
                         <td>{{$vehicle->purchase_date}}</td>
-                        <td><a href="{{route('admin.vehicleSummary',['vehicle'=>$vehicle])}}"> &#10149;Связи </a></td>
+                        <td><a href="{{route('admin.vehicleSummary',['vehicle'=>$vehicle])}}"> &#9776;Карточка </a></td>
                         <td><a href="{{route('admin.editVehicle',['vehicle'=>$vehicle])}}"> &#9998;Изменить </a></td>
                         <td><a href="{{route('admin.deleteVehicle',['vehicle'=>$vehicle])}}"> &#10008;Удалить </a></td>
                     </tr>

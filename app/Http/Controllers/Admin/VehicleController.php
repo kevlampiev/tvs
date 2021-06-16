@@ -32,8 +32,8 @@ class VehicleController extends Controller
             return view('Admin/vehicle-edit', [
                 'vehicle' => $vehicle,
                 'route' => 'admin.addVehicle',
-                'vehicleTypes' => VehicleType::all(),
-                'manufacturers' => Manufacturer::all(),
+                'vehicleTypes' => VehicleType::query()->orderBy('name')->get(),
+                'manufacturers' => Manufacturer::query()->orderBy('name')->get(),
             ]);
         }
     }

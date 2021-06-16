@@ -74,7 +74,7 @@ class AgreementController extends Controller
         } else {
             return view('Admin/agreement-add-vehicle', [
                 'agreement' => $agreement,
-                'vehicles' => Vehicle::all(),
+                'vehicles' => Vehicle::query()->orderBy('name')->get(),
             ]);
         }
     }

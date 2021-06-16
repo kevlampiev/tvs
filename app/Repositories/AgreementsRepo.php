@@ -50,9 +50,9 @@ class AgreementsRepo
         return [
             'agreement' => $agreement,
             'route' => $routeName,
-            'agreementTypes' => AgreementType::all(),
-            'companies' => Company::all(),
-            'counterparties' => Counterparty::all(),
+            'agreementTypes' => AgreementType::query()->orderBy('name')->get(),
+            'companies' => Company::query()->orderBy('name')->get(),
+            'counterparties' => Counterparty::query()->orderBy('name')->get(),
         ];
     }
 }

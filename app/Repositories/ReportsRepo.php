@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class ReportsRepo
 {
 
-    static public function getSettlementStatusData(Request $request)
+    static public function getBigSettlementReportData(Request $request)
     {
         $queryDate = ($request->get('reportDate'))?$request->get('reportDate'):date('Y-m-d');
         $data = Agreement::query()->with('payments')->
@@ -30,6 +30,11 @@ class ReportsRepo
         }
         return ['reportDate'=>$queryDate,
             'data'=>$data->groupBy('company_name')->sortBy('counterparty_name')];
+    }
+
+    static public function getAgreemantSettlementReportData(Request $request)
+    {
+        return [];
     }
 
 }

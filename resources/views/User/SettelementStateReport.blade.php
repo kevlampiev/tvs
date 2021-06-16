@@ -7,7 +7,7 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="com-md-12">
-                <h3>Задолженость по финансовым договорам</h3>
+                <h3 >Задолженость по финансовым договорам</h3>
                 <form class="form-inline" methos="GET">
                     <div class="form-group mx-sm-3 mb-2">
                         <label for="reportDate" class="sr-only">Дата формирования</label>
@@ -22,9 +22,9 @@
             <div class="col-md-12">
 
                 @foreach($data as $key=>$company)
-                    <h4 class="mt-lg-4"> {{$key}}</h4>
+                    <h4 class="mt-lg-4 font-weight-bold""> {{$key}}</h4>
                     <table class="table">
-                        <thead>
+                        <thead class="thead-light">
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Контрагент</th>
@@ -35,6 +35,8 @@
                             <th scope="col">Всего выплат по договору</th>
                             <th scope="col">Уплачено</th>
                             <th scope="col">Просрочено на {{$reportDate}}</th>
+                            <th scope="col">Осталось оплатить</th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -57,6 +59,10 @@
                             <td class="text-right">{{number_format($el->total_payments,2)}}</td>
                             <td class="text-right">{{number_format($el->payed,2)}}</td>
                             <td class="text-right">{{number_format($el->must_be_payed_by_date - $el->payed,2)}}  </td>
+                            <td class="text-right">{{number_format($el->must_be_payed_by_date - $el->payed,2)}}  </td>
+                            <td class="text-left">
+                                <a href="{{route('user.agreementSettlements', ['agreement'=>$el])}}">&#8801;Детально</a>
+                            </td>
                         </tr>
                         @endforeach
 {{--                        @dd($company)--}}
@@ -67,6 +73,9 @@
                             <th class="text-right">{{number_format($company->sum('payed'),2)}}</th>
                             <th class="text-right">
                                 {{number_format($company->sum('must_be_payed_by_date')-$company->sum('payed'),2)}}
+                            </th>
+                            <th class="text-right">
+                                {{number_format($company->sum('total_payments')-$company->sum('payed'),2)}}
                             </th>
                         </tr>
                         </tbody>

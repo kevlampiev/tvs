@@ -165,6 +165,20 @@ Route::group([
     }
 );
 
+Route::group([
+    'prefix' => 'user',
+    'middleware' => 'auth'
+],
+function ()
+{
+    Route::get('/settlements',
+        [\App\Http\Controllers\User\SettlementReportsController::class, 'showBigSettlementReport'])
+        ->name('user.allSettlements');
+    Route::get('/settlements/{agreement}',
+        [\App\Http\Controllers\User\SettlementReportsController::class, 'showAgrSettlementReport'])
+        ->name('user.agreementSettlements');
+});
+
 //Auth::routes();
 Route::get('login', [\App\Http\Controllers\Auth\LoginController::class,'showLoginForm'])->name('login');
 Route::post('login', [\App\Http\Controllers\Auth\LoginController::class,'login']);
@@ -175,3 +189,4 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
+

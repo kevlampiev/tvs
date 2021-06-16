@@ -171,9 +171,12 @@ Route::group([
 ],
 function ()
 {
-    Route::get('/settlements',
+    Route::get('/settlements/all-v1',
         [\App\Http\Controllers\User\SettlementReportsController::class, 'showBigSettlementReport'])
         ->name('user.allSettlements');
+    Route::get('/settlements/all-v2',
+        [\App\Http\Controllers\User\SettlementReportsController::class, 'showBigSettlement2Report'])
+        ->name('user.allSettlements2');
     Route::get('/settlements/{agreement}',
         [\App\Http\Controllers\User\SettlementReportsController::class, 'showAgrSettlementReport'])
         ->name('user.agreementSettlements');

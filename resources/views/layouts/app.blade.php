@@ -33,9 +33,19 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('user.allSettlements')}}">Состояние расчетов</a>
+                        @if (Auth::user())
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                Расчеты
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="nav-link" href="{{route('user.allSettlements')}}">Состояние расчетов по компаниям</a>
+                                <a class="nav-link" href="{{route('user.allSettlements2')}}">Состояние расчетов по контрагентам</a>
+                            </div>
                         </li>
+                        @endif
+
                         @if (Auth::user()&&(Auth::user()->role!='user'))
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('admin.main')}}">Панель управления</a>

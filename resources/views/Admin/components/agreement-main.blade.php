@@ -40,8 +40,10 @@
     <tr>
         <td class="text-right text-black-50"></td>
         <td>
+            @if(Auth::user()->role!='user')
             <a href="{{route('admin.editAgreement',['agreement'=>$agreement])}}"
                class="btn btn-outline-secondary" role="button" aria-pressed="true">Отредактировать</a>
+            @endif
         </td>
     </tr>
 

@@ -1,4 +1,4 @@
-@extends('Admin.layout')
+@extends('layouts.admin')
 
 @section('title')
     Администратор|Карточка договора

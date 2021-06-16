@@ -252,7 +252,7 @@
             <button type="submit" class="btn btn-primary">
                 @if ($agreement->id)  Изменить @else Добавить @endif
             </button>
-            <a class="btn btn-secondary" href="{{route('admin.agreements')}}">Отмена</a>
+            <a class="btn btn-secondary" href="{{session('previous_url', route('admin.agreements'))}}">Отмена</a>
 
         </form>
 

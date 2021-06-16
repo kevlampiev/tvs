@@ -17,9 +17,9 @@ class ReportsRepo
         $queryDate = ($request->get('reportDate'))?$request->get('reportDate'):date('Y-m-d');
         $data = Agreement::query()->with('payments')->
         whereHas('payments', function (Builder $query) use($queryDate){
-            $query->where('date_open','<=',$queryDate)
-                ->where('canceled_date','>', $queryDate)
-                ->orWhere('canceled_date',null);
+            $query->where('canceled_date','>', $queryDate)
+                ->orWhere('canceled_date',null)
+                ->where('date_open','<=',$queryDate);
         })->get();
         foreach ($data as $el) {
             $el->total_payments = $el->payments->sum('amount');

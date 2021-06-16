@@ -8,8 +8,13 @@
         <div class="row justify-content-center">
             <div class="com-md-12">
                 <h3>Задолженость по финансовым договорам</h3>
-                <form mephod="GET">
-
+                <form class="form-inline" methos="GET">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="reportDate" class="sr-only">Дата формирования</label>
+                        <input type="date" class="form-control" id="reportDate"
+                        value="{{$reportDate??now()}}" name="reportDate">
+                    </div>
+                    <button type="submit" class="btn btn-outline-secondary mb-2">Изменить дату</button>
                 </form>
             </div>
         </div>
@@ -56,12 +61,13 @@
                         @endforeach
 {{--                        @dd($company)--}}
                         <tr>
-                            <th colspan="4">Всего </th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
+                            <th colspan="5">Всего </th>
+                            <th class="text-right">{{number_format($company->sum('principal_amount'),2)}}</th>
+                            <th class="text-right">{{number_format($company->sum('total_payments'),2)}}</th>
+                            <th class="text-right">{{number_format($company->sum('payed'),2)}}</th>
+                            <th class="text-right">
+                                {{number_format($company->sum('must_be_payed_by_date')-$company->sum('payed'),2)}}
+                            </th>
                         </tr>
                         </tbody>
                     </table>

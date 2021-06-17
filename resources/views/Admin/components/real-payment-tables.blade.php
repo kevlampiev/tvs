@@ -21,7 +21,7 @@
             <tbody>
             @forelse($realPayments as $index => $payment)
                 <tr>
-                    <th scope="row">{{$index}}</th>
+                    <th scope="row">{{$index+1}}</th>
                     <td>{{$payment->payment_date}}</td>
                     <td class="text-right">{{number_format($payment->amount, 2, ',', ' ')}}</td>
                     <td class="text-left">{{$payment->currency}}</td>
@@ -35,6 +35,13 @@
                     <th colspan="6">Нет записей</th>
                 </tr>
             @endforelse
+            <tr>
+                <th colspan="2">Всего</th>
+                <th class="text-right">{{number_format($realPayments->sum('amount'), 2)}}</th>
+                <th class="text-left"></th>
+                <th></th>
+                <th></th>
+            </tr>
             </tbody>
         </table>
 

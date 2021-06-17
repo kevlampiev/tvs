@@ -20,7 +20,7 @@ use App\Http\Controllers\Admin\ManufacturersController;
 
 Route::group([
     'prefix' => 'admin',
-    'middleware' => 'is.manager'
+    'middleware' => ['is.manager','password_expired']
 ],
     function () {
         Route::get('/', [\App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.main');
@@ -167,7 +167,7 @@ Route::group([
 
 Route::group([
     'prefix' => 'user',
-    'middleware' => 'auth'
+    'middleware' => ['auth','password_expired']
 ],
 function ()
 {
@@ -186,10 +186,13 @@ function ()
 Route::get('login', [\App\Http\Controllers\Auth\LoginController::class,'showLoginForm'])->name('login');
 Route::post('login', [\App\Http\Controllers\Auth\LoginController::class,'login']);
 Route::get('logout', [\App\Http\Controllers\Auth\LoginController::class,'logout'])->name('logout');
-
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
+Route::get('password/expired', [\App\Http\Controllers\Auth\ExpiredPasswordController::class,'expired'])
+    ->name('password.expired');
+Route::post('password/expired', [\App\Http\Controllers\Auth\ExpiredPasswordController::class,'postExpired'])
+    ->name('password.postExpired');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware(['auth','password_expired']);
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware(['auth','password_expired']);
 

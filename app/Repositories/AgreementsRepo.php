@@ -57,6 +57,11 @@ class AgreementsRepo
         ];
     }
 
+
+    //TODO переделать метод через Eloquent для архитектурной чистоты
+    /**
+     * Метод наполнения данными view добавления к договору новой единицы теники
+     */
     public static function provideAddVehicleView(Agreement $agreement ): array
     {
 

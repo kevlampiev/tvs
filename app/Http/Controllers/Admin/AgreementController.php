@@ -72,10 +72,8 @@ class AgreementController extends Controller
             $agreement->vehicles()->save($vehicle);
             return redirect()->route('admin.agreementSummary', [ 'agreement' => $agreement, 'page'=>'vehicles']);
         } else {
-            return view('Admin/agreement-add-vehicle', [
-                'agreement' => $agreement,
-                'vehicles' => Vehicle::query()->orderBy('name')->get(),
-            ]);
+            return view('Admin/agreement-add-vehicle',
+            AgreementsRepo::provideAddVehicleView($agreement));
         }
     }
 

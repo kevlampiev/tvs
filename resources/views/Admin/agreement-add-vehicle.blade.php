@@ -15,7 +15,7 @@
                     <option
 {{--                        value="{{$vehicle->id}}" >--}}
                         value="{{$vehicle->id}}" {{($vehicle->id == $agreement->company_id) ? 'selected' : ''}}>
-                        {{$vehicle->name}}
+                        {{$vehicle->name}} - {{$vehicle->model}} - {{$vehicle->bort_number}}
                     </option>
                     @endforeach
                 </select>
@@ -34,12 +34,11 @@
 @endsection
 
 @section('scripts')
-{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/js/bootstrap-select.min.js" defer></script>--}}
 <script>
-$('.selectpicker').selectpicker({
-style: 'btn-info',
-size: 4
-});
+    $('.selectpicker').selectpicker({
+    style: 'btn-info',
+    size: 4
+    });
 </script>
 @endsection
 

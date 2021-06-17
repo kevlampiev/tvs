@@ -11,6 +11,7 @@ use App\Models\Counterparty;
 use App\Models\Vehicle;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AgreementsRepo
 {
@@ -54,5 +55,22 @@ class AgreementsRepo
             'companies' => Company::query()->orderBy('name')->get(),
             'counterparties' => Counterparty::query()->orderBy('name')->get(),
         ];
+    }
+
+    public static function provideAddVehicleView(Agreement $agreement ): array
+    {
+
+        $presentedVehicles =
+            DB::select('select vehicle_id from agreement_vehicle where agreement_id=?',[$agreement->id]);
+
+        $data=[];
+        foreach ($presentedVehicles as $el) {
+            $data[] = $el->vehicle_id;
+        }
+        $vehicles = Vehicle::query()->whereNotIn('id',$data)->orderBy('name')->get();
+        return [
+            'agreement' => $agreement,
+             'vehicles' => $vehicles
+            ];
     }
 }

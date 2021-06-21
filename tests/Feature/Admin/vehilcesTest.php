@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 
+use App\Models\User;
 use App\Models\Vehicle;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
@@ -15,7 +16,8 @@ class vehiclesTest extends TestCase
      */
     public function test_indexPage()
     {
-        $response = $this->get('/admin/vehicles');
+        $user = User::query()->where('role','manager')->orWhere('role','admin')->inRandomOrder()->first();
+        $response = $this->actingAs($user)->get('/admin/vehicles');
         $response->assertStatus(200)
             ->assertSeeText('Справочники')
             ->assertSeeText('Список техники')
@@ -38,7 +40,8 @@ class vehiclesTest extends TestCase
      */
     public function test_addPage()
     {
-        $response = $this->get('/admin/vehicles/add');
+        $user = User::query()->where('role','manager')->orWhere('role','admin')->inRandomOrder()->first();
+        $response = $this->actingAs($user)->get('/admin/vehicles/add');
         $response->assertStatus(200)
         ->assertSeeText('Тип техники')
         ->assertSeeText('Производитель')
@@ -54,9 +57,10 @@ class vehiclesTest extends TestCase
      */
     public function test_editPage()
     {
+        $user = User::query()->where('role','manager')->orWhere('role','admin')->inRandomOrder()->first();
         $vehicle = Vehicle::query()->inRandomOrder()->first();
         if (!$vehicle) return;
-        $response = $this->get('/admin/vehicles/'.$vehicle->id.'/edit');
+        $response = $this->actingAs($user)->get('/admin/vehicles/'.$vehicle->id.'/edit');
         $response->assertStatus(200)
             ->assertSeeText('Тип техники')
             ->assertSeeText('Производитель')

@@ -18,7 +18,7 @@ class CheckIsAdmin
     public function handle(Request $request, Closure $next)
     {
         if (Auth::user()->role!='admin') {
-            return redirect()->route('home');
+            return redirect()->route('home')->with('error','У Вас нет прав досткпа к разделу администратора');
         }
         return $next($request);
     }

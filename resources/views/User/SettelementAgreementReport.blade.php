@@ -40,6 +40,12 @@
                         <td colspan="4">Нет данных для отображения</td>
                     </tr>
                 @endforelse
+                <tr>
+                    <th colspan="2">Всего</th>
+                    <td>{{number_format($payments->sum('amount'),2)}}</td>
+                    <td>
+                    </td>
+                </tr>
                     </tbody>
                 </table>
 

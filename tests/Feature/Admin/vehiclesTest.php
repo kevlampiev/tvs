@@ -10,6 +10,34 @@ use Tests\TestCase;
 
 class vehiclesTest extends TestCase
 {
+
+    /**
+     *Тестируем невозможность входа без авторизации
+     *
+     * @return void
+     */
+    public function testUnAuthorized()
+    {
+        $this->get(route('admin.vehicles'))
+            ->assertStatus(302)
+        ->assertRedirect('login');
+    }
+
+    /**
+     *Тестируем невозможность входа простым юзером
+     *
+     * @return void
+     */
+    public function testAsUser()
+    {
+        $user = User::query()->where('role','user')->inRandomOrder()->first();
+        $this->actingAs($user)->get(route('admin.vehicles'))
+            ->assertStatus(302)
+        ->assertRedirect(route('home'));
+    }
+
+
+
     /**
      * Тестируем общий список единиц техники.
      * @return void
@@ -17,7 +45,7 @@ class vehiclesTest extends TestCase
     public function test_indexPage()
     {
         $user = User::query()->where('role','manager')->orWhere('role','admin')->inRandomOrder()->first();
-        $response = $this->actingAs($user)->get('/admin/vehicles');
+        $response = $this->actingAs($user)->get(route('admin.vehicles'));
         $response->assertStatus(200)
             ->assertSeeText('Справочники')
             ->assertSeeText('Список техники')
@@ -41,7 +69,7 @@ class vehiclesTest extends TestCase
     public function test_addPage()
     {
         $user = User::query()->where('role','manager')->orWhere('role','admin')->inRandomOrder()->first();
-        $response = $this->actingAs($user)->get('/admin/vehicles/add');
+        $response = $this->actingAs($user)->get(route('admin.addVehicle'));
         $response->assertStatus(200)
         ->assertSeeText('Тип техники')
         ->assertSeeText('Производитель')
@@ -59,8 +87,7 @@ class vehiclesTest extends TestCase
     {
         $user = User::query()->where('role','manager')->orWhere('role','admin')->inRandomOrder()->first();
         $vehicle = Vehicle::query()->inRandomOrder()->first();
-        if (!$vehicle) return;
-        $response = $this->actingAs($user)->get('/admin/vehicles/'.$vehicle->id.'/edit');
+        $response = $this->actingAs($user)->get(route('admin.editVehicle',['vehicle'=>$vehicle]));
         $response->assertStatus(200)
             ->assertSeeText('Тип техники')
             ->assertSeeText('Производитель')

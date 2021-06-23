@@ -68,6 +68,10 @@
             }
         }
 
+        function confirmDelete() {
+
+        }
+
         document.addEventListener("DOMContentLoaded", autoSelectPage);
     </script>
 

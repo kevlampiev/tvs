@@ -1,8 +1,10 @@
 <div class="col-md6 p-4">
     <h4>Платежи в соответствии с договором</h4>
     <div class="row">
-        <a class="btn btn-outline-info"
+        <a class="btn btn-outline-info mr-2"
            href="{{route('admin.addAgrPayment', ['agreement'=>$agreement])}}">Новый платеж</a>
+        <a class="btn btn-outline-info mr-2"
+           href="{{route('admin.massAddPayments', ['agreement'=>$agreement])}}">Добавить серию платежей</a>
     </div>
 
     <table class="table table-hover">
@@ -27,7 +29,11 @@
                 <td class="text-center">{{$payment->canceled_date}}</td>
                 <td><a href="{{route('admin.editAgrPayment', ['agreement'=>$agreement, 'payment' => $payment])}}">
                         &#9998;Изменить </a></td>
-                <td><a href="{{route('admin.deleteAgrPayment', ['agreement'=>$agreement, 'payment' => $payment])}}">
+                <td><a href="{{route('admin.movePaymentToReal', ['agreement'=>$agreement, 'payment' => $payment])}}">
+                        &euro; В оплату </a></td>
+
+                <td><a href="{{route('admin.deleteAgrPayment', ['agreement'=>$agreement, 'payment' => $payment])}}"
+                       onclick="return confirm('Действительно удалить данные о платеже?')">
                         &#10008;Удалить </a></td>
             </tr>
         @empty

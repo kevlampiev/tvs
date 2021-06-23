@@ -34,7 +34,8 @@
                         </td>
 
                         @if ($manufacturer->vehicles_count===0)
-                            <td><a href="{{route('admin.deleteManufacturer',['manufacturer'=>$manufacturer])}}">
+                            <td><a href="{{route('admin.deleteManufacturer',['manufacturer'=>$manufacturer])}}"
+                                   onclick="return confirm('Действительно удалить данные о произвоителе?')">
                                     &#10008;Удалить </a>
                             </td>
                         @else

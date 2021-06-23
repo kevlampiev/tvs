@@ -36,7 +36,9 @@
                         </td>
                         @if ($company->agreements_count===0)
                             <td>
-                                <a href="{{route('admin.deleteCompany',['company'=>$company])}}"> &#10008;Удалить </a>
+                                <a href="{{route('admin.deleteCompany',['company'=>$company])}}"
+                                   onclick="return confirm('Действительно удалить данные о компании?')"
+                                > &#10008;Удалить </a>
                             </td>
                         @else
                             <td><p class="text-muted">&#10008;Удалить </p></td>

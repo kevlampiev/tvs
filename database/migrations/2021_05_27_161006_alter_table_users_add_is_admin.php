@@ -13,9 +13,9 @@ class AlterTableUsersAddIsAdmin extends Migration
      */
     public function up()
     {
-        Schema::table('users', function(Blueprint $table){
-           $table->enum('role',['user', 'manager', 'admin'])->default('user')
-               ->comment('Определяет роль в системе');
+        Schema::table('users', function (Blueprint $table) {
+            $table->enum('role', ['user', 'manager', 'admin'])->default('user')
+                ->comment('Определяет роль в системе');
         });
     }
 
@@ -26,8 +26,8 @@ class AlterTableUsersAddIsAdmin extends Migration
      */
     public function down()
     {
-        Schema::table('users', function(Blueprint $table) {
-           $table->dropColumn('role');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('role');
         });
     }
 }

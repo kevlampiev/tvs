@@ -44,13 +44,13 @@ class VehicleController extends Controller
             $this->validate($request, Vehicle::rules());
             $vehicle->fill($request->except(['id', 'created_at', 'updated_at']));
             $vehicle->save();
-            $route= session('previous_url', route('admin.vehicles'));
+            $route = session('previous_url', route('admin.vehicles'));
             return redirect()->to($route);
         } else {
             if (!empty($request->old())) {
                 $vehicle->fill($request->old());
             }
-            if (url()->previous()!==url()->current()) session(['previous_url'=>url()->previous()]);
+            if (url()->previous() !== url()->current()) session(['previous_url' => url()->previous()]);
             return view('Admin/vehicle-edit', [
                 'vehicle' => $vehicle,
                 'route' => 'admin.editVehicle',

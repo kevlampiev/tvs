@@ -31,7 +31,7 @@ class RealPaymentController extends Controller
         }
     }
 
-    public function edit(Request $request, Agreement $agreement,RealPayment $payment)
+    public function edit(Request $request, Agreement $agreement, RealPayment $payment)
     {
         if ($request->isMethod('post')) {
             $this->validate($request, RealPayment::rules());
@@ -42,7 +42,7 @@ class RealPaymentController extends Controller
             if (!empty($request->old())) {
                 $payment->fill($request->old());
             }
-            return  view('Admin/real-payment-edit', [
+            return view('Admin/real-payment-edit', [
                 'payment' => $payment,
                 'agreement' => $agreement,
             ]);

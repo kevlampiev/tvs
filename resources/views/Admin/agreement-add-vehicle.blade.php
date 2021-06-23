@@ -15,7 +15,7 @@
                     <option
 {{--                        value="{{$vehicle->id}}" >--}}
                         value="{{$vehicle->id}}" {{($vehicle->id == $agreement->company_id) ? 'selected' : ''}}>
-                        {{$vehicle->name}} - {{$vehicle->model}} - {{$vehicle->bort_number}}
+                        {{$vehicle->name}} модель:{{$vehicle->model}} номер:{{$vehicle->bort_number}} VIN:{{$vehicle->vin}}
                     </option>
                     @endforeach
                 </select>

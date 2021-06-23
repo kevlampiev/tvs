@@ -38,7 +38,7 @@ class Vehicle extends Model
         return $this->belongsToMany(Agreement::class);
     }
 
-    public static function rules():array
+    public static function rules(): array
     {
         return [
             'vehicle_type_id' => 'required|exists:vehicle_types,id',

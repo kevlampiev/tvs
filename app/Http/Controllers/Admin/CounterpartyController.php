@@ -11,7 +11,7 @@ class CounterpartyController extends Controller
     public function index(Request $request)
     {
         return view('Admin.counterparties',
-            ['counterparties' => Counterparty::withCount('agreements')->get() , 'filter' => '']);
+            ['counterparties' => Counterparty::withCount('agreements')->get(), 'filter' => '']);
     }
 
     public function addCounterparty(Request $request)
@@ -23,7 +23,7 @@ class CounterpartyController extends Controller
             $counterparty->save();
             return redirect()->route('admin.counterparties');
         } else {
-            if(!empty($request->old())) {
+            if (!empty($request->old())) {
                 $counterparty->fill($request->old());
             }
             return view('Admin/counterparty-edit', [
@@ -41,7 +41,7 @@ class CounterpartyController extends Controller
             $counterparty->save();
             return redirect()->route('admin.counterparties');
         } else {
-            if(!empty($request->old())) {
+            if (!empty($request->old())) {
                 $counterparty->fill($request->old());
             }
             return view('Admin/counterparty-edit', [

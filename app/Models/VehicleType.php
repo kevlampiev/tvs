@@ -16,10 +16,10 @@ class VehicleType extends Model
         return $this->hasMany(Vehicle::class);
     }
 
-    public static function rules():array
+    public static function rules(): array
     {
         return [
-            'name'=>'string|required|min:3',
+            'name' => 'string|required|min:3',
         ];
     }
 }

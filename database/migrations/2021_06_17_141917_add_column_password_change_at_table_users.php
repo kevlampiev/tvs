@@ -13,10 +13,10 @@ class AddColumnPasswordChangeAtTableUsers extends Migration
      */
     public function up()
     {
-        Schema :: table ('users', function (Blueprint $table) {
-        $table->timestamp('password_changed_at')->nullable()
-            ->comment('Дата, когда надо сменить пароль, null -сенить прямо сейчас');
-    });
+        Schema:: table('users', function (Blueprint $table) {
+            $table->timestamp('password_changed_at')->nullable()
+                ->comment('Дата, когда надо сменить пароль, null -сенить прямо сейчас');
+        });
     }
 
     /**
@@ -26,7 +26,7 @@ class AddColumnPasswordChangeAtTableUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function(Blueprint $table){
+        Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('password_changed_at');
         });
     }

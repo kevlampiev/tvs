@@ -17,8 +17,8 @@ class VehiclesTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/vehicles')
-                    ->assertSee('Техника в наличии')
-                    ->assertRouteIs('admin.vehicles');
+                ->assertSee('Техника в наличии')
+                ->assertRouteIs('admin.vehicles');
         });
     }
 }

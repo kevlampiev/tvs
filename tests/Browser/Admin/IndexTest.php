@@ -17,11 +17,11 @@ class IndexTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin')
-                    ->assertSee('Список техники')
-                    ->assertSee('Справочники')
-                    ->clickLink('Список техники')
-                    ->waitForText('Техника в наличии')
-                    ->assertRouteIs('admin.vehicles');
+                ->assertSee('Список техники')
+                ->assertSee('Справочники')
+                ->clickLink('Список техники')
+                ->waitForText('Техника в наличии')
+                ->assertRouteIs('admin.vehicles');
         });
     }
 }

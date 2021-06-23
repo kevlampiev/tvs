@@ -23,8 +23,9 @@
 
             @php  $roles = ['admin', 'user', 'manager']; @endphp
             <div class="form-group">
-                <label for="inputRole">e-mail</label>
-                <select name="role" class="form-control" >
+                <label for="inputRole">Роль</label>
+                <select name="role" class="form-control "
+                    {{Auth::user()->id===$user->id?'disabled':''}}>
                     @foreach ($roles as $role)
                         <option
                             value="{{$role}}" {{($role == $user->role) ? 'selected' : ''}}>

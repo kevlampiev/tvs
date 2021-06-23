@@ -13,7 +13,7 @@ class AlterAgrPaymentsAddDateOpen extends Migration
      */
     public function up()
     {
-        Schema::table('agreement_payments', function(Blueprint $table) {
+        Schema::table('agreement_payments', function (Blueprint $table) {
             $table->date('date_open')->default(today())->comment('День утверждения данного платежа');
         });
     }

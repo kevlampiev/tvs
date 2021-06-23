@@ -40,7 +40,7 @@ class AgreementPaymentController extends Controller
             $payment->save();
             return redirect()->route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'payments']);
         } else {
-            return  view('Admin/agreement-payment-edit', [
+            return view('Admin/agreement-payment-edit', [
                 'payment' => $payment,
                 'agreement' => $agreement,
             ]);

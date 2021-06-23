@@ -19,7 +19,7 @@ class Manufacturer extends Model
     public static function rules()
     {
         return [
-            'name'=> 'required|string|min:4'
+            'name' => 'required|string|min:4'
         ];
     }
 }

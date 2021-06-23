@@ -13,7 +13,7 @@ class AlterAgreementsAddPrincipalamountAndInterestrate extends Migration
      */
     public function up()
     {
-        Schema::table('agreements', function(Blueprint $table){
+        Schema::table('agreements', function (Blueprint $table) {
             $table->unsignedDouble('principal_amount')->default(0)->comment('сумма основного долга или рыночная стоимость техники');
             $table->enum('currency', ['RUR', 'USD', 'EUR', 'CNY', 'YPN'])->comment('код валюты');
             $table->float('interest_rate')->default(0)->comment('процентная ставка (для договоров займа и кредитов)');
@@ -27,7 +27,7 @@ class AlterAgreementsAddPrincipalamountAndInterestrate extends Migration
      */
     public function down()
     {
-        Schema::table('agreements', function(Blueprint $table) {
+        Schema::table('agreements', function (Blueprint $table) {
             $table->dropColumn('principal_amount');
             $table->dropColumn('currency');
             $table->dropColumn('interest_rate');

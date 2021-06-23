@@ -12,13 +12,13 @@ class SettlementReportsController extends Controller
     public function showBigSettlementReport(Request $request)
     {
         return view('User.SettelementStateReport',
-        ReportsRepo::getBigSettlementReportData($request));
+            ReportsRepo::getBigSettlementReportData($request));
     }
 
     public function showBigSettlement2Report(Request $request)
     {
         return view('User.SettelementState2Report',
-        ReportsRepo::getBigSettlementReport2Data($request));
+            ReportsRepo::getBigSettlementReport2Data($request));
     }
 
     public function showAgrSettlementReport(Request $request, Agreement $agreement)

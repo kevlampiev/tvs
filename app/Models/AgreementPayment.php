@@ -25,7 +25,7 @@ class AgreementPayment extends Model
             'amount' => 'required|numeric|min:0.01',
             'currency' => ['required',
                 Rule::in(['RUR', 'USD', 'EUR', 'CNY', 'YPN']),
-                ]
+            ]
         ];
     }
 }

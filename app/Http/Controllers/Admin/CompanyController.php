@@ -17,7 +17,7 @@ class CompanyController extends Controller
     {
         $company = new Company();
         if ($request->isMethod('post')) {
-            $this->validate($request,Company::rules());
+            $this->validate($request, Company::rules());
             $company->fill($request->only(['name', 'code']));
             $company->save();
             return redirect()->route('admin.companies');
@@ -35,7 +35,7 @@ class CompanyController extends Controller
     public function editCompany(Request $request, Company $company)
     {
         if ($request->isMethod('post')) {
-            $this->validate($request,Company::rules());
+            $this->validate($request, Company::rules());
             $company->fill($request->only(['name', 'code']));
             $company->save();
             return redirect()->route('admin.companies');

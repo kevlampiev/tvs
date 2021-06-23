@@ -14,7 +14,7 @@ class AgreementType extends Model
     public static function rules()
     {
         return [
-          'name'=>'required|min:3',
+            'name' => 'required|min:3',
         ];
     }
 

@@ -19,25 +19,25 @@ class VehicleSeeder extends Seeder
         DB::table('vehicles')->insert($this->getData());
     }
 
-        protected function getData():array
+    protected function getData(): array
     {
-        $faker= Factory::create('ru_RU');
+        $faker = Factory::create('ru_RU');
         $data = [];
-        for($i=0; $i<30;$i++) {
+        for ($i = 0; $i < 30; $i++) {
             $vehicle_type_id = DB::table('vehicle_types')->inRandomOrder()->first()->id;
             $manufacturer_id = DB::table('manufacturers')->inRandomOrder()->first()->id;
-            $data[] =[
-                'vehicle_type_id'=>$vehicle_type_id,
+            $data[] = [
+                'vehicle_type_id' => $vehicle_type_id,
                 'manufacturer_id' => $manufacturer_id,
-                'name'=> $faker->uuid,
-                'VIN'=> $faker->word(),
-                'bort_number'=> $faker->numberBetween(100,900),
-                'prod_year'=> $faker->numberBetween(1990,2020),
-                'trademark'=> $faker->name(),
-                'model'=> $faker->name(),
-                'currency'=> 'RUR',
-                'price' => $faker->numberBetween(1000000,100000000),
-                'purchase_date'=>$faker->date(),
+                'name' => $faker->uuid,
+                'VIN' => $faker->word(),
+                'bort_number' => $faker->numberBetween(100, 900),
+                'prod_year' => $faker->numberBetween(1990, 2020),
+                'trademark' => $faker->name(),
+                'model' => $faker->name(),
+                'currency' => 'RUR',
+                'price' => $faker->numberBetween(1000000, 100000000),
+                'purchase_date' => $faker->date(),
             ];
         }
         return $data;

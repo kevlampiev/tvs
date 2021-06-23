@@ -17,12 +17,12 @@ class Agreement extends Model
         return $this->belongsTo(AgreementType::class);
     }
 
-    public function Company():BelongsTo
+    public function Company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
     }
 
-    public function Counterparty():BelongsTo
+    public function Counterparty(): BelongsTo
     {
         return $this->belongsTo(Counterparty::class);
     }
@@ -36,12 +36,13 @@ class Agreement extends Model
     {
         return $this->hasMany(AgreementPayment::class);
     }
+
     public function realPayments()
     {
         return $this->hasMany(RealPayment::class);
     }
 
-    public static function rules():array
+    public static function rules(): array
     {
         return [
             'name' => 'required|string|min:2',

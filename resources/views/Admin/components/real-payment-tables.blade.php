@@ -25,7 +25,8 @@
                 <td class="text-left">{{$payment->currency}}</td>
                 <td><a href="{{route('admin.editRealPayment', ['agreement'=>$agreement, 'payment' => $payment])}}">
                         &#9998;Изменить </a></td>
-                <td><a href="{{route('admin.deleteRealPayment', ['agreement'=>$agreement, 'payment' => $payment])}}">
+                <td><a href="{{route('admin.deleteRealPayment', ['agreement'=>$agreement, 'payment' => $payment])}}"
+                       onclick="return confirm('Действительно удалить данные о платеже?')">
                         &#10008;Удалить </a></td>
             </tr>
         @empty

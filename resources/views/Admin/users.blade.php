@@ -46,7 +46,8 @@
                         </td>
                         <td>
                             @if (Auth::user()->id!==$user->id)
-                                <a href="{{route('admin.deleteUser', ['user' => $user])}}"> &#10008;Удалить </a>
+                                <a href="{{route('admin.deleteUser', ['user' => $user])}}"
+                                   onclick="return confirm('Действительно удалить данные о пользователе?')"> &#10008;Удалить </a>
                             @endif
                         </td>
                     </tr>

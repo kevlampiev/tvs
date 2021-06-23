@@ -90,7 +90,6 @@
                 <a class="btn btn-secondary"
                    href="{{route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'payments'])}}">Отмена</a>
 
-
             </form>
 
         </div>

@@ -42,7 +42,9 @@ class AgreementPaymentController extends Controller
         if ($request->isMethod('post')) {
             $this->validate($request, AgreementPayment::massRules());
             AgreementsRepo::addManyPayments($request, $agreement);
-            return redirect()->route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'payments']);
+            return redirect()
+                ->route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'payments'])
+                ->with('message','Произведено массовое добавление платежей');
         } else {
             return view('Admin/agreement-mass-payment', ['agreement' => $agreement]);
         }

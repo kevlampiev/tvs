@@ -31,7 +31,9 @@
                         <td>{{$type->name}}</td>
                         <td><a href="{{route('admin.editAgrType',['agrType'=>$type])}}"> &#9998;Изменить </a></td>
                         @if ($type->agreements_count===0)
-                            <td><a href="{{route('admin.deleteAgrType',['agrType'=>$type])}}"> &#10008;Удалить </a></td>
+                            <td><a href="{{route('admin.deleteAgrType',['agrType'=>$type])}}"
+                                   onclick="return confirm('Действительно удалить данные о типе договора?')">
+                                    &#10008;Удалить </a></td>
                         @else
                             <td><p class="text-muted">&#10008;Удалить </p></td>
                         @endif

@@ -8,8 +8,6 @@
     <h3> @if ($agreement->id) Изменение данных договора@else Добавить новый договор @endif</h3>
     <form action="{{route($route, $agreement->id)}}" method="POST">
         @csrf
-        <form>
-
             <div class="row">
                 <div class="col-md6">
                     <div class="input-group mb-3">
@@ -253,8 +251,6 @@
                 @if ($agreement->id)  Изменить @else Добавить @endif
             </button>
             <a class="btn btn-secondary" href="{{session('previous_url', route('admin.agreements'))}}">Отмена</a>
-
-        </form>
 
     </form>
 

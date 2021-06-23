@@ -38,10 +38,11 @@
                         <td><a href="{{route('admin.editUser', ['user' => $user])}}"> &#9998;Изменить </a>
                         </td>
                         <td> @if (Auth::user()->id!==$user->id)
-                                <a href="{{route('admin.setTempPassword',['user' => $user])}}"> &#9998;Сменить пароль </a>
-                             @else
+                                <a href="{{route('admin.setTempPassword',['user' => $user])}}"> &#9998;Сменить
+                                    пароль </a>
+                            @else
                                 <a href="{{route('password.expired')}}"> &#9998;Сменить пароль </a>
-                             @endif
+                            @endif
                         </td>
                         <td>
                             @if (Auth::user()->id!==$user->id)

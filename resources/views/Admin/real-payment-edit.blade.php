@@ -14,7 +14,7 @@
             <input type="date"
                    class="{{$errors->has('payment_date')?'form-control is-invalid':'form-control'}}"
                    aria-describedby="payment_date"
-                    name="payment_date"  value="{{$payment->payment_date}}">
+                   name="payment_date" value="{{$payment->payment_date}}">
         </div>
         @if($errors->has('payment_date'))
             <div class="alert alert-danger">
@@ -32,7 +32,7 @@
             <input type="number" step="0.01" min="0"
                    class="{{$errors->has('amount')?'form-control is-invalid':'form-control'}}"
                    aria-describedby="amount"
-                   name="amount"  value="{{$payment->amount}}">
+                   name="amount" value="{{$payment->amount}}">
             <select name="currency"
                     class="{{$errors->has('currency')?'form-control is-invalid':'form-control'}}"
                     aria-describedby="currecies">
@@ -68,7 +68,7 @@
             <textarea
                 class="{{$errors->has('description')?'form-control is-invalid':'form-control'}}"
                 id="description"
-                   name="description"> {{$payment->description}} </textarea>
+                name="description"> {{$payment->description}} </textarea>
         </div>
         @if($errors->has('description'))
             <div class="alert alert-danger">
@@ -84,7 +84,8 @@
             @if ($payment->id)  Изменить @else Добавить @endif
         </button>
 
-        <a class="btn btn-secondary" href="{{route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'payments'])}}">Отмена</a>
+        <a class="btn btn-secondary"
+           href="{{route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'payments'])}}">Отмена</a>
 
 
     </form>

@@ -13,9 +13,9 @@
                 <label for="inputType">Наименование типа договора</label>
                 <input type="text"
                        @if ($errors->has('name'))
-                          class="form-control is-invalid"
+                       class="form-control is-invalid"
                        @else
-                            class="form-control"
+                       class="form-control"
                        @endif
                        id="inputType" placeholder="Введите название типа" name="name"
                        value="{{$agrType->name}}">
@@ -23,9 +23,9 @@
             @if($errors->has('name'))
                 <div class="alert alert-danger">
                     <ul class="p-0 m-0">
-                    @foreach($errors->get('name') as $error)
-                        <li class="m-0 p-0"> {{$error}}</li>
-                    @endforeach
+                        @foreach($errors->get('name') as $error)
+                            <li class="m-0 p-0"> {{$error}}</li>
+                        @endforeach
                     </ul>
                 </div>
             @endif

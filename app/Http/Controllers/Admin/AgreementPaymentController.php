@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Agreement;
 use App\Models\AgreementPayment;
 use App\Models\RealPayment;
+use App\Repositories\AgreementsRepo;
 use Illuminate\Http\Request;
 
 class AgreementPaymentController extends Controller
@@ -33,6 +34,21 @@ class AgreementPaymentController extends Controller
         }
     }
 
+    /**
+     *Добавление периодических платежей
+     */
+    public function massAddPayments(Request $request, Agreement $agreement)
+    {
+        if ($request->isMethod('post')) {
+            $this->validate($request, AgreementPayment::massRules());
+            AgreementsRepo::addManyPayments($request, $agreement);
+            return redirect()->route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'payments']);
+        } else {
+            return view('Admin/agreement-mass-payment', ['agreement' => $agreement]);
+        }
+
+    }
+
     public function edit(Request $request, Agreement $agreement, AgreementPayment $payment)
     {
         if ($request->isMethod('post')) {
@@ -56,12 +72,12 @@ class AgreementPaymentController extends Controller
 
     public function toRealPayments(Agreement $agreement, AgreementPayment $payment)
     {
-        $realPayment= new RealPayment();
+        $realPayment = new RealPayment();
         $realPayment->agreement_id = $payment->agreement_id;
         $realPayment->payment_date = $payment->payment_date;
         $realPayment->amount = $payment->amount;
         $realPayment->save();
-        return redirect()->route('admin.agreementSummary', ['agreement'=>$agreement, 'page'=>'payments'])->with('message', 'Запись о реальном платеже добавлена');
+        return redirect()->route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'payments'])->with('message', 'Запись о реальном платеже добавлена');
 
     }
 }

@@ -4,7 +4,7 @@
         <a class="btn btn-outline-info"
            href="{{route('admin.addAgrPayment', ['agreement'=>$agreement])}}">Новый платеж</a>
         <a class="btn btn-outline-info"
-           href="{{route('admin.addMassPayment', ['agreement'=>$agreement])}}">Добавить серию платежей</a>
+           href="{{route('admin.massAddPayments', ['agreement'=>$agreement])}}">Добавить серию платежей</a>
     </div>
 
     <table class="table table-hover">

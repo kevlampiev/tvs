@@ -5,10 +5,12 @@ namespace App\Repositories;
 
 
 use App\Models\Agreement;
+use App\Models\AgreementPayment;
 use App\Models\AgreementType;
 use App\Models\Company;
 use App\Models\Counterparty;
 use App\Models\Vehicle;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -78,5 +80,25 @@ class AgreementsRepo
             'agreement' => $agreement,
             'vehicles' => $vehicles
         ];
+    }
+
+    /**
+     *Добавляет много периодических записей о предстоящих платежах
+     * @return void
+     */
+    public static function addManyPayments(Request $request, Agreement $agreement)
+    {
+        $repeatCount = $request->post('repeat_count');
+        $dateStart = $request->post('date_start');
+        $payments = [];
+        for ($i = 0; $i < $repeatCount; $i++) {
+            $payments[] = [
+                'agreement_id' => $agreement->id,
+                'payment_date' => Carbon::create($dateStart)->addMonths($i),
+                'amount' => $request->post('amount'),
+                'currency' => $request->post('currency')
+            ];
+        }
+        AgreementPayment::insert($payments);
     }
 }

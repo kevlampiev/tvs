@@ -5,12 +5,8 @@
 @endsection
 
 @section('content')
-
-    @if(session()->has('message'))
-        <div class="alert alert-success">
-            {{ session()->get('message') }}
-        </div>
-    @endif
+    <div class="row justify-content-center">
+        <div class="col-mb-8">
 
     <h3> @if ($payment->id) Изменение платежа @else Добавить платеж @endif</h3>
     <form action="#" method="POST">
@@ -81,6 +77,9 @@
 
 
     </form>
+
+        </div>
+    </div>
 
 
 @endsection

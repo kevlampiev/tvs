@@ -10,6 +10,7 @@ use Illuminate\Validation\Rule;
 class Agreement extends Model
 {
     use HasFactory;
+
     protected $guarded = [];
 
     public function AgreementType(): BelongsTo

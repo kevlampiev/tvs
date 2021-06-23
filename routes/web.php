@@ -131,10 +131,12 @@ Route::group([
                     ->name('admin.agreementDetachVehicle');
                 Route::match(['get', 'post'], '{agreement}/add-payment', [\App\Http\Controllers\Admin\AgreementPaymentController::class, 'add'])
                     ->name('admin.addAgrPayment');
+                Route::match(['get', 'post'], '{agreement}/add-massive-payments', [\App\Http\Controllers\Admin\AgreementPaymentController::class, 'massAddPayments'])
+                    ->name('admin.massAddPayments');
                 Route::match(['get', 'post'], '{agreement}/edit-payment/{payment}', [\App\Http\Controllers\Admin\AgreementPaymentController::class, 'edit'])
                     ->name('admin.editAgrPayment');
-                Route::get('{agreement}/movetoreal/{payment}',[\App\Http\Controllers\Admin\AgreementPaymentController::class,'toRealPayments'])
-                ->name('admin.movePaymentToReal');
+                Route::get('{agreement}/movetoreal/{payment}', [\App\Http\Controllers\Admin\AgreementPaymentController::class, 'toRealPayments'])
+                    ->name('admin.movePaymentToReal');
                 Route::match(['get', 'post'], '{agreement}/delete-payment/{payment}', [\App\Http\Controllers\Admin\AgreementPaymentController::class, 'delete'])
                     ->name('admin.deleteAgrPayment');
                 Route::match(['get', 'post'], '{agreement}/add-real-payment', [\App\Http\Controllers\Admin\RealPaymentController::class, 'add'])

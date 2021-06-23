@@ -36,10 +36,10 @@
                                 class="form-control {{$errors->has('company_id')?'is-invalid':''}}"
                                 aria-describedby="companies">
                             @foreach ($companies as $company)
-                            <option
-                                value="{{$company->id}}" {{($company->id == $agreement->company_id) ? 'selected' : ''}}>
-                                {{$company->name}}
-                            </option>
+                                <option
+                                    value="{{$company->id}}" {{($company->id == $agreement->company_id) ? 'selected' : ''}}>
+                                    {{$company->name}}
+                                </option>
                             @endforeach
                         </select>
                     </div>

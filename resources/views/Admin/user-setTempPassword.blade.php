@@ -29,7 +29,7 @@
 
 
             <button type="submit" class="btn btn-primary">
-               Изменить
+                Изменить
             </button>
             <a class="btn btn-secondary" href="{{route('admin.users')}}">Отмена</a>
 

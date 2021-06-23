@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Agreement;
 use App\Models\AgreementPayment;
+use App\Models\RealPayment;
 use Illuminate\Http\Request;
 
 class AgreementPaymentController extends Controller
@@ -51,5 +52,16 @@ class AgreementPaymentController extends Controller
     {
         $payment->delete();
         return redirect()->route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'payments']);
+    }
+
+    public function toRealPayments(Agreement $agreement, AgreementPayment $payment)
+    {
+        $realPayment= new RealPayment();
+        $realPayment->agreement_id = $payment->agreement_id;
+        $realPayment->payment_date = $payment->payment_date;
+        $realPayment->amount = $payment->amount;
+        $realPayment->save();
+        return redirect()->route('admin.agreementSummary', ['agreement'=>$agreement, 'page'=>'payments'])->with('message', 'Запись о реальном платеже добавлена');
+
     }
 }

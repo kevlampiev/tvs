@@ -21,7 +21,7 @@ class IndexTest extends TestCase
             ->assertRedirect(route('login'));
     }
 
-    public function testGetAsUser()
+    public function testAsUser()
     {
         $user= User::query()->where('role','user')->inRandomOrder()->first();
         $this->actingAs($user)

@@ -40,12 +40,12 @@ class vehiclesTest extends TestCase
     {
         $response = $this->get('/admin/vehicles/add');
         $response->assertStatus(200)
-        ->assertSeeText('Тип техники')
-        ->assertSeeText('Производитель')
-        ->assertSeeText('Наименование оборудования')
-        ->assertSeeText('Заводской номер/VIN')
-        ->assertSeeText('Добавить новую единицу техники')
-        ->assertSeeText('Отмена');
+            ->assertSeeText('Тип техники')
+            ->assertSeeText('Производитель')
+            ->assertSeeText('Наименование оборудования')
+            ->assertSeeText('Заводской номер/VIN')
+            ->assertSeeText('Добавить новую единицу техники')
+            ->assertSeeText('Отмена');
     }
 
     /**
@@ -56,7 +56,7 @@ class vehiclesTest extends TestCase
     {
         $vehicle = Vehicle::query()->inRandomOrder()->first();
         if (!$vehicle) return;
-        $response = $this->get('/admin/vehicles/'.$vehicle->id.'/edit');
+        $response = $this->get('/admin/vehicles/' . $vehicle->id . '/edit');
         $response->assertStatus(200)
             ->assertSeeText('Тип техники')
             ->assertSeeText('Производитель')
@@ -64,8 +64,7 @@ class vehiclesTest extends TestCase
             ->assertSeeText('Заводской номер/VIN')
             ->assertSeeText('Изменение описания')
             ->assertSeeText('Отмена')
-            ->assertSee($vehicle->name);
-        ;
+            ->assertSee($vehicle->name);;
     }
 
 

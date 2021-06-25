@@ -1,4 +1,4 @@
-@extends('Admin.layout')
+@extends('layouts.admin')
 
 @section('title')
     Администратор|Редактирование типа договора
@@ -11,9 +11,24 @@
         <form>
             <div class="form-group">
                 <label for="inputType">Наименование типа договора</label>
-                <input type="text" class="form-control" id="inputType" placeholder="Введите название типа" name="name"
+                <input type="text"
+                       @if ($errors->has('name'))
+                       class="form-control is-invalid"
+                       @else
+                       class="form-control"
+                       @endif
+                       id="inputType" placeholder="Введите название типа" name="name"
                        value="{{$agrType->name}}">
             </div>
+            @if($errors->has('name'))
+                <div class="alert alert-danger">
+                    <ul class="p-0 m-0">
+                        @foreach($errors->get('name') as $error)
+                            <li class="m-0 p-0"> {{$error}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             <button type="submit" class="btn btn-primary">
                 @if ($agrType->id)  Изменить @else Добавить @endif

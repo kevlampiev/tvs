@@ -1,4 +1,4 @@
-@extends('Admin.layout')
+@extends('layouts.admin')
 
 @section('title')
     Администратор| Справочники
@@ -31,10 +31,18 @@
                     <tr>
                         <th scope="row">{{$company->id}}</th>
                         <td>{{$company->name}}</td>
+                        <td>{{$company->code}}</td>
                         <td><a href="{{route('admin.editCompany',['company'=>$company])}}"> &#9998;Изменить </a>
                         </td>
-                        <td><a href="{{route('admin.deleteCompany',['company'=>$company])}}"> &#10008;Удалить </a>
-                        </td>
+                        @if ($company->agreements_count===0)
+                            <td>
+                                <a href="{{route('admin.deleteCompany',['company'=>$company])}}"
+                                   onclick="return confirm('Действительно удалить данные о компании?')"
+                                > &#10008;Удалить </a>
+                            </td>
+                        @else
+                            <td><p class="text-muted">&#10008;Удалить </p></td>
+                        @endif
                     </tr>
                 @empty
                     <td colspan="5">Нет записей</td>

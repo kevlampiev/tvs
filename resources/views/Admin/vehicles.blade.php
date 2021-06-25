@@ -1,4 +1,4 @@
-@extends('Admin.layout')
+@extends('layouts.admin')
 
 @section('title')
     Администратор| Единицы техники
@@ -9,6 +9,12 @@
     <div class="row">
         <h2>Техника в наличии</h2>
     </div>
+
+    @if ($filter!=='')
+        <div class="alert alert-primary" role="alert">
+            Установлен фильстр " <strong> {{$filter}} </strong> "
+        </div>
+    @endif
 
     <div class="row">
         <a class="btn btn-outline-info" href="{{route('admin.addVehicle')}}">Новая единица</a>
@@ -36,9 +42,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($vehicles as $vehicle)
+                @forelse($vehicles as $index => $vehicle)
                     <tr>
-                        <th scope="row">{{$vehicle->id}}</th>
+                        <th scope="row">{{($index+1)}}</th>
                         <td>{{$vehicle->vehicleType->name}}</td>
                         <td>{{$vehicle->manufacturer->name}}</td>
                         <td>{{$vehicle->name}}</td>
@@ -49,15 +55,17 @@
                         <td>{{$vehicle->price}}</td>
                         <td>{{$vehicle->currency}}</td>
                         <td>{{$vehicle->purchase_date}}</td>
-                        <td><a href="{{route('admin.vehicleSummary',['vehicle'=>$vehicle])}}"> &#10149;Связи </a></td>
+                        <td><a href="{{route('admin.vehicleSummary',['vehicle'=>$vehicle])}}"> &#9776;Карточка </a></td>
                         <td><a href="{{route('admin.editVehicle',['vehicle'=>$vehicle])}}"> &#9998;Изменить </a></td>
-                        <td><a href="{{route('admin.deleteVehicle',['vehicle'=>$vehicle])}}"> &#10008;Удалить </a></td>
+                        <td><a href="{{route('admin.deleteVehicle',['vehicle'=>$vehicle])}}"
+                               onclick="return confirm('Действительно удалить данные о единице техники?')"> &#10008;Удалить </a></td>
                     </tr>
                 @empty
                     <td colspan="14">Нет записей</td>
                 @endforelse
                 </tbody>
             </table>
+            {{$vehicles->links()}}
         </div>
     </div>
 @endsection

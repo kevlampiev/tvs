@@ -20,7 +20,7 @@ use App\Http\Controllers\Admin\ManufacturersController;
 
 Route::group([
     'prefix' => 'admin',
-    'middleware' => 'is.admin'
+    'middleware' => ['is.manager', 'password_expired']
 ],
     function () {
         Route::get('/', [\App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.main');
@@ -107,7 +107,7 @@ Route::group([
                 Route::match(['post', 'get'], 'add', [\App\Http\Controllers\Admin\VehicleController::class, 'addVehicle'])->name('admin.addVehicle');
                 Route::match(['post', 'get'], '{vehicle}/edit', [\App\Http\Controllers\Admin\VehicleController::class, 'editVehicle'])->name('admin.editVehicle');
                 Route::match(['post', 'get'], '{vehicle}/delete', [\App\Http\Controllers\Admin\VehicleController::class, 'deleteVehicle'])->name('admin.deleteVehicle');
-                Route::get( '{vehicle}/summary', [\App\Http\Controllers\Admin\VehicleController::class, 'vehicleSummary'])->name('admin.vehicleSummary');
+                Route::get('{vehicle}/summary', [\App\Http\Controllers\Admin\VehicleController::class, 'vehicleSummary'])->name('admin.vehicleSummary');
             }
         );
 
@@ -123,20 +123,81 @@ Route::group([
                     ->name('admin.editAgreement');
                 Route::match(['post', 'get'], '{agreement}/delete', [\App\Http\Controllers\Admin\AgreementController::class, 'delete'])
                     ->name('admin.deleteAgreement');
-                Route::get( '{agreement}/summary', [\App\Http\Controllers\Admin\AgreementController::class, 'summary'])
+                Route::get('{agreement}/summary/{page?}', [\App\Http\Controllers\Admin\AgreementController::class, 'summary'])
                     ->name('admin.agreementSummary');
+                Route::match(['get', 'post'], '{agreement}/add-vehicle', [\App\Http\Controllers\Admin\AgreementController::class, 'addVehicle'])
+                    ->name('admin.agreementAddVehicle');
+                Route::get('{agreement}/detach-vehicle/{vehicle}', [\App\Http\Controllers\Admin\AgreementController::class, 'detachVehicle'])
+                    ->name('admin.agreementDetachVehicle');
+                Route::match(['get', 'post'], '{agreement}/add-payment', [\App\Http\Controllers\Admin\AgreementPaymentController::class, 'add'])
+                    ->name('admin.addAgrPayment');
+                Route::match(['get', 'post'], '{agreement}/add-massive-payments', [\App\Http\Controllers\Admin\AgreementPaymentController::class, 'massAddPayments'])
+                    ->name('admin.massAddPayments');
+                Route::match(['get', 'post'], '{agreement}/edit-payment/{payment}', [\App\Http\Controllers\Admin\AgreementPaymentController::class, 'edit'])
+                    ->name('admin.editAgrPayment');
+                Route::get('{agreement}/movetoreal/{payment}', [\App\Http\Controllers\Admin\AgreementPaymentController::class, 'toRealPayments'])
+                    ->name('admin.movePaymentToReal');
+                Route::match(['get', 'post'], '{agreement}/delete-payment/{payment}', [\App\Http\Controllers\Admin\AgreementPaymentController::class, 'delete'])
+                    ->name('admin.deleteAgrPayment');
+                Route::match(['get', 'post'], '{agreement}/add-real-payment', [\App\Http\Controllers\Admin\RealPaymentController::class, 'add'])
+                    ->name('admin.addRealPayment');
+                Route::match(['get', 'post'], '{agreement}/edit-real-payment/{payment}', [\App\Http\Controllers\Admin\RealPaymentController::class, 'edit'])
+                    ->name('admin.editRealPayment');
+                Route::match(['get', 'post'], '{agreement}/delete-real-payment/{payment}', [\App\Http\Controllers\Admin\RealPaymentController::class, 'delete'])
+                    ->name('admin.deleteRealPayment');
+
             }
         );
+
+        Route::group([
+            'prefix' => 'users',
+            'middleware' => 'is.admin'
+        ],
+            function () {
+                Route::get('/', [\App\Http\Controllers\Admin\UsersController::class, 'index'])
+                    ->name('admin.users');
+                Route::match(['post', 'get'], 'add', [\App\Http\Controllers\Admin\UsersController::class, 'add'])
+                    ->name('admin.addUser');
+                Route::match(['post', 'get'], '{user}/edit', [\App\Http\Controllers\Admin\UsersController::class, 'edit'])
+                    ->name('admin.editUser');
+                Route::match(['post', 'get'], '{user}/delete', [\App\Http\Controllers\Admin\UsersController::class, 'delete'])
+                    ->name('admin.deleteUser');
+                Route::match(['get', 'post'], '{user}/setTmpPswd', [\App\Http\Controllers\Admin\UsersController::class, 'setTempPassword'])
+                    ->name('admin.setTempPassword');
+            }
+        );
+
+
     }
 );
 
-//Auth::routes();
-Route::get('login', [\App\Http\Controllers\Auth\LoginController::class,'showLoginForm'])->name('login');
-Route::post('login', [\App\Http\Controllers\Auth\LoginController::class,'login']);
-Route::get('logout', [\App\Http\Controllers\Auth\LoginController::class,'logout'])->name('logout');
+Route::group([
+    'prefix' => 'user',
+    'middleware' => ['auth', 'password_expired']
+],
+    function () {
+        Route::get('/settlements/all-v1',
+            [\App\Http\Controllers\User\SettlementReportsController::class, 'showBigSettlementReport'])
+            ->name('user.allSettlements');
+        Route::get('/settlements/all-v2',
+            [\App\Http\Controllers\User\SettlementReportsController::class, 'showBigSettlement2Report'])
+            ->name('user.allSettlements2');
+        Route::get('/settlements/{agreement}',
+            [\App\Http\Controllers\User\SettlementReportsController::class, 'showAgrSettlementReport'])
+            ->name('user.agreementSettlements');
+    });
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
+//Auth::routes();
+Route::get('login', [\App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
+Route::post('login', [\App\Http\Controllers\Auth\LoginController::class, 'login']);
+Route::get('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+Route::get('password/expired', [\App\Http\Controllers\Auth\ExpiredPasswordController::class, 'expired'])
+    ->name('password.expired');
+Route::post('password/expired', [\App\Http\Controllers\Auth\ExpiredPasswordController::class, 'postExpired'])
+    ->name('password.postExpired');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware(['auth', 'password_expired']);
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware(['auth','password_expired']);
+

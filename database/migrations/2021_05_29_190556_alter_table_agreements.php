@@ -13,11 +13,11 @@ class AlterTableAgreements extends Migration
      */
     public function up()
     {
-        Schema::table('agreements', function(Blueprint $table) {
-           $table->unsignedBigInteger('agreement_type_id');
-           $table->foreign('agreement_type_id')->on('agreement_types')->references('id');
-           $table->foreign('company_id')->on('companies')->references('id');
-           $table->foreign('counterparty_id')->on('counterparties')->references('id');
+        Schema::table('agreements', function (Blueprint $table) {
+            $table->unsignedBigInteger('agreement_type_id');
+            $table->foreign('agreement_type_id')->on('agreement_types')->references('id');
+            $table->foreign('company_id')->on('companies')->references('id');
+            $table->foreign('counterparty_id')->on('counterparties')->references('id');
         });
     }
 

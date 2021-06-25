@@ -1,4 +1,4 @@
-@extends('Admin.layout')
+@extends('layouts.admin')
 
 @section('title')
     Администратор| Договоры
@@ -8,7 +8,14 @@
 
     <div class="row">
         <h2>Заключенные договоры</h2>
+
     </div>
+
+    @if ($filter!=='')
+        <div class="alert alert-primary" role="alert">
+            Установлен фильстр по номеру договора " <strong> {{$filter}} </strong> "
+        </div>
+    @endif
 
     <div class="row">
         <a class="btn btn-outline-info" href="{{route('admin.addAgreement')}}">Новый договор</a>
@@ -33,9 +40,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($agreements as $agreement)
+                @forelse($agreements as $index=>$agreement)
                     <tr>
-                        <th scope="row">{{$agreement->id}}</th>
+                        <th scope="row">{{($index+1)}}</th>
                         <td>{{$agreement->name}}</td>
                         <td>{{$agreement->company->name}}</td>
                         <td>{{$agreement->counterparty->name}}</td>
@@ -43,15 +50,20 @@
                         <td>{{$agreement->agr_number}}</td>
                         <td>{{$agreement->date_open}}</td>
                         <td>{{$agreement->real_date_close}}</td>
-                        <td><a href="{{route('admin.agreementSummary',['agreement'=>$agreement])}}"> &#10149;Связи </a></td>
-                        <td><a href="{{route('admin.editAgreement',['agreement'=>$agreement])}}"> &#9998;Изменить </a></td>
-                        <td><a href="{{route('admin.deleteAgreement',['agreement'=>$agreement])}}"> &#10008;Удалить </a></td>
+                        <td><a href="{{route('admin.agreementSummary',['agreement'=>$agreement])}}">
+                                &#9776;Карточка </a></td>
+                        <td><a href="{{route('admin.editAgreement',['agreement'=>$agreement])}}"> &#9998;Изменить </a>
+                        </td>
+                        <td><a href="{{route('admin.deleteAgreement',['agreement'=>$agreement])}}"
+                               onclick="return confirm('Действительно удалить данные о договоре?')"> &#10008;Удалить </a>
+                        </td>
                     </tr>
                 @empty
                     <td colspan="11">Нет записей</td>
                 @endforelse
                 </tbody>
             </table>
+            {!! $agreements->links() !!}
         </div>
     </div>
 @endsection

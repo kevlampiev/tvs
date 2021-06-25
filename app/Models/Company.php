@@ -16,7 +16,7 @@ class Company extends Model
         return $this->hasMany(Agreement::class);
     }
 
-    public static function rules():array
+    public static function rules(): array
     {
         return [
             'name' => 'required|string|min:3',

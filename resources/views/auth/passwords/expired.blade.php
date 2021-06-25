@@ -29,7 +29,7 @@
                         <label for="new_password" class="form-label">Новый пароль</label>
                         <input type="password"
                                class="form-control {{($errors->has('new_password'))?'is-invalid':''}}"
-                               id="password" name="new_password" >
+                               id="password" name="new_password">
                     </div>
                     @if ($errors->has('new_password'))
                         <div class="alert alert-danger">
@@ -45,7 +45,7 @@
                         <label for="confirm_password" class="form-label">Новый пароль еще раз</label>
                         <input type="password"
                                class="form-control {{($errors->has('confirm_password'))?'is-invalid':''}}"
-                               id="confirm_password" name="confirm_password" >
+                               id="confirm_password" name="confirm_password">
                     </div>
                     @if ($errors->has('confirm_password'))
                         <div class="alert alert-danger">
@@ -58,7 +58,8 @@
                     @endif
 
                     <button type="submit" class="btn btn-primary">Подтвердить</button>
-                    <button type="reset" class="btn btn-outline-secondary">Отмена</button>
+                    <a class="btn btn-outline-secondary" href="{{url()->previous()}}">Отмена</a>
+                    {{--                    <button type="reset" class="btn btn-outline-secondary">Отмена</button>--}}
 
                 </form>
 

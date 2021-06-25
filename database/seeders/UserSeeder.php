@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => \Illuminate\Support\Facades\Hash::make('12345678'),
             'created_at' => now(),
-            'role'=>'admin'
+            'role' => 'admin'
         ]);
         //Добавляем одного владельца
         DB::table('users')->insert([
@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => \Illuminate\Support\Facades\Hash::make('12345678'),
             'created_at' => now(),
-            'role'=>'user'
+            'role' => 'user'
         ]);
     }
 }

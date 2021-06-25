@@ -13,7 +13,6 @@
 <body>
 
 
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -48,7 +47,7 @@
                     <a class="dropdown-item" href="{{route('admin.agrTypes')}}">Типы договоров</a>
                     <a class="dropdown-item" href="{{route('admin.counterparties')}}">Контрагенты</a>
                     @if (Auth::user()->role=='admin')
-                    <a class="dropdown-item" href="{{route('admin.users')}}">Пользователи</a>
+                        <a class="dropdown-item" href="{{route('admin.users')}}">Пользователи</a>
                     @endif
                 </div>
             </li>
@@ -57,7 +56,8 @@
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" method="GET">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchStr" value="{{isset($filter)?$filter:''}}">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchStr"
+                   value="{{isset($filter)?$filter:''}}">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
     </div>
@@ -78,7 +78,8 @@
             @endif
         @else
             <li class="nav-item dropdown">
-                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false" v-pre>
                     {{ Auth::user()->name }}
                 </a>
 
@@ -93,13 +94,24 @@
 </nav>
 
 <div class="container-fluid m-3">
+
+    @if(session()->has('message'))
+        <div class="alert alert-success">
+            {{ session()->get('message') }}
+        </div>
+    @endif
+
+    @if(session()->has('error'))
+        <div class="alert alert-danger">
+            {{ session()->get('error') }}
+        </div>
+    @endif
+
     @yield('content')
 </div>
 
 
-
-
-    @yield('scripts')
+@yield('scripts')
 </body>
 </html>
 

@@ -12,10 +12,10 @@ class RealPayment extends Model
 
     protected $guarded = [];
 
-    public static function rules():array
+    public static function rules(): array
     {
         return [
-            'payment_date' =>'required|date',
+            'payment_date' => 'required|date',
             'amount' => 'required|numeric|min:0.01',
             'currency' => ['required',
                 Rule::in(['RUR', 'USD', 'EUR', 'CNY', 'YPN']),

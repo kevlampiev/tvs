@@ -33,10 +33,12 @@
                         <td><a href="{{route('admin.editCounterparty',['counterparty'=>$counterparty])}}"> &#9998;Изменить </a>
                         </td>
                         @if ($counterparty->agreements_count===0)
-                            <td><a href="{{route('admin.deleteCounterparty',['counterparty'=>$counterparty])}}"> &#10008;Удалить </a>
+                            <td><a href="{{route('admin.deleteCounterparty',['counterparty'=>$counterparty])}}"
+                                   onclick="return confirm('Действительно удалить данные о контрагенте?')">
+                                    &#10008;Удалить </a>
                             </td>
                         @else
-                            <td> <p class="text-muted">&#10008;Удалить </p></td>
+                            <td><p class="text-muted">&#10008;Удалить </p></td>
                         @endif
                     </tr>
                 @empty

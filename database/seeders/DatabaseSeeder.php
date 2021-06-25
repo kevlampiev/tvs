@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-       $this->call([
+        $this->call([
             UserSeeder::class,
             AgreementTypeSeeder::class,
             CompanySeeder::class,
@@ -23,6 +23,6 @@ class DatabaseSeeder extends Seeder
             AgreementSeeder::class,
             VehicleSeeder::class,
             AgreementPaymentSeeder::class
-       ]);
+        ]);
     }
 }

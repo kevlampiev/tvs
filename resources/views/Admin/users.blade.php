@@ -31,15 +31,24 @@
                 <tbody>
                 @forelse($users as $index => $user)
                     <tr>
-                        <th scope="row">{{$index}}</th>
+                        <th scope="row">{{$index+1}}</th>
                         <td>{{$user->name}}</td>
                         <td>{{$user->email}}</td>
                         <td>{{$user->role}}</td>
                         <td><a href="{{route('admin.editUser', ['user' => $user])}}"> &#9998;Изменить </a>
                         </td>
-                        <td><a href="#"> &#9998;Сменить пароль </a>
+                        <td> @if (Auth::user()->id!==$user->id)
+                                <a href="{{route('admin.setTempPassword',['user' => $user])}}"> &#9998;Сменить
+                                    пароль </a>
+                            @else
+                                <a href="{{route('password.expired')}}"> &#9998;Сменить пароль </a>
+                            @endif
                         </td>
-                        <td><a href="{{route('admin.deleteUser', ['user' => $user])}}"> &#10008;Удалить </a>
+                        <td>
+                            @if (Auth::user()->id!==$user->id)
+                                <a href="{{route('admin.deleteUser', ['user' => $user])}}"
+                                   onclick="return confirm('Действительно удалить данные о пользователе?')"> &#10008;Удалить </a>
+                            @endif
                         </td>
                     </tr>
                 @empty

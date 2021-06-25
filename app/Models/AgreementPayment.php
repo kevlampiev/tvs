@@ -18,14 +18,29 @@ class AgreementPayment extends Model
 
     }
 
-    public static function rules()
+    public static function rules(): array
     {
         return [
             'payment_date' => 'required|date',
             'amount' => 'required|numeric|min:0.01',
             'currency' => ['required',
                 Rule::in(['RUR', 'USD', 'EUR', 'CNY', 'YPN']),
-                ]
+            ]
+        ];
+    }
+
+    /**
+     *Правила для условий массового заполнения
+     */
+    public static function massRules(): array
+    {
+        return [
+            'date_start' => 'required|date',
+            'amount' => 'required|numeric|min:0.01',
+            'currency' => ['required',
+                Rule::in(['RUR', 'USD', 'EUR', 'CNY', 'YPN']),
+            ],
+            'repeat_count' => 'required|integer|min:1',
         ];
     }
 }

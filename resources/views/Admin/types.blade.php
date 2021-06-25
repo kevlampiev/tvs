@@ -32,9 +32,10 @@
                         <td>{{$type->name}}</td>
                         <td><a href="{{route('admin.editType',['type'=>$type])}}"> &#9998;Изменить </a></td>
                         @if ($type->vehicles_count===0)
-                            <td><a href="{{route('admin.deleteType',['type'=>$type])}}"> &#10008;Удалить </a></td>
+                            <td><a href="{{route('admin.deleteType',['type'=>$type])}}"
+                                   onclick="return confirm('Действительно удалить данные о типе техники?')"> &#10008;Удалить </a></td>
                         @else
-                            <td> <p class="text-muted">&#10008;Удалить </p></td>
+                            <td><p class="text-muted">&#10008;Удалить </p></td>
                         @endif
                     </tr>
                 @empty

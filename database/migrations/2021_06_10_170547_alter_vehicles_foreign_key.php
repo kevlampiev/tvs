@@ -13,11 +13,11 @@ class AlterVehiclesForeignKey extends Migration
      */
     public function up()
     {
-        Schema::table('vehicles', function(Blueprint $table) {
+        Schema::table('vehicles', function (Blueprint $table) {
             $table->dropForeign(['vehicle_type_id']);
             $table->dropForeign(['manufacturer_id']);
         });
-        Schema::table('vehicles', function(Blueprint $table) {
+        Schema::table('vehicles', function (Blueprint $table) {
             $table->foreign('manufacturer_id')->references('id')->on('manufacturers')->onDelete('restrict');
             $table->foreign('vehicle_type_id')->on('vehicle_types')->references('id')->onDelete('restrict');
         });
@@ -31,11 +31,11 @@ class AlterVehiclesForeignKey extends Migration
      */
     public function down()
     {
-        Schema::table('vehicles', function(Blueprint $table) {
+        Schema::table('vehicles', function (Blueprint $table) {
             $table->dropForeign(['vehicle_type_id']);
             $table->dropForeign(['manufacturer_id']);
         });
-        Schema::table('vehicles', function(Blueprint $table) {
+        Schema::table('vehicles', function (Blueprint $table) {
             $table->foreign('manufacturer_id')->references('id')->on('manufacturers')->onDelete('cascade');
             $table->foreign('vehicle_type_id')->on('vehicle_types')->references('id')->onDelete('cascade');
         });

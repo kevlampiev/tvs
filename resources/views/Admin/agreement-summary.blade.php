@@ -37,7 +37,8 @@
         <div class="tab-pane fade" id="vehicles">
             <h4>Техника, приобретаемая по данному договору</h4>
             <div class="row">
-                <a class="btn btn-outline-info" href="{{route('admin.agreementAddVehicle', ['agreement'=>$agreement])}}">Добавить единицу техники</a>
+                <a class="btn btn-outline-info"
+                   href="{{route('admin.agreementAddVehicle', ['agreement'=>$agreement])}}">Добавить единицу техники</a>
             </div>
             @include('Admin.components.vehicles-table')
         </div>
@@ -58,17 +59,20 @@
 @endsection
 
 @section('scripts')
-<script>
-    function autoSelectPage()
-    {
-        let urlArr = document.location.pathname.split('/')
-        if (urlArr.length===6) {
-            let tabName= '[href="#'+urlArr[5] +'"'
-            $(tabName).tab('show')
+    <script>
+        function autoSelectPage() {
+            let urlArr = document.location.pathname.split('/')
+            if (urlArr.length === 6) {
+                let tabName = '[href="#' + urlArr[5] + '"'
+                $(tabName).tab('show')
+            }
         }
-    }
 
-    document.addEventListener("DOMContentLoaded", autoSelectPage);
-</script>
+        function confirmDelete() {
+
+        }
+
+        document.addEventListener("DOMContentLoaded", autoSelectPage);
+    </script>
 
 @endsection

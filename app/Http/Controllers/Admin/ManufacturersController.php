@@ -19,7 +19,7 @@ class ManufacturersController extends Controller
     {
         $manufacturer = new Manufacturer();
         if ($request->isMethod('post')) {
-            $this->validate($request,Manufacturer::rules());
+            $this->validate($request, Manufacturer::rules());
             $manufacturer->fill($request->only('name'));
             $manufacturer->save();
             return redirect()->route('admin.manufacturers');
@@ -37,7 +37,7 @@ class ManufacturersController extends Controller
     public function editManufacturer(Request $request, Manufacturer $manufacturer)
     {
         if ($request->isMethod('post')) {
-            $this->validate($request,Manufacturer::rules());
+            $this->validate($request, Manufacturer::rules());
             $manufacturer->fill($request->only('name'));
             $manufacturer->save();
             return redirect()->route('admin.manufacturers');

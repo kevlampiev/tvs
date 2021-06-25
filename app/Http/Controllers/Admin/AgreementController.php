@@ -41,15 +41,15 @@ class AgreementController extends Controller
             $this->validate($request, Agreement::rules());
             $agreement->fill($request->all());
             $agreement->save();
-            $route= session('previous_url', route('admin.agreements'));
+            $route = session('previous_url', route('admin.agreements'));
             return redirect()->to($route);
         } else {
             if (!empty($request->old())) {
                 $agreement->fill($request->old());
             }
-            if (url()->previous()!==url()->current()) session(['previous_url'=>url()->previous()]);
+            if (url()->previous() !== url()->current()) session(['previous_url' => url()->previous()]);
             return view('Admin/agreement-edit',
-                AgreementsRepo::provideAgreementEditor($agreement,'admin.editAgreement'));
+                AgreementsRepo::provideAgreementEditor($agreement, 'admin.editAgreement'));
         }
     }
 
@@ -70,10 +70,10 @@ class AgreementController extends Controller
         if ($request->isMethod('post')) {
             $vehicle = Vehicle::find($request->vehicle_id);
             $agreement->vehicles()->save($vehicle);
-            return redirect()->route('admin.agreementSummary', [ 'agreement' => $agreement, 'page'=>'vehicles']);
+            return redirect()->route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'vehicles']);
         } else {
             return view('Admin/agreement-add-vehicle',
-            AgreementsRepo::provideAddVehicleView($agreement));
+                AgreementsRepo::provideAddVehicleView($agreement));
         }
     }
 

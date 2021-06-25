@@ -50,9 +50,13 @@
                         <td>{{$agreement->agr_number}}</td>
                         <td>{{$agreement->date_open}}</td>
                         <td>{{$agreement->real_date_close}}</td>
-                        <td><a href="{{route('admin.agreementSummary',['agreement'=>$agreement])}}"> &#9776;Карточка </a></td>
-                        <td><a href="{{route('admin.editAgreement',['agreement'=>$agreement])}}"> &#9998;Изменить </a></td>
-                        <td><a href="{{route('admin.deleteAgreement',['agreement'=>$agreement])}}"> &#10008;Удалить </a></td>
+                        <td><a href="{{route('admin.agreementSummary',['agreement'=>$agreement])}}">
+                                &#9776;Карточка </a></td>
+                        <td><a href="{{route('admin.editAgreement',['agreement'=>$agreement])}}"> &#9998;Изменить </a>
+                        </td>
+                        <td><a href="{{route('admin.deleteAgreement',['agreement'=>$agreement])}}"
+                               onclick="return confirm('Действительно удалить данные о договоре?')"> &#10008;Удалить </a>
+                        </td>
                     </tr>
                 @empty
                     <td colspan="11">Нет записей</td>

@@ -23,29 +23,23 @@
                     </thead>
                     <tbody>
 
-                @forelse($payments as $index=>$payment)
-                    <tr
-                        {{($payment->status==='погашен')?'class=text-secondary':''}}
-                        {{($payment->status=='просрочен')?'class=text-danger':''}}
-                    >
-                        <th scope="row">{{$index+1}}</th>
-                        <td>{{$payment->payment_date}}</td>
-                        <td>{{number_format($payment->amount,2)}}</td>
-                        <td>
+                    @forelse($payments as $index=>$payment)
+                        <tr
+                            {{($payment->status==='погашен')?'class=text-secondary':''}}
+                            {{($payment->status=='просрочен')?'class=text-danger':''}}
+                        >
+                            <th scope="row">{{$index+1}}</th>
+                            <td>{{$payment->payment_date}}</td>
+                            <td>{{number_format($payment->amount,2)}}</td>
+                            <td>
                                 {{$payment->status}}
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="4">Нет данных для отображения</td>
-                    </tr>
-                @endforelse
-                <tr>
-                    <th colspan="2">Всего</th>
-                    <td>{{number_format($payments->sum('amount'),2)}}</td>
-                    <td>
-                    </td>
-                </tr>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="4">Нет данных для отображения</td>
+                        </tr>
+                    @endforelse
                     </tbody>
                 </table>
 

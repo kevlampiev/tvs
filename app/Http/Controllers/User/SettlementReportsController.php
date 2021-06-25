@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Agreement;
 use App\Repositories\DashboardsRepo;
+use App\Repositories\ReportsRepo;
 use Illuminate\Http\Request;
 
 class SettlementReportsController extends Controller
@@ -12,18 +13,18 @@ class SettlementReportsController extends Controller
     public function showBigSettlementReport(Request $request)
     {
         return view('User.SettelementStateReport',
-            DashboardsRepo::getBigSettlementReportData($request));
+            ReportsRepo::getBigSettlementReportData($request));
     }
 
     public function showBigSettlement2Report(Request $request)
     {
         return view('User.SettelementState2Report',
-            DashboardsRepo::getBigSettlementReport2Data($request));
+            ReportsRepo::getBigSettlementReport2Data($request));
     }
 
     public function showAgrSettlementReport(Request $request, Agreement $agreement)
     {
         return view('User.SettelementAgreementReport',
-            DashboardsRepo::getAgreemantSettlementReportData($request, $agreement));
+            ReportsRepo::getAgreemantSettlementReportData($request, $agreement));
     }
 }

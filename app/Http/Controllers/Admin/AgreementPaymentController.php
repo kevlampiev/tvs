@@ -82,4 +82,16 @@ class AgreementPaymentController extends Controller
         return redirect()->route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'payments'])->with('message', 'Запись о реальном платеже добавлена');
 
     }
+
+    public function cancelPayments(Request $request, Agreement $agreement)
+    {
+        if ($request->isMethod('post')) {
+            dd($request);
+            return redirect()
+                ->route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'payments'])
+                ->with('message','Записи о платежах помечены, как отмененные');
+        } else {
+            return view('Admin/agreement-payments-close', ['agreement' => $agreement]);
+        }
+    }
 }

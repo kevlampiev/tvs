@@ -58,7 +58,7 @@ class ManufacturersTest extends TestCase
             ->assertRedirect(route('home'));
 
         //не проходим на страницу редактирования
-        $manufacturer = VehicleType::query()->inRandomOrder()->first();
+        $manufacturer = Manufacturer::query()->inRandomOrder()->first();
         $this->actingAs($user)
             ->get(route('admin.editManufacturer', ['manufacturer' => $manufacturer]))
             ->assertStatus(302)

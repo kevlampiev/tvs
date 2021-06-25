@@ -135,6 +135,8 @@ Route::group([
                     ->name('admin.massAddPayments');
                 Route::match(['get', 'post'], '{agreement}/edit-payment/{payment}', [\App\Http\Controllers\Admin\AgreementPaymentController::class, 'edit'])
                     ->name('admin.editAgrPayment');
+                Route::match(['get', 'post'], '{agreement}/cancel-payments', [\App\Http\Controllers\Admin\AgreementPaymentController::class, 'cancelPayments'])
+                    ->name('admin.massCancelPayments');
                 Route::get('{agreement}/movetoreal/{payment}', [\App\Http\Controllers\Admin\AgreementPaymentController::class, 'toRealPayments'])
                     ->name('admin.movePaymentToReal');
                 Route::match(['get', 'post'], '{agreement}/delete-payment/{payment}', [\App\Http\Controllers\Admin\AgreementPaymentController::class, 'delete'])

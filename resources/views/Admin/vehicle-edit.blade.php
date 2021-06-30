@@ -252,7 +252,7 @@
         <button type="submit" class="btn btn-primary">
             @if ($vehicle->id)  Изменить @else Добавить @endif
         </button>
-        <a class="btn btn-secondary" href="{{route('admin.vehicles')}}">Отмена</a>
+        <a class="btn btn-secondary" href="{{session('previous_url', route('admin.vehicles'))}}">Отмена</a>
 
     </form>
 

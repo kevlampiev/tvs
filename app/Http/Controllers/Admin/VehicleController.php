@@ -84,7 +84,7 @@ class VehicleController extends Controller
         }
     }
 
-    public function detachAgreement(Request $request, Vehicle $vehicle, Agreement $agreement )
+    public function detachAgreement(Request $request, Vehicle $vehicle, Agreement $agreement)
     {
         dd($request);
         $vehicle->agreements()->detach($agreement);

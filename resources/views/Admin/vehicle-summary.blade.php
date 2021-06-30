@@ -26,6 +26,7 @@
     <div class="tab-content">
         <div class="tab-pane fade show active" id="main-info">
             <h4>Основные данные</h4>
+            @include('Admin.vehicle-comps.vehicle-main')
         </div>
 
         <div class="tab-pane fade" id="insurance_policies">

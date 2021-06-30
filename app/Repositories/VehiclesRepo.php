@@ -37,10 +37,10 @@ class VehiclesRepo
             'filter' => $filter];
     }
 
-    static public function getSummary():array
+    static public function getSummary(): array
     {
         $vehicle = Vehicle::query()->find(1);
-        return ['vehicle'=>$vehicle];
+        return ['vehicle' => $vehicle];
     }
 
 

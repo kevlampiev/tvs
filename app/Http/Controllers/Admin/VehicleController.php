@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VehicleRequest;
+use App\Models\Agreement;
 use App\Models\Manufacturer;
 use App\Models\Vehicle;
 use App\Models\VehicleType;
@@ -70,4 +71,24 @@ class VehicleController extends Controller
     {
         return view('Admin/vehicle-summary', ['vehicle' => $vehicle]);
     }
+
+    public function attachAgreement(Request $request, Vehicle $vehicle)
+    {
+        if ($request->isMethod('post')) {
+            $agreement = Vehicle::find($request->agreement_id);
+            $vehicle->agreements()->save($agreement);
+            return redirect()->route('admin.vehicleSummary', ['vehicle' => $vehicle, 'page' => 'agreements']);
+        } else {
+            return view('Admin/vehicle-add-agreement',
+                VehiclesRepo::provideAddAgreementView($vehicle));
+        }
+    }
+
+    public function detachAgreement(Request $request, Vehicle $vehicle, Agreement $agreement)
+    {
+        dd($request);
+        $vehicle->agreements()->detach($agreement);
+        return redirect()->route('admin.vehicleSummary', ['vehicle' => $vehicle, 'page' => 'agreements']);
+    }
+
 }

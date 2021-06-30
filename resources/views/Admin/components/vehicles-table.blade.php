@@ -19,9 +19,12 @@
             <td>{{$vehicle->vehicleType->name}}</td>
             <td>{{$vehicle->bort_number}}</td>
             <td>{{$vehicle->prod_year}}</td>
-            <td><a href="{{route('admin.agreementDetachVehicle', ['agreement'=>$agreement, 'vehicle'=>$vehicle])}}"
+            <td>
+                <a href="{{route('admin.vehicleSummary',['vehicle'=>$vehicle])}}"> &#9776;Карточка </a>
+                <a href="{{route('admin.agreementDetachVehicle', ['agreement'=>$agreement, 'vehicle'=>$vehicle])}}"
                    onclick="return confirm('Действительно удалить данные о единице техники?')">
-                    &#10008;Удалить </a></td>
+                    &#10008;Удалить </a>
+            </td>
         </tr>
     @empty
         <tr>

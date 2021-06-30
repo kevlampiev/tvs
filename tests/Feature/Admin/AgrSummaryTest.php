@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Admin\Admin\Admin\Admin\Admin\Admin\Admin\Admin\Admin;
 
 
 use App\Models\Agreement;

@@ -5,6 +5,8 @@
            href="{{route('admin.addAgrPayment', ['agreement'=>$agreement])}}">Новый платеж</a>
         <a class="btn btn-outline-info mr-2"
            href="{{route('admin.massAddPayments', ['agreement'=>$agreement])}}">Добавить серию платежей</a>
+        <a class="btn btn-outline-info mr-2"
+           href="{{route('admin.massCancelPayments', ['agreement'=>$agreement])}}">Отменить платежи</a>
     </div>
 
     <table class="table table-hover">

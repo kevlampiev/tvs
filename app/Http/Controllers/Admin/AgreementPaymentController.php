@@ -44,7 +44,7 @@ class AgreementPaymentController extends Controller
             AgreementsRepo::addManyPayments($request, $agreement);
             return redirect()
                 ->route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'payments'])
-                ->with('message','Произведено массовое добавление платежей');
+                ->with('message', 'Произведено массовое добавление платежей');
         } else {
             return view('Admin/agreement-mass-payment', ['agreement' => $agreement]);
         }
@@ -81,5 +81,17 @@ class AgreementPaymentController extends Controller
         $realPayment->save();
         return redirect()->route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'payments'])->with('message', 'Запись о реальном платеже добавлена');
 
+    }
+
+    public function cancelPayments(Request $request, Agreement $agreement)
+    {
+        if ($request->isMethod('post')) {
+            dd($request);
+            return redirect()
+                ->route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'payments'])
+                ->with('message', 'Записи о платежах помечены, как отмененные');
+        } else {
+            return view('Admin/agreement-payments-close', ['agreement' => $agreement]);
+        }
     }
 }

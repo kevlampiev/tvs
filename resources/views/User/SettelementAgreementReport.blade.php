@@ -30,7 +30,7 @@
                         >
                             <th scope="row">{{$index+1}}</th>
                             <td>{{$payment->payment_date}}</td>
-                            <td>{{number_format($payment->amount,2)}}</td>
+                            <td class="text-right">{{number_format($payment->amount,2)}}</td>
                             <td>
                                 {{$payment->status}}
                             </td>
@@ -40,6 +40,11 @@
                             <td colspan="4">Нет данных для отображения</td>
                         </tr>
                     @endforelse
+                    <tr>
+                        <th colspan="2" class="text-right">Всего: </th>
+                        <th class="text-right">{{number_format($payments->sum('amount'),2)}}</th>
+                        <th>   </th>
+                    </tr>
                     </tbody>
                 </table>
 

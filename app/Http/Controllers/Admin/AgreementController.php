@@ -80,7 +80,7 @@ class AgreementController extends Controller
     public function detachVehicle(Request $request, Agreement $agreement, Vehicle $vehicle)
     {
         $agreement->vehicles()->detach($vehicle);
-        return redirect()->back();
+        return redirect()->route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'vehicles']);
     }
 
 }

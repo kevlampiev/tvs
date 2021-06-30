@@ -4,9 +4,11 @@
 namespace App\Repositories;
 
 
+use App\Models\Agreement;
 use App\Models\Vehicle;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class VehiclesRepo
 {
@@ -33,5 +35,36 @@ class VehiclesRepo
         }
         return ['vehicles' => $vehicles,
             'filter' => $filter];
+    }
+
+    static public function getSummary(): array
+    {
+        $vehicle = Vehicle::query()->find(1);
+        return ['vehicle' => $vehicle];
+    }
+
+
+    //TODO переделать метод через Eloquent для архитектурной чистоты
+
+    /**
+     * Метод наполнения данными view добавления к единице техники договоров
+     * @param Vehicle $vehicle
+     * @return array
+     */
+    public static function provideAddAgreementView(Vehicle $vehicle): array
+    {
+
+        $presentedAgreements =
+            DB::select('select agreement_id from agreement_vehicle where vehicle_id=?', [$vehicle->id]);
+
+        $data = [];
+        foreach ($presentedAgreements as $el) {
+            $data[] = $el->agreement_id;
+        }
+        $agreements = Agreement::query()->whereNotIn('id', $data)->orderBy('name')->get();
+        return [
+            'vehicle' => $vehicle,
+            'agreements' => $agreements
+        ];
     }
 }

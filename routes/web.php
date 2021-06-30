@@ -107,7 +107,12 @@ Route::group([
                 Route::match(['post', 'get'], 'add', [\App\Http\Controllers\Admin\VehicleController::class, 'addVehicle'])->name('admin.addVehicle');
                 Route::match(['post', 'get'], '{vehicle}/edit', [\App\Http\Controllers\Admin\VehicleController::class, 'editVehicle'])->name('admin.editVehicle');
                 Route::match(['post', 'get'], '{vehicle}/delete', [\App\Http\Controllers\Admin\VehicleController::class, 'deleteVehicle'])->name('admin.deleteVehicle');
-                Route::get('{vehicle}/summary', [\App\Http\Controllers\Admin\VehicleController::class, 'vehicleSummary'])->name('admin.vehicleSummary');
+                Route::get('{vehicle}/summary/{page?}', [\App\Http\Controllers\Admin\VehicleController::class, 'vehicleSummary'])->name('admin.vehicleSummary');
+                Route::match(['get','post'], '{vehicle}/attach-agreement', [\App\Http\Controllers\Admin\VehicleController::class, 'attachAgreement'])
+                    ->name('admin.attachAgreement');
+                Route::get('{vehicle}/detach-agreement/{agreement}', [\App\Http\Controllers\Admin\VehicleController::class, 'detachAgreement'])
+                    ->name('admin.detachAgreement');
+
             }
         );
 
@@ -135,6 +140,8 @@ Route::group([
                     ->name('admin.massAddPayments');
                 Route::match(['get', 'post'], '{agreement}/edit-payment/{payment}', [\App\Http\Controllers\Admin\AgreementPaymentController::class, 'edit'])
                     ->name('admin.editAgrPayment');
+                Route::match(['get', 'post'], '{agreement}/cancel-payments', [\App\Http\Controllers\Admin\AgreementPaymentController::class, 'cancelPayments'])
+                    ->name('admin.massCancelPayments');
                 Route::get('{agreement}/movetoreal/{payment}', [\App\Http\Controllers\Admin\AgreementPaymentController::class, 'toRealPayments'])
                     ->name('admin.movePaymentToReal');
                 Route::match(['get', 'post'], '{agreement}/delete-payment/{payment}', [\App\Http\Controllers\Admin\AgreementPaymentController::class, 'delete'])

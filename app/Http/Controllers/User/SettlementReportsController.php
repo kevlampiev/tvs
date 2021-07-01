@@ -14,13 +14,13 @@ class SettlementReportsController extends Controller
     public function showBigSettlementReport(Request $request)
     {
         return view('User.SettlementStateReport',
-            SettlementsReportsRepo::getBigSettlementReportData($request));
+            SettlementsReportsRepo::getBigReportData($request, 'company_name', 'counterparty_name'));
     }
 
     public function showBigSettlement2Report(Request $request)
     {
         return view('User.SettlementState2Report',
-            SettlementsReportsRepo::getBigSettlementReport2Data($request));
+            SettlementsReportsRepo::getBigReportData($request, 'counterparty_name', 'company_name'));;
     }
 
     public function showAgrSettlementReport(Request $request, Agreement $agreement)

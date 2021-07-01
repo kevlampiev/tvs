@@ -13,30 +13,28 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Дата</th>
-                                <th scope="col">Сумма</th>
                                 <th scope="col">Компания</th>
-                                <th scope="col">Контрагент</th>
+                                <th scope="col">Просрочено, млн.руб</th>
+                                <th scope="col">Срочные платежи, млн.руб</th>
+                                <th scope="col">Всего, млн.руб</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @forelse($payments as $index=>$payment)
-                            <tr {{($payment->payment_date=='просрочено')?'class=text-danger':''}}>
-                                <th scope="row">{{$index + 1}}</th>
-                                <td>{{$payment->payment_date}}</td>
-                                <td class="text-right">{{number_format($payment->amount,2)}}</td>
-                                <td>{{$payment->company}}</td>
-                                <td>{{$payment->counterparty}}</td>
+                            @forelse($data as $key=>$el)
+                            <tr>
+                                <td>{{$key}}</td>
+                                <td class="text-right">{{number_format(($el->sum('overdue'))/1000000,1)}}</td>
+                                <td class="text-right">{{number_format(($el->sum('nearestPayments'))/1000000,1)}}</td>
+                                <td class="text-right">{{number_format(($el->sum('overdue')+$el->sum('nearestPayments'))/1000000,1)}}</td>
                             </tr>
                             @empty
-                                <td colspan="5">Нет записей</td>
+                                <td colspan="3">Нет записей</td>
                             @endforelse
-                            <tr class="font-weight-bold">
-                                <th colspan="2" class="text-right">Всего</th>
-                                <td class="text-right">{{number_format($payments->sum('amount'),2)}}</td>
-                                <td></td>
-                                <td></td>
+                            <tr>
+                                <td>Всего</td>
+                                <td class="text-right">{{number_format(($data->sum('overdue'))/1000000,1)}}</td>
+                                <td class="text-right">{{number_format(($data->sum('nearestPayments'))/1000000,1)}}</td>
+                                <td class="text-right">{{number_format(($data->sum('overdue')+$data->sum('nearestPayments'))/1000000,1)}}</td>
                             </tr>
                             </tbody>
                         </table>

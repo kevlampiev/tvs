@@ -11,7 +11,7 @@ use App\Models\Vehicle;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
-class SettlementsRepo
+class SettlementsReportsRepo
 {
     /**
      *Обеспечивает данные Большому отчету по состоянию расчетов тип 1 (группировка по компаниям)

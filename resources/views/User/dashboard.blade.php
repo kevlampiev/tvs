@@ -31,13 +31,16 @@
                                 <td colspan="3">Нет записей</td>
                             @endforelse
                             <tr>
-                                <td>Всего</td>
-                                <td class="text-right">{{number_format(($data->sum('overdue'))/1000000,1)}}</td>
-                                <td class="text-right">{{number_format(($data->sum('nearestPayments'))/1000000,1)}}</td>
-                                <td class="text-right">{{number_format(($data->sum('overdue')+$data->sum('nearestPayments'))/1000000,1)}}</td>
+                                <th>Всего</th>
+                                <th class="text-right">{{number_format(($summary->totalOverdue)/1000000,1)}}</th>
+                                <th class="text-right">{{number_format(($summary->totalNearest)/1000000,1)}}</th>
+                                <th class="text-right">{{number_format(($summary->totalOverdue+$summary->totalNearest)/1000000,1)}}</th>
                             </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div class="text-right mt-md-3">
+                        <a href="{{route('user.nearestPayments')}}">Подробнее...</a>
                     </div>
                 </div>
             </div>
@@ -61,7 +64,7 @@
             overflow-y: scroll;
             }
         .dashBoardEl {
-            height: 280px;
+            height: 240px;
             overflow-y: scroll;
         }
     </style>

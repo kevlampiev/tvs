@@ -13,9 +13,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\Types\Object_;
 
-class DashboardsRepo
+class NearestPaymentsRepo
 {
-    public static function provideData(): array
+    public static function provideAllAgrData(): array
     {
         $today = Carbon::today();
         $horizontDate = Carbon::today()->addDays(14);
@@ -30,16 +30,15 @@ class DashboardsRepo
                 ->where('payment_date','>=',$today)
                 ->where('payment_date','<=', $horizontDate)
                 ->sum('amount');
+            $agreement->totalToPay = $agreement->overdue + $agreement->nearestPayments;
         }
-        $summary = (object) [
-            'totalOverdue' => $agreements->sum('overdue'),
-            'totalNearest' => $agreements->sum('nearestPayments')
-        ];
+
         return [
-            'data' => $agreements->groupBy('company'),
-            'summary'=>$summary,
+            'data' => $agreements->where('totalToPay','>',0)->groupBy('company'),
+//            'summary'=>$summary,
         ];
 
     }
+
 
 }

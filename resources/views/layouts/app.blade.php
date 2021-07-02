@@ -42,13 +42,15 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
-                                Расчеты
+                                Состояние расчетов
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="nav-link" href="{{route('user.allSettlements')}}">Состояние расчетов по
                                     компаниям</a>
                                 <a class="nav-link" href="{{route('user.allSettlements2')}}">Состояние расчетов по
                                     контрагентам</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="nav-link" href="{{route('user.nearestPayments')}}">Предстоящие платежи</a>
                             </div>
                         </li>
                     @endif

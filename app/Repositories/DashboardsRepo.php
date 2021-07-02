@@ -20,26 +20,26 @@ class DashboardsRepo
         $today = Carbon::today();
         $horizontDate = Carbon::today()->addDays(14);
         $agreements = Agreement::all();
-        foreach($agreements as $agreement) {
-            $agreement->company = $agreement->company->code;
-            $agreement->overdue =
-                max($agreement->payments->where('payment_date','<',$today)->sum('amount')-
-                    $agreement->realPayments->where('payment_date','<',$today)->sum('amount'),
-                    0);
-            $agreement->nearestPayments = $agreement->payments
-                ->where('payment_date','>=',$today)
-                ->where('payment_date','<=', $horizontDate)
-                ->sum('amount');
+        $data = [];
+
+        foreach ($agreements as $el) {
+            $el->company_code = $el->company->code;
+            $el->overdues = max($el->payments->where('payment_date','<',$today)->sum('amount')-
+                $el->realPayments->where('payment_date','<',$today)->sum('amount'),0);
+            $el->upcoming = $el->payments
+                                ->where('payment_date','>=',$today)
+                                ->where('payment_date','<=', $horizontDate)
+                                ->sum('amount');
         }
-        $summary = (object) [
-            'totalOverdue' => $agreements->sum('overdue'),
-            'totalNearest' => $agreements->sum('nearestPayments')
-        ];
+
+        $data[] = ['Компания', 'Просрочено, млн', 'Срочные платежи, млн'];
+        foreach($agreements->groupBy('company_code') as $key=>$agreement) {
+            $data[] = [$key, $agreement->sum('overdues')/1000000, $agreement->sum('upcoming')/1000000];
+        }
+
         return [
-            'data' => $agreements->groupBy('company'),
-            'summary'=>$summary,
+            'data' => json_encode($data, JSON_UNESCAPED_UNICODE),
         ];
 
     }
-
 }

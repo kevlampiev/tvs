@@ -55,7 +55,7 @@
                 legend: { position: 'bottom', maxLines: 3 },
             };
 
-            let chart = new google.visualization.ColumnChart(element);
+            let chart = new google.visualization.BarChart(element);
             chart.draw(data, options);
         }
 

@@ -47,15 +47,32 @@
 
         function drawChart () {
             let data = google.visualization.arrayToDataTable({!! $data !!});
+
+            // data.forEach((item,index) => {
+            //     if (index===0) {
+            //         item.push({role: 'annotation'})
+            //     } else {
+            //         item.push('silver')
+            //     }
+            //
+            // })
+
             let options = {
-                width: 500,
-                height: 250,
+                width: element.parentElement.clientWidth - 40,
+                height: element.parentElement.clientHeight - 100,
                 isStacked: true,
                 colors: [ '#FAEBCC', '#b7eaf3',],
                 legend: { position: 'bottom', maxLines: 3 },
             };
 
             let chart = new google.visualization.BarChart(element);
+
+            // chart.setColumns([0, 1,
+            //     { calc: "stringify",
+            //         sourceColumn: 1,
+            //         type: "string",
+            //         role: "annotation" },
+            //     2]);
             chart.draw(data, options);
         }
 

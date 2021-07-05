@@ -11,8 +11,16 @@
                     <h4 class="m-auto">Предстоящие платежи</h4>
                     <div id="chart" ></div>
 
-                    <div class="text-right mt-md-3">
-                        <a href="{{route('user.nearestPayments')}}">Подробнее...</a>
+                    <div class="row mt-3">
+                        <div class="col-md-9">
+                            Просрочено по группе <strong>{{number_format($summary->overdue,1)}} млн,</strong>,
+                            ближайшие платежи по сроку <strong>{{number_format($summary->upcoming,1)}} млн, </strong>
+                            Всего: <strong>{{number_format($summary->upcoming + $summary->overdue,1)}} млн</strong>
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <a href="{{route('user.nearestPayments')}}">Подробнее...</a>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -37,6 +45,11 @@
             overflow-y: hidden;
             }
 
+        .bottom-line {
+            display: flex;
+            justify-content: space-between;
+        }
+
     </style>
 @endsection
 
@@ -48,15 +61,6 @@
         function drawChart () {
             let data = google.visualization.arrayToDataTable({!! $data !!});
 
-            // data.forEach((item,index) => {
-            //     if (index===0) {
-            //         item.push({role: 'annotation'})
-            //     } else {
-            //         item.push('silver')
-            //     }
-            //
-            // })
-
             let options = {
                 width: element.parentElement.clientWidth - 40,
                 height: element.parentElement.clientHeight - 100,
@@ -66,13 +70,6 @@
             };
 
             let chart = new google.visualization.BarChart(element);
-
-            // chart.setColumns([0, 1,
-            //     { calc: "stringify",
-            //         sourceColumn: 1,
-            //         type: "string",
-            //         role: "annotation" },
-            //     2]);
             chart.draw(data, options);
         }
 

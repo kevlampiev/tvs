@@ -35,7 +35,6 @@ class NearestPaymentsRepo
 
         return [
             'data' => $agreements->where('totalToPay','>',0)->groupBy('company'),
-//            'summary'=>$summary,
         ];
 
     }

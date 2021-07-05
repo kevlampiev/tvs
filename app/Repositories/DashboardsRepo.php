@@ -32,6 +32,10 @@ class DashboardsRepo
                                 ->sum('amount');
         }
 
+        $summary = (object) [
+            'overdue' => $agreements->sum('overdues')/1000000,
+            'upcoming' => $agreements->sum('upcoming')/1000000
+        ];
         $data[] = ['Компания', 'Просрочено, млн', 'Срочные платежи, млн'];
         foreach($agreements->groupBy('company_code') as $key=>$agreement) {
             $data[] = [$key, $agreement->sum('overdues')/1000000, $agreement->sum('upcoming')/1000000];
@@ -39,6 +43,7 @@ class DashboardsRepo
 
         return [
             'data' => json_encode($data, JSON_UNESCAPED_UNICODE),
+            'summary' => $summary
         ];
 
     }

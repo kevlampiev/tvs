@@ -189,6 +189,9 @@ Route::group([
         Route::get('/settlements/all-v2',
             [\App\Http\Controllers\User\SettlementReportsController::class, 'showBigSettlement2Report'])
             ->name('user.allSettlements2');
+        Route::get('/settlements/nearest-payments',
+            [\App\Http\Controllers\User\NearestPaymentsController::class,'showAllAgr'])
+            ->name('user.nearestPayments');
         Route::get('/settlements/{agreement}',
             [\App\Http\Controllers\User\SettlementReportsController::class, 'showAgrSettlementReport'])
             ->name('user.agreementSettlements');

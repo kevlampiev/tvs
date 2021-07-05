@@ -9,6 +9,7 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <link rel="SHORTCUT ICON" href="{{asset('fehu-runa.png')}}" type="image/x-icon">
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -25,7 +26,7 @@
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
+                <img src="{{asset('fehu-runa.png')}}">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -41,13 +42,15 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
-                                Расчеты
+                                Состояние расчетов
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="nav-link" href="{{route('user.allSettlements')}}">Состояние расчетов по
                                     компаниям</a>
                                 <a class="nav-link" href="{{route('user.allSettlements2')}}">Состояние расчетов по
                                     контрагентам</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="nav-link" href="{{route('user.nearestPayments')}}">Предстоящие платежи</a>
                             </div>
                         </li>
                     @endif
@@ -118,5 +121,6 @@
     </main>
 </div>
 
+@yield('scripts')
 </body>
 </html>

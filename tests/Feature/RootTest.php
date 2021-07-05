@@ -33,9 +33,9 @@ class RootTest extends TestCase
         $response = $this->actingAs($user)
             ->get('/')
             ->assertStatus(200)
-            ->assertSeeText('Расчеты')
+            ->assertSeeText('Состояние расчетов')
+            ->assertSee('chart') //есть график
             ->assertDontSeeText('Панель управления');
-
     }
 
     /**
@@ -50,7 +50,8 @@ class RootTest extends TestCase
         $response = $this->actingAs($user)
             ->get('/')
             ->assertStatus(200)
-            ->assertSeeText('Расчеты')
+            ->assertSeeText('Состояние расчетов')
+            ->assertSee('chart') //есть график
             ->assertSeeText('Панель управления');
     }
 
@@ -67,7 +68,8 @@ class RootTest extends TestCase
         $response = $this->actingAs($user)
             ->get('/')
             ->assertStatus(200)
-            ->assertSeeText('Расчеты')
+            ->assertSeeText('Состояние расчетов')
+            ->assertSee('chart') //есть график
             ->assertSeeText('Панель управления');
     }
 

@@ -8,43 +8,25 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="shadow p-3 mb-5 bg-white rounded dashBoardBlock">
-                    <h3>Предстояшие платежи (14 дней) </h3>
-                    <div class="dashBoardEl">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Дата</th>
-                                <th scope="col">Сумма</th>
-                                <th scope="col">Компания</th>
-                                <th scope="col">Контрагент</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @forelse($payments as $index=>$payment)
-                            <tr {{($payment->payment_date=='просрочено')?'class=text-danger':''}}>
-                                <th scope="row">{{$index + 1}}</th>
-                                <td>{{$payment->payment_date}}</td>
-                                <td class="text-right">{{number_format($payment->amount,2)}}</td>
-                                <td>{{$payment->company}}</td>
-                                <td>{{$payment->counterparty}}</td>
-                            </tr>
-                            @empty
-                                <td colspan="5">Нет записей</td>
-                            @endforelse
-                            <tr class="font-weight-bold">
-                                <th colspan="2" class="text-right">Всего</th>
-                                <td class="text-right">{{number_format($payments->sum('amount'),2)}}</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            </tbody>
-                        </table>
+                    <h4 class="m-auto">Предстоящие платежи</h4>
+                    <div id="chart" ></div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-9">
+                            Просрочено по группе <strong>{{number_format($summary->overdue,1)}} млн,</strong>,
+                            ближайшие платежи по сроку <strong>{{number_format($summary->upcoming,1)}} млн, </strong>
+                            Всего: <strong>{{number_format($summary->upcoming + $summary->overdue,1)}} млн</strong>
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <a href="{{route('user.nearestPayments')}}">Подробнее...</a>
+                        </div>
+
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="shadow p-3 mb-5 bg-white rounded dashBoardBlock">
+                    <h4 class="m-auto">Страховки к оформлению</h4>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequatur, distinctio expedita modi placeat temporibus velit. Incidunt itaque obcaecati rerum!
                 </div>
                 <div class="shadow p-3 mb-5 bg-white rounded dashBoardBlock">
@@ -60,11 +42,39 @@
     <style>
         .dashBoardBlock {
             height: 350px;
-            overflow-y: scroll;
+            overflow-y: hidden;
             }
-        .dashBoardEl {
-            height: 280px;
-            overflow-y: scroll;
+
+        .bottom-line {
+            display: flex;
+            justify-content: space-between;
         }
+
     </style>
+@endsection
+
+@section('scripts')
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        let element = document.getElementById('chart');
+
+        function drawChart () {
+            let data = google.visualization.arrayToDataTable({!! $data !!});
+
+            let options = {
+                width: element.parentElement.clientWidth - 40,
+                height: element.parentElement.clientHeight - 100,
+                isStacked: true,
+                colors: [ '#FAEBCC', '#b7eaf3',],
+                legend: { position: 'bottom', maxLines: 3 },
+            };
+
+            let chart = new google.visualization.BarChart(element);
+            chart.draw(data, options);
+        }
+
+        google.charts.load('current', { packages: ['corechart', 'bar'] });
+        google.charts.setOnLoadCallback(drawChart);
+    </script>
+
 @endsection

@@ -6,58 +6,66 @@ namespace App\Repositories;
 
 use App\Models\Agreement;
 use App\Models\AgreementPayment;
+use App\Models\Company;
 use App\Models\RealPayment;
 use App\Models\Vehicle;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
 
-class ReportsRepo
+class SettlementsReportsRepo
 {
+
+    /**
+     * Возвращает набор состояния расчетов на заданную дату
+     */
+    public static function getPayments($queryDate):object
+    {
+        $data = Agreement::query()
+            ->where('real_date_close',null)
+            ->orWhere('real_date_close','>=', $queryDate)
+            ->get();
+        foreach ($data as $el) {
+            $el->total_payments = $el->payments->sum('amount');
+            $el->payed = $el->realPayments->where('payment_date', '<=', $queryDate)->sum('amount');
+            $el->must_be_payed_by_date = $el->payments->where('payment_date', '<=', $queryDate)->sum('amount');
+            $el->company_name = $el->company->name;
+            $el->counterparty_name = $el->counterparty->name;
+        }
+        return $data;
+    }
+
+
+    /**
+     *Выдает укрупненные данные о состоянии просрочек расчетов на дату
+     */
+    public static function getAggPayments($queryDate):object
+    {
+        $agreements = Agreement::all();
+        $result = [];
+        foreach($agreements as $agreement) {
+            $agreement->company = $agreement->company->name;
+            $agreement->overdue =
+                max($agreement->payments->where('payment_date','<=',$queryDate)->sum('amount')-
+                    $agreement->realPayments->where('payment_date','<=',$queryDate)->sum('amount'),
+                    0);
+        }
+        return $agreements->groupBy('company');
+    }
+
+
     /**
      *Обеспечивает данные Большому отчету по состоянию расчетов тип 1 (группировка по компаниям)
      */
-    static public function getBigSettlementReportData(Request $request)
+    static public function getBigReportData(Request $request,
+                                                      $groupBy = 'company_name', $sortBy = 'counterparty_name')
     {
         $queryDate = ($request->get('reportDate')) ? $request->get('reportDate') : date('Y-m-d');
-        $data = Agreement::query()->with('payments')->
-        whereHas('payments', function (Builder $query) use ($queryDate) {
-            $query->where('canceled_date', '>', $queryDate)
-                ->orWhere('canceled_date', null)
-                ->where('date_open', '<=', $queryDate);
-        })->get();
-        foreach ($data as $el) {
-            $el->total_payments = $el->payments->sum('amount');
-            $el->payed = $el->realPayments->where('payment_date', '<=', $queryDate)->sum('amount');
-            $el->must_be_payed_by_date = $el->payments->where('payment_date', '<=', $queryDate)->sum('amount');
-            $el->company_name = $el->company->name;
-            $el->counterparty_name = $el->counterparty->name;
-        }
+        $data = self::getPayments($queryDate);
         return ['reportDate' => $queryDate,
-            'data' => $data->groupBy('company_name')->sortBy('counterparty_name')];
+            'data' => $data->groupBy($groupBy)->sortBy($sortBy)];
     }
 
-    /**
-     *Обеспечивает данные Большому отчету по состоянию расчетов тип 2 (группировка по контрагентам)
-     */
-    static public function getBigSettlementReport2Data(Request $request)
-    {
-        $queryDate = ($request->get('reportDate')) ? $request->get('reportDate') : date('Y-m-d');
-        $data = Agreement::query()->with('payments')->
-        whereHas('payments', function (Builder $query) use ($queryDate) {
-            $query->where('canceled_date', '>', $queryDate)
-                ->orWhere('canceled_date', null)
-                ->where('date_open', '<=', $queryDate);
-        })->get();
-        foreach ($data as $el) {
-            $el->total_payments = $el->payments->sum('amount');
-            $el->payed = $el->realPayments->where('payment_date', '<=', $queryDate)->sum('amount');
-            $el->must_be_payed_by_date = $el->payments->where('payment_date', '<=', $queryDate)->sum('amount');
-            $el->company_name = $el->company->name;
-            $el->counterparty_name = $el->counterparty->name;
-        }
-        return ['reportDate' => $queryDate,
-            'data' => $data->groupBy('counterparty_name')->sortBy('company_name')];
-    }
 
     /**
      *Обеспечивает данные отчету по состоянию расчетов по договору

@@ -11,63 +11,40 @@ use App\Models\Vehicle;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\Object_;
 
 class DashboardsRepo
 {
     public static function provideData(): array
     {
         $today = Carbon::today();
-        $agreements = Agreement::query()
-            ->with('payments')
-            ->with('realPayments')
-            ->whereHas('payments', function (Builder $query) use ($today) {
-                $query->where('canceled_date', '>', $today)
-                    ->orWhere('canceled_date', null)
-                    ->where('date_open', '<=', $today)
-                    ->where('payment_date', '<', $today);
-            })
-            ->whereHas('realPayments', function (Builder $query) use ($today) {
-                $query->where('payment_date', '<', $today);
-            })
-            ->get();
+        $horizontDate = Carbon::today()->addDays(14);
+        $agreements = Agreement::all();
+        $data = [];
 
-        $upcomingPayments = AgreementPayment::query()
-            ->where('date_open', '<=', Carbon::today())
-            ->where('canceled_date', '>', Carbon::today())
-            ->orWhere('canceled_date', null)
-            ->whereBetween('payment_date', [Carbon::today(), Carbon::today()->addDays(14)])
-            ->orderBy('payment_date')
-            ->orderByDesc('amount')
-            ->get();
-
-        $payments = [];
-
-        foreach ($agreements as $agreement) {
-            $overduePayments = $agreement->payments->sum('amount') -
-                $agreement->realPayments->sum('amount');
-            if ($overduePayments > 0) {
-                $payments[] = (object)[
-                    'payment_date' => 'просрочено',
-                    'amount' => $overduePayments,
-                    'company' => $agreement->company->name,
-                    'counterparty' => $agreement->counterparty->name,
-                ];
-            }
+        foreach ($agreements as $el) {
+            $el->company_code = $el->company->code;
+            $el->overdues = max($el->payments->where('payment_date','<',$today)->sum('amount')-
+                $el->realPayments->where('payment_date','<',$today)->sum('amount'),0);
+            $el->upcoming = $el->payments
+                                ->where('payment_date','>=',$today)
+                                ->where('payment_date','<=', $horizontDate)
+                                ->sum('amount');
         }
 
-        foreach ($upcomingPayments as $payment) {
-            $payments[] = (object)[
-                'payment_date' => $payment->payment_date,
-                'amount' => $payment->amount,
-                'company' => $payment->agreement->company->name,
-                'counterparty' => $payment->agreement->counterparty->name,
-            ];
+        $summary = (object) [
+            'overdue' => $agreements->sum('overdues')/1000000,
+            'upcoming' => $agreements->sum('upcoming')/1000000
+        ];
+        $data[] = ['Компания', 'Просрочено, млн', 'Срочные платежи, млн'];
+        foreach($agreements->groupBy('company_code') as $key=>$agreement) {
+            $data[] = [$key, $agreement->sum('overdues')/1000000, $agreement->sum('upcoming')/1000000];
         }
 
         return [
-            'payments' => collect($payments),
+            'data' => json_encode($data, JSON_UNESCAPED_UNICODE),
+            'summary' => $summary
         ];
 
     }
-
 }

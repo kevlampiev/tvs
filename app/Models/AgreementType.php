@@ -11,14 +11,14 @@ class AgreementType extends Model
 
     protected $fillable = ['name'];
 
-    public static function rules()
+    public static function rules(): array
     {
         return [
             'name' => 'required|min:3',
         ];
     }
 
-    public function agreements()
+    public function agreements(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Agreement::class);
     }

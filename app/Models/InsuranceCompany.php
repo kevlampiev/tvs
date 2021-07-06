@@ -18,7 +18,7 @@ class InsuranceCompany extends Model
         ];
     }
 
-    public function insurances()
+    public function insurances(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Insurance::class);
     }

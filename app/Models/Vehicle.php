@@ -23,17 +23,17 @@ class Vehicle extends Model
         'currency',
         'purchase_date'];
 
-    public function vehicleType()
+    public function vehicleType(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(VehicleType::class);
     }
 
-    public function manufacturer()
+    public function manufacturer(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Manufacturer::class);
     }
 
-    public function agreements()
+    public function agreements(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Agreement::class);
     }

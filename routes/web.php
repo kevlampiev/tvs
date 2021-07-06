@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ManufacturersController;
 
@@ -13,10 +14,6 @@ use App\Http\Controllers\Admin\ManufacturersController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//
-//Route::get('/', function () {
-//    return view('welcome');
-//})->middleware('auth');
 
 Route::group([
     'prefix' => 'admin',
@@ -96,6 +93,24 @@ Route::group([
                 Route::match(['post', 'get'],
                     '{company}/delete', [\App\Http\Controllers\Admin\CompanyController::class, 'deleteCompany'])
                     ->name('admin.deleteCompany');
+            }
+        );
+
+        Route::group([
+            'prefix' => 'insurance-companies'
+        ],
+            function () {
+                Route::get('/', [\App\Http\Controllers\Admin\InsuranceCompanyController::class, 'index'])
+                    ->name('admin.insuranceCompanies');
+                Route::match(['post', 'get'],
+                    'add', [\App\Http\Controllers\Admin\InsuranceCompanyController::class, 'add'])
+                    ->name('admin.addInsuranceCompany');
+                Route::match(['post', 'get'],
+                    '{company}/edit', [\App\Http\Controllers\Admin\InsuranceCompanyController::class, 'edit'])
+                    ->name('admin.editInsuranceCompany');
+                Route::match(['post', 'get'],
+                    '{company}/delete', [\App\Http\Controllers\Admin\InsuranceCompanyController::class, 'delete'])
+                    ->name('admin.deleteInsuranceCompany');
             }
         );
 
@@ -205,6 +220,7 @@ Route::get('password/expired', [\App\Http\Controllers\Auth\ExpiredPasswordContro
     ->name('password.expired');
 Route::post('password/expired', [\App\Http\Controllers\Auth\ExpiredPasswordController::class, 'postExpired'])
     ->name('password.postExpired');
+
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware(['auth', 'password_expired']);
 
 Auth::routes();

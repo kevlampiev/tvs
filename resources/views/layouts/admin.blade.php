@@ -46,7 +46,10 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{route('admin.agrTypes')}}">Типы договоров</a>
                     <a class="dropdown-item" href="{{route('admin.counterparties')}}">Контрагенты</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{route('admin.insuranceCompanies')}}">Страховые компании</a>
                     @if (Auth::user()->role=='admin')
+                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{route('admin.users')}}">Пользователи</a>
                     @endif
                 </div>

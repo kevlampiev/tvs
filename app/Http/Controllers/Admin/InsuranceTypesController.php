@@ -33,27 +33,27 @@ class InsuranceTypesController extends Controller
         }
     }
 
-    public function edit(Request $request, InsuranceType $type)
+    public function edit(Request $request, InsuranceType $insType)
     {
         if ($request->isMethod('post')) {
             $this->validate($request, InsuranceType::rules());
-            $type->fill($request->only('name'));
-            $type->save();
+            $insType->fill($request->only('name'));
+            $insType->save();
             return redirect()->route('admin.insTypes');
         } else {
             if (!empty($request->old())) {
-                $type->fill($request->old());
+                $insType->fill($request->old());
             }
             return view('Admin/insurance-type-edit', [
-                'insType' => $type,
+                'insType' => $insType,
                 'route' => 'admin.editInsType',
             ]);
         }
     }
 
-    public function deleteType(InsuranceType $type)
+    public function delete(InsuranceType $insType)
     {
-        $type->delete();
+        $insType->delete();
         return redirect()->route('admin.insTypes');
     }
 }

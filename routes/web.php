@@ -132,6 +132,26 @@ Route::group([
             }
         );
 
+
+        Route::group([
+            'prefix' => 'insurances'
+        ],
+            function () {
+                Route::get('/', [\App\Http\Controllers\Admin\InsuranceController::class, 'index'])
+                    ->name('admin.insurances');
+                Route::match(['post', 'get'],
+                    'add', [\App\Http\Controllers\Admin\InsuranceController::class, 'add'])
+                    ->name('admin.addInsurance');
+                Route::match(['post', 'get'],
+                    '{insurance}/edit', [\App\Http\Controllers\Admin\InsuranceController::class, 'edit'])
+                    ->name('admin.editInsurance');
+                Route::match(['post', 'get'],
+                    '{insurance}/delete', [\App\Http\Controllers\Admin\InsuranceController::class, 'delete'])
+                    ->name('admin.deleteInsurance');
+            }
+        );
+
+
         Route::group([
             'prefix' => 'vehicles'
         ],

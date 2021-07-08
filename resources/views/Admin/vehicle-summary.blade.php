@@ -30,7 +30,12 @@
         </div>
 
         <div class="tab-pane fade" id="insurance_policies">
-            Тут будут связанные файлы
+            <h4>Страховые полисы</h4>
+            <div class="row">
+{{--                <a class="btn btn-outline-info"--}}
+{{--                   href="{{route('admin.attachAgreement', ['vehicle'=>$vehicle])}}">Привязать договор</a>--}}
+            </div>
+            @include('Admin.vehicle-comps.insurances-table')
         </div>
 
         <div class="tab-pane fade" id="agreements">

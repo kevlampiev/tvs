@@ -140,7 +140,7 @@ Route::group([
                 Route::get('/', [\App\Http\Controllers\Admin\InsuranceController::class, 'index'])
                     ->name('admin.insurances');
                 Route::match(['post', 'get'],
-                    'add', [\App\Http\Controllers\Admin\InsuranceController::class, 'add'])
+                    'add/{vehicle?}', [\App\Http\Controllers\Admin\InsuranceController::class, 'add'])
                     ->name('admin.addInsurance');
                 Route::match(['post', 'get'],
                     '{insurance}/edit', [\App\Http\Controllers\Admin\InsuranceController::class, 'edit'])

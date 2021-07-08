@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Insurance;
+use App\Models\Vehicle;
 use App\Repositories\InsurancesRepo;
 use Carbon\Carbon;
 use Carbon\Factory;
@@ -13,15 +14,17 @@ class InsuranceController extends Controller
 {
     public function index(Request $request)
     {
-        return view('Admin.insurances',InsurancesRepo::getInsurances($request));
+        return view('Admin.insurances', InsurancesRepo::getInsurances($request));
     }
 
-    public function add(Request $request)
+    public function add(Request $request, Vehicle $vehicle = null)
     {
         $insurance = new Insurance();
         $insurance->date_open = Carbon::today()->toDateString();
         $insurance->date_close = Carbon::today()->addYear()->toDateString();
         $insurance->description = 'Страхуемые риски: ';
+        if ($vehicle) $insurance->vehicle_id = $vehicle->id;
+
 
         if ($request->isMethod('post')) {
             $this->validate($request, Insurance::rules());
@@ -33,6 +36,7 @@ class InsuranceController extends Controller
             if (!empty($request->old())) {
                 $insurance->fill($request->old());
             }
+            if (url()->previous() !== url()->current()) session(['previous_url' => url()->previous()]);
             return view('Admin.insurance-edit',
                 InsurancesRepo::provideInsuranceEditor($insurance, 'admin.addInsurance'));
         }

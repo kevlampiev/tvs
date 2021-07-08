@@ -16,7 +16,7 @@ class InsuranceType extends Model
         return $this->hasMany(Insurance::class);
     }
 
-    public static function rules():array
+    public static function rules(): array
     {
         return [
             'name' => 'required|min:3',

@@ -20,7 +20,7 @@ class VehicleSummaryTest extends TestCase
     {
         $vehicle = Vehicle::query()
             ->inRandomOrder()->first();
-        $this->get(route('admin.vehicleSummary', [ 'vehicle' => $vehicle, 'page'=>'summary']))
+        $this->get(route('admin.vehicleSummary', ['vehicle' => $vehicle, 'page' => 'summary']))
             ->assertStatus(302)
             ->assertRedirect(route('login'));
     }
@@ -36,7 +36,7 @@ class VehicleSummaryTest extends TestCase
         $vehicle = Vehicle::query()
             ->inRandomOrder()->first();
         $this->actingAs($user)
-            ->get(route('admin.vehicleSummary', [ 'vehicle' => $vehicle, 'page'=>'agreements']))
+            ->get(route('admin.vehicleSummary', ['vehicle' => $vehicle, 'page' => 'agreements']))
             ->assertStatus(302)
             ->assertRedirect(route('home'));
     }
@@ -48,11 +48,11 @@ class VehicleSummaryTest extends TestCase
      */
     public function testMainTab()
     {
-        $user = User::query()->where('role','<>', 'user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         $vehicle = Vehicle::query()
             ->inRandomOrder()->first();
         $this->actingAs($user)
-            ->get(route('admin.vehicleSummary', [ 'vehicle' => $vehicle, 'page'=>'main']))
+            ->get(route('admin.vehicleSummary', ['vehicle' => $vehicle, 'page' => 'main']))
             ->assertStatus(200)
             ->assertSeeText($vehicle->VIN);
     }
@@ -65,16 +65,47 @@ class VehicleSummaryTest extends TestCase
      */
     public function testVehiclesTab()
     {
-        $user = User::query()->where('role','<>', 'user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         $vehicle = Vehicle::query()
             ->inRandomOrder()->first();
-        $response= $this->actingAs($user)
-            ->get(route('admin.vehicleSummary', [ 'vehicle' => $vehicle, 'page'=>'agreements']))
+        $response = $this->actingAs($user)
+            ->get(route('admin.vehicleSummary', ['vehicle' => $vehicle, 'page' => 'agreements']))
             ->assertStatus(200)
-        ->assertSeeText($vehicle->VIN);
-        if ($vehicle->agreements->count()!==0) {
+            ->assertSeeText($vehicle->VIN);
+        if ($vehicle->agreements->count() !== 0) {
             $response->assertSeeText('Удалить')
-            ->assertSeeText($vehicle->agreements->first()->agr_name);
+                ->assertSeeText($vehicle->agreements->first()->agr_name);
+        }
+    }
+
+    /**
+     * Смотрим на страницу insurances
+     *
+     * @return void
+     */
+    public function testInsurancesTab()
+    {
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
+        $vehicle = Vehicle::query()
+            ->whereHas('insurances')
+            ->inRandomOrder()->first();
+        if ($vehicle) {
+            $response = $this->actingAs($user)
+                ->get(route('admin.vehicleSummary', ['vehicle' => $vehicle, 'page' => 'insurances']))
+                ->assertStatus(200)
+                ->assertSeeText($vehicle->insurances->first()->insuranceCompany->name)
+                ->assertSeeText('Новый полис')
+                ->assertSeeText('Удалить')
+                ->assertSeeText('Изменить');
+        } else {
+            $vehicle = Vehicle::query()
+                ->inRandomOrder()->first();
+            $response = $this->actingAs($user)
+                ->get(route('admin.vehicleSummary', ['vehicle' => $vehicle, 'page' => 'insurances']))
+                ->assertStatus(200)
+                ->assertSeeText('Страховые полисы')
+                ->assertSeeText('Нет записей')
+                ->assertSeeText('Новый полис');
         }
     }
 

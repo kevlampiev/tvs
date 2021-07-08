@@ -48,10 +48,10 @@ class InsuranceCompaniesTest extends TestCase
     public function testAsUser()
     {
         //Не можем войти в список
-        $user = User::query()->where('role','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', 'user')->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.insuranceCompanies'))
             ->assertStatus(302)
-        ->assertRedirect(route('home'));
+            ->assertRedirect(route('home'));
 
         //не проходим на страницу добавления
         $this->actingAs($user)
@@ -74,7 +74,7 @@ class InsuranceCompaniesTest extends TestCase
      */
     public function testList()
     {
-        $user = User::query()->where('role','<>','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         $company = InsuranceCompany::query()->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.insuranceCompanies'))
             ->assertStatus(200)
@@ -93,7 +93,7 @@ class InsuranceCompaniesTest extends TestCase
      */
     public function testAddCompany()
     {
-        $user = User::query()->where('role','<>','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.addInsuranceCompany'))
             ->assertStatus(200)
             ->assertSeeText('Добавить новую')
@@ -109,7 +109,7 @@ class InsuranceCompaniesTest extends TestCase
      */
     public function testEditCompany()
     {
-        $user = User::query()->where('role','<>','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         $company = InsuranceCompany::query()->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.editInsuranceCompany', ['company' => $company]))
             ->assertStatus(200)

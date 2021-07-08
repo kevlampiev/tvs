@@ -10,6 +10,7 @@ use Illuminate\Validation\Rule;
 class Insurance extends Model
 {
     use HasFactory;
+
     protected $guarded = [];
 
     public function insuranceCompany(): BelongsTo

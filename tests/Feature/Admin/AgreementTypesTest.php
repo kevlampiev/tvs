@@ -46,10 +46,10 @@ class AgreementTypesTest extends TestCase
     public function testAsUser()
     {
         //Не можем войти в список
-        $user = User::query()->where('role','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', 'user')->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.agrTypes'))
             ->assertStatus(302)
-        ->assertRedirect(route('home'));
+            ->assertRedirect(route('home'));
 
         //не проходим на страницу добавления
         $this->actingAs($user)
@@ -72,7 +72,7 @@ class AgreementTypesTest extends TestCase
      */
     public function testList()
     {
-        $user = User::query()->where('role','<>','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         $agreementType = AgreementType::query()->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.agrTypes'))
             ->assertStatus(200)
@@ -91,7 +91,7 @@ class AgreementTypesTest extends TestCase
      */
     public function testAddAgreementType()
     {
-        $user = User::query()->where('role','<>','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.addAgrType'))
             ->assertStatus(200)
             ->assertSeeText('Добавить новый тип договора')
@@ -107,7 +107,7 @@ class AgreementTypesTest extends TestCase
      */
     public function testEditAgreementType()
     {
-        $user = User::query()->where('role','<>','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         $agreementType = AgreementType::query()->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.editAgrType', ['agrType' => $agreementType]))
             ->assertStatus(200)

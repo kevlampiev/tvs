@@ -20,7 +20,7 @@ class AgrSummaryTest extends TestCase
         $agreement = Agreement::query()
             ->with('payments')
             ->inRandomOrder()->first();
-        $this->get(route('admin.agreementSummary', [ 'agreement' => $agreement, 'page'=>'vehicles']))
+        $this->get(route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'vehicles']))
             ->assertStatus(302)
             ->assertRedirect(route('login'));
     }
@@ -37,7 +37,7 @@ class AgrSummaryTest extends TestCase
             ->with('payments')
             ->inRandomOrder()->first();
         $this->actingAs($user)
-            ->get(route('admin.agreementSummary', [ 'agreement' => $agreement, 'page'=>'vehicles']))
+            ->get(route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'vehicles']))
             ->assertStatus(302)
             ->assertRedirect(route('home'));
     }
@@ -49,19 +49,18 @@ class AgrSummaryTest extends TestCase
      */
     public function testMainTab()
     {
-        $user = User::query()->where('role','<>', 'user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         $agreement = Agreement::query()
             ->with('payments')
             ->inRandomOrder()->first();
 
         $this->actingAs($user)
-            ->get(route('admin.agreementSummary', [ 'agreement' => $agreement, 'page'=>'main']))
+            ->get(route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'main']))
             ->assertStatus(200)
             ->assertSeeText($agreement->agr_number)
             ->assertSeeText($agreement->agreementType->name)
             ->assertSeeText($agreement->company->name)
-            ->assertSeeText($agreement->counterparty->name)
-        ;
+            ->assertSeeText($agreement->counterparty->name);
     }
 
 
@@ -72,18 +71,18 @@ class AgrSummaryTest extends TestCase
      */
     public function testVehiclesTab()
     {
-        $user = User::query()->where('role','<>', 'user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         $agreement = Agreement::query()
             ->with('payments')
             ->inRandomOrder()->first();
 
-        $response= $this->actingAs($user)
-            ->get(route('admin.agreementSummary', [ 'agreement' => $agreement, 'page'=>'vehicles']))
+        $response = $this->actingAs($user)
+            ->get(route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'vehicles']))
             ->assertStatus(200)
-        ->assertSeeText($agreement->agr_number);
-        if ($agreement->vehicles->count()!==0) {
+            ->assertSeeText($agreement->agr_number);
+        if ($agreement->vehicles->count() !== 0) {
             $response->assertSeeText('Удалить')
-            ->assertSeeText($agreement->vehicles->first()->agr_name);
+                ->assertSeeText($agreement->vehicles->first()->agr_name);
         }
 
     }
@@ -95,13 +94,13 @@ class AgrSummaryTest extends TestCase
      */
     public function testPaymentsTab()
     {
-        $user = User::query()->where('role','<>', 'user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         $agreement = Agreement::query()
             ->with('payments')
             ->inRandomOrder()->first();
 
-        $response= $this->actingAs($user)
-            ->get(route('admin.agreementSummary', [ 'agreement' => $agreement, 'page'=>'payments']))
+        $response = $this->actingAs($user)
+            ->get(route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'payments']))
             ->assertStatus(200)
             ->assertSeeText($agreement->agr_number)
             ->assertSeeText('Платежи в соответствии с договором')

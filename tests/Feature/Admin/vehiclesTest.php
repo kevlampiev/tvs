@@ -20,7 +20,7 @@ class vehiclesTest extends TestCase
     {
         $this->get(route('admin.vehicles'))
             ->assertStatus(302)
-        ->assertRedirect('login');
+            ->assertRedirect('login');
     }
 
     /**
@@ -30,12 +30,11 @@ class vehiclesTest extends TestCase
      */
     public function testAsUser()
     {
-        $user = User::query()->where('role','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', 'user')->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.vehicles'))
             ->assertStatus(302)
-        ->assertRedirect(route('home'));
+            ->assertRedirect(route('home'));
     }
-
 
 
     /**
@@ -44,7 +43,7 @@ class vehiclesTest extends TestCase
      */
     public function test_indexPage()
     {
-        $user = User::query()->where('role','manager')->orWhere('role','admin')->inRandomOrder()->first();
+        $user = User::query()->where('role', 'manager')->orWhere('role', 'admin')->inRandomOrder()->first();
         $response = $this->actingAs($user)->get(route('admin.vehicles'));
         $response->assertStatus(200)
             ->assertSeeText('Справочники')
@@ -78,7 +77,7 @@ class vehiclesTest extends TestCase
      */
     public function testAddAsUser()
     {
-        $user = User::query()->where('role','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', 'user')->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.addVehicle'))
             ->assertStatus(302);
     }
@@ -89,15 +88,15 @@ class vehiclesTest extends TestCase
      */
     public function test_addPage()
     {
-        $user = User::query()->where('role','manager')->orWhere('role','admin')->inRandomOrder()->first();
+        $user = User::query()->where('role', 'manager')->orWhere('role', 'admin')->inRandomOrder()->first();
         $response = $this->actingAs($user)->get(route('admin.addVehicle'));
         $response->assertStatus(200)
-        ->assertSeeText('Тип техники')
-        ->assertSeeText('Производитель')
-        ->assertSeeText('Наименование оборудования')
-        ->assertSeeText('Заводской номер/VIN')
-        ->assertSeeText('Добавить новую единицу техники')
-        ->assertSeeText('Отмена');
+            ->assertSeeText('Тип техники')
+            ->assertSeeText('Производитель')
+            ->assertSeeText('Наименование оборудования')
+            ->assertSeeText('Заводской номер/VIN')
+            ->assertSeeText('Добавить новую единицу техники')
+            ->assertSeeText('Отмена');
     }
 
     /**
@@ -108,8 +107,8 @@ class vehiclesTest extends TestCase
     {
 
         $vehicle = Vehicle::query()->inRandomOrder()->first();
-        $this->get(route('admin.editVehicle',['vehicle'=>$vehicle]))
-        ->assertStatus(302);
+        $this->get(route('admin.editVehicle', ['vehicle' => $vehicle]))
+            ->assertStatus(302);
 
     }
 
@@ -119,13 +118,12 @@ class vehiclesTest extends TestCase
      */
     public function test_editPage_asUser()
     {
-        $user = User::query()->where('role','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', 'user')->inRandomOrder()->first();
         $vehicle = Vehicle::query()->inRandomOrder()->first();
-        $this->actingAs($user)->get(route('admin.editVehicle',['vehicle'=>$vehicle]))
+        $this->actingAs($user)->get(route('admin.editVehicle', ['vehicle' => $vehicle]))
             ->assertStatus(302);
 
     }
-
 
 
     /**
@@ -134,9 +132,9 @@ class vehiclesTest extends TestCase
      */
     public function test_editPage()
     {
-        $user = User::query()->where('role','manager')->orWhere('role','admin')->inRandomOrder()->first();
+        $user = User::query()->where('role', 'manager')->orWhere('role', 'admin')->inRandomOrder()->first();
         $vehicle = Vehicle::query()->inRandomOrder()->first();
-        $response = $this->actingAs($user)->get(route('admin.editVehicle',['vehicle'=>$vehicle]));
+        $response = $this->actingAs($user)->get(route('admin.editVehicle', ['vehicle' => $vehicle]));
         $response->assertStatus(200)
             ->assertSeeText('Тип техники')
             ->assertSeeText('Производитель')
@@ -144,8 +142,7 @@ class vehiclesTest extends TestCase
             ->assertSeeText('Заводской номер/VIN')
             ->assertSeeText('Изменение описания')
             ->assertSeeText('Отмена')
-            ->assertSee($vehicle->name);
-        ;
+            ->assertSee($vehicle->name);;
     }
 
 

@@ -46,10 +46,10 @@ class CompaniesTest extends TestCase
     public function testAsUser()
     {
         //Не можем войти в список
-        $user = User::query()->where('role','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', 'user')->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.companies'))
             ->assertStatus(302)
-        ->assertRedirect(route('home'));
+            ->assertRedirect(route('home'));
 
         //не проходим на страницу добавления
         $this->actingAs($user)
@@ -72,7 +72,7 @@ class CompaniesTest extends TestCase
      */
     public function testList()
     {
-        $user = User::query()->where('role','<>','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         $company = Company::query()->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.companies'))
             ->assertStatus(200)
@@ -91,7 +91,7 @@ class CompaniesTest extends TestCase
      */
     public function testAddCompany()
     {
-        $user = User::query()->where('role','<>','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.addCompany'))
             ->assertStatus(200)
             ->assertSeeText('Добавить новую')
@@ -108,7 +108,7 @@ class CompaniesTest extends TestCase
      */
     public function testEditCompany()
     {
-        $user = User::query()->where('role','<>','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         $company = Company::query()->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.editCompany', ['company' => $company]))
             ->assertStatus(200)

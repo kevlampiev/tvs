@@ -18,13 +18,13 @@ class UpcomingPaymentsTest extends TestCase
         //Заход без логина
         $response = $this->get(route('user.nearestPayments'));
         $response->assertStatus(302)
-        ->assertRedirect('login');
+            ->assertRedirect('login');
     }
 
     /**
      *Заход после авторизации
      *
-     *@return void
+     * @return void
      */
     public function testVisitAuth1()
     {

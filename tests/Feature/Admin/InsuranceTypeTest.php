@@ -33,7 +33,7 @@ class InsuranceTypeTest extends TestCase
 
         //не проходим на страницу редактирования
         $insType = InsuranceType::query()->inRandomOrder()->first();
-        $this->get(route('admin.editInsType', ['instype' => $insType]))
+        $this->get(route('admin.editInsType', ['insType' => $insType]))
             ->assertStatus(302)
             ->assertRedirect('login');
     }
@@ -47,10 +47,10 @@ class InsuranceTypeTest extends TestCase
     public function testAsUser()
     {
         //Не можем войти в список
-        $user = User::query()->where('role','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', 'user')->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.insTypes'))
             ->assertStatus(302)
-        ->assertRedirect(route('home'));
+            ->assertRedirect(route('home'));
 
         //не проходим на страницу добавления
         $this->actingAs($user)
@@ -73,7 +73,7 @@ class InsuranceTypeTest extends TestCase
      */
     public function testList()
     {
-        $user = User::query()->where('role','<>','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         $insType = InsuranceType::query()->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.insTypes'))
             ->assertStatus(200)
@@ -92,7 +92,7 @@ class InsuranceTypeTest extends TestCase
      */
     public function testAdd()
     {
-        $user = User::query()->where('role','<>','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.addInsType'))
             ->assertStatus(200)
             ->assertSeeText('Добавить')
@@ -107,7 +107,7 @@ class InsuranceTypeTest extends TestCase
      */
     public function testEdit()
     {
-        $user = User::query()->where('role','<>','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         $insType = InsuranceType::query()->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.editInsType', ['insType' => $insType]))
             ->assertStatus(200)

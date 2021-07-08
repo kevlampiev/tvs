@@ -23,7 +23,7 @@ class IndexTest extends TestCase
 
     public function testAsUser()
     {
-        $user= User::query()->where('role','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', 'user')->inRandomOrder()->first();
         $this->actingAs($user)
             ->get(route('admin.main'))
             ->assertStatus(302)
@@ -32,7 +32,7 @@ class IndexTest extends TestCase
 
     public function testAsManager()
     {
-        $user= User::query()->where('role','manager')->inRandomOrder()->first();
+        $user = User::query()->where('role', 'manager')->inRandomOrder()->first();
         $this->actingAs($user)
             ->get(route('admin.main'))
             ->assertStatus(200)
@@ -43,7 +43,7 @@ class IndexTest extends TestCase
 
     public function testAsAdmin()
     {
-        $user= User::query()->where('role','admin')->inRandomOrder()->first();
+        $user = User::query()->where('role', 'admin')->inRandomOrder()->first();
         $this->actingAs($user)
             ->get(route('admin.main'))
             ->assertStatus(200)
@@ -51,9 +51,6 @@ class IndexTest extends TestCase
             ->assertSeeText('Договоры')
             ->assertSeeText('Справочники');
     }
-
-
-
 
 
 }

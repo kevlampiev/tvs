@@ -46,10 +46,10 @@ class ManufacturersTest extends TestCase
     public function testAsUser()
     {
         //Не можем войти в список
-        $user = User::query()->where('role','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', 'user')->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.manufacturers'))
             ->assertStatus(302)
-        ->assertRedirect(route('home'));
+            ->assertRedirect(route('home'));
 
         //не проходим на страницу добавления
         $this->actingAs($user)
@@ -74,7 +74,7 @@ class ManufacturersTest extends TestCase
      */
     public function testList()
     {
-        $user = User::query()->where('role','<>','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         $manufacturer = Manufacturer::query()->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.manufacturers'))
             ->assertStatus(200)
@@ -94,7 +94,7 @@ class ManufacturersTest extends TestCase
      */
     public function testAddManufacturer()
     {
-        $user = User::query()->where('role','<>','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.addManufacturer'))
             ->assertStatus(200)
             ->assertSeeText('Добавить нового производителя')
@@ -110,7 +110,7 @@ class ManufacturersTest extends TestCase
      */
     public function testEditManufacturer()
     {
-        $user = User::query()->where('role','<>','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         $manufacturer = Manufacturer::query()->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.editManufacturer', ['manufacturer' => $manufacturer]))
             ->assertStatus(200)

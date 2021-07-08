@@ -18,13 +18,13 @@ class SettlementReportsTest extends TestCase
         //Заход без логина
         $response = $this->get(route('user.allSettlements'));
         $response->assertStatus(302)
-        ->assertRedirect('login');
+            ->assertRedirect('login');
     }
 
     /**
      *Заход после авторизации на отчет по всем задолженностям в форме 1
      *
-     *@return void
+     * @return void
      */
     public function testVisitAuth1()
     {
@@ -42,7 +42,7 @@ class SettlementReportsTest extends TestCase
     /**
      *Заход после авторизации на отчет по всем задолженностям в форме 2
      *
-     *@return void
+     * @return void
      */
     public function testVisitAuth2()
     {

@@ -45,10 +45,10 @@ class vehicleTypesTest extends TestCase
     public function testAsUser()
     {
         //Не можем войти в список
-        $user = User::query()->where('role','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', 'user')->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.vehicleTypes'))
             ->assertStatus(302)
-        ->assertRedirect(route('home'));
+            ->assertRedirect(route('home'));
 
         //не проходим на страницу добавления
         $this->actingAs($user)
@@ -73,7 +73,7 @@ class vehicleTypesTest extends TestCase
      */
     public function testList()
     {
-        $user = User::query()->where('role','<>','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         $vehicleType = VehicleType::query()->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.vehicleTypes'))
             ->assertStatus(200)
@@ -92,7 +92,7 @@ class vehicleTypesTest extends TestCase
      */
     public function testAddVehicleType()
     {
-        $user = User::query()->where('role','<>','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.addType'))
             ->assertStatus(200)
             ->assertSeeText('Добавить новый тип')
@@ -108,7 +108,7 @@ class vehicleTypesTest extends TestCase
      */
     public function testEditVehicleType()
     {
-        $user = User::query()->where('role','<>','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         $vehicleType = VehicleType::query()->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.editType', ['type' => $vehicleType]))
             ->assertStatus(200)

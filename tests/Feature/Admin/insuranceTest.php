@@ -4,6 +4,7 @@ namespace Tests\Feature\Admin;
 
 
 use App\Models\Agreement;
+use App\Models\Insurance;
 use App\Models\User;
 use App\Models\Vehicle;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +22,7 @@ class insuranceTest extends TestCase
     {
         $this->get(route('admin.insurances'))
             ->assertStatus(302)
-        ->assertRedirect('login');
+            ->assertRedirect('login');
     }
 
     /**
@@ -31,12 +32,11 @@ class insuranceTest extends TestCase
      */
     public function testAsUser()
     {
-        $user = User::query()->where('role','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', 'user')->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.insurances'))
             ->assertStatus(302)
-        ->assertRedirect(route('home'));
+            ->assertRedirect(route('home'));
     }
-
 
 
     /**
@@ -45,7 +45,7 @@ class insuranceTest extends TestCase
      */
     public function test_indexPage()
     {
-        $user = User::query()->where('role','manager')->orWhere('role','admin')->inRandomOrder()->first();
+        $user = User::query()->where('role', 'manager')->orWhere('role', 'admin')->inRandomOrder()->first();
         $response = $this->actingAs($user)->get(route('admin.insurances'));
         $response->assertStatus(200)
             ->assertSeeText('Страховые полисы')
@@ -81,30 +81,54 @@ class insuranceTest extends TestCase
      */
     public function testAddAsUser()
     {
-        $user = User::query()->where('role','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', 'user')->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.addInsurance'))
             ->assertStatus(302);
     }
 
     /**
-     * Тестирование окошка добавления записи о новом полисе
+     * Тестирование окошка добавления записи о новом полисе из общего списка полисов
      * @return void
      */
     public function test_addPage()
     {
-        $user = User::query()->where('role','manager')->orWhere('role','admin')->inRandomOrder()->first();
+        $user = User::query()->where('role', 'manager')->orWhere('role', 'admin')->inRandomOrder()->first();
         $response = $this->actingAs($user)->get(route('admin.addInsurance'));
         $response->assertStatus(200)
-        ->assertSeeText('Добавить новый полис страхования')
-        ->assertSeeText('Номер полиса')
-        ->assertSeeText('Страховщик')
-        ->assertSeeText('Тип полиса')
-        ->assertSeeText('Срок действия')
-        ->assertSeeText('Страховая сумма')
-        ->assertSeeText('Страховая премия')
-        ->assertSeeText('Добавить')
-        ->assertDontSeeText('Изменить')
-        ->assertSeeText('Отмена');
+            ->assertSeeText('Добавить новый полис страхования')
+            ->assertSeeText('Номер полиса')
+            ->assertSeeText('Страховщик')
+            ->assertSeeText('Тип полиса')
+            ->assertSeeText('Срок действия')
+            ->assertSeeText('Страховая сумма')
+            ->assertSeeText('Страховая премия')
+            ->assertSeeText('Добавить')
+            ->assertDontSeeText('Изменить')
+            ->assertSeeText('Отмена');
+    }
+
+    /**
+     * Тестирование окошка добавления записи о новом полисе из карточки машины
+     * @return void
+     */
+    public function test_addPageFromVehicle()
+    {
+        $user = User::query()->where('role', 'manager')->orWhere('role', 'admin')->inRandomOrder()->first();
+        $vehicle = Vehicle::query()->inRandomOrder()->first();
+
+        $response = $this->actingAs($user)->get(route('admin.addInsurance', ['vehicle' => $vehicle]));
+        $response->assertStatus(200)
+            ->assertSeeText('Добавить новый полис страхования')
+            ->assertSeeText('Номер полиса')
+            ->assertSeeText($vehicle->name)
+            ->assertSeeText('Страховщик')
+            ->assertSeeText('Тип полиса')
+            ->assertSeeText('Срок действия')
+            ->assertSeeText('Страховая сумма')
+            ->assertSeeText('Страховая премия')
+            ->assertSeeText('Добавить')
+            ->assertDontSeeText('Изменить')
+            ->assertSeeText('Отмена');
     }
 
     /**
@@ -114,8 +138,8 @@ class insuranceTest extends TestCase
     public function test_editPage_asGuest()
     {
         $insurance = Insurance::query()->inRandomOrder()->first();
-        $this->get(route('admin.editInsurance',['insurance'=>$insurance]))
-        ->assertStatus(302);
+        $this->get(route('admin.editInsurance', ['insurance' => $insurance]))
+            ->assertStatus(302);
     }
 
     /**
@@ -124,23 +148,23 @@ class insuranceTest extends TestCase
      */
     public function test_editPage_asUser()
     {
-        $user = User::query()->where('role','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', 'user')->inRandomOrder()->first();
         $insurance = Insurance::query()->inRandomOrder()->first();
-        $this->actingAs($user)->get(route('admin.editInsurance',['insurance'=>$insurance]))
+        $this->actingAs($user)->get(route('admin.editInsurance', ['insurance' => $insurance]))
             ->assertStatus(302);
     }
 
     /**
-     * Тестирование окошка изменения записи об имеющемся полисе
+     * Тестирование окошка изменения записи об имеющемся полисе из общего списка полисов
      * @return void
      */
     public function test_editPage()
     {
-        $user = User::query()->where('role','manager')->orWhere('role','admin')->inRandomOrder()->first();
+        $user = User::query()->where('role', 'manager')->orWhere('role', 'admin')->inRandomOrder()->first();
         $insurance = Insurance::query()->inRandomOrder()->first();
-        $response = $this->actingAs($user)->get(route('admin.editInsurance',['insurance'=>$insurance]));
+        $response = $this->actingAs($user)->get(route('admin.editInsurance', ['insurance' => $insurance]));
         $response->assertStatus(200)
-            ->assertSeeText('Добавить новый полис страхования')
+            ->assertSeeText('Изменение данных страхования')
             ->assertSeeText('Номер полиса')
             ->assertSeeText('Страховщик')
             ->assertSeeText('Тип полиса')
@@ -150,8 +174,7 @@ class insuranceTest extends TestCase
             ->assertSeeText('Изменить')
             ->assertDontSeeText('Добавить')
             ->assertSeeText('Отмена')
-            ->assertSee($insurance->policy_number);
-        ;
+            ->assertSee($insurance->policy_number);;
     }
 
 

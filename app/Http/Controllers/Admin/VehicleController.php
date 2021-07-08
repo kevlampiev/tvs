@@ -8,7 +8,7 @@ use App\Models\Agreement;
 use App\Models\Manufacturer;
 use App\Models\Vehicle;
 use App\Models\VehicleType;
-use App\Repositories\VehiclesRepo;
+use App\DataServices\VehiclesRepo;
 use Illuminate\Http\Request;
 
 class VehicleController extends Controller

@@ -7,7 +7,7 @@ use App\Models\AgreementType;
 use App\Models\Company;
 use App\Models\Counterparty;
 use App\Models\Vehicle;
-use App\Repositories\AgreementsRepo;
+use App\DataServices\AgreementsRepo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 

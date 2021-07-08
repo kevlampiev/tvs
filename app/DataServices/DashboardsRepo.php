@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Repositories;
+namespace App\DataServices;
 
 
 use App\Models\Agreement;

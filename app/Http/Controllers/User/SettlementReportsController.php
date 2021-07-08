@@ -4,9 +4,9 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Agreement;
-use App\Repositories\DashboardsRepo;
-use App\Repositories\SettlementsRepo;
-use App\Repositories\SettlementsReportsRepo;
+use App\DataServices\DashboardsRepo;
+use App\DataServices\SettlementsRepo;
+use App\DataServices\SettlementsReportsRepo;
 use Illuminate\Http\Request;
 
 class SettlementReportsController extends Controller

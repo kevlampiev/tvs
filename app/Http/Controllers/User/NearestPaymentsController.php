@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\NearestPaymentsRepo;
+use App\DataServices\NearestPaymentsRepo;
 use Illuminate\Http\Request;
 
 class NearestPaymentsController extends Controller

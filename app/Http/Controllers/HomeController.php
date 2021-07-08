@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\DashboardsRepo;
+use App\DataServices\DashboardsRepo;
 
 class HomeController extends Controller
 {

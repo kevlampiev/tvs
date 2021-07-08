@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Agreement;
 use App\Models\AgreementPayment;
 use App\Models\RealPayment;
-use App\Repositories\AgreementsRepo;
+use App\DataServices\AgreementsRepo;
 use Illuminate\Http\Request;
 
 class AgreementPaymentController extends Controller

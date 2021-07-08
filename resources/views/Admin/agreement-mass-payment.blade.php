@@ -29,7 +29,7 @@
                     </div>
                 @endif
 
-                @php $currencies = ['RUR', 'USD', 'EUR', 'CNY', 'YPN'] @endphp
+                @php $currencies = \Illuminate\Support\Facades\Config::get('constants.currencies') @endphp
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="amount">Сумма</span>
                     <input type="number" step="0.01" min="0" pattern="\d+(,\d{2})?"

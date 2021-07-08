@@ -11,12 +11,12 @@ class Manufacturer extends Model
 
     protected $fillable = ['name'];
 
-    public function vehicles()
+    public function vehicles(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Vehicle::class);
     }
 
-    public static function rules()
+    public static function rules(): array
     {
         return [
             'name' => 'required|string|min:4'

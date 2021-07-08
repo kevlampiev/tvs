@@ -7,11 +7,11 @@
 @section('content')
 
     <div class="row">
-        <h2>Компании группы</h2>
+        <h2>Страховые компании</h2>
     </div>
 
     <div class="row">
-        <a class="btn btn-outline-info" href="{{route('admin.addCompany')}}">Добавить компанию</a>
+        <a class="btn btn-outline-info" href="{{route('admin.addInsuranceCompany')}}">Добавить новую</a>
     </div>
 
     <div class="row">
@@ -21,7 +21,6 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Наименование</th>
-                    <th scope="col">Код</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
@@ -31,13 +30,12 @@
                     <tr>
                         <th scope="row">{{$index+1}}</th>
                         <td>{{$company->name}}</td>
-                        <td>{{$company->code}}</td>
-                        <td><a href="{{route('admin.editCompany',['company'=>$company])}}"> &#9998;Изменить </a>
+                        <td><a href="{{route('admin.editInsuranceCompany',['company'=>$company])}}"> &#9998;Изменить </a>
                         </td>
-                        @if ($company->agreements_count===0)
+                        @if ($company->insurances->count()===0)
                             <td>
-                                <a href="{{route('admin.deleteCompany',['company'=>$company])}}"
-                                   onclick="return confirm('Действительно удалить данные о компании?')"
+                                <a href="{{route('admin.deleteInsuranceCompany',['company'=>$company])}}"
+                                   onclick="return confirm('Действительно удалить данные о страховщике?')"
                                 > &#10008;Удалить </a>
                             </td>
                         @else

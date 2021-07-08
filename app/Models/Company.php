@@ -11,7 +11,7 @@ class Company extends Model
 
     protected $fillable = ['name', 'code'];
 
-    public function agreements()
+    public function agreements(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Agreement::class);
     }

@@ -11,7 +11,7 @@ class Counterparty extends Model
 
     protected $fillable = ['name'];
 
-    public function agreements()
+    public function agreements(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Agreement::class);
     }

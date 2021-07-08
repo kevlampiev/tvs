@@ -12,7 +12,7 @@ class AgreementPayment extends Model
 
     protected $guarded = [];
 
-    public function agreement()
+    public function agreement(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Agreement::class);
 

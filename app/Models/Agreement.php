@@ -28,17 +28,17 @@ class Agreement extends Model
         return $this->belongsTo(Counterparty::class);
     }
 
-    public function vehicles()
+    public function vehicles(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Vehicle::class);
     }
 
-    public function payments()
+    public function payments(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(AgreementPayment::class);
     }
 
-    public function realPayments()
+    public function realPayments(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(RealPayment::class);
     }

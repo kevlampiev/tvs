@@ -19,11 +19,11 @@ class SettlementsReportsRepo
     /**
      * Возвращает набор состояния расчетов на заданную дату
      */
-    public static function getPayments($queryDate):object
+    public static function getPayments($queryDate): object
     {
         $data = Agreement::query()
-            ->where('real_date_close',null)
-            ->orWhere('real_date_close','>=', $queryDate)
+            ->where('real_date_close', null)
+            ->orWhere('real_date_close', '>=', $queryDate)
             ->get();
         foreach ($data as $el) {
             $el->total_payments = $el->payments->sum('amount');
@@ -39,15 +39,15 @@ class SettlementsReportsRepo
     /**
      *Выдает укрупненные данные о состоянии просрочек расчетов на дату
      */
-    public static function getAggPayments($queryDate):object
+    public static function getAggPayments($queryDate): object
     {
         $agreements = Agreement::all();
         $result = [];
-        foreach($agreements as $agreement) {
+        foreach ($agreements as $agreement) {
             $agreement->company = $agreement->company->name;
             $agreement->overdue =
-                max($agreement->payments->where('payment_date','<=',$queryDate)->sum('amount')-
-                    $agreement->realPayments->where('payment_date','<=',$queryDate)->sum('amount'),
+                max($agreement->payments->where('payment_date', '<=', $queryDate)->sum('amount') -
+                    $agreement->realPayments->where('payment_date', '<=', $queryDate)->sum('amount'),
                     0);
         }
         return $agreements->groupBy('company');
@@ -58,7 +58,7 @@ class SettlementsReportsRepo
      *Обеспечивает данные Большому отчету по состоянию расчетов тип 1 (группировка по компаниям)
      */
     static public function getBigReportData(Request $request,
-                                                      $groupBy = 'company_name', $sortBy = 'counterparty_name')
+                                            $groupBy = 'company_name', $sortBy = 'counterparty_name')
     {
         $queryDate = ($request->get('reportDate')) ? $request->get('reportDate') : date('Y-m-d');
         $data = self::getPayments($queryDate);

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ManufacturersController;
 
@@ -13,10 +14,6 @@ use App\Http\Controllers\Admin\ManufacturersController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//
-//Route::get('/', function () {
-//    return view('welcome');
-//})->middleware('auth');
 
 Route::group([
     'prefix' => 'admin',
@@ -98,6 +95,62 @@ Route::group([
                     ->name('admin.deleteCompany');
             }
         );
+
+        Route::group([
+            'prefix' => 'insurance-companies'
+        ],
+            function () {
+                Route::get('/', [\App\Http\Controllers\Admin\InsuranceCompanyController::class, 'index'])
+                    ->name('admin.insuranceCompanies');
+                Route::match(['post', 'get'],
+                    'add', [\App\Http\Controllers\Admin\InsuranceCompanyController::class, 'add'])
+                    ->name('admin.addInsuranceCompany');
+                Route::match(['post', 'get'],
+                    '{company}/edit', [\App\Http\Controllers\Admin\InsuranceCompanyController::class, 'edit'])
+                    ->name('admin.editInsuranceCompany');
+                Route::match(['post', 'get'],
+                    '{company}/delete', [\App\Http\Controllers\Admin\InsuranceCompanyController::class, 'delete'])
+                    ->name('admin.deleteInsuranceCompany');
+            }
+        );
+
+        Route::group([
+            'prefix' => 'insurance-types'
+        ],
+            function () {
+                Route::get('/', [\App\Http\Controllers\Admin\InsuranceTypesController::class, 'index'])
+                    ->name('admin.insTypes');
+                Route::match(['post', 'get'],
+                    'add', [\App\Http\Controllers\Admin\InsuranceTypesController::class, 'add'])
+                    ->name('admin.addInsType');
+                Route::match(['post', 'get'],
+                    '{insType}/edit', [\App\Http\Controllers\Admin\InsuranceTypesController::class, 'edit'])
+                    ->name('admin.editInsType');
+                Route::match(['post', 'get'],
+                    '{insType}/delete', [\App\Http\Controllers\Admin\InsuranceTypesController::class, 'delete'])
+                    ->name('admin.deleteInsType');
+            }
+        );
+
+
+        Route::group([
+            'prefix' => 'insurances'
+        ],
+            function () {
+                Route::get('/', [\App\Http\Controllers\Admin\InsuranceController::class, 'index'])
+                    ->name('admin.insurances');
+                Route::match(['post', 'get'],
+                    'add/{vehicle?}', [\App\Http\Controllers\Admin\InsuranceController::class, 'add'])
+                    ->name('admin.addInsurance');
+                Route::match(['post', 'get'],
+                    '{insurance}/edit', [\App\Http\Controllers\Admin\InsuranceController::class, 'edit'])
+                    ->name('admin.editInsurance');
+                Route::match(['post', 'get'],
+                    '{insurance}/delete', [\App\Http\Controllers\Admin\InsuranceController::class, 'delete'])
+                    ->name('admin.deleteInsurance');
+            }
+        );
+
 
         Route::group([
             'prefix' => 'vehicles'
@@ -205,6 +258,7 @@ Route::get('password/expired', [\App\Http\Controllers\Auth\ExpiredPasswordContro
     ->name('password.expired');
 Route::post('password/expired', [\App\Http\Controllers\Auth\ExpiredPasswordController::class, 'postExpired'])
     ->name('password.postExpired');
+
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware(['auth', 'password_expired']);
 
 Auth::routes();

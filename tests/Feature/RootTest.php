@@ -18,13 +18,13 @@ class RootTest extends TestCase
         //Заход без логина
         $response = $this->get('/');
         $response->assertStatus(302)
-        ->assertRedirect(route('login'));
+            ->assertRedirect(route('login'));
     }
 
     /**
      *Заход в качестыве простого пользователя
      *
-     *@return void
+     * @return void
      */
     public function testVisitAsUser()
     {
@@ -41,7 +41,7 @@ class RootTest extends TestCase
     /**
      *Заход в качестве менеджера
      *
-     *@return void
+     * @return void
      */
     public function testVisitAsManager()
     {
@@ -59,7 +59,7 @@ class RootTest extends TestCase
     /**
      *Заход в качестыве простого администратора
      *
-     *@return void
+     * @return void
      */
     public function testVisitAsAdmin()
     {

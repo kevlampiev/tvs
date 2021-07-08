@@ -12,7 +12,7 @@
 
     @if ($filter!=='')
         <div class="alert alert-primary" role="alert">
-            Установлен фильстр " <strong> {{$filter}} </strong> "
+            Установлен фильтр " <strong> {{$filter}} </strong> "
         </div>
     @endif
 

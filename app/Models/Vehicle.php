@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Validation\Rule;
 
 class Vehicle extends Model
@@ -23,19 +24,24 @@ class Vehicle extends Model
         'currency',
         'purchase_date'];
 
-    public function vehicleType()
+    public function vehicleType(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(VehicleType::class);
     }
 
-    public function manufacturer()
+    public function manufacturer(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Manufacturer::class);
     }
 
-    public function agreements()
+    public function agreements(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Agreement::class);
+    }
+
+    public function insurances(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Insurance::class);
     }
 
     public static function rules(): array

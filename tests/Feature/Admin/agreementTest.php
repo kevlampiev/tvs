@@ -21,7 +21,7 @@ class agreementTest extends TestCase
     {
         $this->get(route('admin.agreements'))
             ->assertStatus(302)
-        ->assertRedirect('login');
+            ->assertRedirect('login');
     }
 
     /**
@@ -31,12 +31,11 @@ class agreementTest extends TestCase
      */
     public function testAsUser()
     {
-        $user = User::query()->where('role','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', 'user')->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.agreements'))
             ->assertStatus(302)
-        ->assertRedirect(route('home'));
+            ->assertRedirect(route('home'));
     }
-
 
 
     /**
@@ -45,7 +44,7 @@ class agreementTest extends TestCase
      */
     public function test_indexPage()
     {
-        $user = User::query()->where('role','manager')->orWhere('role','admin')->inRandomOrder()->first();
+        $user = User::query()->where('role', 'manager')->orWhere('role', 'admin')->inRandomOrder()->first();
         $response = $this->actingAs($user)->get(route('admin.agreements'));
         $response->assertStatus(200)
             ->assertSeeText('Справочники')
@@ -81,7 +80,7 @@ class agreementTest extends TestCase
      */
     public function testAddAsUser()
     {
-        $user = User::query()->where('role','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', 'user')->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.addAgreement'))
             ->assertStatus(302);
     }
@@ -92,20 +91,20 @@ class agreementTest extends TestCase
      */
     public function test_addPage()
     {
-        $user = User::query()->where('role','manager')->orWhere('role','admin')->inRandomOrder()->first();
+        $user = User::query()->where('role', 'manager')->orWhere('role', 'admin')->inRandomOrder()->first();
         $response = $this->actingAs($user)->get(route('admin.addAgreement'));
         $response->assertStatus(200)
-        ->assertSeeText('Наименование договора')
-        ->assertSeeText('Компания группы')
-        ->assertSeeText('Контрагент')
-        ->assertSeeText('Тип договора')
-        ->assertSeeText('Номер договора')
-        ->assertSeeText('Срок действия')
-        ->assertSeeText('Основной долг/стоимость имущества')
-        ->assertSeeText('Процентная ставка')
-        ->assertSeeText('Добавить')
-        ->assertDontSeeText('Изменить')
-        ->assertSeeText('Отмена');
+            ->assertSeeText('Наименование договора')
+            ->assertSeeText('Компания группы')
+            ->assertSeeText('Контрагент')
+            ->assertSeeText('Тип договора')
+            ->assertSeeText('Номер договора')
+            ->assertSeeText('Срок действия')
+            ->assertSeeText('Основной долг/стоимость имущества')
+            ->assertSeeText('Процентная ставка')
+            ->assertSeeText('Добавить')
+            ->assertDontSeeText('Изменить')
+            ->assertSeeText('Отмена');
     }
 
     /**
@@ -115,8 +114,8 @@ class agreementTest extends TestCase
     public function test_editPage_asGuest()
     {
         $agreement = Agreement::query()->inRandomOrder()->first();
-        $this->get(route('admin.editAgreement',['agreement'=>$agreement]))
-        ->assertStatus(302);
+        $this->get(route('admin.editAgreement', ['agreement' => $agreement]))
+            ->assertStatus(302);
     }
 
     /**
@@ -125,9 +124,9 @@ class agreementTest extends TestCase
      */
     public function test_editPage_asUser()
     {
-        $user = User::query()->where('role','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', 'user')->inRandomOrder()->first();
         $agreement = Agreement::query()->inRandomOrder()->first();
-        $this->actingAs($user)->get(route('admin.editAgreement',['agreement'=>$agreement]))
+        $this->actingAs($user)->get(route('admin.editAgreement', ['agreement' => $agreement]))
             ->assertStatus(302);
     }
 
@@ -137,9 +136,9 @@ class agreementTest extends TestCase
      */
     public function test_editPage()
     {
-        $user = User::query()->where('role','manager')->orWhere('role','admin')->inRandomOrder()->first();
+        $user = User::query()->where('role', 'manager')->orWhere('role', 'admin')->inRandomOrder()->first();
         $agreement = Agreement::query()->inRandomOrder()->first();
-        $response = $this->actingAs($user)->get(route('admin.editAgreement',['agreement'=>$agreement]));
+        $response = $this->actingAs($user)->get(route('admin.editAgreement', ['agreement' => $agreement]));
         $response->assertStatus(200)
             ->assertSeeText('Наименование договора')
             ->assertSeeText('Компания группы')
@@ -152,8 +151,7 @@ class agreementTest extends TestCase
             ->assertSeeText('Изменить')
             ->assertDontSeeText('Добавить')
             ->assertSeeText('Отмена')
-            ->assertSee($agreement->name);
-        ;
+            ->assertSee($agreement->name);;
     }
 
 

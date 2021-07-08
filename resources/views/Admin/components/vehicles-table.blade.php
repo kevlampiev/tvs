@@ -13,7 +13,7 @@
     <tbody>
     @forelse($agreement->vehicles as $index => $vehicle)
         <tr>
-            <th scope="row">{{$index}}</th>
+            <th scope="row">{{$index+1}}</th>
             <td>{{$vehicle->name}}</td>
             <td>{{$vehicle->model}}</td>
             <td>{{$vehicle->vehicleType->name}}</td>

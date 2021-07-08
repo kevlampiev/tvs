@@ -24,21 +24,21 @@ class DashboardsRepo
 
         foreach ($agreements as $el) {
             $el->company_code = $el->company->code;
-            $el->overdues = max($el->payments->where('payment_date','<',$today)->sum('amount')-
-                $el->realPayments->where('payment_date','<',$today)->sum('amount'),0);
+            $el->overdues = max($el->payments->where('payment_date', '<', $today)->sum('amount') -
+                $el->realPayments->where('payment_date', '<', $today)->sum('amount'), 0);
             $el->upcoming = $el->payments
-                                ->where('payment_date','>=',$today)
-                                ->where('payment_date','<=', $horizontDate)
-                                ->sum('amount');
+                ->where('payment_date', '>=', $today)
+                ->where('payment_date', '<=', $horizontDate)
+                ->sum('amount');
         }
 
-        $summary = (object) [
-            'overdue' => $agreements->sum('overdues')/1000000,
-            'upcoming' => $agreements->sum('upcoming')/1000000
+        $summary = (object)[
+            'overdue' => $agreements->sum('overdues') / 1000000,
+            'upcoming' => $agreements->sum('upcoming') / 1000000
         ];
         $data[] = ['Компания', 'Просрочено, млн', 'Срочные платежи, млн'];
-        foreach($agreements->groupBy('company_code') as $key=>$agreement) {
-            $data[] = [$key, $agreement->sum('overdues')/1000000, $agreement->sum('upcoming')/1000000];
+        foreach ($agreements->groupBy('company_code') as $key => $agreement) {
+            $data[] = [$key, $agreement->sum('overdues') / 1000000, $agreement->sum('upcoming') / 1000000];
         }
 
         return [

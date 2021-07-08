@@ -26,7 +26,7 @@ class SingleSettlementReportsTest extends TestCase
     /**
      *Заход после авторизации на отчет по всем задолженностям в форме 1
      *
-     *@return void
+     * @return void
      */
     public function testVisitAuth()
     {
@@ -37,10 +37,10 @@ class SingleSettlementReportsTest extends TestCase
             ->get(route('user.agreementSettlements',
                 ['agreement' => $agreement]))
             ->assertStatus(200)
-            ->assertSeeText('Договор №'.$agreement->agr_number)
+            ->assertSeeText('Договор №' . $agreement->agr_number)
             ->assertSeeText('Контрагент')
             ->assertSeeText('Всего')
-            ->assertSeeText(number_format($agreement->payments->sum('amount'),2));
+            ->assertSeeText(number_format($agreement->payments->sum('amount'), 2));
     }
 
 }

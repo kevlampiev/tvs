@@ -33,6 +33,10 @@
                 <a class="nav-link" href="{{route('admin.agreements')}}">Договоры</a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('admin.insurances')}}">Страховки</a>
+            </li>
+
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -46,7 +50,11 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{route('admin.agrTypes')}}">Типы договоров</a>
                     <a class="dropdown-item" href="{{route('admin.counterparties')}}">Контрагенты</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{route('admin.insuranceCompanies')}}">Страховые компании</a>
+                    <a class="dropdown-item" href="{{route('admin.insTypes')}}">Тип страховок</a>
                     @if (Auth::user()->role=='admin')
+                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{route('admin.users')}}">Пользователи</a>
                     @endif
                 </div>

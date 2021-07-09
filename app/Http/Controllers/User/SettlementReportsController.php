@@ -4,7 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Agreement;
-use App\DataServices\DashboardsRepo;
+use App\DataServices\DashboardDService;
 use App\DataServices\SettlementsRepo;
 use App\DataServices\SettlementsReportsRepo;
 use Illuminate\Http\Request;

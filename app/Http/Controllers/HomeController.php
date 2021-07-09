@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\DataServices\DashboardsRepo;
+use App\DataServices\DashboardDService;
 
 class HomeController extends Controller
 {
@@ -23,6 +23,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('User.dashboard', DashboardsRepo::provideData());
+        return view('User.dashboard', DashboardDService::provideData());
     }
 }

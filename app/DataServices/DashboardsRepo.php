@@ -75,7 +75,7 @@ class DashboardsRepo
         $data = [];
         $data[] = ['Компания', 'Просрочено, млн', 'Срочные платежи, млн'];
         foreach ($paymentInfo as $payment) {
-            $data[] = [$payment->code, $payment->overdue/ 10**6, $payment->upcoming/ 10**6];
+            $data[] = [$payment->code, max($payment->overdue/ 10**6,0), max($payment->upcoming/ 10**6, 0)];
         }
         return $data;
     }

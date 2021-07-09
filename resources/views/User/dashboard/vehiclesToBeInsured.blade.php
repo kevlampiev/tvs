@@ -9,7 +9,7 @@
 
 <div class="row">
     <div class="col-md-9">
-        Всего необходимо оформить страховки на {{count($runningOutOfIns)}} ед.техники
+        Всего необходимо оформить страховки на <strong>{{count($runningOutOfIns)}} ед.техники </strong>
     </div>
     <div class="col-md-3 text-right">
         <a href="{{route('user.nearestPayments')}}">Подробнее...</a>

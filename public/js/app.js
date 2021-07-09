@@ -1337,7 +1337,7 @@
                         var originURL;
 
                         /**
-                         * Parse a URL to discover it's components
+                         * Parse a URL to discover it's agreement-summary
                          *
                          * @param {String} url The URL to be parsed
                          * @returns {Object}
@@ -1896,7 +1896,7 @@
         /***/
         "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js":
         /*!**********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js ***!
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/agreement-summary/ExampleComponent.vue?vue&type=script&lang=js ***!
   \**********************************************************************************************************************************************************************************************************/
         /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -1920,7 +1920,7 @@
         /***/
         "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e":
         /*!**************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e ***!
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/agreement-summary/ExampleComponent.vue?vue&type=template&id=299e239e ***!
   \**************************************************************************************************************************************************************************************************************************************************************************************/
         /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -1964,18 +1964,18 @@
             window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js").default;
             /**
              * The following block of code may be used to automatically register your
-             * Vue components. It will recursively scan this directory for the Vue
-             * components and automatically register them with their "basename".
+             * Vue agreement-summary. It will recursively scan this directory for the Vue
+             * agreement-summary and automatically register them with their "basename".
              *
-             * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
+             * Eg. ./agreement-summary/ExampleComponent.vue -> <example-component></example-component>
              */
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-            Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue").default);
+            Vue.component('example-component', __webpack_require__(/*! ./agreement-summary/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue").default);
             /**
              * Next, we will create a fresh Vue application instance and attach it to
-             * the page. Then, you may begin adding components to this application
+             * the page. Then, you may begin adding agreement-summary to this application
              * or customize the JavaScript scaffolding to fit your unique needs.
              */
 
@@ -37461,7 +37461,7 @@
         /***/
         "./resources/js/components/ExampleComponent.vue":
         /*!******************************************************!*\
-  !*** ./resources/js/components/ExampleComponent.vue ***!
+  !*** ./resources/js/agreement-summary/ExampleComponent.vue ***!
   \******************************************************/
         /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -37483,7 +37483,7 @@
             if (false) {
             }
 
-            _ExampleComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default.__file = "resources/js/components/ExampleComponent.vue"
+            _ExampleComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default.__file = "resources/js/agreement-summary/ExampleComponent.vue"
 
             /* harmony default export */
             const __WEBPACK_DEFAULT_EXPORT__ = (_ExampleComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default);
@@ -37494,7 +37494,7 @@
         /***/
         "./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js":
         /*!******************************************************************************!*\
-  !*** ./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js ***!
+  !*** ./resources/js/agreement-summary/ExampleComponent.vue?vue&type=script&lang=js ***!
   \******************************************************************************/
         /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -37516,7 +37516,7 @@
         /***/
         "./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e":
         /*!************************************************************************************!*\
-  !*** ./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e ***!
+  !*** ./resources/js/agreement-summary/ExampleComponent.vue?vue&type=template&id=299e239e ***!
   \************************************************************************************/
         /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -39672,7 +39672,7 @@
                     warn(
                         "Property or method \"" + key + "\" is not defined on the instance but " +
                         'referenced during render. Make sure that this property is reactive, ' +
-                        'either in the data option, or for class-based components, by ' +
+                        'either in the data option, or for class-based agreement-summary, by ' +
                         'initializing the property. ' +
                         'See: https://vuejs.org/v2/guide/reactivity.html#Declaring-Reactive-Properties.',
                         target
@@ -39979,11 +39979,11 @@
 // generated render function is guaranteed to return Array<VNode>. There are
 // two cases where extra normalization is needed:
 
-// 1. When the children contains components - because a functional component
+// 1. When the children contains agreement-summary - because a functional component
 // may return an Array instead of a single root. In this case, just a simple
 // normalization is needed - if any child is an Array, we flatten the whole
 // thing with Array.prototype.concat. It is guaranteed to be only 1-level deep
-// because functional components already normalize their own children.
+// because functional agreement-summary already normalize their own children.
             function simpleNormalizeChildren(children) {
                 for (var i = 0; i < children.length; i++) {
                     if (Array.isArray(children[i])) {
@@ -40611,7 +40611,7 @@
                 var this$1 = this;
 
                 var options = Ctor.options;
-                // ensure the createElement function in functional components
+                // ensure the createElement function in functional agreement-summary
                 // gets a unique context - this is necessary for correct named slot check
                 var contextVm;
                 if (hasOwn(parent, '_uid')) {
@@ -40762,7 +40762,7 @@
                         !vnode.componentInstance._isDestroyed &&
                         vnode.data.keepAlive
                     ) {
-                        // kept-alive components, treat as a patch
+                        // kept-alive agreement-summary, treat as a patch
                         var mountedNode = vnode; // work around flow
                         componentVNodeHooks.prepatch(mountedNode, mountedNode);
                     } else {
@@ -40796,7 +40796,7 @@
                     if (vnode.data.keepAlive) {
                         if (context._isMounted) {
                             // vue-router#1212
-                            // During updates, a kept-alive component's child components may
+                            // During updates, a kept-alive component's child agreement-summary may
                             // change, so directly walking the tree here may call activated hooks
                             // on incorrect children. Instead we push them into a queue which will
                             // be processed after the whole patch process ended.
@@ -40894,7 +40894,7 @@
                 data.on = data.nativeOn;
 
                 if (isTrue(Ctor.options.abstract)) {
-                    // abstract components do not keep anything
+                    // abstract agreement-summary do not keep anything
                     // other than props & listeners & slot
 
                     // work around flow
@@ -41064,7 +41064,7 @@
                         // platform built-in elements
                         if (true && isDef(data) && isDef(data.nativeOn)) {
                             warn(
-                                ("The .native modifier for v-on is only valid on components but it was used on <" + tag + ">."),
+                                ("The .native modifier for v-on is only valid on agreement-summary but it was used on <" + tag + ">."),
                                 context
                             );
                         }
@@ -41745,7 +41745,7 @@
                 hydrating = false;
 
                 // manually mounted instance, call mounted on self
-                // mounted is called for render-created child components in its inserted hook
+                // mounted is called for render-created child agreement-summary in its inserted hook
                 if (vm.$vnode == null) {
                     vm._isMounted = true;
                     callHook(vm, 'mounted');
@@ -43035,7 +43035,7 @@
                         var cache = ref$1.cache;
                         var keys = ref$1.keys;
                         var key = vnode.key == null
-                            // same constructor may get registered as different local components
+                            // same constructor may get registered as different local agreement-summary
                             // so cid alone is not enough (#3269)
                             ? componentOptions.Ctor.cid + (componentOptions.tag ? ("::" + (componentOptions.tag)) : '')
                             : vnode.key;
@@ -43106,7 +43106,7 @@
                 });
 
                 // this is used to identify the "base" constructor to extend all plain-object
-                // components with in Weex's multi-instance scenarios.
+                // agreement-summary with in Weex's multi-instance scenarios.
                 Vue.options._base = Vue;
 
                 extend(Vue.options.components, builtInComponents);
@@ -43638,7 +43638,7 @@
                             if (isUnknownElement$$1(vnode, creatingElmInVPre)) {
                                 warn(
                                     'Unknown custom element: <' + tag + '> - did you ' +
-                                    'register the component correctly? For recursive components, ' +
+                                    'register the component correctly? For recursive agreement-summary, ' +
                                     'make sure to provide the "name" option.',
                                     vnode.context
                                 );
@@ -46576,7 +46576,7 @@
                     }
 
                     // apply transition data to child
-                    // use getRealChild() to ignore abstract components e.g. keep-alive
+                    // use getRealChild() to ignore abstract agreement-summary e.g. keep-alive
                     var child = getRealChild(rawChild);
                     /* istanbul ignore if */
                     if (!child) {
@@ -46834,7 +46834,7 @@
             Vue.config.getTagNamespace = getTagNamespace;
             Vue.config.isUnknownElement = isUnknownElement;
 
-// install platform runtime directives & components
+// install platform runtime directives & agreement-summary
             extend(Vue.options.directives, platformDirectives);
             extend(Vue.options.components, platformComponents);
 
@@ -48012,7 +48012,7 @@
                             if (true) {
                                 if (!maybeComponent(el)) {
                                     warn$2(
-                                        "v-slot can only be used on components or <template>.",
+                                        "v-slot can only be used on agreement-summary or <template>.",
                                         slotBinding$1
                                     );
                                 }
@@ -48474,7 +48474,7 @@
                 node.static = isStatic(node);
                 if (node.type === 1) {
                     // do not make component slot content static. this avoids
-                    // 1. components not able to mutate slot nodes
+                    // 1. agreement-summary not able to mutate slot nodes
                     // 2. static slot content fails for hot-reloading
                     if (
                         !isPlatformReservedTag(node.tag) &&
@@ -48968,7 +48968,7 @@
                 if (el.pre) {
                     data += "pre:true,";
                 }
-                // record original tag name for components using "is" attribute
+                // record original tag name for agreement-summary using "is" attribute
                 if (el.component) {
                     data += "tag:\"" + (el.tag) + "\",";
                 }
@@ -49062,7 +49062,7 @@
                     el.children.length !== 1 || ast.type !== 1
                 )) {
                     state.warn(
-                        'Inline-template components must have exactly one child element.',
+                        'Inline-template agreement-summary must have exactly one child element.',
                         {start: el.start}
                     );
                 }
@@ -49080,7 +49080,7 @@
                 state
             ) {
                 // by default scoped slots are considered "stable", this allows child
-                // components with only scoped slots to skip forced updates from parent.
+                // agreement-summary with only scoped slots to skip forced updates from parent.
                 // but in some cases we have to bail-out of this optimization
                 // for example if the slot contains dynamic names, has v-if or v-for on them...
                 var needsForceUpdate = el.for || Object.keys(slots).some(function (key) {

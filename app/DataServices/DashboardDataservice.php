@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 use phpDocumentor\Reflection\Types\Collection;
 use phpDocumentor\Reflection\Types\Object_;
 
-class DashboardDService
+class DashboardDataservice
 {
     public static function provideData(): array
     {

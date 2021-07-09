@@ -27,7 +27,7 @@
     <div class="tab-content">
         <div class="tab-pane fade show active" id="main-info">
             <h4>Основные данные</h4>
-            @include('Admin.components.agreement-main')
+            @include('Admin.agreement-summary.agreement-main')
         </div>
 
         <div class="tab-pane fade" id="additions">
@@ -40,7 +40,7 @@
                 <a class="btn btn-outline-info"
                    href="{{route('admin.agreementAddVehicle', ['agreement'=>$agreement])}}">Добавить единицу техники</a>
             </div>
-            @include('Admin.components.vehicles-table')
+            @include('Admin.agreement-summary.vehicles-table')
         </div>
         <div class="tab-pane fade" id="collaterals">
             Отзывы...
@@ -49,8 +49,8 @@
             @php  $payments = $agreement->payments->sortBy('payment_date'); @endphp
             @php  $realPayments = $agreement->realPayments->sortBy('payment_date'); @endphp
             <div class="row">
-                @include('Admin.components.payment-tables')
-                @include('Admin.components.real-payment-tables')
+                @include('Admin.agreement-summary.payment-tables')
+                @include('Admin.agreement-summary.real-payment-tables')
             </div>
         </div>
 

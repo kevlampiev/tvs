@@ -4,7 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Agreement;
-use App\DataServices\DashboardDService;
+use App\DataServices\DashboardDataservice;
 use App\DataServices\SettlementsRepo;
 use App\DataServices\SettlementsReportsRepo;
 use Illuminate\Http\Request;
@@ -23,9 +23,9 @@ class SettlementReportsController extends Controller
             SettlementsReportsRepo::getBigReportData($request, 'counterparty_name', 'company_name'));;
     }
 
-    public function showAgrSettlementReport(Request $request, Agreement $agreement)
+    public function showAgrSettlementReport(Request $request, int $id)
     {
-        return view('User.SettlementAgreementReport',
-            SettlementsReportsRepo::getAgreemantSettlementReportData($request, $agreement));
+        return view('User.settlements-agreement-state',
+            SettlementsReportsRepo::getAgreemantSettlementReportData($request, Agreement::find($id)));
     }
 }

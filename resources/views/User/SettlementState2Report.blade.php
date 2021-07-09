@@ -61,7 +61,7 @@
                                 <td class="text-right">{{number_format($el->must_be_payed_by_date - $el->payed,2)}}  </td>
                                 <td class="text-right">{{number_format($el->must_be_payed_by_date - $el->payed,2)}}  </td>
                                 <td class="text-left">
-                                    <a href="{{route('user.agreementSettlements', ['agreement'=>$el, 'reportDate'=>$reportDate])}}">&#8801;Детально</a>
+                                    <a href="{{route('user.agreementSettlements', ['id'=>$el->id, 'reportDate'=>$reportDate])}}">&#8801;Детально</a>
                                 </td>
                             </tr>
                         @endforeach

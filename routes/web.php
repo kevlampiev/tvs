@@ -245,7 +245,7 @@ Route::group([
         Route::get('/settlements/nearest-payments',
             [\App\Http\Controllers\User\NearestPaymentsController::class,'showAllAgr'])
             ->name('user.nearestPayments');
-        Route::get('/settlements/{agreement}',
+        Route::get('/settlements/{id}',
             [\App\Http\Controllers\User\SettlementReportsController::class, 'showAgrSettlementReport'])
             ->name('user.agreementSettlements');
     });

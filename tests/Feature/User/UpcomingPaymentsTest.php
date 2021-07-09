@@ -34,7 +34,7 @@ class UpcomingPaymentsTest extends TestCase
             ->assertStatus(200)
             ->assertSeeText('Ожидаемые платежи в течение ')
             ->assertSeeText('Контрагент')
-            ->assertSeeText('Тип договора')
+            ->assertSeeText('Название договора')
             ->assertSeeText('Номер и дата')
             ->assertSeeText('Просрочено на')
             ->assertSeeText('Ближайшие платежи по сроку')

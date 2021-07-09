@@ -26,7 +26,7 @@
     <div class="tab-content">
         <div class="tab-pane fade show active" id="main-info">
             <h4>Основные данные</h4>
-            @include('Admin.vehicle-comps.vehicle-main')
+            @include('Admin.vehicle-summary.vehicle-main')
         </div>
 
         <div class="tab-pane fade" id="insurance_policies">
@@ -35,7 +35,7 @@
 {{--                <a class="btn btn-outline-info"--}}
 {{--                   href="{{route('admin.attachAgreement', ['vehicle'=>$vehicle])}}">Привязать договор</a>--}}
             </div>
-            @include('Admin.vehicle-comps.insurances-table')
+            @include('Admin.vehicle-summary.insurances-table')
         </div>
 
         <div class="tab-pane fade" id="agreements">
@@ -44,7 +44,7 @@
                 <a class="btn btn-outline-info"
                    href="{{route('admin.attachAgreement', ['vehicle'=>$vehicle])}}">Привязать договор</a>
             </div>
-            @include('Admin.vehicle-comps.agreements-table')
+            @include('Admin.vehicle-summary.agreements-table')
         </div>
         <div class="tab-pane fade" id="collaterals">
             Залоги

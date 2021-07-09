@@ -44,16 +44,28 @@ class DashboardsRepo
     private static function getUpcomingPayments()
     {
         $data = DB::select('
-            SELECT c.code as company,
-                    COALESCE(SUM(ap.amount),0)-COALESCE(SUM(rp.amount),0)  as overdue,
-                    COALESCE(sum(fp.amount),0) as upcoming
-            FROM companies c
-            INNER JOIN agreements a ON c.id=a.company_id
-            LEFT JOIN agreement_payments ap ON a.id=ap.agreement_id AND ap.payment_date<current_date()
-            LEFT JOIN real_payments rp ON a.id=rp.agreement_id AND rp.payment_date<current_date()
-            LEFT JOIN agreement_payments fp ON a.id=fp.agreement_id AND (fp.payment_date BETWEEN current_date() AND  DATE_ADD(CURRENT_DATE(), INTERVAL 14 DAY))
-            GROUP BY c.code
-        ');
+            SELECT code, sum(must_be_payed-payed) overdue, sum(upcoming) upcoming
+                FROM (
+                SELECT c.code, sum(p.amount) must_be_payed, 0 payed, 0 upcoming
+                FROM companies c
+                INNER JOIN agreements a ON a.company_id = c.id
+                INNER JOIN agreement_payments p ON p.agreement_id=a.id and p.payment_date<current_date()
+                GROUP BY c.code
+            UNION
+            SELECT c.code, 0 must_be_payed, sum(p.amount) payed, 0 upcoming
+                FROM companies c
+                INNER JOIN agreements a ON a.company_id = c.id
+                INNER JOIN real_payments p ON p.agreement_id=a.id and p.payment_date<current_date()
+                GROUP BY c.code
+            UNION
+            SELECT c.code, 0 must_be_payed, 0 payed, sum(p.amount) upcoming
+                FROM companies c
+                INNER JOIN agreements a ON a.company_id = c.id
+                INNER JOIN agreement_payments p ON p.agreement_id=a.id and (p.payment_date BETWEEN current_date() AND DATE_ADD(current_date(), INTERVAL 14 DAY))
+                GROUP BY c.code
+                ) as gross_p
+            GROUP BY code
+            ');
 
         return collect($data);
     }
@@ -63,7 +75,7 @@ class DashboardsRepo
         $data = [];
         $data[] = ['Компания', 'Просрочено, млн', 'Срочные платежи, млн'];
         foreach ($paymentInfo as $payment) {
-            $data[] = [$payment->company, $payment->overdue/ 10**6, $payment->upcoming/ 10**6];
+            $data[] = [$payment->code, $payment->overdue/ 10**6, $payment->upcoming/ 10**6];
         }
         return $data;
     }

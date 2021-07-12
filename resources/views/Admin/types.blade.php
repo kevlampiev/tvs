@@ -26,9 +26,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($types as $type)
+                @forelse($types as $index=>$type)
                     <tr>
-                        <th scope="row">{{$type->id}}</th>
+                        <th scope="row">{{$index+1}}</th>
                         <td>{{$type->name}}</td>
                         <td><a href="{{route('admin.editVehicleType',['vehicleType'=>$type])}}"> &#9998;Изменить </a></td>
                         @if ($type->vehicles_count===0)

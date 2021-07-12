@@ -18,10 +18,12 @@ class NearestPaymentsDataservice
 {
     public static function provideAllAgrData(): array
     {
-        $data=collect(DB::select('CALL get_agreement_settlements_by_today(?)',[14]))
+        $upcomingPeriod =config('constants.upcomingPeriods.payments');
+        $data=collect(DB::select('CALL get_agreement_settlements_by_today(?)',[$upcomingPeriod]))
             ->groupBy('company');
         return [
             'data' => $data,
+            'upcomingPeriod' => $upcomingPeriod,
         ];
 
     }

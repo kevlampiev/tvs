@@ -25,13 +25,13 @@ class vehicleTypesTest extends TestCase
             ->assertRedirect('login');
 
         //не проходим на страницу добавления
-        $this->get(route('admin.addType'))
+        $this->get(route('admin.addVehicleType'))
             ->assertStatus(302)
             ->assertRedirect('login');
 
         //не проходим на страницу редактирования
         $vehicleType = VehicleType::query()->inRandomOrder()->first();
-        $this->get(route('admin.editType', ['type' => $vehicleType]))
+        $this->get(route('admin.editVehicleType', ['vehicleType' => $vehicleType]))
             ->assertStatus(302)
             ->assertRedirect('login');
     }
@@ -52,14 +52,14 @@ class vehicleTypesTest extends TestCase
 
         //не проходим на страницу добавления
         $this->actingAs($user)
-            ->get(route('admin.addType'))
+            ->get(route('admin.addVehicleType'))
             ->assertStatus(302)
             ->assertRedirect(route('home'));
 
         //не проходим на страницу редактирования
         $vehicleType = VehicleType::query()->inRandomOrder()->first();
         $this->actingAs($user)
-            ->get(route('admin.editType', ['type' => $vehicleType]))
+            ->get(route('admin.editVehicleType', ['vehicleType' => $vehicleType]))
             ->assertStatus(302)
             ->assertRedirect(route('home'));
 
@@ -93,7 +93,7 @@ class vehicleTypesTest extends TestCase
     public function testAddVehicleType()
     {
         $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
-        $this->actingAs($user)->get(route('admin.addType'))
+        $this->actingAs($user)->get(route('admin.addVehicleType'))
             ->assertStatus(200)
             ->assertSeeText('Добавить новый тип')
             ->assertSeeText('Добавить')
@@ -110,7 +110,7 @@ class vehicleTypesTest extends TestCase
     {
         $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         $vehicleType = VehicleType::query()->inRandomOrder()->first();
-        $this->actingAs($user)->get(route('admin.editType', ['type' => $vehicleType]))
+        $this->actingAs($user)->get(route('admin.editVehicleType', ['vehicleType' => $vehicleType]))
             ->assertStatus(200)
             ->assertSeeText('Изменение типа')
             ->assertSeeText('Изменить')

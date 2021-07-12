@@ -7,7 +7,7 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="com-md-12">
-                <h3>Ожидаемые платежи в течение 14 дней</h3>
+                <h3>Ожидаемые платежи в течение {{$upcomingPeriod}} дней</h3>
             </div>
         </div>
         <div class="row justify-content-center">

@@ -11,7 +11,7 @@
     </div>
 
     <div class="row">
-        <a class="btn btn-outline-info" href="{{route('admin.addType')}}">Новый тип</a>
+        <a class="btn btn-outline-info" href="{{route('admin.addVehicleType')}}">Новый тип</a>
     </div>
 
     <div class="row">
@@ -30,9 +30,9 @@
                     <tr>
                         <th scope="row">{{$type->id}}</th>
                         <td>{{$type->name}}</td>
-                        <td><a href="{{route('admin.editType',['type'=>$type])}}"> &#9998;Изменить </a></td>
+                        <td><a href="{{route('admin.editVehicleType',['vehicleType'=>$type])}}"> &#9998;Изменить </a></td>
                         @if ($type->vehicles_count===0)
-                            <td><a href="{{route('admin.deleteType',['type'=>$type])}}"
+                            <td><a href="{{route('admin.deleteVehicleType',['vehicleType'=>$type])}}"
                                    onclick="return confirm('Действительно удалить данные о типе техники?')"> &#10008;Удалить </a></td>
                         @else
                             <td><p class="text-muted">&#10008;Удалить </p></td>

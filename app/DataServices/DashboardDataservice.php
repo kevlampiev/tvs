@@ -23,21 +23,25 @@ class DashboardDataservice
         return [
             'data' => json_encode(self::getChartData($paymentInfo), JSON_UNESCAPED_UNICODE),
             'summary' => self::getPaymentsSummary($paymentInfo),
-            'runningOutOfIns' => self::getInsurancesData()
+            'runningOutOfIns' => self::getInsurancesData(),
+            'upcomingInsurancesPeriod' => config('constants.upcomingPeriods.insurances'),
+            'upcomingPaymentsPeriod' => config('constants.upcomingPeriods.payments'),
         ];
 
     }
 
     private static function getInsurancesData()
     {
-        $data = DB::select('call insurance_to_made_by_today(?)',[14]);
+        $upcomingPeriod =config('constants.upcomingPeriods.insurances');
+        $data = DB::select('call insurance_to_made_by_today(?)',[$upcomingPeriod]);
         return $data;
     }
 
 
     private static function getUpcomingPayments()
     {
-        $data = DB::select('CALL settlements_by_date(?)',[14]);
+        $upcomingPeriod =config('constants.upcomingPeriods.payments');
+        $data = DB::select('CALL settlements_by_date(?)',[$upcomingPeriod]);
         return collect($data);
     }
 
@@ -55,7 +59,7 @@ class DashboardDataservice
     {
         return (object) [
             'overdue' => $paymentInfo->sum('overdue') / 10**6,
-            'upcoming' => $paymentInfo->sum('upcoming') / 10**6
+            'upcoming' => $paymentInfo->sum('upcoming') / 10**6,
         ];
     }
 }

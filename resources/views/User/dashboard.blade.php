@@ -8,13 +8,13 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="shadow p-3 mb-5 bg-white rounded dashBoardBlock">
-                    <h4 class="m-auto">Предстоящие платежи</h4>
+                    <h4 class="m-auto">Предстоящие платежи ({{$upcomingPaymentsPeriod}} дн.) </h4>
                     @include('User.dashboard.upcoming-payments');
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="shadow p-3 mb-5 bg-white rounded dashBoardBlock">
-                    <h4 class="m-auto">Страховки к оформлению</h4>
+                    <h4 class="m-auto">Страховки к оформлению ({{$upcomingInsurancesPeriod}} дн.) </h4>
                     @include('User.dashboard.vehiclesToBeInsured')
                 </div>
                 <div class="shadow p-3 mb-5 bg-white rounded dashBoardBlock">

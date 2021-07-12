@@ -25,12 +25,20 @@ Route::group([
             'prefix' => 'types'
         ],
             function () {
-                Route::get('/', [\App\Http\Controllers\Admin\TypesController::class, 'index'])->name('admin.vehicleTypes');
-                Route::match(['post', 'get'], 'add', [\App\Http\Controllers\Admin\TypesController::class, 'addType'])->name('admin.addType');
-                Route::match(['post', 'get'], '{type}/edit', [\App\Http\Controllers\Admin\TypesController::class, 'editType'])->name('admin.editType');
-                Route::match(['post', 'get'], '{type}/delete', [\App\Http\Controllers\Admin\TypesController::class, 'deleteType'])->name('admin.deleteType');
+                Route::get('/', [\App\Http\Controllers\Admin\VehicleTypeController::class, 'index'])
+                    ->name('admin.vehicleTypes');
+                Route::get('add', [\App\Http\Controllers\Admin\VehicleTypeController::class, 'create'])
+                    ->name('admin.addVehicleType');
+                Route::post('add', [\App\Http\Controllers\Admin\VehicleTypeController::class, 'store']);
+                Route::get( '{vehicleType}/edit', [\App\Http\Controllers\Admin\VehicleTypeController::class, 'edit'])
+                    ->name('admin.editVehicleType');
+                Route::post( '{vehicleType}/edit', [\App\Http\Controllers\Admin\VehicleTypeController::class, 'update']);
+                Route::match(['post', 'get'], '{vehicleType}/delete', [\App\Http\Controllers\Admin\VehicleTypeController::class, 'erase'])
+                    ->name('admin.deleteVehicleType');
             }
         );
+
+//        Route::resource('vehicleTypes',\App\Http\Controllers\Admin\VehicleTypeController::class);
         Route::group([
             'prefix' => 'manufacturers'
         ],
@@ -261,7 +269,7 @@ Route::post('password/expired', [\App\Http\Controllers\Auth\ExpiredPasswordContr
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware(['auth', 'password_expired']);
 
-Auth::routes();
+//Auth::routes();
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware(['auth','password_expired']);
 

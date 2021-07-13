@@ -6,7 +6,7 @@
 
 @section('content')
     <h3> @if ($company->id) Редактирование компании @else Добавить новую @endif</h3>
-    <form action="{{route($route, $company->id)}}" method="POST">
+    <form action="{{route($route, ['company'=>$company])}}" method="POST">
         @csrf
         <form>
             <div class="form-group">

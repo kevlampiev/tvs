@@ -42,12 +42,12 @@ class VehicleTypeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  VehicleTypeRequest  $request
+     * @param VehicleTypeRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(VehicleTypeRequest $request):\Illuminate\Http\RedirectResponse
+    public function store(VehicleTypeRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $type= new VehicleType();
+        $type = new VehicleType();
         $type->fill($request->all())->save();
         session()->flash('message', 'Добавлен новый тип техники');
         return redirect()->route('admin.vehicleTypes');
@@ -76,7 +76,7 @@ class VehicleTypeController extends Controller
      * @param VehicleType $type
      * @return \Illuminate\Contracts\View\View
      */
-    public function edit(VehicleTypeRequest $request, VehicleType $vehicleType):\Illuminate\Contracts\View\View
+    public function edit(VehicleTypeRequest $request, VehicleType $vehicleType): \Illuminate\Contracts\View\View
     {
         if (!empty($request->old())) {
             $vehicleType->fill($request->old());
@@ -94,11 +94,11 @@ class VehicleTypeController extends Controller
      * @param VehicleType $type
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(VehicleTypeRequest $request, VehicleType $vehicleType):\Illuminate\Http\RedirectResponse
+    public function update(VehicleTypeRequest $request, VehicleType $vehicleType): \Illuminate\Http\RedirectResponse
     {
 
         $vehicleType->fill($request->all())->save();
-        session()->flash('message','Тип техники изменен');
+        session()->flash('message', 'Тип техники изменен');
         return redirect()->route('admin.vehicleTypes');
     }
 
@@ -111,7 +111,7 @@ class VehicleTypeController extends Controller
     public function destroy(VehicleType $vehicleType)
     {
         $vehicleType->delete();
-        session()->flash('message','Тип техники удален');
+        session()->flash('message', 'Тип техники удален');
         return redirect()->route('admin.vehicleTypes');
     }
 }

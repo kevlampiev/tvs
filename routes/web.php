@@ -92,14 +92,14 @@ Route::group([
             function () {
                 Route::get('/', [\App\Http\Controllers\Admin\CompanyController::class, 'index'])
                     ->name('admin.companies');
-                Route::match(['post', 'get'],
-                    'add', [\App\Http\Controllers\Admin\CompanyController::class, 'addCompany'])
+                Route::get('add', [\App\Http\Controllers\Admin\CompanyController::class, 'create'])
                     ->name('admin.addCompany');
-                Route::match(['post', 'get'],
-                    '{company}/edit', [\App\Http\Controllers\Admin\CompanyController::class, 'editCompany'])
+                Route::post('add',[\App\Http\Controllers\Admin\CompanyController::class,'store']);
+                Route::get('{company}/edit', [\App\Http\Controllers\Admin\CompanyController::class, 'edit'])
                     ->name('admin.editCompany');
+                Route::post('{company}/edit', [\App\Http\Controllers\Admin\CompanyController::class, 'update']);
                 Route::match(['post', 'get'],
-                    '{company}/delete', [\App\Http\Controllers\Admin\CompanyController::class, 'deleteCompany'])
+                    '{company}/delete', [\App\Http\Controllers\Admin\CompanyController::class, 'destroy'])
                     ->name('admin.deleteCompany');
             }
         );

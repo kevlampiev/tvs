@@ -25,9 +25,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($agrTypes as $type)
+                @forelse($agrTypes as $index => $type)
                     <tr>
-                        <th scope="row">{{$type->id}}</th>
+                        <th scope="row">{{$index + 1}}</th>
                         <td>{{$type->name}}</td>
                         <td><a href="{{route('admin.editAgrType',['agrType'=>$type])}}"> &#9998;Изменить </a></td>
                         @if ($type->agreements_count===0)

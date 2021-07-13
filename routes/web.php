@@ -56,14 +56,14 @@ Route::group([
             function () {
                 Route::get('/', [\App\Http\Controllers\Admin\AgreementTypeController::class, 'index'])
                     ->name('admin.agrTypes');
-                Route::match(['post', 'get'],
-                    'add', [\App\Http\Controllers\Admin\AgreementTypeController::class, 'addType'])
+                Route::get('add', [\App\Http\Controllers\Admin\AgreementTypeController::class, 'create'])
                     ->name('admin.addAgrType');
-                Route::match(['post', 'get'],
-                    '{agrType}/edit', [\App\Http\Controllers\Admin\AgreementTypeController::class, 'editType'])
+                Route::post('add',[\App\Http\Controllers\Admin\AgreementTypeController::class,'store']);
+                Route::get('{agrType}/edit', [\App\Http\Controllers\Admin\AgreementTypeController::class, 'edit'])
                     ->name('admin.editAgrType');
+                Route::post('{agrType}/edit', [\App\Http\Controllers\Admin\AgreementTypeController::class, 'update']);
                 Route::match(['post', 'get'],
-                    '{agrType}/delete', [\App\Http\Controllers\Admin\AgreementTypeController::class, 'deleteType'])
+                    '{agrType}/delete', [\App\Http\Controllers\Admin\AgreementTypeController::class, 'destroy'])
                     ->name('admin.deleteAgrType');
             }
         );

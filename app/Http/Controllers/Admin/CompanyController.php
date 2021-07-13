@@ -85,7 +85,7 @@ class CompanyController extends Controller
     {
 
         $company->fill($request->all())->save();
-        session()->flash('message', 'Информауия о компании изменена');
+        session()->flash('message', 'Информация о компании изменена');
         return redirect()->route('admin.companies');
     }
 

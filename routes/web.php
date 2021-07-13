@@ -74,14 +74,14 @@ Route::group([
             function () {
                 Route::get('/', [\App\Http\Controllers\Admin\CounterpartyController::class, 'index'])
                     ->name('admin.counterparties');
-                Route::match(['post', 'get'],
-                    'add', [\App\Http\Controllers\Admin\CounterpartyController::class, 'addCounterparty'])
+                Route::get('add', [\App\Http\Controllers\Admin\CounterpartyController::class, 'create'])
                     ->name('admin.addCounterparty');
-                Route::match(['post', 'get'],
-                    '{counterparty}/edit', [\App\Http\Controllers\Admin\CounterpartyController::class, 'editCounterparty'])
+                Route::post('add', [\App\Http\Controllers\Admin\CounterpartyController::class, 'store']);
+                Route::get('{counterparty}/edit',[\App\Http\Controllers\Admin\CounterpartyController::class,'edit'])
                     ->name('admin.editCounterparty');
+                Route::post('{counterparty}/edit',[\App\Http\Controllers\Admin\CounterpartyController::class,'update']);
                 Route::match(['post', 'get'],
-                    '{counterparty}/delete', [\App\Http\Controllers\Admin\CounterpartyController::class, 'deleteCounterparty'])
+                    '{counterparty}/delete', [\App\Http\Controllers\Admin\CounterpartyController::class, 'destroy'])
                     ->name('admin.deleteCounterparty');
             }
         );

@@ -3,14 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataServices\Admin\CompaniesDataservice;
-use App\Http\Requests\CompanyRequest;
+use App\Http\Requests\InsuranceCompanyRequest;
 use App\Models\Company;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class CompanyController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         return view('Admin.companies', CompaniesDataservice::provideData());
     }
@@ -19,7 +21,7 @@ class CompanyController extends Controller
      * Show the form for creating a new resource.
      *
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View|\Illuminate\Http\Response
      */
     public function create(Request $request)
     {
@@ -36,10 +38,10 @@ class CompanyController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param CompanyRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param InsuranceCompanyRequest $request
+     * @return RedirectResponse
      */
-    public function store(CompanyRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(InsuranceCompanyRequest $request): RedirectResponse
     {
         $company = new Company();
         $company->fill($request->all())->save();
@@ -61,9 +63,9 @@ class CompanyController extends Controller
      * Show the form for editing the specified resource.
      * @param Request $request
      * @param Company $company
-     * @return \Illuminate\Contracts\View\View
+     * @return View
      */
-    public function edit(Request $request, Company $company): \Illuminate\Contracts\View\View
+    public function edit(Request $request, Company $company): View
     {
         if (!empty($request->old())) {
             $company->fill($request->old());
@@ -77,11 +79,11 @@ class CompanyController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param CompanyRequest $request
+     * @param InsuranceCompanyRequest $request
      * @param Company $company
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function update(CompanyRequest $request, Company $company): \Illuminate\Http\RedirectResponse
+    public function update(InsuranceCompanyRequest $request, Company $company): RedirectResponse
     {
 
         $company->fill($request->all())->save();
@@ -93,7 +95,7 @@ class CompanyController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Company $company
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function destroy(Company $company)
     {

@@ -3,12 +3,8 @@
 namespace Tests\Feature\Admin;
 
 
-use App\Models\Counterparty;
 use App\Models\InsuranceType;
 use App\Models\User;
-use App\Models\Vehicle;
-use App\Models\VehicleType;
-use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class InsuranceTypeTest extends TestCase

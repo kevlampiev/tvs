@@ -6,6 +6,8 @@ use App\DataServices\Admin\InsuranceTypesDataservice;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InsuranceTypeRequest;
 use App\Models\InsuranceType;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class InsuranceTypesController extends Controller
@@ -20,7 +22,7 @@ class InsuranceTypesController extends Controller
      * Show the form for creating a new resource.
      *
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View|\Illuminate\Http\Response
      */
     public function create(Request $request)
     {
@@ -38,9 +40,9 @@ class InsuranceTypesController extends Controller
      * Store a newly created resource in storage.
      *
      * @param InsuranceTypeRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function store(InsuranceTypeRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(InsuranceTypeRequest $request): RedirectResponse
     {
         $insuranceType = new InsuranceType();
         $insuranceType->fill($request->all())->save();
@@ -62,9 +64,9 @@ class InsuranceTypesController extends Controller
      * Show the form for editing the specified resource.
      * @param Request $request
      * @param InsuranceType $insuranceType
-     * @return \Illuminate\Contracts\View\View
+     * @return View
      */
-    public function edit(Request $request, InsuranceType $insuranceType): \Illuminate\Contracts\View\View
+    public function edit(Request $request, InsuranceType $insuranceType): View
     {
         if (!empty($request->old())) {
             $insuranceType->fill($request->old());
@@ -80,9 +82,9 @@ class InsuranceTypesController extends Controller
      * Update the specified resource in storage.
      * @param InsuranceTypeRequest $request
      * @param InsuranceType $insuranceType
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function update(InsuranceTypeRequest $request, InsuranceType $insuranceType): \Illuminate\Http\RedirectResponse
+    public function update(InsuranceTypeRequest $request, InsuranceType $insuranceType): RedirectResponse
     {
         $insuranceType->fill($request->all())->save();
         session()->flash('message', 'Информация о типе страховки изменена');
@@ -93,9 +95,9 @@ class InsuranceTypesController extends Controller
      * Remove the specified resource from storage.
      *
      * @param InsuranceType $insuranceType
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function destroy(InsuranceType $insuranceType): \Illuminate\Http\RedirectResponse
+    public function destroy(InsuranceType $insuranceType): RedirectResponse
     {
         $insuranceType->delete();
         session()->flash('message', 'Информация о типе страховки удалена');

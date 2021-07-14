@@ -26,15 +26,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($companies as $index=>$company)
+                @forelse($insuranceCompanies as $index=>$company)
                     <tr>
                         <th scope="row">{{$index+1}}</th>
                         <td>{{$company->name}}</td>
-                        <td><a href="{{route('admin.editInsuranceCompany',['company'=>$company])}}"> &#9998;Изменить </a>
+                        <td><a href="{{route('admin.editInsuranceCompany',['insuranceCompany'=>$company])}}"> &#9998;Изменить </a>
                         </td>
                         @if ($company->insurances->count()===0)
                             <td>
-                                <a href="{{route('admin.deleteInsuranceCompany',['company'=>$company])}}"
+                                <a href="{{route('admin.deleteInsuranceCompany',['insuranceCompany'=>$company])}}"
                                    onclick="return confirm('Действительно удалить данные о страховщике?')"
                                 > &#10008;Удалить </a>
                             </td>

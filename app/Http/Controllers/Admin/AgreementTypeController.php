@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataServices\Admin\AgreementTypesDataservice;
-use App\DataServices\Admin\InsuranceTypesDataservice;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AgreementTypeRequest;
 use App\Models\AgreementType;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class AgreementTypeController extends Controller
@@ -16,51 +17,11 @@ class AgreementTypeController extends Controller
         return view('Admin.agreement-types', AgreementTypesDataservice::provideData());
     }
 
-//    public function addType(Request $request)
-//    {
-//        $type = new AgreementType();
-//        if ($request->isMethod('post')) {
-//            $this->validate($request, AgreementType::rules());
-//            $type->fill($request->only('name'));
-//            $type->save();
-//            return redirect()->route('admin.agrTypes');
-//        } else {
-//            if (!empty($request->old())) {
-//                $type->fill($request->old());
-//            }
-//            return view('Admin/agreement-type-edit', [
-//                'agrType' => $type,
-//                'route' => 'admin.addAgrType',
-//            ]);
-//        }
-//    }
-//
-//    public function editType(Request $request, AgreementType $agrType)
-//    {
-//        if ($request->isMethod('post')) {
-//            $this->validate($request, AgreementType::rules());
-//            $agrType->fill($request->only('name'));
-//            $agrType->save();
-//            return redirect()->route('admin.agrTypes');
-//        } else {
-//            return view('Admin/agreement-type-edit', [
-//                'agrType' => $agrType,
-//                'route' => 'admin.editAgrType',
-//            ]);
-//        }
-//    }
-//
-//    public function deleteType(AgreementType $agrType)
-//    {
-//        $agrType->delete();
-//        return redirect()->route('admin.agrTypes');
-//    }
-
     /**
      * Show the form for creating a new resource.
      *
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View|\Illuminate\Http\Response
      */
     public function create(Request $request)
     {
@@ -78,9 +39,9 @@ class AgreementTypeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param AgreementTypeRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function store(AgreementTypeRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(AgreementTypeRequest $request): RedirectResponse
     {
         $agrType = new AgreementType();
         $agrType->fill($request->all())->save();
@@ -102,9 +63,9 @@ class AgreementTypeController extends Controller
      * Show the form for editing the specified resource.
      * @param Request $request
      * @param AgreementType $agrType
-     * @return \Illuminate\Contracts\View\View
+     * @return View
      */
-    public function edit(Request $request, AgreementType $agrType): \Illuminate\Contracts\View\View
+    public function edit(Request $request, AgreementType $agrType): View
     {
         if (!empty($request->old())) {
             $agrType->fill($request->old());
@@ -120,9 +81,9 @@ class AgreementTypeController extends Controller
      * Update the specified resource in storage.
      * @param AgreementTypeRequest $request
      * @param AgreementType $agrType
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function update(AgreementTypeRequest $request, AgreementType $agrType): \Illuminate\Http\RedirectResponse
+    public function update(AgreementTypeRequest $request, AgreementType $agrType): RedirectResponse
     {
         $agrType->fill($request->all())->save();
         session()->flash('message', 'Информация о типе договора изменена');
@@ -133,9 +94,9 @@ class AgreementTypeController extends Controller
      * Remove the specified resource from storage.
      *
      * @param AgreementType $agrType
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function destroy(AgreementType $agrType): \Illuminate\Http\RedirectResponse
+    public function destroy(AgreementType $agrType): RedirectResponse
     {
         $agrType->delete();
         session()->flash('message', 'Информация о пите договора удалена');

@@ -10,6 +10,6 @@ class VehicleTypesDataservice
 {
     public static function provideData(): array
     {
-        return ['types' => VehicleType::withCount('vehicles')->orderBy('name')->get(), 'filter' => ''];
+        return ['vehicleTypes' => VehicleType::withCount('vehicles')->orderBy('name')->get(), 'filter' => ''];
     }
 }

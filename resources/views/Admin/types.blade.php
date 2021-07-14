@@ -26,7 +26,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($types as $index=>$type)
+                @forelse($vehicleTypes as $index=>$type)
                     <tr>
                         <th scope="row">{{$index+1}}</th>
                         <td>{{$type->name}}</td>

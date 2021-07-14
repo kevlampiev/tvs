@@ -13,7 +13,6 @@
             <select name="vehicle_id" class="form-control selectpicker" id="vehicles" data-live-search="true">
                 @foreach ($vehicles as $vehicle)
                     <option
-                        {{--                        value="{{$vehicle->id}}" >--}}
                         value="{{$vehicle->id}}" {{($vehicle->id == $agreement->company_id) ? 'selected' : ''}}>
                         {{$vehicle->name}} модель:{{$vehicle->model}} номер:{{$vehicle->bort_number}}
                         VIN:{{$vehicle->vin}}

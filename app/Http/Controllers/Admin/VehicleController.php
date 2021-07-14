@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataServices\Admin\VehicleDataservice;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VehicleRequest;
 use App\Models\Agreement;
@@ -52,12 +53,7 @@ class VehicleController extends Controller
                 $vehicle->fill($request->old());
             }
             if (url()->previous() !== url()->current()) session(['previous_url' => url()->previous()]);
-            return view('Admin/vehicle-edit', [
-                'vehicle' => $vehicle,
-                'route' => 'admin.editVehicle',
-                'vehicleTypes' => VehicleType::all(),
-                'manufacturers' => Manufacturer::all(),
-            ]);
+            return view('Admin/vehicle-edit', VehicleDataservice::provideEditorForm($vehicle));
         }
     }
 

@@ -26,9 +26,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($counterparties as $counterparty)
+                @forelse($counterparties as $index=>$counterparty)
                     <tr>
-                        <th scope="row">{{$counterparty->id}}</th>
+                        <th scope="row">{{$index + 1}}</th>
                         <td>{{$counterparty->name}}</td>
                         <td><a href="{{route('admin.editCounterparty',['counterparty'=>$counterparty])}}"> &#9998;Изменить </a>
                         </td>

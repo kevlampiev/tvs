@@ -25,9 +25,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($insuranceTypes as $type)
+                @forelse($insuranceTypes as $index=>$type)
                     <tr>
-                        <th scope="row">{{$type->id}}</th>
+                        <th scope="row">{{$index + 1}}</th>
                         <td>{{$type->name}}</td>
                         <td><a href="{{route('admin.editInsuranceType',['insuranceType'=>$type])}}"> &#9998;Изменить </a></td>
                         @if ($type->insurances->count()===0)

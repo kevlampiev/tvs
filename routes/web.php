@@ -127,16 +127,16 @@ Route::group([
         ],
             function () {
                 Route::get('/', [\App\Http\Controllers\Admin\InsuranceTypesController::class, 'index'])
-                    ->name('admin.insTypes');
+                    ->name('admin.insuranceTypes');
+                Route::get('add', [\App\Http\Controllers\Admin\InsuranceTypesController::class, 'create'])
+                    ->name('admin.addInsuranceType');
+                Route::post('add', [\App\Http\Controllers\Admin\InsuranceTypesController::class, 'store']);
+                Route::get('{insuranceType}/edit', [\App\Http\Controllers\Admin\InsuranceTypesController::class, 'edit'])
+                    ->name('admin.editInsuranceType');
+                Route::post('{insuranceType}/edit', [\App\Http\Controllers\Admin\InsuranceTypesController::class, 'update']);
                 Route::match(['post', 'get'],
-                    'add', [\App\Http\Controllers\Admin\InsuranceTypesController::class, 'add'])
-                    ->name('admin.addInsType');
-                Route::match(['post', 'get'],
-                    '{insType}/edit', [\App\Http\Controllers\Admin\InsuranceTypesController::class, 'edit'])
-                    ->name('admin.editInsType');
-                Route::match(['post', 'get'],
-                    '{insType}/delete', [\App\Http\Controllers\Admin\InsuranceTypesController::class, 'delete'])
-                    ->name('admin.deleteInsType');
+                    '{insuranceType}/delete', [\App\Http\Controllers\Admin\InsuranceTypesController::class, 'destroy'])
+                    ->name('admin.deleteInsuranceType');
             }
         );
 

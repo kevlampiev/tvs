@@ -6,7 +6,7 @@
 
 @section('content')
     <h3> @if ($agrType->id) Изменение типа договора @else Добавить новый тип договора @endif</h3>
-    <form action="{{route($route, $agrType->id)}}" method="POST">
+    <form action="{{route($route, ['agrType'=>$agrType])}}" method="POST">
         @csrf
         <form>
             <div class="form-group">

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Repositories;
+namespace App\DataServices;
 
 
 use App\Models\Agreement;
@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class AgrPaymentsRepo
+class AgreementsRepo
 {
     static public function getAgreements(Request $request)
     {

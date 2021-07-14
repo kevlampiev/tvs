@@ -26,9 +26,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($manufacturers as $manufacturer)
+                @forelse($manufacturers as $index=>$manufacturer)
                     <tr>
-                        <th scope="row">{{$manufacturer->id}}</th>
+                        <th scope="row">{{$index + 1}}</th>
                         <td>{{$manufacturer->name}}</td>
                         <td><a href="{{route('admin.editManufacturer',['manufacturer'=>$manufacturer])}}"> &#9998;Изменить </a>
                         </td>

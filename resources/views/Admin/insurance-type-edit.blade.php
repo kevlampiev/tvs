@@ -5,8 +5,8 @@
 @endsection
 
 @section('content')
-    <h3> @if ($insType->id) Изменение @else Добавить @endif</h3>
-    <form action="{{route($route, $insType->id)}}" method="POST">
+    <h3> @if ($insuranceType->id) Изменение @else Добавить @endif</h3>
+    <form action="{{route($route, ['insuranceType'=>$insuranceType])}}" method="POST">
         @csrf
         <form>
             <div class="form-group">
@@ -18,7 +18,7 @@
                        class="form-control"
                        @endif
                        id="inputType" placeholder="Введите название типа" name="name"
-                       value="{{$insType->name}}">
+                       value="{{$insuranceType->name}}">
             </div>
             @if($errors->has('name'))
                 <div class="alert alert-danger">
@@ -31,9 +31,9 @@
             @endif
 
             <button type="submit" class="btn btn-primary">
-                @if ($insType->id)  Изменить @else Добавить @endif
+                @if ($insuranceType->id)  Изменить @else Добавить @endif
             </button>
-            <a class="btn btn-secondary" href="{{route('admin.insTypes')}}">Отмена</a>
+            <a class="btn btn-secondary" href="{{route('admin.insuranceTypes')}}">Отмена</a>
 
         </form>
 

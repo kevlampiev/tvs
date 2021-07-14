@@ -3,13 +3,8 @@
 namespace Tests\Feature\Admin;
 
 
-use App\Models\Company;
-use App\Models\Insurance;
 use App\Models\InsuranceCompany;
 use App\Models\User;
-use App\Models\Vehicle;
-use App\Models\VehicleType;
-use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class InsuranceCompaniesTest extends TestCase
@@ -34,7 +29,7 @@ class InsuranceCompaniesTest extends TestCase
 
         //не проходим на страницу редактирования
         $company = InsuranceCompany::query()->inRandomOrder()->first();
-        $this->get(route('admin.editInsuranceCompany', ['company' => $company]))
+        $this->get(route('admin.editInsuranceCompany', ['insuranceCompany' => $company]))
             ->assertStatus(302)
             ->assertRedirect('login');
     }
@@ -62,7 +57,7 @@ class InsuranceCompaniesTest extends TestCase
         //не проходим на страницу редактирования
         $company = InsuranceCompany::query()->inRandomOrder()->first();
         $this->actingAs($user)
-            ->get(route('admin.editInsuranceCompany', ['company' => $company]))
+            ->get(route('admin.editInsuranceCompany', ['insuranceCompany' => $company]))
             ->assertStatus(302)
             ->assertRedirect(route('home'));
     }
@@ -111,7 +106,7 @@ class InsuranceCompaniesTest extends TestCase
     {
         $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         $company = InsuranceCompany::query()->inRandomOrder()->first();
-        $this->actingAs($user)->get(route('admin.editInsuranceCompany', ['company' => $company]))
+        $this->actingAs($user)->get(route('admin.editInsuranceCompany', ['insuranceCompany' => $company]))
             ->assertStatus(200)
             ->assertSeeText('Редактирование')
             ->assertSeeText('Изменить')

@@ -19,7 +19,7 @@ class SingleSettlementReportsTest extends TestCase
         //Заход без логина
 
         $response = $this->get(route('user.agreementSettlements',
-            ['agreement' => Agreement::query()->inRandomOrder()->first()]));
+            ['id' => Agreement::query()->inRandomOrder()->first()->id]));
         $response->assertStatus(302);
     }
 
@@ -35,7 +35,7 @@ class SingleSettlementReportsTest extends TestCase
         $agreement = Agreement::query()->inRandomOrder()->first();
         $this->actingAs($user)
             ->get(route('user.agreementSettlements',
-                ['agreement' => $agreement]))
+                ['id' => $agreement->id]))
             ->assertStatus(200)
             ->assertSeeText('Договор №' . $agreement->agr_number)
             ->assertSeeText('Контрагент')

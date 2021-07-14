@@ -60,9 +60,14 @@ Route::group([
         ],
             function () {
                 Route::get('/', [ManufacturersController::class, 'index'])->name('admin.manufacturers');
-                Route::match(['post', 'get'], 'add', [ManufacturersController::class, 'addManufacturer'])->name('admin.addManufacturer');
-                Route::match(['post', 'get'], '{manufacturer}/edit', [ManufacturersController::class, 'editManufacturer'])->name('admin.editManufacturer');
-                Route::match(['post', 'get'], '{manufacturer}/delete', [ManufacturersController::class, 'deleteManufacturer'])->name('admin.deleteManufacturer');
+                Route::get( 'add', [ManufacturersController::class, 'create'])
+                    ->name('admin.addManufacturer');
+                Route::post( 'add', [ManufacturersController::class, 'store']);
+                Route::get( '{manufacturer}/edit', [ManufacturersController::class, 'edit'])
+                    ->name('admin.editManufacturer');
+                Route::post( '{manufacturer}/edit', [ManufacturersController::class, 'update']);
+                Route::match(['post', 'get'], '{manufacturer}/delete', [ManufacturersController::class, 'destroy'])
+                    ->name('admin.deleteManufacturer');
             }
         );
 
@@ -275,7 +280,6 @@ Route::group([
             ->name('user.agreementSettlements');
     });
 
-//Auth::routes();
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');

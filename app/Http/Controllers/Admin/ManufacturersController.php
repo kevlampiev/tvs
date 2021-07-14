@@ -2,59 +2,107 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataServices\Admin\ManufacturersDataservice;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\VehicleTypeRequest;
+use App\Http\Requests\ManufacturerRequest;
 use App\Models\Manufacturer;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class ManufacturersController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        return view('Admin.manufacturers',
-            ['manufacturers' => Manufacturer::withCount('vehicles')->get(), 'filter' => '']);
+        return view('Admin.manufacturers',ManufacturersDataservice::provideData());
     }
 
-    public function addManufacturer(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View|\Illuminate\Http\Response
+     */
+    public function create(Request $request)
     {
         $manufacturer = new Manufacturer();
-        if ($request->isMethod('post')) {
-            $this->validate($request, Manufacturer::rules());
-            $manufacturer->fill($request->only('name'));
-            $manufacturer->save();
-            return redirect()->route('admin.manufacturers');
-        } else {
-            if (!empty($request->old())) {
-                $manufacturer->fill($request->old());
-            }
-            return view('Admin/manufacturer-edit', [
-                'manufacturer' => $manufacturer,
-                'route' => 'admin.addManufacturer',
-            ]);
+        if (!empty($request->old())) {
+            $manufacturer->fill($request->old());
         }
+        return view('Admin.manufacturer-edit', [
+            'manufacturer' => $manufacturer,
+            'route' => 'admin.addManufacturer',
+        ]);
     }
 
-    public function editManufacturer(Request $request, Manufacturer $manufacturer)
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param ManufacturerRequest $request
+     * @return RedirectResponse
+     */
+    public function store(ManufacturerRequest $request): RedirectResponse
     {
-        if ($request->isMethod('post')) {
-            $this->validate($request, Manufacturer::rules());
-            $manufacturer->fill($request->only('name'));
-            $manufacturer->save();
-            return redirect()->route('admin.manufacturers');
-        } else {
-            if (!empty($request->old())) {
-                $manufacturer->fill($request->old());
-            }
-            return view('Admin/manufacturer-edit', [
-                'manufacturer' => $manufacturer,
-                'route' => 'admin.editManufacturer',
-            ]);
-        }
-    }
-
-    public function deleteManufacturer(Manufacturer $manufacturer): \Illuminate\Http\RedirectResponse
-    {
-        $manufacturer->delete();
+        $manufacturer = new Manufacturer();
+        $manufacturer->fill($request->all())->save();
+        session()->flash('message', 'Добавлен новый производитель');
         return redirect()->route('admin.manufacturers');
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param Manufacturer $manufacturer
+     * @return void
+     */
+    public function show(Manufacturer $manufacturer)
+    {
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     * @param Request $request
+     * @param Manufacturer $manufacturer
+     * @return View
+     */
+    public function edit(Request $request, Manufacturer $manufacturer): View
+    {
+        if (!empty($request->old())) {
+            $manufacturer->fill($request->old());
+        }
+        return view('Admin.manufacturer-edit', [
+            'manufacturer' => $manufacturer,
+            'route' => 'admin.editManufacturer',
+        ]);
+    }
+
+
+    /**
+     * Update the specified resource in storage.
+     * @param ManufacturerRequest $request
+     * @param Manufacturer $manufacturer
+     * @return RedirectResponse
+     */
+    public function update(ManufacturerRequest $request, Manufacturer $manufacturer): RedirectResponse
+    {
+
+        $manufacturer->fill($request->all())->save();
+        session()->flash('message', 'Информация о производителе изменена');
+        return redirect()->route('admin.manufacturers');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param Manufacturer $manufacturer
+     * @return RedirectResponse
+     */
+    public function destroy(Manufacturer $manufacturer): RedirectResponse
+    {
+        $manufacturer->delete();
+        session()->flash('message', 'Информация о производителе удалена');
+        return redirect()->route('admin.manufacturers');
+    }
+
+
 }

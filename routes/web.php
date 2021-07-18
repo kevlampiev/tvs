@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AgreementController;
 use App\Http\Controllers\Admin\AgreementPaymentController;
 use App\Http\Controllers\Admin\AgreementTypeController;
+use App\Http\Controllers\Admin\BankStatementController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\CounterpartyController;
 use App\Http\Controllers\Admin\HomeController;
@@ -235,8 +236,10 @@ Route::group([
                     ->name('admin.editRealPayment');
                 Route::match(['get', 'post'], '{agreement}/delete-real-payment/{payment}', [RealPaymentController::class, 'delete'])
                     ->name('admin.deleteRealPayment');
-
             }
+
+
+
         );
 
         Route::group([
@@ -257,6 +260,15 @@ Route::group([
             }
         );
 
+        Route::group([
+            'prefix' => 'actions',
+            'middleware' => 'is.admin'
+        ],
+            function () {
+                Route::get('load-bank-statement', [BankStatementController::class, 'index'])
+                    ->name('admin.loadBankStatement');
+            }
+        );
 
     }
 );

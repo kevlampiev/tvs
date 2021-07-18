@@ -59,8 +59,14 @@
                     @endif
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Действия
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{route('admin.loadBankStatement')}}">Загрузка выписки</a>
+                </div>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" method="GET">

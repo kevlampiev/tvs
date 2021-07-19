@@ -28,24 +28,21 @@ class BankStatementDataservice
      */
     public static function storeData(array $data)
     {
-//        dd($data);
         DB::transaction( function() use($data){
             foreach ($data as $item) {
                 $bankOperation = new BankStatementPosition();
-//                $bankOperation->fill($item);
-                $bankOperation->date_open = $item->outdate;
-                $bankOperation->payer = $item->payerinfo;
-                $bankOperation->payer_inn = $item->payerinn;
-                $bankOperation->receiver = $item->recieverinfo;
-                $bankOperation->receiver_inn = $item->recieverinn;
-                $bankOperation->amount = $item->summ;
-                $bankOperation->description = $item->paydirection;
+                $bankOperation->fill($item);
+//                $bankOperation->date_open = $item->outdate;
+//                $bankOperation->payer = $item->payerinfo;
+//                $bankOperation->payer_inn = $item->payerinn;
+//                $bankOperation->receiver = $item->recieverinfo;
+//                $bankOperation->receiver_inn = $item->recieverinn;
+//                $bankOperation->amount = $item->summ;
+//                $bankOperation->description = $item->paydirection;
                 $bankOperation->user_id = Auth::user()->id;
                 $bankOperation->created_at = now();
                 $bankOperation->save();
             }
-
-
         });
     }
 }

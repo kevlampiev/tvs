@@ -267,6 +267,8 @@ Route::group([
             function () {
                 Route::get('load-bank-statement', [BankStatementController::class, 'index'])
                     ->name('admin.loadBankStatement');
+                Route::post('pre-load-file', [BankStatementController::class,'preLoadFile'])
+                    ->name('admin.preProcessBankStatement');
             }
         );
 

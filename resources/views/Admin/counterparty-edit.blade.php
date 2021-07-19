@@ -26,6 +26,23 @@
                 </div>
             @endif
 
+            <div class="form-group">
+                <label for="inputType">ИНН</label>
+                <input type="text"
+                       class="{{($errors->has('inn')?'form-control is-invalid':'form-control')}}"
+                       id="inputType" placeholder="Введите ИНН" name="inn"
+                       value="{{$counterparty->inn}}">
+            </div>
+            @if($errors->has('inn'))
+                <div class="alert alert-danger">
+                    <ul class="p-0 m-0">
+                        @foreach($errors->get('inn') as $error)
+                            <li class="m-0 p-0"> {{$error}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <button type="submit" class="btn btn-primary">
                 @if ($counterparty->id)  Изменить @else Добавить @endif
             </button>

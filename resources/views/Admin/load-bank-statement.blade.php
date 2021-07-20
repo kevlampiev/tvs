@@ -33,7 +33,7 @@
                     <th scope="col">Дата</th>
                     <th scope="col">Плательщик</th>
                     <th scope="col">Получатель</th>
-                    <th scope="col">сумма</th>
+                    <th scope="col">Сумма</th>
                     <th scope="col">Основание</th>
                     <th scope="col">Номер и дата договора</th>
                     <th scope="col"></th>
@@ -42,17 +42,21 @@
                 </thead>
                 <tbody>
                 @forelse($bankStatementPositions as $index=>$item)
-                    <tr>
+                    <tr {{$item->agreement_id?'':'class=text-secondary'}}>
                         <th scope="row">{{$index + 1}}</th>
                         <td>{{$item->date_open}}</td>
                         <td>{{$item->payer}}</td>
                         <td>{{$item->receiver}}</td>
-                        <td>{{$item->amount}}</td>
+                        <td>{{number_format($item->amount,2)}}</td>
                         <td>{{$item->description}}</td>
-                        <td>{{$item->agr_number}} от {{$item->agr_date}}</td>
-{{--                        <td><a href="{{route('admin.editManufacturer',['manufacturer'=>$manufacturer])}}"> &#9998;Изменить </a>--}}
+                        <td class="text-center">
+                            @if($item->agreement_id)
+                                {{$item->agr_number}} от {{$item->agr_date}}
+                            @else
+                                ---
+                            @endif
                         </td>
-
+                        <td></td>
                     </tr>
                 @empty
                     <p>Нет записей</p>
@@ -63,9 +67,9 @@
     </div>
 
     <div class="jumbotron">
-        <form method="POST">
+        <form method="POST" action="{{route('admin.transferToRealPayments')}}">
             @csrf
-            <button type="button" class="btn btn-outline-primary">Перенести обратботанные позиции в платежи </button>
+            <button type="submit" class="btn btn-outline-primary">Перенести обратботанные позиции в платежи </button>
         </form>
     </div>
 

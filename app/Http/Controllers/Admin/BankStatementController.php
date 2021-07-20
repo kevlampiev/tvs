@@ -31,7 +31,13 @@ class BankStatementController extends Controller
             BankStatementDataservice::storeData($parser->getDocs());
 
         }
-        return redirect()->back();
+        return redirect()->back()->with('message','Данные выписки загружены для анализа');
+    }
+
+    public function transferToRealPayments()
+    {
+        BankStatementDataservice::transferToRealPayments();
+        return redirect()->back()->with('message','Информация о реальных платежах перенесена в базу данных');
     }
 
 

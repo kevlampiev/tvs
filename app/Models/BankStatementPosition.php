@@ -10,4 +10,9 @@ class BankStatementPosition extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function agreement()
+    {
+        return $this->hasOne(Agreement::class);
+    }
 }

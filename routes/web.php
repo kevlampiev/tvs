@@ -269,6 +269,8 @@ Route::group([
                     ->name('admin.loadBankStatement');
                 Route::post('pre-load-file', [BankStatementController::class,'preLoadFile'])
                     ->name('admin.preProcessBankStatement');
+                Route::post('transfer-to-real-payments', [BankStatementController::class,'transferToRealPayments'])
+                    ->name('admin.transferToRealPayments');
             }
         );
 

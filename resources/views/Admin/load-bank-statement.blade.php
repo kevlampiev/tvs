@@ -9,18 +9,22 @@
         <h3>Загрузка выписки 1С</h3>
         <form action="{{route('admin.preProcessBankStatement')}}" method="POST" enctype="multipart/form-data">
             @csrf
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupFileAddon01">Загрузка банковской выписки</span>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="file" class="form-control-file" id="file-input" name="file1C" onchange="activateLoadBtn()">
+                    </div>
                 </div>
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="inputGroupFile01"
-                           aria-describedby="inputGroupFileAddon01" name="file1C">
-                    <label class="custom-file-label" for="inputGroupFile01">Выберите файл</label>
-
+                <div class="col-md-6">
+                    <button type="submit"
+                            class="btn btn-outline-primary ml-5"
+                            id="loadBtn" disabled>
+                        Загрузить выбранный файл для анализа 	&dArr;
+                    </button>
                 </div>
-                <button type="submit" class="btn btn-outline-primary ml-5">Загрузить выбранный файл для анализа </button>
             </div>
+
+
         </form>
     </div>
 
@@ -74,3 +78,16 @@
     </div>
 
 @endsection
+
+@section('scripts')
+    <script>
+        function activateLoadBtn()
+        {
+            alert(1)
+            let loadBtn=document.querySelector('#loadBtn')
+            loadBtn.removeAttribute("disabled")
+        }
+    </script>
+
+@endsection
+

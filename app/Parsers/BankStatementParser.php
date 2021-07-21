@@ -49,11 +49,14 @@ class BankStatementParser
 
             } else { //Если разбивка не прошла
                 if ($result[0] == 'КонецДокумента') { //То проверяем конец ли это документа
+                    if (!isset($workflow['date_open'])) $workflow['date_open'] = date('d.m.Y');
                     $documents[] = $workflow;
+
                 }
             }
         }
         $this->documents = $documents;
+
     }
 
 

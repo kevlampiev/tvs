@@ -298,7 +298,7 @@ Route::group([
 
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
-Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('password/expired', [ExpiredPasswordController::class, 'expired'])
     ->name('password.expired');
 Route::post('password/expired', [ExpiredPasswordController::class, 'postExpired'])

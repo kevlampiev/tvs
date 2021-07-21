@@ -104,7 +104,14 @@ class AgrSummaryTest extends TestCase
             ->assertStatus(200)
             ->assertSeeText($agreement->agr_number)
             ->assertSeeText('Платежи в соответствии с договором')
+            ->assertSeeText('Новый платеж')
+            ->assertSeeText('Добавить серию платежей')
             ->assertSeeText('Реальные оплаты');
+        if ($agreement->payments->count()>0) {
+            $response->assertSeeText('Удалить все платеж');
+        } else {
+            $response->assertDontSeeText('Удалить все платеж');
+        }
     }
 
 }

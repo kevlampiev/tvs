@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\DataServices\Admin\BankStatementDataservice;
 use App\DataServices\Admin\CompaniesDataservice;
 use App\Http\Controllers\Controller;
+use App\Models\Agreement;
+use App\Models\BankStatementPosition;
 use App\Models\Insurance;
 use App\Models\Vehicle;
 use App\DataServices\InsurancesRepo;
@@ -38,6 +40,24 @@ class BankStatementController extends Controller
     {
         BankStatementDataservice::transferToRealPayments();
         return redirect()->back()->with('message','Информация о реальных платежах перенесена в базу данных');
+    }
+
+    public function attachAgreement(Request $request, BankStatementPosition $bankStatementPosition, Agreement $agreement)
+    {
+        if ($request->isMethod('post')) {
+            $bankStatementPosition->agreement_id=Agreement::find($request->agreement_id)->id;
+            $bankStatementPosition->save();
+            return redirect()->route('admin.loadBankStatement', []);
+        } else {
+            return view('Admin.bankStatementPosition-add-agreement',
+                BankStatementDataservice::provideAddAgreementView($bankStatementPosition));
+        }
+    }
+
+    public function detachAgreement(Request $request, Agreement $agreement, Vehicle $vehicle)
+    {
+        $agreement->vehicles()->detach($vehicle);
+        return redirect()->route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'vehicles']);
     }
 
 

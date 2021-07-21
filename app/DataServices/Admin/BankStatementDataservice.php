@@ -7,6 +7,7 @@ namespace App\DataServices\Admin;
 use App\Models\Agreement;
 use App\Models\BankStatementPosition;
 use App\Models\Company;
+use DateTime;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use mysql_xdevapi\Statement;
@@ -32,6 +33,7 @@ class BankStatementDataservice
         DB::transaction( function() use($data){
             foreach ($data as $item) {
                 $bankOperation = new BankStatementPosition();
+                $item['date_open']= DateTime::createFromFormat('d.m.Y',$item['date_open']);
                 $bankOperation->fill($item);
                 $bankOperation->user_id = Auth::user()->id;
                 $bankOperation->created_at = now();
@@ -66,5 +68,16 @@ class BankStatementDataservice
         DB::statement('DELETE FROM bank_statement_positions WHERE user_id=?',[Auth::user()->id]);
     }
 
+    /**
+     * Снабжает данными представление для привязки договора к платежу из выписки 1С
+     */
+    public static function provideAddAgreementView(BankStatementPosition $bankStatementPosition):array
+    {
+        $agreements = Agreement::all();
+        return [
+            'agreements'=>$agreements,
+            'bankStatementPosition' => $bankStatementPosition,
+        ];
+    }
 
 }

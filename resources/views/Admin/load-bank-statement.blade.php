@@ -41,26 +41,30 @@
                     <th scope="col">Основание</th>
                     <th scope="col">Номер и дата договора</th>
                     <th scope="col"></th>
-                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($bankStatementPositions as $index=>$item)
-                    <tr {{$item->agreement_id?'':'class=text-secondary'}}>
+                @forelse($bankStatementPositions as $index=>$bankStatementPosition)
+                    <tr {{$bankStatementPosition->agreement_id?'':'class=text-secondary'}}>
                         <th scope="row">{{$index + 1}}</th>
-                        <td>{{$item->date_open}}</td>
-                        <td>{{$item->payer}}</td>
-                        <td>{{$item->receiver}}</td>
-                        <td>{{number_format($item->amount,2)}}</td>
-                        <td>{{$item->description}}</td>
+                        <td>{{$bankStatementPosition->date_open}}</td>
+                        <td>{{$bankStatementPosition->payer}}</td>
+                        <td>{{$bankStatementPosition->receiver}}</td>
+                        <td>{{number_format($bankStatementPosition->amount,2)}}</td>
+                        <td>{{$bankStatementPosition->description}}</td>
                         <td class="text-center">
-                            @if($item->agreement_id)
-                                {{$item->agr_number}} от {{$item->agr_date}}
+                            @if($bankStatementPosition->agreement_id)
+                                {{$bankStatementPosition->agr_number}} от {{$bankStatementPosition->agr_date}}
                             @else
                                 ---
                             @endif
                         </td>
-                        <td></td>
+                        <td> @if($bankStatementPosition->agreement_id)
+                                <a href="#"> &#10008; Отвязать договор  </a>
+                             @else
+                                <a href="{{route('admin.attachAgrToBS',['bankStatementPosition'=>$bankStatementPosition->id])}}"> &#10004; Привязать договор </a>
+                             @endif
+                        </td>
                     </tr>
                 @empty
                     <p>Нет записей</p>
@@ -73,7 +77,11 @@
     <div class="jumbotron">
         <form method="POST" action="{{route('admin.transferToRealPayments')}}">
             @csrf
-            <button type="submit" class="btn btn-outline-primary">Перенести обратботанные позиции в платежи </button>
+            <button type="submit"
+                    class="btn btn-outline-primary"
+            {{($bankStatementPositions->count()>0)?'':'disabled'}}>
+                Перенести обратботанные позиции в платежи
+            </button>
         </form>
     </div>
 
@@ -83,7 +91,6 @@
     <script>
         function activateLoadBtn()
         {
-            alert(1)
             let loadBtn=document.querySelector('#loadBtn')
             loadBtn.removeAttribute("disabled")
         }

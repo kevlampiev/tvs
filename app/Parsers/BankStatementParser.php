@@ -25,11 +25,11 @@ class BankStatementParser
      */
     function __construct($fileaddr)
     {
-        $maas = file($fileaddr);  // Открываем файл как массив строк
+        $data = file($fileaddr);  // Открываем файл как массив строк
         setlocale(LC_CTYPE, 'ru_RU');
         $documents = [];
 
-        foreach ($maas as $key => $value) {
+        foreach ($data as $key => $value) {
 
             $value2 = rtrim($value);
 
@@ -49,7 +49,7 @@ class BankStatementParser
 
             } else { //Если разбивка не прошла
                 if ($result[0] == 'КонецДокумента') { //То проверяем конец ли это документа
-                    if (!isset($workflow['date_open'])) $workflow['date_open'] = date('d.m.Y');
+                    if (!isset($workflow['date_open'])||trim($workflow['date_open'])=='') $workflow['date_open'] = date('d.m.Y');
                     $documents[] = $workflow;
 
                 }

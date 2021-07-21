@@ -271,6 +271,9 @@ Route::group([
                     ->name('admin.preProcessBankStatement');
                 Route::post('transfer-to-real-payments', [BankStatementController::class,'transferToRealPayments'])
                     ->name('admin.transferToRealPayments');
+                Route::match(['get','post'],'attach_agreement_to_pbs/{bankStatementPosition}',
+                    [BankStatementController::class, 'attachAgreement'])
+                    ->name('admin.attachAgrToBS');
             }
         );
 

@@ -18,8 +18,8 @@
             <label for="agreements"></label>
             <select name="agreement_id" class="form-control selectpicker" id="agreements" data-live-search="true">
                 @foreach ($agreements as $agreement)
-                    <option>
-{{--                        value="{{$agreement->id}}" {{($agreement->id == $agreement->company_id) ? 'selected' : ''}}>--}}
+                    <option
+                        value="{{$agreement->id}}" {{($agreement->id == $bankStatementPosition->agreement_id) ? 'selected' : ''}}>
                         {{$agreement->name}} {{$agreement->agr_number}} компания:{{$agreement->Company->code}} контрагент:{{$agreement->Counterparty->name}}                       }}
                     </option>
                 @endforeach

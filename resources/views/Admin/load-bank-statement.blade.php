@@ -54,13 +54,13 @@
                         <td>{{$bankStatementPosition->description}}</td>
                         <td class="text-center">
                             @if($bankStatementPosition->agreement_id)
-                                {{$bankStatementPosition->agr_number}} от {{$bankStatementPosition->agr_date}}
+                                {{$bankStatementPosition->agreement->agr_number}} от {{$bankStatementPosition->agreement->date_open}}
                             @else
                                 ---
                             @endif
                         </td>
                         <td> @if($bankStatementPosition->agreement_id)
-                                <a href="#"> &#10008; Отвязать договор  </a>
+                                <a href="{{route('admin.detachAgrToBS',['bankStatementPosition'=>$bankStatementPosition->id])}}"> &#10008; Отвязать договор  </a>
                              @else
                                 <a href="{{route('admin.attachAgrToBS',['bankStatementPosition'=>$bankStatementPosition->id])}}"> &#10004; Привязать договор </a>
                              @endif
@@ -75,14 +75,32 @@
     </div>
 
     <div class="jumbotron">
-        <form method="POST" action="{{route('admin.transferToRealPayments')}}">
-            @csrf
-            <button type="submit"
-                    class="btn btn-outline-primary"
-            {{($bankStatementPositions->count()>0)?'':'disabled'}}>
-                Перенести обратботанные позиции в платежи
-            </button>
-        </form>
+        <div class="row">
+            <div class="col-md-3">
+                <form method="POST" action="{{route('admin.transferToRealPayments')}}">
+                    @csrf
+                    <button type="submit"
+                            class="btn btn-outline-primary"
+                        {{($bankStatementPositions->count()>0)?'':'disabled'}}>
+                        Перенести обратботанные позиции в платежи
+                    </button>
+                </form>
+
+            </div>
+            <div class="col-md-2">
+                <form method="POST" action="{{route('admin.clearBankStatements')}}">
+                    @csrf
+                    <button type="submit"
+                            class="btn btn-outline-danger"
+                            {{($bankStatementPositions->count()>0)?'':'disabled'}}
+                            onclick="return confirm('Действительно удалить все загруженные выписки?')">
+                        Удалить все записи
+                    </button>
+                </form>
+
+            </div>
+        </div>
+
     </div>
 
 @endsection

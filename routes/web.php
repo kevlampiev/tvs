@@ -274,6 +274,12 @@ Route::group([
                 Route::match(['get','post'],'attach_agreement_to_pbs/{bankStatementPosition}',
                     [BankStatementController::class, 'attachAgreement'])
                     ->name('admin.attachAgrToBS');
+                Route::post('detach_agreement_to_pbs/{bankStatementPosition}',
+                    [BankStatementController::class, 'detachAgreement'])
+                    ->name('admin.detachAgrToBS');
+                Route::post('delete_pbs',
+                    [BankStatementController::class, 'deleteBankStatemets'])
+                    ->name('admin.clearBankStatements');
             }
         );
 

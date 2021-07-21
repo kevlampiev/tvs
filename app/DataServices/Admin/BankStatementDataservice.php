@@ -6,21 +6,20 @@ namespace App\DataServices\Admin;
 
 use App\Models\Agreement;
 use App\Models\BankStatementPosition;
-use App\Models\Company;
 use DateTime;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use mysql_xdevapi\Statement;
 
 class BankStatementDataservice
 {
     public static function provideData():array
     {
-        $data = collect(DB::select('SELECT bs.*, a.agr_number, a.date_open agr_date
-                    FROM bank_statement_positions bs
-                    LEFT JOIN agreements a ON bs.description LIKE CONCAT(\'%\',a.agr_number,\'%\')
-                    WHERE bs.user_id=?
-                    ', [Auth::user()->id]));
+//        $data = collect(DB::select('SELECT bs.*, a.agr_number, a.date_open agr_date
+//                    FROM bank_statement_positions bs
+//                    LEFT JOIN agreements a ON bs.agreement_id=a.id
+//                    WHERE bs.user_id=?
+//                    ', [Auth::user()->id]));
+        $data = BankStatementPosition::all();
         return ['bankStatementPositions' => $data];
     }
 
@@ -40,15 +39,7 @@ class BankStatementDataservice
                 $bankOperation->save();
             }
         });
-        $ds = collect(DB::select('SELECT bs.id bsid, a.id agreement_id
-            FROM bank_statement_positions bs
-            INNER JOIN agreements a ON bs.description LIKE CONCAT(\'%\',a.agr_number,\'%\')
-            WHERE bs.agreement_id is null and bs.user_id = ?', [Auth::user()->id]));
-        foreach ($ds as $el) {
-            $dsRecord = BankStatementPosition::find($el->bsid);
-            $dsRecord->agreement_id = $el->agreement_id;
-            $dsRecord->save();
-        }
+        DB::statement('CALL prepare_bank_statements(?)', [Auth::user()->id]);
 
     }
 
@@ -58,14 +49,7 @@ class BankStatementDataservice
      */
     public static function transferToRealPayments()
     {
-        DB::statement('
-            INSERT INTO real_payments(agreement_id, payment_date, amount, currency, description)
-            SELECT a.id, bs.date_open, bs.amount, \'RUR\', bs.description
-            FROM bank_statement_positions bs
-            INNER JOIN agreements a ON bs.description LIKE CONCAT(\'%\',a.agr_number,\'%\')
-            WHERE bs.user_id = ?', [Auth::user()->id]);
-
-        DB::statement('DELETE FROM bank_statement_positions WHERE user_id=?',[Auth::user()->id]);
+        DB::statement('CALL transfer_bank_statements(?)', [Auth::user()->id]);
     }
 
     /**
@@ -78,6 +62,11 @@ class BankStatementDataservice
             'agreements'=>$agreements,
             'bankStatementPosition' => $bankStatementPosition,
         ];
+    }
+
+    public static function deleteBankStatements()
+    {
+        DB::statement('CALL delete_bank_statements(?)', [Auth::user()->id]);
     }
 
 }

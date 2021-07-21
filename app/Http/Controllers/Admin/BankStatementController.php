@@ -42,10 +42,11 @@ class BankStatementController extends Controller
         return redirect()->back()->with('message','Информация о реальных платежах перенесена в базу данных');
     }
 
-    public function attachAgreement(Request $request, BankStatementPosition $bankStatementPosition, Agreement $agreement)
+    public function attachAgreement(Request $request, BankStatementPosition $bankStatementPosition)
     {
         if ($request->isMethod('post')) {
-            $bankStatementPosition->agreement_id=Agreement::find($request->agreement_id)->id;
+//            dd($request);
+            $bankStatementPosition->agreement_id=$request->agreement_id;
             $bankStatementPosition->save();
             return redirect()->route('admin.loadBankStatement', []);
         } else {
@@ -54,11 +55,17 @@ class BankStatementController extends Controller
         }
     }
 
-    public function detachAgreement(Request $request, Agreement $agreement, Vehicle $vehicle)
+    public function detachAgreement(Request $request, BankStatementPosition $bankStatementPosition)
     {
-        $agreement->vehicles()->detach($vehicle);
-        return redirect()->route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'vehicles']);
+        $bankStatementPosition->agreement_id = null;
+        $bankStatementPosition->save();
+        return redirect()->route('admin.loadBankStatement', []);
     }
 
+    public function deleteBankStatemets(Request $request)
+    {
+        BankStatementDataservice::deleteBankStatements();
+        return redirect()->route('admin.loadBankStatement', []);
+    }
 
 }

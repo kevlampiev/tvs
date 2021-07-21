@@ -13,6 +13,6 @@ class BankStatementPosition extends Model
 
     public function agreement()
     {
-        return $this->hasOne(Agreement::class);
+        return $this->belongsTo(Agreement::class);
     }
 }

@@ -94,4 +94,14 @@ class AgreementPaymentController extends Controller
             return view('Admin/agreement-payments-close', ['agreement' => $agreement]);
         }
     }
+
+    public function massDeletePayments(Request $request, Agreement $agreement)
+    {
+
+//        AgreementPayment::where('agreement_id','=',$agreement->id)->delete();
+        $agreement->payments()->delete();
+        return redirect()
+            ->route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'payments'])
+            ->with('message', 'Записи о платежах по договору удалены');
+    }
 }

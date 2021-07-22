@@ -25,8 +25,15 @@
 
                     @forelse($payments as $index=>$payment)
                         <tr
-                            {{($payment->status=='погашен')?'class=text-secondary':''}}
-                            {{($payment->status=='просрочен')?'class=text-danger':''}}
+                            @if($payment->status=='погашен')
+                                class="text-secondary"
+                            @elseif($payment->status=='просрочен')
+                                class="text-danger"
+                            @elseif($payment->status=='срочный')
+                                class="text-dark"
+                            @else
+                                class="text-danger"
+                            @endif
                         >
                             <th scope="row">{{$index+1}}</th>
                             <td>{{$payment->payment_date}}</td>

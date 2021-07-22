@@ -89,7 +89,13 @@ class SettlementsReportsRepo
                     $item->status = 'срочный';
                 } else {
                     $payedByNow -= $item->amount;
-                    $item->status = ($payedByNow >= 0) ? 'погашен' : 'просрочен';
+                    if ($payedByNow>=0) {
+                        $item->status = 'погашен';
+                    } elseif(abs($payedByNow)<$item->amount) {
+                        $item->status = 'погашен частично, осталось доплатить '.number_format(-$payedByNow,2);
+                    } else {
+                        $item->status='просрочен';
+                    }
                 }
                 return $item;
             });

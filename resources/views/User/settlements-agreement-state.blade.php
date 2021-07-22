@@ -25,7 +25,7 @@
 
                     @forelse($payments as $index=>$payment)
                         <tr
-                            {{($payment->status==='погашен')?'class=text-secondary':''}}
+                            {{($payment->status=='погашен')?'class=text-secondary':''}}
                             {{($payment->status=='просрочен')?'class=text-danger':''}}
                         >
                             <th scope="row">{{$index+1}}</th>

@@ -88,11 +88,11 @@ class SettlementsReportsRepo
                 if ($item->payment_date > $queryDate) {
                     $item->status = 'срочный';
                 } else {
-                    $payedByNow -= $item->amount;
+                    $payedByNow = round($payedByNow-$item->amount,2);
                     if ($payedByNow>=0) {
                         $item->status = 'погашен';
                     } elseif(abs($payedByNow)<$item->amount) {
-                        $item->status = 'погашен частично, осталось доплатить '.number_format(-$payedByNow,8);
+                        $item->status = 'погашен частично, осталось доплатить '.number_format(-$payedByNow,2);
                     } else {
                         $item->status='просрочен';
                     }

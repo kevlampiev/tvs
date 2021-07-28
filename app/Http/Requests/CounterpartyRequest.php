@@ -25,6 +25,7 @@ class CounterpartyRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:3',
+            'inn' => 'required|string|min:10|max:12',
         ];
     }
 

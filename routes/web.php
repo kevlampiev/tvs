@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AgreementController;
 use App\Http\Controllers\Admin\AgreementPaymentController;
 use App\Http\Controllers\Admin\AgreementTypeController;
+use App\Http\Controllers\Admin\BankStatementController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\CounterpartyController;
 use App\Http\Controllers\Admin\HomeController;
@@ -225,6 +226,8 @@ Route::group([
                     ->name('admin.editAgrPayment');
                 Route::match(['get', 'post'], '{agreement}/cancel-payments', [AgreementPaymentController::class, 'cancelPayments'])
                     ->name('admin.massCancelPayments');
+                Route::post( '{agreement}/delete-payments', [AgreementPaymentController::class, 'massDeletePayments'])
+                    ->name('admin.massDeletePayments');
                 Route::get('{agreement}/movetoreal/{payment}', [AgreementPaymentController::class, 'toRealPayments'])
                     ->name('admin.movePaymentToReal');
                 Route::match(['get', 'post'], '{agreement}/delete-payment/{payment}', [AgreementPaymentController::class, 'delete'])
@@ -235,8 +238,10 @@ Route::group([
                     ->name('admin.editRealPayment');
                 Route::match(['get', 'post'], '{agreement}/delete-real-payment/{payment}', [RealPaymentController::class, 'delete'])
                     ->name('admin.deleteRealPayment');
-
             }
+
+
+
         );
 
         Route::group([
@@ -257,6 +262,28 @@ Route::group([
             }
         );
 
+        Route::group([
+            'prefix' => 'actions',
+            'middleware' => 'is.admin'
+        ],
+            function () {
+                Route::get('load-bank-statement', [BankStatementController::class, 'index'])
+                    ->name('admin.loadBankStatement');
+                Route::post('pre-load-file', [BankStatementController::class,'preLoadFile'])
+                    ->name('admin.preProcessBankStatement');
+                Route::post('transfer-to-real-payments', [BankStatementController::class,'transferToRealPayments'])
+                    ->name('admin.transferToRealPayments');
+                Route::match(['get','post'],'attach_agreement_to_pbs/{bankStatementPosition}',
+                    [BankStatementController::class, 'attachAgreement'])
+                    ->name('admin.attachAgrToBS');
+                Route::post('detach_agreement_to_pbs/{bankStatementPosition}',
+                    [BankStatementController::class, 'detachAgreement'])
+                    ->name('admin.detachAgrToBS');
+                Route::post('delete_pbs',
+                    [BankStatementController::class, 'deleteBankStatemets'])
+                    ->name('admin.clearBankStatements');
+            }
+        );
 
     }
 );
@@ -282,7 +309,7 @@ Route::group([
 
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
-Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('password/expired', [ExpiredPasswordController::class, 'expired'])
     ->name('password.expired');
 Route::post('password/expired', [ExpiredPasswordController::class, 'postExpired'])

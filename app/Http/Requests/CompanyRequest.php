@@ -25,6 +25,7 @@ class CompanyRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:3',
+            'inn' => 'required|string|min:10|max:12',
             'code' => 'required|string|min:2|max:10',
         ];
     }

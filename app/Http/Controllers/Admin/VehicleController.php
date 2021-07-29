@@ -11,6 +11,7 @@ use App\Models\Vehicle;
 use App\Models\VehicleType;
 use App\DataServices\VehiclesRepo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class VehicleController extends Controller
 {
@@ -19,47 +20,36 @@ class VehicleController extends Controller
         return view('Admin.vehicles', VehiclesRepo::getVehicles($request));
     }
 
-    public function addVehicle(Request $request)
+    public function create(Request $request)
     {
         $vehicle = new Vehicle();
-        if ($request->isMethod('post')) {
-            $this->validate($request, Vehicle::rules());
-            $vehicle->fill($request->except(['id', 'created_at', 'updated_at']));
-            $vehicle->save();
-            return redirect()->route('admin.vehicles');
-        } else {
-            if (!empty($request->old())) {
-                $vehicle->fill($request->old());
-            }
-            return view('Admin/vehicle-edit', [
-                'vehicle' => $vehicle,
-                'route' => 'admin.addVehicle',
-                'vehicleTypes' => VehicleType::query()->orderBy('name')->get(),
-                'manufacturers' => Manufacturer::query()->orderBy('name')->get(),
-            ]);
-        }
+        if (!empty($request->old())) $vehicle->fill($request->old());
+        return view('Admin/vehicle-edit', VehicleDataservice::provideEditorForm($vehicle));
     }
 
-    public function editVehicle(VehicleRequest $request, Vehicle $vehicle)
+    public function store(VehicleRequest $request)
     {
-        if ($request->isMethod('post')) {
-            $this->validate($request, Vehicle::rules());
-            $vehicle->fill($request->except(['id', 'created_at', 'updated_at']));
-            $vehicle->save();
-            $route = session('previous_url', route('admin.vehicles'));
-            return redirect()->to($route);
-        } else {
-            if (!empty($request->old())) {
-                $vehicle->fill($request->old());
-            }
-            if (url()->previous() !== url()->current()) session(['previous_url' => url()->previous()]);
-            return view('Admin/vehicle-edit', VehicleDataservice::provideEditorForm($vehicle));
-        }
+        VehicleDataservice::storeNewVehicle($request);
+        return redirect()->route('admin.vehicles');
     }
 
-    public function deleteVehicle(Vehicle $vehicle)
+    public function edit(Request $request, Vehicle $vehicle)
     {
-        $vehicle->delete();
+        if (url()->previous() !== url()->current()) session(['previous_url' => url()->previous()]);
+        if (!empty($request->old())) $vehicle->fill($request->old());
+        return view('Admin/vehicle-edit', VehicleDataservice::provideEditorForm($vehicle));
+    }
+
+    public function update(VehicleRequest $request, Vehicle $vehicle)
+    {
+        VehicleDataservice::updateVehicle($request, $vehicle);
+        $route = session('previous_url', route('admin.vehicles'));
+        return redirect()->to($route);
+    }
+
+    public function erase(Vehicle $vehicle)
+    {
+        VehicleDataservice::erase($vehicle);
         return redirect()->route('admin.vehicles');
     }
 

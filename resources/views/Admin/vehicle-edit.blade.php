@@ -6,9 +6,8 @@
 
 @section('content')
     <h3> @if ($vehicle->id) Изменение описания @else Добавить новую единицу техники @endif</h3>
-    <form action="{{route($route, $vehicle->id)}}" method="POST">
+    <form action="{{route($route, $vehicle->id)}}" method="POST" enctype="multipart/form-data">
         @csrf
-
 
         <div class="row">
             <div class="col-md6">
@@ -235,15 +234,22 @@
             <div class="col-md6 p-3">
                 <h4>Изображение ПТС/ПСМ</h4>
                 <div class="card" style="width: 18rem;">
-                    <img src="https://pln-pskov.ru/pictures/201124092823.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                            of the card's content.</p>
+                    <img
+                        @if($vehicle->pts_img_path)
+                            src="{{asset(config('paths.pts.get','storage/img/pts/').$vehicle->pts_img_path)}}" class="card-img-top" alt="..."
+                        @else
+                            src="{{asset('storage/img/no_image_found.jpeg')}}" class="card-img-top" alt="..."
+                        @endif
+                        id="img-viewer">
+                    <div class="card-body" onclick="document.getElementById('inputGroupFile01').click()">
                     </div>
+                    <a class="btn btn-outline-secondary" onclick="document.getElementById('inputGroupFile01').click()">Изменить изображение</a>
                 </div>
 
                 <div class="input-group mb-3">
-                    <input type="file" class="form-control" id="inputGroupFile01">
+                    <input type="file" class="form-control-file" id="inputGroupFile01" name="pts-img"
+                           accept="image/*" style="display:none">
+
                 </div>
             </div>
         </div>
@@ -258,3 +264,26 @@
 
 
 @endsection
+
+@section('scripts')
+    <script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+            $('#img-viewer').attr('src', e.target.result);
+            $('#pts_tmp_path').attr('value', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#inputGroupFile01").change(function() {
+        readURL(this);
+    });
+
+
+
+    </script>
+@endsection
+

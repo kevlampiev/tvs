@@ -7,4 +7,5 @@
   */
 return [
     'bankStatements' => 'public/bank-statement',
+    'pts' => 'public/img/pts',
 ];

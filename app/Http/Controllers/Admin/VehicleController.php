@@ -11,6 +11,7 @@ use App\Models\Vehicle;
 use App\Models\VehicleType;
 use App\DataServices\VehiclesRepo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class VehicleController extends Controller
 {
@@ -23,8 +24,13 @@ class VehicleController extends Controller
     {
         $vehicle = new Vehicle();
         if ($request->isMethod('post')) {
+            dd($request);
             $this->validate($request, Vehicle::rules());
             $vehicle->fill($request->except(['id', 'created_at', 'updated_at']));
+            if ($request->file('pts-img')) {
+                $file_path = $request->file('pts-img')->store(config('paths.pts','/img/pts'));
+                $vehicle->pts_img_path = basename($file_path);
+            }
             $vehicle->save();
             return redirect()->route('admin.vehicles');
         } else {
@@ -43,8 +49,13 @@ class VehicleController extends Controller
     public function editVehicle(VehicleRequest $request, Vehicle $vehicle)
     {
         if ($request->isMethod('post')) {
+
             $this->validate($request, Vehicle::rules());
             $vehicle->fill($request->except(['id', 'created_at', 'updated_at']));
+            if ($request->file('pts-img')) {
+                $file_path = $request->file('pts-img')->store(config('paths.pts','/img/pts'));
+                $vehicle->pts_img_path = basename($file_path);
+            }
             $vehicle->save();
             $route = session('previous_url', route('admin.vehicles'));
             return redirect()->to($route);

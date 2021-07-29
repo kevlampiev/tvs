@@ -6,7 +6,7 @@
 
 @section('content')
     <h3> @if ($vehicle->id) Изменение описания @else Добавить новую единицу техники @endif</h3>
-    <form action="{{route($route, $vehicle->id)}}" method="POST">
+    <form action="{{route($route, $vehicle->id)}}" method="POST" enctype="multipart/form-data">
         @csrf
 
 
@@ -235,15 +235,17 @@
             <div class="col-md6 p-3">
                 <h4>Изображение ПТС/ПСМ</h4>
                 <div class="card" style="width: 18rem;">
-                    <img src="https://pln-pskov.ru/pictures/201124092823.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                            of the card's content.</p>
-                    </div>
+                    <img src="{{asset('storage/img/pts/'.$vehicle->pts_img_path)}}" class="card-img-top" alt="..."
+                    id="img-viewer">
+{{--                    <div class="card-body">--}}
+{{--                        <p class="card-text">Some quick example text to build on the card title and make up the bulk--}}
+{{--                            of the card's content.</p>--}}
+{{--                    </div>--}}
                 </div>
 
                 <div class="input-group mb-3">
-                    <input type="file" class="form-control" id="inputGroupFile01">
+                    <input type="file" class="form-control-file" id="inputGroupFile01" name="pts-img"
+                           accept="image/*">
                 </div>
             </div>
         </div>
@@ -258,3 +260,24 @@
 
 
 @endsection
+
+@section('scripts')
+    <script>
+    function readURL(input) {
+    if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+    $('#img-viewer').attr('src', e.target.result);
+    }
+
+    reader.readAsDataURL(input.files[0]);
+    }
+    }
+
+    $("#inputGroupFile01").change(function() {
+    readURL(this);
+    });
+    </script>
+@endsection
+

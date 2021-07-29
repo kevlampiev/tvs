@@ -7,5 +7,7 @@
   */
 return [
     'bankStatements' => 'public/bank-statement',
-    'pts' => 'public/img/pts',
+    'pts' => ['put'=>'public/img/pts/',
+              'get'=>'storage/img/pts/'],
+
 ];

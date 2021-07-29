@@ -188,15 +188,17 @@ Route::group([
         ],
             function () {
                 Route::get('/', [VehicleController::class, 'index'])->name('admin.vehicles');
-                Route::match(['post', 'get'], 'add', [VehicleController::class, 'addVehicle'])->name('admin.addVehicle');
-                Route::match(['post', 'get'], '{vehicle}/edit', [VehicleController::class, 'editVehicle'])->name('admin.editVehicle');
-                Route::match(['post', 'get'], '{vehicle}/delete', [VehicleController::class, 'deleteVehicle'])->name('admin.deleteVehicle');
+                Route::get( 'add', [VehicleController::class, 'create'])->name('admin.addVehicle');
+                Route::post( 'add', [VehicleController::class, 'store']);
+                Route::get( '{vehicle}/edit', [VehicleController::class, 'edit'])->name('admin.editVehicle');
+                Route::post( '{vehicle}/edit', [VehicleController::class, 'update']);
+
+                Route::match(['post', 'get'], '{vehicle}/delete', [VehicleController::class, 'erase'])->name('admin.deleteVehicle');
                 Route::get('{vehicle}/summary/{page?}', [VehicleController::class, 'vehicleSummary'])->name('admin.vehicleSummary');
                 Route::match(['get','post'], '{vehicle}/attach-agreement', [VehicleController::class, 'attachAgreement'])
                     ->name('admin.attachAgreement');
                 Route::get('{vehicle}/detach-agreement/{agreement}', [VehicleController::class, 'detachAgreement'])
                     ->name('admin.detachAgreement');
-
             }
         );
 

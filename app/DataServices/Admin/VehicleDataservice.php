@@ -41,7 +41,7 @@ class VehicleDataservice
 
     public static function saveChanges(VehicleRequest $request, Vehicle $vehicle)
     {
-        $vehicle->fill($request->except(['id', 'created_at', 'updated_at', 'pts-img']));
+        $vehicle->fill($request->except(['id', 'created_at', 'updated_at', 'pts-img', 'pts_tmp_path']));
         if ($vehicle->id) $vehicle->updated_at = now();
             else $vehicle->created_at = now();
         if ($request->file('pts-img')) {

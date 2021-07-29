@@ -242,7 +242,6 @@
                         @endif
                         id="img-viewer">
                     <div class="card-body" onclick="document.getElementById('inputGroupFile01').click()">
-{{--                        <p class="card-text">Для изменения изображения ПТС/ПСМ кликните на кнопку ниже</p>--}}
                     </div>
                     <a class="btn btn-outline-secondary" onclick="document.getElementById('inputGroupFile01').click()">Изменить изображение</a>
                 </div>
@@ -250,6 +249,7 @@
                 <div class="input-group mb-3">
                     <input type="file" class="form-control-file" id="inputGroupFile01" name="pts-img"
                            accept="image/*" style="display:none">
+
                 </div>
             </div>
         </div>
@@ -272,7 +272,7 @@
             let reader = new FileReader();
             reader.onload = function(e) {
             $('#img-viewer').attr('src', e.target.result);
-            $('#img-viewer').attr('src', e.target.result);
+            $('#pts_tmp_path').attr('value', e.target.result);
         }
         reader.readAsDataURL(input.files[0]);
         }
@@ -281,6 +281,8 @@
     $("#inputGroupFile01").change(function() {
         readURL(this);
     });
+
+
 
     </script>
 @endsection

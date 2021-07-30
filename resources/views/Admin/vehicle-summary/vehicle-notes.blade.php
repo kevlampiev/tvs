@@ -1,5 +1,5 @@
 <div class="row m-1">
-    <button class="btn btn-outline-primary">Добавить заметку</button>
+    <a class="btn btn-outline-primary" href="{{route('admin.addVehicleNote', ['vehicle'=>$vehicle])}}">Добавить заметку</a>
 </div>
 
 <div class="notes-container">

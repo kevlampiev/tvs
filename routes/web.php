@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\ManufacturersController;
 use App\Http\Controllers\Admin\RealPaymentController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\VehicleController;
+use App\Http\Controllers\Admin\VehicleNoteController;
 use App\Http\Controllers\Admin\VehicleTypeController;
 use App\Http\Controllers\Auth\ExpiredPasswordController;
 use App\Http\Controllers\Auth\LoginController;
@@ -199,6 +200,12 @@ Route::group([
                     ->name('admin.attachAgreement');
                 Route::get('{vehicle}/detach-agreement/{agreement}', [VehicleController::class, 'detachAgreement'])
                     ->name('admin.detachAgreement');
+                Route::group(['prefix' => 'notes'],
+                    function() {
+                        Route::get('add/{vehicle}', [VehicleNoteController::class, 'create'])
+                            ->name('admin.addVehicleNote');
+                        Route::post('add/{vehicle}', [VehicleNoteController::class, 'store']);
+                    });
             }
         );
 

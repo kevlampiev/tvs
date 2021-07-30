@@ -61,6 +61,15 @@
 
 @endsection
 
+@section('styles')
+    <style>
+        .notes-container {
+            overflow-y: scroll;
+        }
+
+    </style>
+
+@endsection
 @section('scripts')
     <script>
         function autoSelectPage() {

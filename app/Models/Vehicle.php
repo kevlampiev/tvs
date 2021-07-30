@@ -44,6 +44,11 @@ class Vehicle extends Model
         return $this->hasMany(Insurance::class);
     }
 
+    public function notes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(VehicleNote::class);
+    }
+
     public static function rules(): array
     {
         return [

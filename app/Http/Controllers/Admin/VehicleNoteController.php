@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataServices\Admin\VehicleDataservice;
+use App\DataServices\Admin\VehicleNotesDataservice;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VehicleRequest;
 use App\Models\Agreement;
@@ -14,23 +15,18 @@ use App\DataServices\VehiclesRepo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class VehicleController extends Controller
+class VehicleNoteController extends Controller
 {
-    public function index(Request $request)
-    {
-        return view('Admin.vehicles', VehiclesRepo::getVehicles($request));
-    }
-
     public function create(Request $request)
     {
-        $vehicle = new Vehicle();
-        if (!empty($request->old())) $vehicle->fill($request->old());
-        return view('Admin/vehicle-edit', VehicleDataservice::provideEditorForm($vehicle));
+        $note = new VehicleNote();
+        if (!empty($request->old())) $note->fill($request->old());
+        return view('Admin.vehicle-note-edit', VehicleNotesDataservice::provideEditor($note));
     }
 
-    public function store(VehicleRequest $request)
+    public function store(VehicleNoteRequest $request)
     {
-        VehicleDataservice::storeNewVehicle($request);
+        VehicleNoteDataservice::storeNew($request);
         return redirect()->route('admin.vehicles');
     }
 

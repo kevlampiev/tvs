@@ -26,11 +26,31 @@ class VehicleNoteController extends Controller
         return view('Admin.vehicle-note-edit', VehicleNotesDataservice::provideEditor($vehicleNote));
     }
 
-    public function store(VehicleNoteRequest $request,  Vehicle $vehicle)
+    public function store(VehicleNoteRequest $request, Vehicle $vehicle): \Illuminate\Http\RedirectResponse
     {
         VehicleNotesDataservice::storeNew($request);
-        return redirect()->route('admin.vehicleSummary', ['vehicle' => $vehicle]);
+        return redirect()->route('admin.vehicleSummary', ['vehicle' => $vehicle, 'page' => 'notes']);
     }
+
+    public function edit(Request $request, VehicleNote $vehicleNote)
+    {
+        if (!empty($request->old())) $vehicleNote->fill($request->old());
+        return view('Admin.vehicle-note-edit', VehicleNotesDataservice::provideEditor($vehicleNote));
+    }
+
+    public function update(VehicleNoteRequest $request, VehicleNote $vehicleNote): \Illuminate\Http\RedirectResponse
+    {
+        VehicleNotesDataservice::storeNew($request);
+        return redirect()->route('admin.vehicleSummary', ['vehicle' => $vehicleNote->vehicle->id, 'page' => 'notes']);
+    }
+
+    public function erase(VehicleNote $vehicleNote): \Illuminate\Http\RedirectResponse
+    {
+        $vehicleId = $vehicleNote->vehicle->id;
+        VehicleNotesDataservice::erase($vehicleNote);
+        return redirect()->route('admin.vehicleSummary', ['vehicle' => $vehicleId, 'page' => 'notes']);
+    }
+
 //
 //    public function edit(Request $request, Vehicle $vehicle)
 //    {

@@ -8,7 +8,7 @@
     <h3> @if ($vehicleNote->id) Редактирование заметки @else Добавить заметку @endif</h3>
     <form
         @if($vehicleNote->id)
-            action="{{route($route, ['vehicle' => $vehicleNote->vehicle->id, 'vehicleNode' =>$vehicleNote->id])}}"
+            action="{{route($route, ['vehicle' => $vehicleNote->vehicle->id, 'vehicleNote' =>$vehicleNote->id])}}"
         @else
             action="{{route('admin.addVehicleNote', ['vehicle' => $vehicleNote->vehicle->id])}}"
         @endif

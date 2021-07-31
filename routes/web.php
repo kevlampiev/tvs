@@ -205,6 +205,12 @@ Route::group([
                         Route::get('add/{vehicle}', [VehicleNoteController::class, 'create'])
                             ->name('admin.addVehicleNote');
                         Route::post('add/{vehicle}', [VehicleNoteController::class, 'store']);
+                        Route::get('edit/{vehicleNote}', [VehicleNoteController::class, 'edit'])
+                            ->name('admin.editVehicleNote');
+                        Route::post('edit/{vehicleNote}', [VehicleNoteController::class, 'store']);
+                        Route::get('delete/{vehicleNote}', [VehicleNoteController::class, 'erase'])
+                            ->name('admin.deleteVehicleNote');
+
                     });
             }
         );
@@ -318,7 +324,7 @@ Route::group([
 
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
-Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+Route::match(['get', 'post'],'logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('password/expired', [ExpiredPasswordController::class, 'expired'])
     ->name('password.expired');
 Route::post('password/expired', [ExpiredPasswordController::class, 'postExpired'])

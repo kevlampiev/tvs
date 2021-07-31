@@ -14,7 +14,7 @@ class ManufacturersController extends Controller
 {
     public function index()
     {
-        return view('Admin.manufacturers',ManufacturersDataservice::provideData());
+        return view('Admin.manufacturers', ManufacturersDataservice::provideData());
     }
 
     /**

@@ -58,7 +58,7 @@ class VehicleController extends Controller
     {
         return view('Admin/vehicle-summary',
             ['vehicle' => $vehicle,
-                'notes' => VehicleNote::where('vehicle_id','=',$vehicle->id)->with('user')->orderByDesc('created_at')->get()]);
+                'notes' => VehicleNote::where('vehicle_id', '=', $vehicle->id)->with('user')->orderByDesc('created_at')->get()]);
     }
 
     public function attachAgreement(Request $request, Vehicle $vehicle)

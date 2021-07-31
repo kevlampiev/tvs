@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class BankStatementDataservice
 {
-    public static function provideData():array
+    public static function provideData(): array
     {
 //        $data = collect(DB::select('SELECT bs.*, a.agr_number, a.date_open agr_date
 //                    FROM bank_statement_positions bs
@@ -29,10 +29,10 @@ class BankStatementDataservice
      */
     public static function storeData(array $data)
     {
-        DB::transaction( function() use($data){
+        DB::transaction(function () use ($data) {
             foreach ($data as $item) {
                 $bankOperation = new BankStatementPosition();
-                $item['date_open']= DateTime::createFromFormat('d.m.Y',$item['date_open']);
+                $item['date_open'] = DateTime::createFromFormat('d.m.Y', $item['date_open']);
                 $bankOperation->fill($item);
                 $bankOperation->user_id = Auth::user()->id;
                 $bankOperation->created_at = now();
@@ -55,11 +55,11 @@ class BankStatementDataservice
     /**
      * Снабжает данными представление для привязки договора к платежу из выписки 1С
      */
-    public static function provideAddAgreementView(BankStatementPosition $bankStatementPosition):array
+    public static function provideAddAgreementView(BankStatementPosition $bankStatementPosition): array
     {
         $agreements = Agreement::all();
         return [
-            'agreements'=>$agreements,
+            'agreements' => $agreements,
             'bankStatementPosition' => $bankStatementPosition,
         ];
     }

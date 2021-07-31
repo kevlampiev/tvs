@@ -4,21 +4,24 @@
 
 <div class="notes-container">
 
-    @for($i=0;$i<7;$i++)
+    @forelse($notes as $index=>$note)
         <div class="card mb-3">
             <div class="card-header">
-                <strong> Имя пользователя </strong>     21.08.2021 15:0{{$i}}
+                <strong> {{$note->user->name}} </strong>    {{$note->created_at}}
             </div>
             <div class="card-body">
-                <p>Что есть добро, а что зло - не поймешь </p>
+                <p>{{$note->note_body}}</p>
             </div>
-            @if($i==1)
+            @if($note->user_id === Auth::user()->id)
                 <div class="card-footer text-muted">
-                    <a href="#" class="mr-5"> &#9998;Изменить </a>
-                    <a href="#" onclick="return confirm('Действительно удалить заметку?')"> &#10008;Удалить </a>
+                    <a href="{{route('admin.editVehicleNote', ['vehicleNote'=>$note])}}" class="mr-5"> &#9998;Изменить </a>
+                    <a href="{{route('admin.deleteVehicleNote', ['vehicleNote' => $note])}}"
+                       onclick="return confirm('Действительно удалить заметку?')"> &#10008;Удалить </a>
                 </div>
             @endif
         </div>
-    @endfor
+    @empty
+        <h4>Нет заметок по данной единице техники</h4>
+    @endforelse
 
 </div>

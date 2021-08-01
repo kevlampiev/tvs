@@ -11,17 +11,23 @@
                     <h4 class="m-auto">Предстоящие платежи ({{$upcomingPaymentsPeriod}} дн.) </h4>
                     @include('User.dashboard.upcoming-payments');
                 </div>
-            </div>
-            <div class="col-md-6">
+
                 <div class="shadow p-3 mb-5 bg-white rounded dashBoardBlock">
                     <h4 class="m-auto">Страховки к оформлению ({{$upcomingInsurancesPeriod}} дн.) </h4>
                     @include('User.dashboard.vehiclesToBeInsured')
                 </div>
-                <div class="shadow p-3 mb-5 bg-white rounded dashBoardBlock">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, quam similique. Aperiam enim facere libero.
-                </div>
 
             </div>
+
+
+            <div class="col-md-6">
+
+                <div class="shadow p-3 mb-5 bg-white rounded dashBoardBlockLong">
+                    <h4 class="m-auto">Последние события </h4>
+                    @include('User.dashboard.lastEvents')
+                </div>
+            </div>
+
         </div>
     </div>
 @endsection
@@ -31,7 +37,13 @@
         .dashBoardBlock {
             height: 350px;
             overflow-y: hidden;
+            margin: 10px;
             }
+
+        .dashBoardBlockLong {
+            overflow-y: hidden;
+            margin: 10px;
+        }
 
         .vehiclesToBeInsured {
             height: 235px;
@@ -41,6 +53,12 @@
             column-gap: 15px;
             outline: lightgray 1px solid;
             overflow: scroll;
+        }
+
+        .note-block {
+            margin: 10px;
+            padding: 10px;
+            outline: 1px solid #ddd;
         }
 
         .bottom-line {

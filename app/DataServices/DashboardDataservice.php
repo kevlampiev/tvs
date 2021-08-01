@@ -8,6 +8,7 @@ use App\Models\Agreement;
 use App\Models\AgreementPayment;
 use App\Models\RealPayment;
 use App\Models\Vehicle;
+use App\Models\VehicleNote;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -24,6 +25,7 @@ class DashboardDataservice
             'data' => json_encode(self::getChartData($paymentInfo), JSON_UNESCAPED_UNICODE),
             'summary' => self::getPaymentsSummary($paymentInfo),
             'runningOutOfIns' => self::getInsurancesData(),
+            'notes' => self::getLastNotes(),
             'upcomingInsurancesPeriod' => config('constants.upcomingPeriods.insurances'),
             'upcomingPaymentsPeriod' => config('constants.upcomingPeriods.payments'),
         ];
@@ -61,5 +63,10 @@ class DashboardDataservice
             'overdue' => $paymentInfo->sum('overdue') / 10 ** 6,
             'upcoming' => $paymentInfo->sum('upcoming') / 10 ** 6,
         ];
+    }
+
+    private static function getLastNotes()
+    {
+        return VehicleNote::query()->orderByDesc('created_at')->limit(10)->get();
     }
 }

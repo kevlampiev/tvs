@@ -17,11 +17,11 @@ class VehicleDataservice
         return ['vehicles' => Vehicle::withCount('agreements')->orderBy('name')->get(), 'filter' => ''];
     }
 
-    public static function provideEditorForm(Vehicle $vehicle):array
+    public static function provideEditorForm(Vehicle $vehicle): array
     {
         return [
             'vehicle' => $vehicle,
-            'route' => ($vehicle->id)?'admin.editVehicle':'admin.addVehicle',
+            'route' => ($vehicle->id) ? 'admin.editVehicle' : 'admin.addVehicle',
             'vehicleTypes' => VehicleType::query()->orderBy('name')->get(),
             'manufacturers' => Manufacturer::query()->orderBy('name')->get(),
         ];
@@ -43,9 +43,9 @@ class VehicleDataservice
     {
         $vehicle->fill($request->except(['id', 'created_at', 'updated_at', 'pts-img', 'pts_tmp_path']));
         if ($vehicle->id) $vehicle->updated_at = now();
-            else $vehicle->created_at = now();
+        else $vehicle->created_at = now();
         if ($request->file('pts-img')) {
-            $file_path = $request->file('pts-img')->store(config('paths.pts.put','/img/pts'));
+            $file_path = $request->file('pts-img')->store(config('paths.pts.put', '/img/pts'));
             $vehicle->pts_img_path = basename($file_path);
         }
         $vehicle->save();

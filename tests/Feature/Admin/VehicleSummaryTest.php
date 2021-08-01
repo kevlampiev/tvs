@@ -110,4 +110,31 @@ class VehicleSummaryTest extends TestCase
     }
 
 
+    /**
+     * Смотрим на страницу Notes
+     *
+     * @return void
+     */
+    public function testNotesTab()
+    {
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
+        $vehicle = Vehicle::query()
+            ->whereHas('insurances')
+            ->inRandomOrder()->first();
+        if ($vehicle->notes) {
+            $response = $this->actingAs($user)
+                ->get(route('admin.vehicleSummary', ['vehicle' => $vehicle, 'page' => 'notes']))
+                ->assertStatus(200)
+                ->assertSeeText($vehicle->notes->first()->note_body);
+        } else {
+            $vehicle = Vehicle::query()
+                ->inRandomOrder()->first();
+            $response = $this->actingAs($user)
+                ->get(route('admin.vehicleSummary', ['vehicle' => $vehicle, 'page' => 'notes']))
+                ->assertStatus(200)
+                ->assertSeeText('Нет заметок по данной единице техники');
+        }
+    }
+
+
 }

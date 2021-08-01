@@ -27,26 +27,26 @@ class BankStatementController extends Controller
     {
         if ($request->file('file1C')) {
             $file = $request->file('file1C');
-            $upload_folder = config('paths.bankStatements','public/bank-statements');
+            $upload_folder = config('paths.bankStatements', 'public/bank-statements');
             Storage::putFile($upload_folder, $file);
             $parser = new BankStatementParser($file);
             BankStatementDataservice::storeData($parser->getDocs());
 
         }
-        return redirect()->back()->with('message','Данные выписки загружены для анализа');
+        return redirect()->back()->with('message', 'Данные выписки загружены для анализа');
     }
 
     public function transferToRealPayments()
     {
         BankStatementDataservice::transferToRealPayments();
-        return redirect()->back()->with('message','Информация о реальных платежах перенесена в базу данных');
+        return redirect()->back()->with('message', 'Информация о реальных платежах перенесена в базу данных');
     }
 
     public function attachAgreement(Request $request, BankStatementPosition $bankStatementPosition)
     {
         if ($request->isMethod('post')) {
 //            dd($request);
-            $bankStatementPosition->agreement_id=$request->agreement_id;
+            $bankStatementPosition->agreement_id = $request->agreement_id;
             $bankStatementPosition->save();
             return redirect()->route('admin.loadBankStatement', []);
         } else {

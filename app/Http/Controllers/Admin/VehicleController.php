@@ -8,6 +8,7 @@ use App\Http\Requests\VehicleRequest;
 use App\Models\Agreement;
 use App\Models\Manufacturer;
 use App\Models\Vehicle;
+use App\Models\VehicleNote;
 use App\Models\VehicleType;
 use App\DataServices\VehiclesRepo;
 use Illuminate\Http\Request;
@@ -55,7 +56,9 @@ class VehicleController extends Controller
 
     public function vehicleSummary(Vehicle $vehicle)
     {
-        return view('Admin/vehicle-summary', ['vehicle' => $vehicle]);
+        return view('Admin/vehicle-summary',
+            ['vehicle' => $vehicle,
+                'notes' => VehicleNote::where('vehicle_id', '=', $vehicle->id)->with('user')->orderByDesc('created_at')->get()]);
     }
 
     public function attachAgreement(Request $request, Vehicle $vehicle)

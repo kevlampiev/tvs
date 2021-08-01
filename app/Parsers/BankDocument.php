@@ -45,11 +45,13 @@ class BankDocument
     public $paymentperiod;
     public $quenue;
 
-    public function __construct() {
+    public function __construct()
+    {
 
     }
 
-    public function rules($rule) {
+    public function rules($rule)
+    {
         $rules = [
             'СекцияДокумент' => 'doctype',
             'Номер' => 'inbankid',
@@ -96,7 +98,8 @@ class BankDocument
         return $rules[$rule];
     }
 
-    public function set($section, $param) {
+    public function set($section, $param)
+    {
         $rulled = $this->rules($section);
         $this->$rulled = $param;
     }

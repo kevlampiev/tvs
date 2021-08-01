@@ -43,7 +43,10 @@
             <button type="submit" class="btn btn-primary">
                 @if ($vehicleNote->id)  Изменить @else Добавить @endif
             </button>
-            <a class="btn btn-secondary" href="{{route('admin.vehicleSummary',['vehicle'=>$vehicleNote->vehicle_id])}}">Отмена</a>
+            <a class="btn btn-secondary"
+               href="{{route('admin.vehicleSummary',['vehicle'=>$vehicleNote->vehicle_id, 'page' => 'notes'])}}">
+                Отмена
+            </a>
 
         </form>
 

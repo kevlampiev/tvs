@@ -39,7 +39,7 @@ class LoadBankStatementTest extends TestCase
 
 
     /**
-     * Тестируем общий список договоров.
+     * Тестируем страницу загрузки выпискок.
      * @return void
      */
     public function test_indexPage()

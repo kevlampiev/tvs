@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\DataServices\DashboardDataservice;
+
+
+use App\DataServices\User\DashboardDataservice;
 
 class HomeController extends Controller
 {

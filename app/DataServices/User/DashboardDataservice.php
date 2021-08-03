@@ -1,20 +1,11 @@
 <?php
 
 
-namespace App\DataServices;
+namespace App\DataServices\User;
 
 
-use App\Models\Agreement;
-use App\Models\AgreementPayment;
-use App\Models\RealPayment;
-use App\Models\Vehicle;
 use App\Models\VehicleNote;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use phpDocumentor\Reflection\Types\Collection;
-use phpDocumentor\Reflection\Types\Object_;
 
 class DashboardDataservice
 {

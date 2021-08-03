@@ -2,7 +2,7 @@
 
 
 @section('content')
-    {{--    @dd($data)--}}
+{{--        @dd($data)--}}
 
     <div class="container-fluid">
         <div class="row justify-content-center">
@@ -19,6 +19,7 @@
                             <th scope="col">Единица техники</th>
                             <th scope="col">Страховая компания</th>
                             <th scope="col">Тип страховки</th>
+                            <th scope="col">Страховая компания</th>
                             <th scope="col" class="text-center">Дата оформления</th>
                             <th scope="col" class="text-center">Дата окончания</th>
                         </tr>
@@ -27,28 +28,16 @@
                         @foreach($data as $index=>$el)
                             <tr>
                                 <th scope="row">{{$index+1}}</th>
-                                <td>{{$el->counterparty}}</td>
-                                <td>{{$el->agreement_name}}</td>
-                                <td>{{$el->agr_number}} от {{$el->agreement_date}}</td>
-                                <td class="text-right ">{{number_format($el->overdue,2)}}</td>
-                                <td class="text-right">{{number_format($el->upcoming,2)}}</td>
-                                <td class="text-right">{{number_format($el->overdue + $el->upcoming,2)}}  </td>
-                                <td class="text-left">
-                                    <a href="{{route('user.agreementSettlements', ['id'=>$el->id])}}">&#8801;Детально</a>
-                                </td>
+                                <td>{{$el->vehicle}}</td>
+                                <td>{{$el->vin}}</td>
+                                <td>{{$el->insurance_type??'--'}}</td>
+                                <td>{{$el->ic_name??'--'}}</td>
+                                <td>{{$el->date_open?date('d.m.Y',strtotime($el->date_open)):'--'}}</td>
+                                <td>{{$el->date_close?date('d.m.Y',strtotime($el->date_close)):'--'}}</td>
                             </tr>
                         @endforeach
-                        {{--                        @dd($company)--}}
-                        <tr>
-                            <th colspan="4">Всего</th>
-                            <th class="text-right">{{number_format($company->sum('overdue'),2)}}</th>
-                            <th class="text-right">{{number_format($company->sum('nearestPayments'),2)}}</th>
-                            <th class="text-right">{{number_format($company->sum('overdue')+$company->sum('nearestPayments'),2)}}</th>
-
-                        </tr>
                         </tbody>
                     </table>
-                @endforeach
             </div>
         </div>
     </div>

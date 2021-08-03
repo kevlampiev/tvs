@@ -12,6 +12,6 @@
         Всего необходимо оформить страховки на <strong>{{count($runningOutOfIns)}} ед.техники </strong>
     </div>
     <div class="col-md-3 text-right">
-        <a href="{{route('user.nearestPayments')}}">Подробнее...</a>
+        <a href="{{route('user.insurancesToRenewal')}}">Подробнее...</a>
     </div>
 </div>

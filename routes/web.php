@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\VehicleNoteController;
 use App\Http\Controllers\Admin\VehicleTypeController;
 use App\Http\Controllers\Auth\ExpiredPasswordController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\User\InsurancesToRenewalController;
 use App\Http\Controllers\User\NearestPaymentsController;
 use App\Http\Controllers\User\SettlementReportsController;
 use App\Http\Controllers\User\UserProfileController;
@@ -324,6 +325,8 @@ Route::group([
         Route::get('profile', [UserProfileController::class,'edit'])
             ->name('user.profileEdit');
         Route::post('profile', [UserProfileController::class,'update']);
+        Route::get('/insurances/to-renewal', [InsurancesToRenewalController::class, 'index'])
+        ->name('user.insurancesToRenewal');
     });
 
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');

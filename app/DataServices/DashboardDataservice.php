@@ -67,6 +67,6 @@ class DashboardDataservice
 
     private static function getLastNotes()
     {
-        return VehicleNote::query()->orderByDesc('created_at')->limit(10)->get();
+        return VehicleNote::query()->with('vehicle')->orderByDesc('created_at')->limit(10)->get();
     }
 }

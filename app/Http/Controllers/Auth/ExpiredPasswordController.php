@@ -12,11 +12,6 @@ class ExpiredPasswordController extends Controller
 {
     public function expired(Request $request)
     {
-//        $user = $request->user();
-//        if (!empty($request->old())) {
-//            $user->fill($request->old());
-//        }
-//        dd($request->old());
         return view('auth.passwords.expired');
     }
 

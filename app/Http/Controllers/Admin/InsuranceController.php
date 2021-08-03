@@ -36,7 +36,14 @@ class InsuranceController extends Controller
             if (!empty($request->old())) {
                 $insurance->fill($request->old());
             }
-            if (url()->previous() !== url()->current()) session(['previous_url' => url()->previous()]);
+            if (url()->previous() !== url()->current()) {
+                if (url()->previous()==route('admin.vehicleSummary',['vehicle'=>$vehicle])) {
+                    session(
+                        ['previous_url' => route('admin.vehicleSummary', ['vehicle'=>$vehicle, 'page'=>'insurance_policies'])
+                        ]);
+                } else session(['previous_url' => url()->previous()]);
+            }
+
             return view('Admin.insurance-edit',
                 InsurancesRepo::provideInsuranceEditor($insurance, 'admin.addInsurance'));
         }

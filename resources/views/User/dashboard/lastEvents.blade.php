@@ -3,7 +3,9 @@
         <div class="note-block">
             <p>
                 <strong>{{$el->user->name}} {{$el->created_at}} </strong>
-                {{$el->note_body}}
+                <br>
+                по единице техники {{$el->vehicle->name}}<br>
+                <i>{{$el->note_body}}</i>
             </p>
         </div>
 

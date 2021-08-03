@@ -20,6 +20,7 @@ use App\Http\Controllers\Auth\ExpiredPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\User\NearestPaymentsController;
 use App\Http\Controllers\User\SettlementReportsController;
+use App\Http\Controllers\User\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -320,6 +321,9 @@ Route::group([
         Route::get('/settlements/{id}',
             [SettlementReportsController::class, 'showAgrSettlementReport'])
             ->name('user.agreementSettlements');
+        Route::get('profile', [UserProfileController::class,'edit'])
+            ->name('user.profileEdit');
+        Route::post('profile', [UserProfileController::class,'update']);
     });
 
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');

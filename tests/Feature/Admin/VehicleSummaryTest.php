@@ -121,11 +121,11 @@ class VehicleSummaryTest extends TestCase
         $vehicle = Vehicle::query()
             ->whereHas('insurances')
             ->inRandomOrder()->first();
-        if ($vehicle->notes) {
+        if (count($vehicle->notes)!==0) {
             $response = $this->actingAs($user)
                 ->get(route('admin.vehicleSummary', ['vehicle' => $vehicle, 'page' => 'notes']))
                 ->assertStatus(200)
-                ->assertSeeText($vehicle->notes->first()->note_body);
+                ->assertSeeText($vehicle->notes[0]->note_body);
         } else {
             $vehicle = Vehicle::query()
                 ->inRandomOrder()->first();

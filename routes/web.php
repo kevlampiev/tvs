@@ -209,7 +209,7 @@ Route::group([
                         Route::post('add/{vehicle}', [VehicleNoteController::class, 'store']);
                         Route::get('edit/{vehicleNote}', [VehicleNoteController::class, 'edit'])
                             ->name('admin.editVehicleNote');
-                        Route::post('edit/{vehicleNote}', [VehicleNoteController::class, 'store']);
+                        Route::post('edit/{vehicleNote}', [VehicleNoteController::class, 'update']);
                         Route::get('delete/{vehicleNote}', [VehicleNoteController::class, 'erase'])
                             ->name('admin.deleteVehicleNote');
 

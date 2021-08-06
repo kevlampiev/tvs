@@ -28,14 +28,14 @@ class VehicleNotesDataservice
         self::saveChanges($request, $note);
     }
 
-    public function update(VehicleNoteRequest $request, VehicleNote $vehicleNote)
+    public static function update(VehicleNoteRequest $request, VehicleNote $vehicleNote)
     {
         self::saveChanges($request, $vehicleNote);
     }
 
     public static function saveChanges(VehicleNoteRequest $request, VehicleNote $vehicleNote)
     {
-        $vehicleNote->fill($request->except(['id', 'created_at', 'updated_at', 'vehicleNode']));
+        $vehicleNote->fill($request->except(['id', 'created_at', 'updated_at', 'vehicleNote']));
         if (!$vehicleNote->user_id) $vehicleNote->user_id = Auth::user()->id;
         if ($vehicleNote->id) $vehicleNote->updated_at = now();
         else $vehicleNote->created_at = now();

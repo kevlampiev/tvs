@@ -173,9 +173,12 @@ Route::group([
             function () {
                 Route::get('/', [InsuranceController::class, 'index'])
                     ->name('admin.insurances');
-                Route::match(['post', 'get'],
-                    'add/{vehicle?}', [InsuranceController::class, 'add'])
+//                Route::match(['post', 'get'],
+//                    'add/{vehicle?}', [InsuranceController::class, 'add'])
+//                    ->name('admin.addInsurance');
+                Route::get('add/{vehicle?}',[InsuranceController::class, 'create'])
                     ->name('admin.addInsurance');
+                Route::post('add/{vehicle?}', [InsuranceController::class,'store']);
                 Route::match(['post', 'get'],
                     '{insurance}/edit', [InsuranceController::class, 'edit'])
                     ->name('admin.editInsurance');

@@ -226,10 +226,10 @@
                     @endif
 
                     <div class="input-group mb-3">
-                        <h3>{{$insurance->policy_file}} ОГО</h3>
-                        @if(!is_null($insurance->policy_file))
-                            <a href="{{asset(config('paths.insurances.get','storage/insurances/'.$insurance->policy_file))}}">
-                                <img src="{{asset('storage/img/pdf_download.png')}}">
+                        @if($insurance->policy_file)
+                            {{$insurance->policy_file}}
+                            <a href="{{asset(config('storage/'.$insurance->policy_file))}}">
+                                <img src="{{asset('https://cdnkairos.b-cdn.net/wp-content/uploads/2018/12/pdf-padrao.png')}}">
                             </a>
                         @endif
                         <span class="input-group-text" id="policy_file"

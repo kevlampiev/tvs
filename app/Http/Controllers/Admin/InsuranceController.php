@@ -48,7 +48,7 @@ class InsuranceController extends Controller
         if (url()->previous()!==url()->current()) session(['previous_url'=>$this->previousUrl()]);
         InsurancesDataservice::edit($request, $insurance);
         return view('Admin.insurance-edit',
-            InsurancesDataservice::provideInsuranceEditor($insurance, 'admin.addInsurance'));
+            InsurancesDataservice::provideInsuranceEditor($insurance,'admin.editInsurance'));
     }
 
     public function update(InsuranceRequest $request, Insurance $insurance)

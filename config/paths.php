@@ -13,7 +13,7 @@ return [
     ],
     'insurances' => [
         'put'=>'public/insurances/',
-        'get'=>'storage/insurances/'
+        'get'=>'public/insurances/'
     ],
 
 ];

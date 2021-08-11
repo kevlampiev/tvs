@@ -7,8 +7,8 @@ use App\Models\Insurance;
 use App\Models\Vehicle;
 use App\DataServices\InsurancesRepo;
 use Carbon\Carbon;
-use Carbon\Factory;
 use Illuminate\Http\Request;
+use App\DataServices\Admin\InsurancesDataservice;
 
 class InsuranceController extends Controller
 {
@@ -17,38 +17,54 @@ class InsuranceController extends Controller
         return view('Admin.insurances', InsurancesRepo::getInsurances($request));
     }
 
-    public function add(Request $request, Vehicle $vehicle = null)
+    public function create(Request $request, Vehicle $vehicle = null)
     {
-        $insurance = new Insurance();
-        $insurance->date_open = Carbon::today()->toDateString();
-        $insurance->date_close = Carbon::today()->addYear()->toDateString();
-        $insurance->description = 'Страхуемые риски: ';
-        if ($vehicle) $insurance->vehicle_id = $vehicle->id;
-
-
-        if ($request->isMethod('post')) {
-            $this->validate($request, Insurance::rules());
-            $insurance->fill($request->except(['id']));
-            $insurance->save();
-            $route = session('previous_url', route('admin.insurances'));
-            return redirect()->to($route);
-        } else {
-            if (!empty($request->old())) {
-                $insurance->fill($request->old());
-            }
-            if (url()->previous() !== url()->current()) {
-                if (url()->previous()==route('admin.vehicleSummary',['vehicle'=>$vehicle])) {
-                    session(
-                        ['previous_url' => route('admin.vehicleSummary', ['vehicle'=>$vehicle, 'page'=>'insurance_policies'])
-                        ]);
-                } else session(['previous_url' => url()->previous()]);
-            }
-
-            return view('Admin.insurance-edit',
-                InsurancesRepo::provideInsuranceEditor($insurance, 'admin.addInsurance'));
-        }
+        $insurance = InsurancesDataservice::create($request, $vehicle);
+        if (url()->previous()!==url()->current()) session(['previous_url'=>url()->previous()]);
+        return view('Admin.insurance-edit',
+            InsurancesDataservice::provideInsuranceEditor($insurance, 'admin.addInsurance'));
     }
 
+    public function store(Request $request)
+    {
+        InsurancesDataservice::store($request);
+        $route = session('previous_url', route('admin.insurances'));
+        return redirect()->to($route);
+    }
+
+//
+//    public function add(Request $request, Vehicle $vehicle = null)
+//    {
+//        $insurance = new Insurance();
+//        $insurance->date_open = Carbon::today()->toDateString();
+//        $insurance->date_close = Carbon::today()->addYear()->toDateString();
+//        $insurance->description = 'Страхуемые риски: ';
+//        if ($vehicle) $insurance->vehicle_id = $vehicle->id;
+//
+//
+//        if ($request->isMethod('post')) {
+//            $this->validate($request, Insurance::rules());
+//            $insurance->fill($request->except(['id']));
+//            $insurance->save();
+//            $route = session('previous_url', route('admin.insurances'));
+//            return redirect()->to($route);
+//        } else {
+//            if (!empty($request->old())) {
+//                $insurance->fill($request->old());
+//            }
+//            if (url()->previous() !== url()->current()) {
+//                if (url()->previous()==route('admin.vehicleSummary',['vehicle'=>$vehicle])) {
+//                    session(
+//                        ['previous_url' => route('admin.vehicleSummary', ['vehicle'=>$vehicle, 'page'=>'insurance_policies'])
+//                        ]);
+//                } else session(['previous_url' => url()->previous()]);
+//            }
+//
+//            return view('Admin.insurance-edit',
+//                InsurancesRepo::provideInsuranceEditor($insurance, 'admin.addInsurance'));
+//        }
+//    }
+//
 
     public function edit(Request $request, Insurance $insurance)
     {

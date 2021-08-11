@@ -6,7 +6,7 @@
 
 @section('content')
     <h3> @if ($insurance->id) Изменение данных страхования@else Добавить новый полис страхования @endif</h3>
-    <form action="{{route($route, $insurance->id)}}" method="POST">
+    <form action="{{route($route, $insurance->id)}}" method="POST" enctype="multipart/form-data">
         @csrf
             <div class="row">
                 <div class="col-md6">
@@ -205,6 +205,9 @@
                 </div>
 
 
+
+
+
                 <div class="col-md6 pl-3">
                     <div class="form-group">
                         <label for="description">Комментарий</label>
@@ -222,6 +225,21 @@
                         </div>
                     @endif
 
+                    <div class="input-group mb-3">
+                        <h3>{{$insurance->policy_file}} ОГО</h3>
+                        @if(!is_null($insurance->policy_file))
+                            <a href="{{asset(config('paths.insurances.get','storage/insurances/'.$insurance->policy_file))}}">
+                                <img src="{{asset('storage/img/pdf_download.png')}}">
+                            </a>
+                        @endif
+                        <span class="input-group-text" id="policy_file"
+                              onclick="document.getElementById('inputGroupFile01').click()">
+                            Загрузить новый файл полиса
+                        </span>
+                        <input type="file" class="form-control-file" id="inputGroupFile01" name="policy_file"
+                               accept="application/pdf" aria-describedby="policy_file" style="display: none;">
+
+                    </div>
 
                 </div>
             </div>

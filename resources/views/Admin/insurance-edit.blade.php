@@ -210,10 +210,10 @@
 
                 <div class="col-md6 pl-3">
                     <div class="form-group">
-                        <label for="description">Комментарий</label>
+                        <label for="description"><strong>Комментарий</strong></label>
                         <textarea class="form-control {{$errors->has('description')?'is-invalid':''}}"
                                   id="description"
-                                  rows="13" name="description">{{$insurance->description}}</textarea>
+                                  rows="10" name="description">{{$insurance->description}}</textarea>
                     </div>
                     @if ($errors->has('description'))
                         <div class="alert alert-danger">
@@ -227,10 +227,11 @@
 
                     <div class="input-group mb-3">
                         @if($insurance->policy_file)
-                            {{$insurance->policy_file}}
-                            <a href="{{asset(config('storage/'.$insurance->policy_file))}}">
-                                <img src="{{asset('https://cdnkairos.b-cdn.net/wp-content/uploads/2018/12/pdf-padrao.png')}}">
+{{--                            <a href="{{route('user.filePreview', ['filename'=>$insurance->policy_file]}}">--}}
+                            <a href="{{route('user.filePreview', ['filename'=>$insurance->policy_file])}}">
+                                <img src="{{asset('/storage/img/pdf_download.png')}}">
                             </a>
+                            Файл доступен для скачивания
                         @endif
                         <span class="input-group-text" id="policy_file"
                               onclick="document.getElementById('inputGroupFile01').click()">

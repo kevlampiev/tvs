@@ -25,7 +25,7 @@
                         </thead>
                         <tbody>
                         @foreach($data as $index=>$el)
-                            <tr>
+                            <tr @if(!$el->date_close||$el->date_close<now()) class="text-danger" @endif>
                                 <th scope="row">{{$index+1}}</th>
                                 <td>{{$el->vehicle}}</td>
                                 <td>{{$el->insurance_company??'--'}}</td>

@@ -19,7 +19,6 @@
                             <th scope="col">Единица техники</th>
                             <th scope="col">Страховая компания</th>
                             <th scope="col">Тип страховки</th>
-                            <th scope="col">Страховая компания</th>
                             <th scope="col" class="text-center">Дата оформления</th>
                             <th scope="col" class="text-center">Дата окончания</th>
                         </tr>
@@ -29,9 +28,8 @@
                             <tr>
                                 <th scope="row">{{$index+1}}</th>
                                 <td>{{$el->vehicle}}</td>
-                                <td>{{$el->vin}}</td>
+                                <td>{{$el->insurance_company??'--'}}</td>
                                 <td>{{$el->insurance_type??'--'}}</td>
-                                <td>{{$el->ic_name??'--'}}</td>
                                 <td>{{$el->date_open?date('d.m.Y',strtotime($el->date_open)):'--'}}</td>
                                 <td>{{$el->date_close?date('d.m.Y',strtotime($el->date_close)):'--'}}</td>
                             </tr>

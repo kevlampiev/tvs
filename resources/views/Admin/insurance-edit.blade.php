@@ -227,16 +227,17 @@
 
                     <div class="input-group mb-3">
                         @if($insurance->policy_file)
-{{--                            <a href="{{route('user.filePreview', ['filename'=>$insurance->policy_file]}}">--}}
                             <a href="{{route('user.filePreview', ['filename'=>$insurance->policy_file])}}">
                                 <img src="{{asset('/storage/img/pdf_download.png')}}">
                             </a>
-                            Файл доступен для скачивания
                         @endif
-                        <span class="input-group-text" id="policy_file"
-                              onclick="document.getElementById('inputGroupFile01').click()">
-                            Загрузить новый файл полиса
+                        <span class="ml-4 mr-4" id="file-status">
+                            {{$insurance->policy_file?"Файл доступен для скачивания":"Файл полиса отсутствует"}}
                         </span>
+                        <a href="#" class="btn btn-outline-secondary" id="policy_file"
+                              onclick="uploadFile()">
+                            Загрузить новый файл полиса
+                        </a>
                         <input type="file" class="form-control-file" id="inputGroupFile01" name="policy_file"
                                accept="application/pdf" aria-describedby="policy_file" style="display: none;">
 
@@ -255,29 +256,13 @@
 
 @endsection
 
-{{--@section('scripts')--}}
-{{--<script>--}}
-{{--    $('.selectpicker').selectpicker({--}}
-{{--        style: 'btn-info',--}}
-{{--        size: 4--}}
-{{--    });--}}
-{{--</script>--}}
-{{--@endsection--}}
-
-
-{{--@section('styles')--}}
-{{--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>--}}
-{{--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>--}}
-{{--    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>--}}
-{{--    <!-- Latest compiled and minified CSS -->--}}
-{{--    <link rel="stylesheet"--}}
-{{--          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">--}}
-
-{{--    <!-- Latest compiled and minified JavaScript -->--}}
-{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>--}}
-
-{{--    <!-- (Optional) Latest compiled and minified JavaScript translation files -->--}}
-{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/i18n/defaults-en_US.js"></script>--}}
-
-{{--@endsection--}}
+@section('scripts')
+<script>
+   function uploadFile()
+   {
+       document.getElementById('inputGroupFile01').click()
+       document.getElementById('file-status').textContent='Файл будет доступен после сохранения полиса'
+   }
+</script>
+@endsection
 

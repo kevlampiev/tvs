@@ -330,7 +330,7 @@ Route::group([
         Route::post('profile', [UserProfileController::class,'update']);
         Route::get('/insurances/to-renewal', [InsurancesToRenewalController::class, 'index'])
         ->name('user.insurancesToRenewal');
-        Route::get('/filepreview', [\App\Http\Controllers\User\FileDownloadController::class,'previewInsurance'])
+        Route::get('/filepreview/insurance-policy', [\App\Http\Controllers\User\FileDownloadController::class,'previewInsurance'])
             ->name('user.filePreview');
     });
 

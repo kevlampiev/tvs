@@ -21,6 +21,7 @@
                             <th scope="col">Тип страховки</th>
                             <th scope="col" class="text-center">Дата оформления</th>
                             <th scope="col" class="text-center">Дата окончания</th>
+                            <th scope="col" class="text-center"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -32,6 +33,7 @@
                                 <td>{{$el->insurance_type??'--'}}</td>
                                 <td>{{$el->date_open?date('d.m.Y',strtotime($el->date_open)):'--'}}</td>
                                 <td>{{$el->date_close?date('d.m.Y',strtotime($el->date_close)):'--'}}</td>
+                                <td><a href="{{route('admin.vehicleSummary',['vehicle'=>$el->vehicle_id, 'page'=>'insurance_policies'])}}"> &#9776;Карточка </td>
                             </tr>
                         @endforeach
                         </tbody>

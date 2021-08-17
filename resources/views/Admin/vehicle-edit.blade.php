@@ -235,8 +235,8 @@
                 <h4>Изображение ПТС/ПСМ</h4>
                 <div class="card" style="width: 18rem;">
                     <img
-                        @if($vehicle->pts_img_path)
-                            src="{{asset(config('paths.pts.get','storage/img/pts/').$vehicle->pts_img_path)}}" class="card-img-top" alt="..."
+                        @if($vehicle->img_file)
+                            src="{{asset(config('paths.vehicles.get','storage/img/vehicles/').$vehicle->img_file)}}" class="card-img-top" alt="..."
                         @else
                             src="{{asset('storage/img/no_image_found.jpeg')}}" class="card-img-top" alt="..."
                         @endif
@@ -247,7 +247,7 @@
                 </div>
 
                 <div class="input-group mb-3">
-                    <input type="file" class="form-control-file" id="inputGroupFile01" name="pts-img"
+                    <input type="file" class="form-control-file" id="inputGroupFile01" name="img_file"
                            accept="image/*" style="display:none">
 
                 </div>

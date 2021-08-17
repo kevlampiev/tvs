@@ -6,7 +6,6 @@
 
 @section('content')
 
-{{--    @dd($insurances)--}}
     <div class="row">
         <h2>Страховые полисы</h2>
 

@@ -16,6 +16,10 @@
         </li>
 
         <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#files">Файлы/Документы</a>
+        </li>
+
+        <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#insurance_policies">Страховки</a>
         </li>
 
@@ -35,11 +39,12 @@
 
         <div class="tab-pane fade" id="insurance_policies">
             <h4>Страховые полисы</h4>
-            <div class="row">
-{{--                <a class="btn btn-outline-info"--}}
-{{--                   href="{{route('admin.attachAgreement', ['vehicle'=>$vehicle])}}">Привязать договор</a>--}}
-            </div>
             @include('Admin.vehicle-summary.insurances-table')
+        </div>
+
+        <div class="tab-pane fade" id="files">
+            <h4>Связанные файлы</h4>
+            @include('Admin.vehicle-summary.vehicle-files')
         </div>
 
         <div class="tab-pane fade" id="agreements">
@@ -67,6 +72,14 @@
             overflow-y: scroll;
         }
 
+        .file-info-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .clr-gray {
+            background-color: #f5f5f5;
+        }
     </style>
 
 @endsection

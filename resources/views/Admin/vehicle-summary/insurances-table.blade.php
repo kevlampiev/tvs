@@ -10,6 +10,8 @@
         <th scope="col">Страховщик</th>
         <th scope="col">Дата открытия</th>
         <th scope="col">Дата завершения</th>
+        <th scope="col">Файл полиса</th>
+        <th scope="col"></th>
         <th scope="col"></th>
     </tr>
     </thead>
@@ -21,6 +23,16 @@
             <td>{{$insurance->insuranceCompany->name}}</td>
             <td>{{$insurance->date_open}}</td>
             <td>{{$insurance->date_close}}</td>
+
+            <td>
+                @if($insurance->policy_file)
+                    <a href="{{route('user.filePreview', ['filename'=>$insurance->policy_file])}}">
+                        <i class="bi bi-file-earmark-richtext">Просмотреть</i>
+                    </a>
+                @else
+                    --
+                @endif
+            </td>
 
             <td>
                 <a href="{{route('admin.editInsurance', ['insurance'=>$insurance])}}"> &#9998;Изменить </a>

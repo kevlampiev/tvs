@@ -103,12 +103,24 @@
                         </div>
                     @endif
 
+                    {{--  загрузка файла  --}}
+                    <div class="input-group mb-3">
+                        @if($document->file_name)
+                            <a href="{{route('user.filePreview', ['filename'=>$document->file_name])}}">
+                                <i class="bi bi-file-earmark-pdf"> Открыть файл </i>
+                            </a>
+                        @endif
+                        <span class="ml-4 mr-4" id="file-status">
+                            {{$document->file_name?"Файл доступен для скачивания":"Файл полиса отсутствует"}}
+                        </span>
+                        <a href="#" class="btn btn-outline-secondary" id="policy_file"
+                           onclick="uploadFile()">
+                            Загрузить новый файл документа
+                        </a>
+                        <input type="file" class="form-control-file" id="inputGroupFile01" name="document_file"
+                               accept="application/pdf" aria-describedby="policy_file" style="display: none;">
 
-                    @if ($agreement->file_name)
-                        <a href="{{$agreement->file_name}}">Скан договора</a>
-                    @else
-                        <p> Скан договора отсутствует</p>
-                    @endif
+                    </div>
 
                 </div>
 

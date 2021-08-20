@@ -1,5 +1,5 @@
 <div class="row m-1">
-    <a class="btn btn-outline-primary" href="#">Добавить документ</a>
+    <a class="btn btn-outline-primary" href="{{route('admin.addVehicleDocument',['vehicle'=>$vehicle])}}">Добавить документ</a>
 </div>
 
 <div class="file-info-container">

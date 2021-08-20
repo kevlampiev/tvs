@@ -4,9 +4,12 @@
 namespace App\DataServices\Admin;
 
 use App\Http\Requests\DocumentRequest;
+use App\Models\Agreement;
 use App\Models\Document;
+use App\Models\Insurance;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DocumentsDataservice
 {
@@ -19,9 +22,21 @@ class DocumentsDataservice
         return $data;
     }
 
+    public static function provideDocumentEditor(Document $document, $route = null):array
+    {
+        return [
+            'document' => $document,
+            'insurances' => Insurance::all(),
+            'vehicles' => Vehicle::all(),
+            'agreements' => Agreement::all(),
+            'route' => $route
+        ];
+    }
+
     public static function create(Request $request):Document
     {
         $document = new Document();
+
         if (!empty($request->old())) $document->fill($request->old());
             else $document->fill($request->all());
         return $document;
@@ -35,6 +50,7 @@ class DocumentsDataservice
     public static function saveChanges(DocumentRequest $request, Document $document)
     {
         $document->fill($request->except(['document_file']));
+        if(!$document->user_id) $document->user_id = Auth::user()->id;
         if ($document->id) $document->updated_at = now();
         else $document->created_at = now();
         if ($request->file('document_file')) {

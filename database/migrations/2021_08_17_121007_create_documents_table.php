@@ -18,8 +18,8 @@ class CreateDocumentsTable extends Migration
             $table->unsignedBigInteger('vehicle_id')->nullable();
             $table->unsignedBigInteger('agreement_id')->nullable();
             $table->unsignedBigInteger('insurance_id')->nullable();
-            $table->unsignedBigInteger('file_name')->nullable(false);
-            $table->string('description')->nullable(false);
+            $table->string('file_name')->nullable(false);
+            $table->string('description',255)->nullable(false);
             $table->unsignedBigInteger('user_id')->nullable(false);
             $table->timestamps();
         });

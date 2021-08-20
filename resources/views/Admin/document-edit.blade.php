@@ -6,7 +6,7 @@
 
 @section('content')
     <h3> @if ($document->id) Изменение данных@else Добавить новый документ@endif</h3>
-    <form action="#" method="POST">
+    <form method="POST" enctype="multipart/form-data">
         @csrf
 
             <div class="row">
@@ -137,4 +137,14 @@
     </form>
 
 
+@endsection
+
+@section('scripts')
+    <script>
+        function uploadFile()
+        {
+            document.getElementById('inputGroupFile01').click()
+            document.getElementById('file-status').textContent='Файл будет доступен после сохранения записи'
+        }
+    </script>
 @endsection

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AgreementTypeController;
 use App\Http\Controllers\Admin\BankStatementController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\CounterpartyController;
+use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\InsuranceCompanyController;
 use App\Http\Controllers\Admin\InsuranceController;
@@ -215,6 +216,18 @@ Route::group([
                         Route::post('edit/{vehicleNote}', [VehicleNoteController::class, 'update']);
                         Route::get('delete/{vehicleNote}', [VehicleNoteController::class, 'erase'])
                             ->name('admin.deleteVehicleNote');
+
+                    });
+                Route::group(['prefix' => 'documents'],
+                    function() {
+                        Route::get('add/{vehicle}', [DocumentController::class, 'create'])
+                            ->name('admin.addVehicleDocument');
+                        Route::post('add/{vehicle}', [DocumentController::class, 'store']);
+                        Route::get('edit/{document}', [DocumentController::class, 'edit'])
+                            ->name('admin.editDocument');
+                        Route::post('edit/{document}', [DocumentController::class, 'update']);
+                        Route::get('delete/{document}', [DocumentController::class, 'erase'])
+                            ->name('admin.deleteDocument');
 
                     });
             }

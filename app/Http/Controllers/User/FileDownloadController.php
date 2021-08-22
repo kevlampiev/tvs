@@ -17,4 +17,6 @@ class FileDownloadController extends Controller
         $filename = storage_path('app/public/insurances/'.$request->get('filename'));
         return response()->file($filename);
     }
+
+
 }

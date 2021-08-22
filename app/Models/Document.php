@@ -12,6 +12,7 @@ class Document extends Model
 
     protected $guarded = [];
 
+
     public function agreement():BelongsTo
     {
         return $this->belongsTo(Agreement::class);

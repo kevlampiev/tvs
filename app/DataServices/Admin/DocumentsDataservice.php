@@ -33,12 +33,17 @@ class DocumentsDataservice
         ];
     }
 
-    public static function create(Request $request):Document
+
+    /**
+     * params - массив со списклм внешних ключей и их значений, к которым должен быть привяхан документ
+     * returns Document
+     */
+    public static function create(Request $request, array $params=[]):Document
     {
         $document = new Document();
-
         if (!empty($request->old())) $document->fill($request->old());
-            else $document->fill($request->all());
+//            else $document->fill($request->all());
+            else $document->fill($params);
         return $document;
     }
 

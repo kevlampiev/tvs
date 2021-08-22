@@ -12,6 +12,7 @@
             <div class="row">
                 <div class="col-md-12">
 {{--                    Связанная техника--}}
+                    @if($document->vehicle_id)
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="vehicle">Связанная техника </span>
                         <select name="vehicle_id"
@@ -35,7 +36,10 @@
                         </div>
                     @endif
 
-{{--                связанный договор    --}}
+                    @endif {{-- END связанная техника  --}}
+
+                    {{--  связанный договор    --}}
+                    @if($document->agreement_id)
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="agreement">Договор </span>
                         <select name="agreement_id"
@@ -59,8 +63,11 @@
                         </div>
                     @endif
 
+                    @endif {{--  END связанный договор    --}}
+
 
                     {{--  связанная страховка  --}}
+                    @if($document->insurance_id)
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="insurance">Страховой полис </span>
                         <select name="insurance_id"
@@ -83,6 +90,8 @@
                             </ul>
                         </div>
                     @endif
+
+                    @endif {{--  END связанная страховка  --}}
 
                     {{--  название файла  --}}
                     <div class="input-group mb-3">
@@ -130,7 +139,7 @@
 
 
             <button type="submit" class="btn btn-primary">
-                @if ($agreement->id)  Изменить @else Добавить @endif
+                @if ($document->id)  Изменить @else Добавить @endif
             </button>
             <a class="btn btn-secondary" href="{{session('previous_url', route('admin.agreements'))}}">Отмена</a>
 

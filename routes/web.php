@@ -228,6 +228,8 @@ Route::group([
                         Route::post('edit/{document}', [DocumentController::class, 'update']);
                         Route::get('delete/{document}', [DocumentController::class, 'erase'])
                             ->name('admin.deleteDocument');
+                        Route::get('/preview/{document}', [DocumentController::class,'preview'])
+                            ->name('admin.documentPreview');
 
                     });
             }

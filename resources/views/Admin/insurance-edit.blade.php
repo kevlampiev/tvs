@@ -227,7 +227,7 @@
 
                     <div class="input-group mb-3">
                         @if($insurance->policy_file)
-                            <a href="{{route('user.filePreview', ['filename'=>$insurance->policy_file])}}">
+                            <a href="{{route('user.filePreview', ['filename'=>'insurance/'+$insurance->policy_file])}}">
                                 <img src="{{asset('/storage/img/pdf_download.png')}}">
                             </a>
                         @endif

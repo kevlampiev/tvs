@@ -6,6 +6,7 @@ use App\DataServices\Admin\DocumentsDataservice;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DocumentRequest;
 use App\Models\Document;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 
 class DocumentController extends Controller
@@ -18,9 +19,12 @@ class DocumentController extends Controller
         return $route;
     }
 
-    public function create(Request $request, $vehicle)
+    public function create(Request $request, Vehicle $vehicle)
     {
-        $Document = DocumentsDataservice::create($request, $vehicle);
+        $params = [
+            'vehicle_id' => $vehicle->id
+        ];
+        $Document = DocumentsDataservice::create($request, $params);
         if (url()->previous()!==url()->current()) session(['previous_url'=>$this->previousUrl()]);
         return view('Admin.document-edit',
             DocumentsDataservice::provideDocumentEditor($Document, 'admin.addDocument'));
@@ -46,6 +50,12 @@ class DocumentController extends Controller
         DocumentsDataservice::update($request, $Document);
         $route = session('previous_url');
         return redirect()->to($route);
+    }
+
+    public function preview(Document $document)
+    {
+        $filename = storage_path('app/public/documents/'.$document->file_name);
+        return response()->file($filename);
     }
 
     public function delete(Document $Document): \Illuminate\Http\RedirectResponse

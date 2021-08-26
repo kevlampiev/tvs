@@ -12,10 +12,10 @@ use Illuminate\Http\Request;
 class DocumentController extends Controller
 {
 
-    private function previousUrl():string
+    private function previousUrl(): string
     {
         $route = url()->previous();
-        if (preg_match('/.{1,}summary$/i', $route)) $route.='/documents';
+        if (preg_match('/.{1,}summary$/i', $route)) $route .= '/documents';
         return $route;
     }
 
@@ -25,7 +25,7 @@ class DocumentController extends Controller
             'vehicle_id' => $vehicle->id
         ];
         $Document = DocumentsDataservice::create($request, $params);
-        if (url()->previous()!==url()->current()) session(['previous_url'=>$this->previousUrl()]);
+        if (url()->previous() !== url()->current()) session(['previous_url' => $this->previousUrl()]);
         return view('Admin.document-edit',
             DocumentsDataservice::provideDocumentEditor($Document, 'admin.addDocument'));
     }
@@ -38,11 +38,12 @@ class DocumentController extends Controller
     }
 
 
-    public function edit(Request $request, Document $Document) {
-        if (url()->previous()!==url()->current()) session(['previous_url'=>$this->previousUrl()]);
+    public function edit(Request $request, Document $Document)
+    {
+        if (url()->previous() !== url()->current()) session(['previous_url' => $this->previousUrl()]);
         DocumentsDataservice::edit($request, $Document);
         return view('Admin.document-edit',
-            DocumentsDataservice::provideDocumentEditor($Document,'admin.editDocument'));
+            DocumentsDataservice::provideDocumentEditor($Document, 'admin.editDocument'));
     }
 
     public function update(DocumentRequest $request, Document $Document)
@@ -54,7 +55,7 @@ class DocumentController extends Controller
 
     public function preview(Document $document)
     {
-        $filename = storage_path('app/public/documents/'.$document->file_name);
+        $filename = storage_path('app/public/documents/' . $document->file_name);
         return response()->file($filename);
     }
 

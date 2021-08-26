@@ -55,10 +55,10 @@ class InsurancesDataservice
     }
 
 
-    public static function defaultData(Vehicle $vehicle=null):array
+    public static function defaultData(Vehicle $vehicle = null): array
     {
         return [
-            'vehicle_id' => $vehicle?$vehicle->id:null,
+            'vehicle_id' => $vehicle ? $vehicle->id : null,
             'date_open' => Carbon::today()->toDateString(),
             'date_close' => Carbon::today()->addYear()->toDateString(),
             'description' => 'Страхуемые риски: ущерб, хищение',
@@ -66,7 +66,7 @@ class InsurancesDataservice
         ];
     }
 
-    public static function create(Request $request, Vehicle $vehicle = null):Insurance
+    public static function create(Request $request, Vehicle $vehicle = null): Insurance
     {
         $insurance = new Insurance();
         if (!empty($request->old())) $insurance->fill($request->old());
@@ -97,9 +97,9 @@ class InsurancesDataservice
         try {
             $insurance = new Insurance();
             self::saveChanges($request, $insurance);
-            session()->flash('message','Добавлен новый договор страхования');
+            session()->flash('message', 'Добавлен новый договор страхования');
         } catch (Error $err) {
-            session()->flash('error','Не удалось добавить новый договор страхования');
+            session()->flash('error', 'Не удалось добавить новый договор страхования');
         }
 
     }
@@ -108,9 +108,9 @@ class InsurancesDataservice
     {
         try {
             self::saveChanges($request, $insurance);
-            session()->flash('message','Данные договора страхования обновлены');
+            session()->flash('message', 'Данные договора страхования обновлены');
         } catch (Error $err) {
-            session()->flash('error','Не удалось обновить данные договора страхования');
+            session()->flash('error', 'Не удалось обновить данные договора страхования');
         }
     }
 
@@ -118,9 +118,9 @@ class InsurancesDataservice
     {
         try {
             $insurance->delete();
-            session()->flash('message','Договор страхования удален');
+            session()->flash('message', 'Договор страхования удален');
         } catch (Error $err) {
-            session()->flash('error','Не удалось удалить договор страхования');
+            session()->flash('error', 'Не удалось удалить договор страхования');
         }
     }
 

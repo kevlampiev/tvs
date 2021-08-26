@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use PhpParser\Error;
 
 class AgreementsDataservice
 {
@@ -59,7 +60,7 @@ class AgreementsDataservice
     public static function index(Request $request): array
     {
         $filter = ($request->get('searchStr')) ?? '';
-        if ($filter==='') $agreements=self::getAll();
+        if ($filter === '') $agreements = self::getAll();
         else $agreements = self::getFiltered($filter);
         return [
             'agreements' => $agreements,
@@ -102,7 +103,7 @@ class AgreementsDataservice
     }
 
 
-    public static function create(Request $request):Agreement
+    public static function create(Request $request): Agreement
     {
         $agreement = new Agreement();
         if (!empty($request->old())) $agreement->fill($request->old());
@@ -117,7 +118,7 @@ class AgreementsDataservice
     public static function saveChanges(AgreementRequest $request, Agreement $agreement)
     {
         $agreement->fill($request->except(['agreement_file']));
-        if(!$agreement->user_id) $agreement->user_id = Auth::user()->id;
+        if (!$agreement->user_id) $agreement->user_id = Auth::user()->id;
         if ($agreement->id) $agreement->updated_at = now();
         else $agreement->created_at = now();
         if ($request->file('agreement_file')) {
@@ -132,9 +133,9 @@ class AgreementsDataservice
         try {
             $agreement = new Agreement();
             self::saveChanges($request, $agreement);
-            session()->flash('message','Добавлен новый договор');
+            session()->flash('message', 'Добавлен новый договор');
         } catch (Error $err) {
-            session()->flash('error','Не удалось добавить новый договор');
+            session()->flash('error', 'Не удалось добавить новый договор');
         }
 
     }
@@ -143,9 +144,9 @@ class AgreementsDataservice
     {
         try {
             self::saveChanges($request, $agreement);
-            session()->flash('message','Данные договора обновлены');
+            session()->flash('message', 'Данные договора обновлены');
         } catch (Error $err) {
-            session()->flash('error','Не удалось обновить данные договора');
+            session()->flash('error', 'Не удалось обновить данные договора');
         }
     }
 
@@ -154,9 +155,30 @@ class AgreementsDataservice
     {
         try {
             $agreement->delete();
-            session()->flash('message','Договор удален');
+            session()->flash('message', 'Договор удален');
         } catch (Error $err) {
-            session()->flash('error','Не удалось удалить договор');
+            session()->flash('error', 'Не удалось удалить договор');
+        }
+    }
+
+    public static function addVehicle(Request $request, Agreement $agreement)
+    {
+        try {
+            $vehicle = Vehicle::find($request->vehicle_id);
+            $agreement->vehicles()->save($vehicle);
+            session()->flash('message' , 'Техника прикреплена к договору');
+        }catch (Error $err) {
+            session()->flash('error' , 'Не удалось связать спецтехнику с договором');
+        }
+    }
+
+    public static function detachVehicle(Agreement $agreement, Vehicle $vehicle)
+    {
+        try {
+            $agreement->vehicles()->detach($vehicle);
+            session()->flash('message' , 'Разорвана связь техники и договора');
+        }catch (Error $err) {
+            session()->flash('error' , 'Не удалось разорвать связь');
         }
     }
 

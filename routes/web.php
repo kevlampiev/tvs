@@ -246,8 +246,9 @@ Route::group([
                 Route::get( 'add', [AgreementController::class, 'create'])
                     ->name('admin.addAgreement');
                 Route::post( 'add', [AgreementController::class, 'store']);
-                Route::match(['post', 'get'], '{agreement}/edit', [AgreementController::class, 'edit'])
+                Route::get( '{agreement}/edit', [AgreementController::class, 'edit'])
                     ->name('admin.editAgreement');
+                Route::post( '{agreement}/edit', [AgreementController::class, 'update']);
                 Route::match(['post', 'get'], '{agreement}/delete', [AgreementController::class, 'delete'])
                     ->name('admin.deleteAgreement');
                 Route::get('{agreement}/summary/{page?}', [AgreementController::class, 'summary'])

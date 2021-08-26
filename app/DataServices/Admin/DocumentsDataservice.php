@@ -15,14 +15,14 @@ class DocumentsDataservice
 {
     public static function provideDataVehicle(Vehicle $vehicle): array
     {
-        $data = Document::query()->where('vehicle_id','=', $vehicle->id)
+        $data = Document::query()->where('vehicle_id', '=', $vehicle->id)
             ->with('user')
             ->get();
 
         return $data;
     }
 
-    public static function provideDocumentEditor(Document $document, $route = null):array
+    public static function provideDocumentEditor(Document $document, $route = null): array
     {
         return [
             'document' => $document,
@@ -38,12 +38,12 @@ class DocumentsDataservice
      * params - массив со списклм внешних ключей и их значений, к которым должен быть привяхан документ
      * returns Document
      */
-    public static function create(Request $request, array $params=[]):Document
+    public static function create(Request $request, array $params = []): Document
     {
         $document = new Document();
         if (!empty($request->old())) $document->fill($request->old());
 //            else $document->fill($request->all());
-            else $document->fill($params);
+        else $document->fill($params);
         return $document;
     }
 
@@ -55,7 +55,7 @@ class DocumentsDataservice
     public static function saveChanges(DocumentRequest $request, Document $document)
     {
         $document->fill($request->except(['document_file']));
-        if(!$document->user_id) $document->user_id = Auth::user()->id;
+        if (!$document->user_id) $document->user_id = Auth::user()->id;
         if ($document->id) $document->updated_at = now();
         else $document->created_at = now();
         if ($request->file('document_file')) {
@@ -70,9 +70,9 @@ class DocumentsDataservice
         try {
             $document = new Document();
             self::saveChanges($request, $document);
-            session()->flash('message','Добавлен новый документ');
+            session()->flash('message', 'Добавлен новый документ');
         } catch (Error $err) {
-            session()->flash('error','Не удалось добавить новый документ');
+            session()->flash('error', 'Не удалось добавить новый документ');
         }
 
     }
@@ -81,9 +81,9 @@ class DocumentsDataservice
     {
         try {
             self::saveChanges($request, $document);
-            session()->flash('message','Данные документа обновлены');
+            session()->flash('message', 'Данные документа обновлены');
         } catch (Error $err) {
-            session()->flash('error','Не удалось обновить данные документа');
+            session()->flash('error', 'Не удалось обновить данные документа');
         }
     }
 
@@ -92,9 +92,9 @@ class DocumentsDataservice
     {
         try {
             $document->delete();
-            session()->flash('message','Документ удален');
+            session()->flash('message', 'Документ удален');
         } catch (Error $err) {
-            session()->flash('error','Не удалось удалить документ');
+            session()->flash('error', 'Не удалось удалить документ');
         }
     }
 

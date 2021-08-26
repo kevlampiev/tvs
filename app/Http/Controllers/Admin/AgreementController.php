@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataServices\Admin\AgreementsDataservice;
+use App\Http\Requests\AgreementRequest;
 use App\Models\Agreement;
 use App\Models\AgreementType;
 use App\Models\Company;
@@ -20,46 +21,76 @@ class AgreementController extends Controller
     }
 
     //TODO переписать все методы контроллера по новому канону
-    public function add(Request $request)
+//    public function add(Request $request)
+//    {
+//        $agreement = new Agreement();
+//        if ($request->isMethod('post')) {
+//            $this->validate($request, Agreement::rules());
+//            $agreement->fill($request->except(['id']));
+//            $agreement->save();
+//            return redirect()->route('admin.agreements');
+//        } else {
+//            if (!empty($request->old())) {
+//                $agreement->fill($request->old());
+//            }
+//            return view('Admin/agreement-edit',
+//                AgreementsRepo::provideAgreementEditor($agreement, 'admin.addAgreement'));
+//        }
+//    }
+//
+//    public function edit(Request $request, Agreement $agreement)
+//    {
+//        if ($request->isMethod('post')) {
+//            $this->validate($request, Agreement::rules());
+//            $agreement->fill($request->all());
+//            $agreement->save();
+//            $route = session('previous_url', route('admin.agreements'));
+//            return redirect()->to($route);
+//        } else {
+//            if (!empty($request->old())) {
+//                $agreement->fill($request->old());
+//            }
+//            if (url()->previous() !== url()->current()) session(['previous_url' => url()->previous()]);
+//            return view('Admin/agreement-edit',
+//                AgreementsRepo::provideAgreementEditor($agreement, 'admin.editAgreement'));
+//        }
+//    }
+//
+//    public function delete(Agreement $agreement): \Illuminate\Http\RedirectResponse
+//    {
+//        $agreement->delete();
+//        return redirect()->route('admin.agreements');
+//    }
+
+    public function create(Request $request)
     {
-        $agreement = new Agreement();
-        if ($request->isMethod('post')) {
-            $this->validate($request, Agreement::rules());
-            $agreement->fill($request->except(['id']));
-            $agreement->save();
-            return redirect()->route('admin.agreements');
-        } else {
-            if (!empty($request->old())) {
-                $agreement->fill($request->old());
-            }
-            return view('Admin/agreement-edit',
-                AgreementsRepo::provideAgreementEditor($agreement, 'admin.addAgreement'));
-        }
+        $agreement = AgreementsDataservice::create($request);
+        return view('Admin.agreement-edit',
+            AgreementsDataservice::provideAgreementEditor($agreement,'admin.addAgreement'));
     }
 
-    public function edit(Request $request, Agreement $agreement)
+    public function store(AgreementRequest $request)
     {
-        if ($request->isMethod('post')) {
-            $this->validate($request, Agreement::rules());
-            $agreement->fill($request->all());
-            $agreement->save();
-            $route = session('previous_url', route('admin.agreements'));
-            return redirect()->to($route);
-        } else {
-            if (!empty($request->old())) {
-                $agreement->fill($request->old());
-            }
-            if (url()->previous() !== url()->current()) session(['previous_url' => url()->previous()]);
-            return view('Admin/agreement-edit',
-                AgreementsRepo::provideAgreementEditor($agreement, 'admin.editAgreement'));
-        }
+        AgreementsDataservice::store($request);
+        $route = session('previous_url', route('admin.agreements'));
+        return redirect()->to($route);
     }
 
-    public function delete(Agreement $agreement): \Illuminate\Http\RedirectResponse
-    {
-        $agreement->delete();
-        return redirect()->route('admin.agreements');
+
+    public function edit(Request $request, Agreement $agreement) {
+        if (url()->previous()!==url()->current()) session(['previous_url'=>url()->previous()]);
+        AgreementsDataservice::edit($request, $agreement);
+        return view('Admin.document-edit',
+            AgreementsDataservice::provideAgreementEditor($agreement,'admin.editAgreement'));
     }
+
+    public function update(AgreementRequest $request, Agreement $agreement)
+    {
+        AgreementsDataservice::update($request, $agreement);
+        $route = session('previous_url');
+        return redirect()->to($route);
+    }
+
 
     public function summary(Agreement $agreement)
     {

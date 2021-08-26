@@ -241,8 +241,11 @@ Route::group([
             function () {
                 Route::get('/', [AgreementController::class, 'index'])
                     ->name('admin.agreements');
-                Route::match(['post', 'get'], 'add', [AgreementController::class, 'add'])
+//                Route::match(['post', 'get'], 'add', [AgreementController::class, 'add'])
+//                    ->name('admin.addAgreement');
+                Route::get( 'add', [AgreementController::class, 'create'])
                     ->name('admin.addAgreement');
+                Route::post( 'add', [AgreementController::class, 'store']);
                 Route::match(['post', 'get'], '{agreement}/edit', [AgreementController::class, 'edit'])
                     ->name('admin.editAgreement');
                 Route::match(['post', 'get'], '{agreement}/delete', [AgreementController::class, 'delete'])

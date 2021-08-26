@@ -58,7 +58,7 @@ class AgreementsDataservice
     public static function index(Request $request): array
     {
         $filter = ($request->get('searchStr')) ?? '';
-        if ($filter!=='') $agreements=self::getAll();
+        if ($filter==='') $agreements=self::getAll();
         else $agreements = self::getFiltered($filter);
         return [
             'agreements' => $agreements,

@@ -31,7 +31,7 @@ class AgreementsDataservice
     /**
      * получение договоров, если установлен фильтр
      */
-    public static function getFiltered(str $filter)
+    public static function getFiltered(string $filter)
     {
         $searchStr = '%' . str_replace(' ', '%', $filter) . '%';
         $agreements = Agreement::query()

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataServices\Admin\AgreementsDataservice;
 use App\Models\Agreement;
 use App\Models\AgreementType;
 use App\Models\Company;
@@ -15,9 +16,10 @@ class AgreementController extends Controller
 {
     public function index(Request $request)
     {
-        return view('Admin.agreements', AgreementsRepo::getAgreements($request));
+        return view('Admin.agreements', AgreementsDataservice::index($request));
     }
 
+    //TODO переписать все методы контроллера по новому канону
     public function add(Request $request)
     {
         $agreement = new Agreement();

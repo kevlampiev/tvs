@@ -26,7 +26,7 @@
 
             <td>
                 @if($insurance->policy_file)
-                    <a href="{{route('user.filePreview', ['filename'=>'insurances/'.$insurance->policy_file])}}">
+                    <a href="{{route('user.filePreview', ['filename'=>$insurance->policy_file])}}">
                         <i class="bi bi-file-earmark-richtext">Просмотреть</i>
                     </a>
                 @else

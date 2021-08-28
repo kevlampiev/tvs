@@ -42,7 +42,6 @@ class DocumentsDataservice
     {
         $document = new Document();
         if (!empty($request->old())) $document->fill($request->old());
-//            else $document->fill($request->all());
         else $document->fill($params);
         return $document;
     }

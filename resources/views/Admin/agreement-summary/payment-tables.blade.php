@@ -22,7 +22,7 @@
         </thead>
         <tbody>
         @forelse($payments as $index => $payment)
-            <tr {{($payment->canceled_date)?'class=text-black-50':''}}>
+            <tr >
                 <th scope="row">{{$index+1}}</th>
                 <td>{{$payment->payment_date}}</td>
                 <td class="text-right">{{number_format($payment->amount, 2, ',', ' ')}}</td>

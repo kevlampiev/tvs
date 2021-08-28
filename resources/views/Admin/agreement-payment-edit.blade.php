@@ -73,7 +73,7 @@
                 </button>
 
                 <a class="btn btn-secondary"
-                   href="{{route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'payments'])}}">Отмена</a>
+                   href="{{route('admin.agreementSummary', ['agreement' => $payment->agreement_id, 'page' => 'payments'])}}">Отмена</a>
 
 
             </form>

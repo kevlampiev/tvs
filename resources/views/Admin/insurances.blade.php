@@ -6,7 +6,6 @@
 
 @section('content')
 
-{{--    @dd($insurances)--}}
     <div class="row">
         <h2>Страховые полисы</h2>
 
@@ -14,13 +13,22 @@
 
     @if ($filter!=='')
         <div class="alert alert-primary" role="alert">
-            Установлен фильтр по номеру договора " <strong> {{$filter}} </strong> "
+            Установлен фильтр  " <strong> {{$filter}} </strong> "
         </div>
     @endif
 
     <div class="row">
 {{--        <a class="btn btn-outline-info" href="#">Новый полис страхования</a>--}}
-        <a class="btn btn-outline-info" href="{{route('admin.addInsurance')}}">Новый договор</a>
+        <div class="col-md-6">
+            <a class="btn btn-outline-info" href="{{route('admin.addInsurance')}}">Новый договор</a>
+        </div>
+        <div class="col-md-6">
+            <form class="form-inline my-2 my-lg-0" method="GET">
+                <input class="form-control mr-sm-2" type="search" placeholder="Поиск страховых полисов" aria-label="Search" name="searchStr"
+                       value="{{isset($filter)?$filter:''}}">
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Поиск</button>
+            </form>
+        </div>
     </div>
 
     <div class="row">
@@ -37,7 +45,7 @@
                     <th scope="col">Страховая сумма</th>
                     <th scope="col">Страховая премия</th>
                     <th scope="col">Стоимость, %</th>
-                    <th scope="col"></th>
+                    <th scope="col">Файл полиса</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
@@ -57,6 +65,15 @@
                             {{number_format(100*$insurance->insurance_premium/$insurance->insurance_amount,1)}} %
                             @else
                                  --
+                            @endif
+                        </td>
+                        <td>
+                            @if($insurance->policy_file)
+                                <a href="{{route('user.filePreview', ['filename'=>$insurance->policy_file])}}">
+                                    <i class="bi bi-file-earmark-richtext"></i>
+                                </a>
+                            @else
+                                --
                             @endif
                         </td>
                         <td><a href="{{route('admin.editInsurance', ['insurance'=>$insurance])}}"> &#9998;Изменить </a>

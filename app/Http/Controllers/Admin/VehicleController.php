@@ -6,19 +6,15 @@ use App\DataServices\Admin\VehicleDataservice;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VehicleRequest;
 use App\Models\Agreement;
-use App\Models\Manufacturer;
 use App\Models\Vehicle;
 use App\Models\VehicleNote;
-use App\Models\VehicleType;
-use App\DataServices\VehiclesRepo;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class VehicleController extends Controller
 {
     public function index(Request $request)
     {
-        return view('Admin.vehicles', VehiclesRepo::getVehicles($request));
+        return view('Admin.vehicles', VehicleDataservice::index($request));
     }
 
     public function create(Request $request)
@@ -58,25 +54,24 @@ class VehicleController extends Controller
     {
         return view('Admin/vehicle-summary',
             ['vehicle' => $vehicle,
-                'notes' => VehicleNote::where('vehicle_id', '=', $vehicle->id)->with('user')->orderByDesc('created_at')->get()]);
+                'notes' => VehicleNote::where('vehicle_id', '=', $vehicle->id)->with('user')->orderByDesc('created_at')->get(),
+            ]);
     }
 
     public function attachAgreement(Request $request, Vehicle $vehicle)
     {
         if ($request->isMethod('post')) {
-            $agreement = Vehicle::find($request->agreement_id);
-            $vehicle->agreements()->save($agreement);
+            VehicleDataservice::attachAgreement($request, $vehicle);
             return redirect()->route('admin.vehicleSummary', ['vehicle' => $vehicle, 'page' => 'agreements']);
         } else {
             return view('Admin/vehicle-add-agreement',
-                VehiclesRepo::provideAddAgreementView($vehicle));
+                VehicleDataservice::provideAddAgreementView($vehicle));
         }
     }
 
     public function detachAgreement(Request $request, Vehicle $vehicle, Agreement $agreement)
     {
-        dd($request);
-        $vehicle->agreements()->detach($agreement);
+       VehicleDataservice::detachAgreements($vehicle,$agreement);
         return redirect()->route('admin.vehicleSummary', ['vehicle' => $vehicle, 'page' => 'agreements']);
     }
 

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataServices\Admin\RealPaymentsDataservice;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RealPaymentRequest;
 use App\Models\Agreement;
 use App\Models\RealPayment;
 use Illuminate\Http\Request;
@@ -10,48 +12,38 @@ use Illuminate\Http\Request;
 class RealPaymentController extends Controller
 {
 
-    public function add(Request $request, Agreement $agreement)
+    public function create(Request $request, Agreement $agreement)
     {
-        $realPayment = new RealPayment();
-        if ($request->isMethod('post')) {
-            $this->validate($request, RealPayment::rules());
-            $realPayment->fill($request->all());
-            $realPayment->save();
-            return redirect()->route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'payments']);
-        } else {
-            if (!empty($request->old())) {
-                $realPayment->fill($request->old());
-            }
-            $realPayment->agreement_id = $agreement->id;
-            $realPayment->payment_date = date('Y-m-d');;
-            return view('Admin/real-payment-edit', [
-                'payment' => $realPayment,
-                'agreement' => $agreement
-            ]);
-        }
+        $payment = RealPaymentsDataservice::create($request, $agreement);
+        return view('Admin.real-payment-edit',['agreement' => $agreement, 'payment'=>$payment]);
+    }
+
+    public function store(RealPaymentRequest $request, Agreement $agreement)
+    {
+        RealPaymentsDataservice::store($request);
+        return redirect()
+            ->to(route('admin.agreementSummary',['agreement'=>$agreement, 'page'=>'payments']));
     }
 
     public function edit(Request $request, Agreement $agreement, RealPayment $payment)
     {
-        if ($request->isMethod('post')) {
-            $this->validate($request, RealPayment::rules());
-            $payment->fill($request->all());
-            $payment->save();
-            return redirect()->route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'payments']);
-        } else {
-            if (!empty($request->old())) {
-                $payment->fill($request->old());
-            }
-            return view('Admin/real-payment-edit', [
-                'payment' => $payment,
-                'agreement' => $agreement,
-            ]);
-        }
+        RealPaymentsDataservice::edit($request, $payment);
+        return view('Admin.real-payment-edit',
+            ['agreement' => $agreement, 'payment' => $payment]);
+    }
+
+    public function update(RealPaymentRequest $request, Agreement $agreement, RealPayment $payment)
+    {
+        RealPaymentsDataservice::update($request, $payment);
+        return redirect()->to(route('admin.agreementSummary',
+            ['agreement'=>$agreement, 'page'=>'payments']));
     }
 
     public function delete(Agreement $agreement, RealPayment $payment): \Illuminate\Http\RedirectResponse
     {
-        $payment->delete();
-        return redirect()->route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'payments']);
+        RealPaymentsDataservice::delete($payment);
+        return redirect()->to(route('admin.agreementSummary',
+            ['agreement'=>$agreement, 'page'=>'payments']));
     }
+
 }

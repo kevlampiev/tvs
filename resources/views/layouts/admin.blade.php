@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     @yield("styles")
     <script src="{{ mix('js/app.js') }}"></script>
 </head>
@@ -69,11 +70,7 @@
                 </div>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0" method="GET">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchStr"
-                   value="{{isset($filter)?$filter:''}}">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+
     </div>
 
     <ul class="navbar-nav ml-auto">

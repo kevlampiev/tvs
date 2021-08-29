@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataServices\Admin\AgreementsDataservice;
+use App\Http\Requests\AgreementRequest;
 use App\Models\Agreement;
 use App\Models\AgreementType;
 use App\Models\Company;
@@ -15,48 +17,45 @@ class AgreementController extends Controller
 {
     public function index(Request $request)
     {
-        return view('Admin.agreements', AgreementsRepo::getAgreements($request));
+        return view('Admin.agreements', AgreementsDataservice::index($request));
     }
 
-    public function add(Request $request)
+    public function create(Request $request)
     {
-        $agreement = new Agreement();
-        if ($request->isMethod('post')) {
-            $this->validate($request, Agreement::rules());
-            $agreement->fill($request->except(['id']));
-            $agreement->save();
-            return redirect()->route('admin.agreements');
-        } else {
-            if (!empty($request->old())) {
-                $agreement->fill($request->old());
-            }
-            return view('Admin/agreement-edit',
-                AgreementsRepo::provideAgreementEditor($agreement, 'admin.addAgreement'));
-        }
+        $agreement = AgreementsDataservice::create($request);
+        return view('Admin.agreement-edit',
+            AgreementsDataservice::provideAgreementEditor($agreement, 'admin.addAgreement'));
     }
+
+    public function store(AgreementRequest $request): \Illuminate\Http\RedirectResponse
+    {
+        AgreementsDataservice::store($request);
+        $route = session('previous_url', route('admin.agreements'));
+        return redirect()->to($route);
+    }
+
 
     public function edit(Request $request, Agreement $agreement)
     {
-        if ($request->isMethod('post')) {
-            $this->validate($request, Agreement::rules());
-            $agreement->fill($request->all());
-            $agreement->save();
-            $route = session('previous_url', route('admin.agreements'));
-            return redirect()->to($route);
-        } else {
-            if (!empty($request->old())) {
-                $agreement->fill($request->old());
-            }
-            if (url()->previous() !== url()->current()) session(['previous_url' => url()->previous()]);
-            return view('Admin/agreement-edit',
-                AgreementsRepo::provideAgreementEditor($agreement, 'admin.editAgreement'));
-        }
+        if (url()->previous() !== url()->current()) session(['previous_url' => url()->previous()]);
+        AgreementsDataservice::edit($request, $agreement);
+        return view('Admin.agreement-edit',
+            AgreementsDataservice::provideAgreementEditor($agreement, 'admin.editAgreement'));
     }
+
+    public function update(AgreementRequest $request, Agreement $agreement): \Illuminate\Http\RedirectResponse
+    {
+        AgreementsDataservice::update($request, $agreement);
+        $route = session('previous_url');
+        return redirect()->to($route);
+    }
+
 
     public function delete(Agreement $agreement): \Illuminate\Http\RedirectResponse
     {
-        $agreement->delete();
-        return redirect()->route('admin.agreements');
+        AgreementsDataservice::delete($agreement);
+        $route = session('previous_url');
+        return redirect()->to($route);
     }
 
     public function summary(Agreement $agreement)
@@ -68,8 +67,7 @@ class AgreementController extends Controller
     public function addVehicle(Request $request, Agreement $agreement, Vehicle $vehicle)
     {
         if ($request->isMethod('post')) {
-            $vehicle = Vehicle::find($request->vehicle_id);
-            $agreement->vehicles()->save($vehicle);
+            AgreementsDataservice::addVehicle($request, $agreement);
             return redirect()->route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'vehicles']);
         } else {
             return view('Admin/agreement-add-vehicle',
@@ -77,9 +75,9 @@ class AgreementController extends Controller
         }
     }
 
-    public function detachVehicle(Request $request, Agreement $agreement, Vehicle $vehicle)
+    public function detachVehicle(Request $request, Agreement $agreement, Vehicle $vehicle): \Illuminate\Http\RedirectResponse
     {
-        $agreement->vehicles()->detach($vehicle);
+        AgreementsDataservice::detachVehicle($agreement, $vehicle);
         return redirect()->route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'vehicles']);
     }
 

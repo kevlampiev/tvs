@@ -18,7 +18,17 @@
     @endif
 
     <div class="row">
-        <a class="btn btn-outline-info" href="{{route('admin.addAgreement')}}">Новый договор</a>
+        <div class="col-md-6">
+            <a class="btn btn-outline-info" href="{{route('admin.addAgreement')}}">Новый договор</a>
+        </div>
+        <div class="col-md-6">
+            <form class="form-inline my-2 my-lg-0" method="GET">
+                <input class="form-control mr-sm-2" type="search" placeholder="Поиск в договорах" aria-label="Search" name="searchStr"
+                       value="{{isset($filter)?$filter:''}}">
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Поиск</button>
+            </form>
+        </div>
+
     </div>
 
     <div class="row">

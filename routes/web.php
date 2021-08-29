@@ -284,10 +284,12 @@ Route::group([
                     ->name('admin.deleteAgrPayment');
 
                 //Real payments
-                Route::match(['get', 'post'], '{agreement}/add-real-payment', [RealPaymentController::class, 'add'])
+                Route::get( '{agreement}/add-real-payment', [RealPaymentController::class, 'create'])
                     ->name('admin.addRealPayment');
-                Route::match(['get', 'post'], '{agreement}/edit-real-payment/{payment}', [RealPaymentController::class, 'edit'])
+                Route::post( '{agreement}/add-real-payment', [RealPaymentController::class, 'store']);
+                Route::get( '{agreement}/edit-real-payment/{payment}', [RealPaymentController::class, 'edit'])
                     ->name('admin.editRealPayment');
+                Route::post( '{agreement}/edit-real-payment/{payment}', [RealPaymentController::class, 'update']);
                 Route::match(['get', 'post'], '{agreement}/delete-real-payment/{payment}', [RealPaymentController::class, 'delete'])
                     ->name('admin.deleteRealPayment');
             }

@@ -228,6 +228,25 @@
                     </div>
                 @endif
 
+                {{--Дата продажи--}}
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="sale_date">Дата продажи</span>
+                    <input type="date"
+                           class="form-control {{$errors->has('sale_date')?'is-invalid':''}}"
+                           aria-describedby="model"
+                           placeholder="Введите дату продажи" name="sale_date"
+                           value="{{$vehicle->sale_date}}">
+                </div>
+                @if ($errors->has('sale_date'))
+                    <div class="alert alert-danger">
+                        <ul class="p-0 m-0">
+                            @foreach($errors->get('sale_date') as $error)
+                                <li class="m-0 p-0"> {{$error}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
 
             </div>
 

@@ -52,7 +52,7 @@
                 </thead>
                 <tbody>
                 @forelse($vehicles as $index => $vehicle)
-                    <tr>
+                    <tr @if($vehicle->sale_date&&$vehicle->sale_date<=now()) class="text-black-50 sold-vehicle"@endif>
                         <th scope="row">{{($index+1)}}</th>
                         <td>{{$vehicle->vehicleType->name}}</td>
                         <td>{{$vehicle->manufacturer->name}}</td>
@@ -77,4 +77,12 @@
             {{$vehicles->links()}}
         </div>
     </div>
+@endsection
+
+@section("styles")
+    <style>
+        .sold-vehicle {
+            text-decoration: line-through;
+        }
+    </style>
 @endsection

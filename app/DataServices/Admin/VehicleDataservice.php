@@ -12,6 +12,7 @@ use App\Models\VehicleType;
 use Error;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class VehicleDataservice
@@ -106,6 +107,7 @@ class VehicleDataservice
         $vehicle->fill($request->except(['id', 'created_at', 'updated_at', 'pts-img', 'img_file']));
         if ($vehicle->id) $vehicle->updated_at = now();
         else $vehicle->created_at = now();
+        if (!$vehicle->user_id) $vehicle->user_id = Auth::user()->id;
         if ($request->file('img_file')) {
             $file_path = $request->file('img_file')->store(config('paths.vehicles.put', 'public/img/vehicles'));
             $vehicle->img_file = basename($file_path);

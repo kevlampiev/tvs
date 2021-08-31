@@ -12,7 +12,7 @@
     </thead>
     <tbody>
     @forelse($agreement->vehicles as $index => $vehicle)
-        <tr>
+        <tr @if($vehicle->sale_date&&$vehicle->sale_date<=now()) class="text-black-50 sold-vehicle"@endif>
             <th scope="row">{{$index+1}}</th>
             <td>{{$vehicle->name}}</td>
             <td>{{$vehicle->model}}</td>
@@ -33,3 +33,12 @@
     @endforelse
     </tbody>
 </table>
+
+
+@section("styles")
+    <style>
+        .sold-vehicle {
+            text-decoration: line-through;
+        }
+    </style>
+@endsection

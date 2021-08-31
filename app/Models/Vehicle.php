@@ -22,7 +22,8 @@ class Vehicle extends Model
         'model',
         'price',
         'currency',
-        'purchase_date'];
+        'purchase_date',
+        'sale_date'];
 
     public function vehicleType(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -69,7 +70,24 @@ class Vehicle extends Model
                 Rule::in(['RUR', 'USD', 'EUR', 'CNY', 'YPN']),
             ],
             'price' => 'numeric|min:0',
-            'purchase_date' => 'date'
+            'purchase_date' => 'date',
+            'sale_date' => 'date',
+        ];
+    }
+
+    public static function attributes(): array
+    {
+        return [
+            'name' => 'Наименование оборудования',
+            'vin' => 'Заводской номер/VIN',
+            'bort_number' => 'Бортовой номер',
+            'prod_year' => 'Год выпуска',
+            'trademark' => 'Торговая марка',
+            'model' => 'Модель',
+            'currency' => 'Валюта',
+            'price' => 'Цена приобретения',
+            'purchase_date' => 'Дата приобретения',
+            'sale_date' => 'Дата продажи',
         ];
     }
 }

@@ -27,6 +27,7 @@ class DocumentRequest extends FormRequest
         return [
             'description' => 'string|min:3',
             'file_name' => 'string|min:3',
+            'document_file' => 'file|required'
         ];
     }
 
@@ -34,7 +35,8 @@ class DocumentRequest extends FormRequest
     {
         return [
             'file_name' => 'Файл докумена',
-            'description' => 'Описание'
+            'description' => 'Описание',
+            'document_file' => 'Файл документа'
         ];
     }
 

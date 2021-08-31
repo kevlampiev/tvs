@@ -130,6 +130,15 @@
                                accept="application/pdf" aria-describedby="policy_file" style="display: none;">
 
                     </div>
+                    @if ($errors->has('document_file'))
+                        <div class="alert alert-danger">
+                            <ul class="p-0 m-0">
+                                @foreach($errors->get('document_file') as $error)
+                                    <li class="m-0 p-0"> {{$error}}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
                 </div>
 

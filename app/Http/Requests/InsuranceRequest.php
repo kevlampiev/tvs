@@ -31,8 +31,8 @@ class InsuranceRequest extends FormRequest
             'insurance_type_id' => 'required|exists:insurance_types,id',
             'date_open' => 'date|required',
             'date_close' => 'date|required|after:date_open',
-            'insurance_amount' => 'numeric',
-            'insurance_premiun' => 'numeric',
+            'insurance_amount' => 'numeric|required',
+            'insurance_premium' => 'numeric|required',
             'amount_currency' => [
                 Rule::in(['RUR', 'USD', 'EUR', 'CNY', 'YPN']),
             ],
@@ -50,7 +50,7 @@ class InsuranceRequest extends FormRequest
             'date_open' => 'Дата начала действия',
             'date_close' => 'Дата окончания действия',
             'insurance_amount' => 'Страховая сумма',
-            'insurance_premiun' => 'Страховая премия',
+            'insurance_premium' => 'Страховая премия',
             'amount_currency' => 'Валюта страховой суммы',
             'premium_currency' => 'Валюта страховой премии',
             'description' => 'Описание'

@@ -13,8 +13,8 @@
                 </div>
 
                 <div class="shadow p-3 mb-5 bg-white rounded dashBoardBlock">
-                    <h4 class="m-auto">Страховки к оформлению ({{$upcomingInsurancesPeriod}} дн.) </h4>
-                    @include('User.dashboard.vehiclesToBeInsured')
+                    <h4 class="m-auto">Ближайшие задачи ({{$upcomingInsurancesPeriod}} дн.) </h4>
+                    @include('User.dashboard.upcoming-events-list')
                 </div>
 
             </div>

@@ -25,11 +25,15 @@ use App\Http\Controllers\User\SettlementReportsController;
 use App\Http\Controllers\User\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
-        Route::get('/', [InsuranceController::class, 'index'])
+Route::group([
+    'prefix' => 'insurances'
+],
+    function () {
+        Route::get('/list', [InsuranceController::class, 'index'])
             ->name('insurances');
-        Route::get('add/{vehicle?}',[InsuranceController::class, 'create'])
+        Route::get('add/{vehicle?}', [InsuranceController::class, 'create'])
             ->name('addInsurance');
-        Route::post('add/{vehicle?}', [InsuranceController::class,'store']);
+        Route::post('add/{vehicle?}', [InsuranceController::class, 'store']);
         Route::get('{insurance}/edit', [InsuranceController::class, 'edit'])
             ->name('editInsurance');
         Route::post('{insurance}/edit', [InsuranceController::class, 'update']);
@@ -37,3 +41,4 @@ use Illuminate\Support\Facades\Route;
             '{insurance}/delete', [InsuranceController::class, 'delete'])
             ->name('deleteInsurance');
 
+    });

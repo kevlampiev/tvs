@@ -25,7 +25,7 @@ use App\Http\Controllers\User\SettlementReportsController;
 use App\Http\Controllers\User\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [HomeController::class, 'index'])->name('main');
+Route::get('/index', [HomeController::class, 'index'])->name('main');
 Route::group([
     'prefix' => 'types'
 ],

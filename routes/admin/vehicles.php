@@ -25,27 +25,32 @@ use App\Http\Controllers\User\SettlementReportsController;
 use App\Http\Controllers\User\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
-    Route::get('/', [VehicleController::class, 'index'])->name('vehicles');
-    Route::get( 'add', [VehicleController::class, 'create'])->name('addVehicle');
-    Route::post( 'add', [VehicleController::class, 'store']);
-    Route::get( '{vehicle}/edit', [VehicleController::class, 'edit'])->name('editVehicle');
-    Route::post( '{vehicle}/edit', [VehicleController::class, 'update']);
+Route::group([
+    'prefix' => 'vehicles'
+],
+    function () {
+        Route::get('/', [VehicleController::class, 'index'])->name('vehicles');
+        Route::get('add', [VehicleController::class, 'create'])->name('addVehicle');
+        Route::post('add', [VehicleController::class, 'store']);
+        Route::get('{vehicle}/edit', [VehicleController::class, 'edit'])->name('editVehicle');
+        Route::post('{vehicle}/edit', [VehicleController::class, 'update']);
 
-    Route::match(['post', 'get'], '{vehicle}/delete', [VehicleController::class, 'erase'])->name('deleteVehicle');
-    Route::get('{vehicle}/summary/{page?}', [VehicleController::class, 'vehicleSummary'])->name('vehicleSummary');
-    Route::match(['get','post'], '{vehicle}/attach-agreement', [VehicleController::class, 'attachAgreement'])
-        ->name('attachAgreement');
-    Route::get('{vehicle}/detach-agreement/{agreement}', [VehicleController::class, 'detachAgreement'])
-        ->name('detachAgreement');
-    Route::group(['prefix' => 'notes'],
-        function() {
-            Route::get('add/{vehicle}', [VehicleNoteController::class, 'create'])
-                ->name('addVehicleNote');
-            Route::post('add/{vehicle}', [VehicleNoteController::class, 'store']);
-            Route::get('edit/{vehicleNote}', [VehicleNoteController::class, 'edit'])
-                ->name('editVehicleNote');
-            Route::post('edit/{vehicleNote}', [VehicleNoteController::class, 'update']);
-            Route::get('delete/{vehicleNote}', [VehicleNoteController::class, 'erase'])
-                ->name('deleteVehicleNote');
+        Route::match(['post', 'get'], '{vehicle}/delete', [VehicleController::class, 'erase'])->name('deleteVehicle');
+        Route::get('{vehicle}/summary/{page?}', [VehicleController::class, 'vehicleSummary'])->name('vehicleSummary');
+        Route::match(['get', 'post'], '{vehicle}/attach-agreement', [VehicleController::class, 'attachAgreement'])
+            ->name('attachAgreement');
+        Route::get('{vehicle}/detach-agreement/{agreement}', [VehicleController::class, 'detachAgreement'])
+            ->name('detachAgreement');
+        Route::group(['prefix' => 'notes'],
+            function () {
+                Route::get('add/{vehicle}', [VehicleNoteController::class, 'create'])
+                    ->name('addVehicleNote');
+                Route::post('add/{vehicle}', [VehicleNoteController::class, 'store']);
+                Route::get('edit/{vehicleNote}', [VehicleNoteController::class, 'edit'])
+                    ->name('editVehicleNote');
+                Route::post('edit/{vehicleNote}', [VehicleNoteController::class, 'update']);
+                Route::get('delete/{vehicleNote}', [VehicleNoteController::class, 'erase'])
+                    ->name('deleteVehicleNote');
 
-        });
+            });
+    });

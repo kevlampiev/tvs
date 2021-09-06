@@ -18,7 +18,7 @@ class AgreementPaymentsDataservice
     /**
      *Создание нового элемента
      */
-    public static function create(Request $request, Agreement $agreement):AgreementPayment
+    public static function create(Request $request, Agreement $agreement): AgreementPayment
     {
         $payment = new AgreementPayment();
         if (!empty($request->old())) $payment->fill($request->old());
@@ -74,18 +74,18 @@ class AgreementPaymentsDataservice
 
     public static function toRealPayment(AgreementPayment $payment)
     {
-       try {
-           $realPayment = new RealPayment();
-           $realPayment->agreement_id = $payment->agreement_id;
-           $realPayment->payment_date = $payment->payment_date;
-           $realPayment->amount = $payment->amount;
-           $realPayment->user_id = Auth::user()->id;
-           $realPayment->created_at = now();
-           $realPayment->save();
-           session()->flash('message', 'Платеж перенесен в список реальных платежей');
-       } catch (Error $err) {
-           session()->flash('error', 'Не удалось перенести платеж в список реальных платежей');
-       }
+        try {
+            $realPayment = new RealPayment();
+            $realPayment->agreement_id = $payment->agreement_id;
+            $realPayment->payment_date = $payment->payment_date;
+            $realPayment->amount = $payment->amount;
+            $realPayment->user_id = Auth::user()->id;
+            $realPayment->created_at = now();
+            $realPayment->save();
+            session()->flash('message', 'Платеж перенесен в список реальных платежей');
+        } catch (Error $err) {
+            session()->flash('error', 'Не удалось перенести платеж в список реальных платежей');
+        }
 
     }
 
@@ -108,7 +108,7 @@ class AgreementPaymentsDataservice
             }
             AgreementPayment::insert($payments);
             session()->flash('message', "Добавлено периодических $repeatCount платежей по договору");
-        } catch(Err $err) {
+        } catch (Err $err) {
             session()->flash('error', 'Не удалось добавить периодические платежи по договору');
         }
     }

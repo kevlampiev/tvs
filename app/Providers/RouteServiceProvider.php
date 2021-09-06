@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 
@@ -33,20 +35,51 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
+//    public function boot()
+//    {
+//        $this->configureRateLimiting();
+//
+//        $this->routes(function () {
+//            Route::prefix('api')
+//                ->middleware('api')
+//                ->namespace($this->namespace)
+//                ->group(base_path('routes/api.php'));
+//
+//            Route::middleware('web')
+//                ->namespace($this->namespace)
+//                ->group(base_path('routes/web.php'));
+//        });
+//    }
+
     public function boot()
     {
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            Route::prefix('api')
-                ->middleware('api')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/api.php'));
-
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/web.php'));
+            $this->getRouteParameters()->each(function ($params) {
+                $this->mapRoutes($params);
+            });
         });
+    }
+
+    private function mapRoutes($params)
+    {
+        collect(File::files(base_path('routes/' . $params['dir'])))->each(function ($file) use ($params) {
+            Route::prefix($params['prefix'])
+                ->name($params['name'])
+                ->middleware($params['middleware'])
+                ->namespace($this->namespace)
+                ->group($file);
+        });
+    }
+
+    private function getRouteParameters(): Collection
+    {
+        return collect([
+            'admin' => ['dir' => 'admin', 'prefix' => 'admin', 'name' => 'admin.', 'middleware' => ['web', 'is.manager', 'password_expired']],
+//            'api' => ['dir' => 'api', 'prefix' => 'api', 'name' => 'api.', 'middleware' => 'api'],
+            'web' => ['dir' => 'web', 'prefix' => '', 'name' => '', 'middleware' => 'web'],
+        ]);
     }
 
     /**

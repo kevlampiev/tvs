@@ -15,14 +15,14 @@ class AgreementPaymentController extends Controller
     public function create(Request $request, Agreement $agreement)
     {
         $payment = AgreementPaymentsDataservice::create($request, $agreement);
-        return view('Admin.agreement-payment-edit',['payment'=>$payment]);
+        return view('Admin.agreement-payment-edit', ['payment' => $payment]);
     }
 
     public function store(AgreementPaymentRequest $request, Agreement $agreement)
     {
         AgreementPaymentsDataservice::store($request);
         return redirect()
-            ->to(route('admin.agreementSummary',['agreement'=>$agreement, 'page'=>'payments']));
+            ->to(route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'payments']));
     }
 
     public function edit(Request $request, Agreement $agreement, AgreementPayment $payment)
@@ -36,14 +36,14 @@ class AgreementPaymentController extends Controller
     {
         AgreementPaymentsDataservice::update($request, $payment);
         return redirect()->to(route('admin.agreementSummary',
-            ['agreement'=>$agreement, 'page'=>'payments']));
+            ['agreement' => $agreement, 'page' => 'payments']));
     }
 
     public function delete(Agreement $agreement, AgreementPayment $payment): \Illuminate\Http\RedirectResponse
     {
         AgreementPaymentsDataservice::delete($payment);
         return redirect()->to(route('admin.agreementSummary',
-                    ['agreement'=>$agreement, 'page'=>'payments']));
+            ['agreement' => $agreement, 'page' => 'payments']));
     }
 
 
@@ -52,17 +52,18 @@ class AgreementPaymentController extends Controller
      */
     public function createAddPayments(Request $request, Agreement $agreement)
     {
-            return view('Admin/agreement-mass-payment', ['agreement' => $agreement]);
+        return view('Admin/agreement-mass-payment', ['agreement' => $agreement]);
     }
+
     /**
      *Сохранение периодических платежей. POST
      */
     public function storeAddPayments(AgreementMassPaymentRequest $request, Agreement $agreement)
     {
-            AgreementPaymentsDataservice::addManyPayments($request, $agreement);
-            return redirect()
-                ->route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'payments'])
-                ->with('message', 'Произведено массовое добавление платежей');
+        AgreementPaymentsDataservice::addManyPayments($request, $agreement);
+        return redirect()
+            ->route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'payments'])
+            ->with('message', 'Произведено массовое добавление платежей');
     }
 
     /**

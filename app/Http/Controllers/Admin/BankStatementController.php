@@ -3,16 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataServices\Admin\BankStatementDataservice;
-use App\DataServices\Admin\CompaniesDataservice;
 use App\Http\Controllers\Controller;
-use App\Models\Agreement;
 use App\Models\BankStatementPosition;
-use App\Models\Insurance;
-use App\Models\Vehicle;
-use App\DataServices\InsurancesRepo;
 use App\Parsers\BankStatementParser;
-use Carbon\Carbon;
-use Carbon\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 

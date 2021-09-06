@@ -3,8 +3,6 @@
 
 namespace App\Parsers;
 
-use App\Parsers\BankDocument;
-
 
 class BankStatementParser
 {

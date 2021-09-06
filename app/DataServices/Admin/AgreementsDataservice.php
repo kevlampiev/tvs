@@ -10,9 +10,8 @@ use App\Models\AgreementType;
 use App\Models\Company;
 use App\Models\Counterparty;
 use App\Models\Vehicle;
-use App\Models\VehicleType;
-use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use PhpParser\Error;
@@ -166,9 +165,9 @@ class AgreementsDataservice
         try {
             $vehicle = Vehicle::find($request->vehicle_id);
             $agreement->vehicles()->save($vehicle);
-            session()->flash('message' , 'Техника прикреплена к договору');
-        }catch (Error $err) {
-            session()->flash('error' , 'Не удалось связать спецтехнику с договором');
+            session()->flash('message', 'Техника прикреплена к договору');
+        } catch (Error $err) {
+            session()->flash('error', 'Не удалось связать спецтехнику с договором');
         }
     }
 
@@ -176,9 +175,9 @@ class AgreementsDataservice
     {
         try {
             $agreement->vehicles()->detach($vehicle);
-            session()->flash('message' , 'Разорвана связь техники и договора');
-        }catch (Error $err) {
-            session()->flash('error' , 'Не удалось разорвать связь');
+            session()->flash('message', 'Разорвана связь техники и договора');
+        } catch (Error $err) {
+            session()->flash('error', 'Не удалось разорвать связь');
         }
     }
 

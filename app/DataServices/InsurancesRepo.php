@@ -4,19 +4,12 @@
 namespace App\DataServices;
 
 
-use App\Models\Agreement;
-use App\Models\AgreementPayment;
-use App\Models\AgreementType;
-use App\Models\Company;
-use App\Models\Counterparty;
 use App\Models\Insurance;
 use App\Models\InsuranceCompany;
 use App\Models\InsuranceType;
 use App\Models\Vehicle;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class InsurancesRepo
 {

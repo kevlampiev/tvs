@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataServices\Admin\CounterpartiesDataservice;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ManufacturerRequest;
 use App\Models\Counterparty;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class CounterpartyController extends Controller
 {

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataServices\Admin\VehicleDataservice;
 use App\DataServices\Admin\VehicleTypesDataservice;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VehicleTypeRequest;

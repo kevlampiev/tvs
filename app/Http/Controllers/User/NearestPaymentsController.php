@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
 use App\DataServices\NearestPaymentsDataservice;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class NearestPaymentsController extends Controller
 {

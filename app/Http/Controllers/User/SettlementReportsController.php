@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
-use App\Models\Agreement;
 use App\DataServices\DashboardDataservice;
 use App\DataServices\SettlementsRepo;
 use App\DataServices\SettlementsReportsRepo;
+use App\Http\Controllers\Controller;
+use App\Models\Agreement;
 use Illuminate\Http\Request;
 
 class SettlementReportsController extends Controller

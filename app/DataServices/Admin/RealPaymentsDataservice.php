@@ -3,13 +3,9 @@
 
 namespace App\DataServices\Admin;
 
-use App\Http\Requests\AgreementMassPaymentRequest;
-use App\Http\Requests\AgreementPaymentRequest;
 use App\Http\Requests\RealPaymentRequest;
 use App\Models\Agreement;
-use App\Models\AgreementPayment;
 use App\Models\RealPayment;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PhpParser\Error;
@@ -19,7 +15,7 @@ class RealPaymentsDataservice
     /**
      *Создание нового элемента
      */
-    public static function create(Request $request, Agreement $agreement):RealPayment
+    public static function create(Request $request, Agreement $agreement): RealPayment
     {
         $payment = new RealPayment();
         if (!empty($request->old())) $payment->fill($request->old());

@@ -15,14 +15,14 @@ class RealPaymentController extends Controller
     public function create(Request $request, Agreement $agreement)
     {
         $payment = RealPaymentsDataservice::create($request, $agreement);
-        return view('Admin.real-payment-edit',['agreement' => $agreement, 'payment'=>$payment]);
+        return view('Admin.real-payment-edit', ['agreement' => $agreement, 'payment' => $payment]);
     }
 
     public function store(RealPaymentRequest $request, Agreement $agreement)
     {
         RealPaymentsDataservice::store($request);
         return redirect()
-            ->to(route('admin.agreementSummary',['agreement'=>$agreement, 'page'=>'payments']));
+            ->to(route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'payments']));
     }
 
     public function edit(Request $request, Agreement $agreement, RealPayment $payment)
@@ -36,14 +36,14 @@ class RealPaymentController extends Controller
     {
         RealPaymentsDataservice::update($request, $payment);
         return redirect()->to(route('admin.agreementSummary',
-            ['agreement'=>$agreement, 'page'=>'payments']));
+            ['agreement' => $agreement, 'page' => 'payments']));
     }
 
     public function delete(Agreement $agreement, RealPayment $payment): \Illuminate\Http\RedirectResponse
     {
         RealPaymentsDataservice::delete($payment);
         return redirect()->to(route('admin.agreementSummary',
-            ['agreement'=>$agreement, 'page'=>'payments']));
+            ['agreement' => $agreement, 'page' => 'payments']));
     }
 
 }

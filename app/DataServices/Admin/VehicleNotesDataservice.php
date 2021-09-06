@@ -6,7 +6,6 @@ namespace App\DataServices\Admin;
 
 use App\Http\Requests\VehicleNoteRequest;
 use App\Models\VehicleNote;
-use App\Models\VehicleType;
 use Illuminate\Support\Facades\Auth;
 use PhpParser\Error;
 

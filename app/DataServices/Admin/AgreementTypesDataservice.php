@@ -5,7 +5,6 @@ namespace App\DataServices\Admin;
 
 
 use App\Models\AgreementType;
-use App\Models\VehicleType;
 
 class AgreementTypesDataservice
 {

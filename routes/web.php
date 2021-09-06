@@ -51,9 +51,9 @@ Route::group([
                 Route::get('add', [VehicleTypeController::class, 'create'])
                     ->name('admin.addVehicleType');
                 Route::post('add', [VehicleTypeController::class, 'store']);
-                Route::get( '{vehicleType}/edit', [VehicleTypeController::class, 'edit'])
+                Route::get('{vehicleType}/edit', [VehicleTypeController::class, 'edit'])
                     ->name('admin.editVehicleType');
-                Route::post( '{vehicleType}/edit', [VehicleTypeController::class, 'update']);
+                Route::post('{vehicleType}/edit', [VehicleTypeController::class, 'update']);
                 Route::match(['post', 'get'], '{vehicleType}/delete', [VehicleTypeController::class, 'erase'])
                     ->name('admin.deleteVehicleType');
             }
@@ -65,12 +65,12 @@ Route::group([
         ],
             function () {
                 Route::get('/', [ManufacturersController::class, 'index'])->name('admin.manufacturers');
-                Route::get( 'add', [ManufacturersController::class, 'create'])
+                Route::get('add', [ManufacturersController::class, 'create'])
                     ->name('admin.addManufacturer');
-                Route::post( 'add', [ManufacturersController::class, 'store']);
-                Route::get( '{manufacturer}/edit', [ManufacturersController::class, 'edit'])
+                Route::post('add', [ManufacturersController::class, 'store']);
+                Route::get('{manufacturer}/edit', [ManufacturersController::class, 'edit'])
                     ->name('admin.editManufacturer');
-                Route::post( '{manufacturer}/edit', [ManufacturersController::class, 'update']);
+                Route::post('{manufacturer}/edit', [ManufacturersController::class, 'update']);
                 Route::match(['post', 'get'], '{manufacturer}/delete', [ManufacturersController::class, 'destroy'])
                     ->name('admin.deleteManufacturer');
             }
@@ -84,7 +84,7 @@ Route::group([
                     ->name('admin.agrTypes');
                 Route::get('add', [AgreementTypeController::class, 'create'])
                     ->name('admin.addAgrType');
-                Route::post('add',[AgreementTypeController::class,'store']);
+                Route::post('add', [AgreementTypeController::class, 'store']);
                 Route::get('{agrType}/edit', [AgreementTypeController::class, 'edit'])
                     ->name('admin.editAgrType');
                 Route::post('{agrType}/edit', [AgreementTypeController::class, 'update']);
@@ -103,9 +103,9 @@ Route::group([
                 Route::get('add', [CounterpartyController::class, 'create'])
                     ->name('admin.addCounterparty');
                 Route::post('add', [CounterpartyController::class, 'store']);
-                Route::get('{counterparty}/edit',[CounterpartyController::class,'edit'])
+                Route::get('{counterparty}/edit', [CounterpartyController::class, 'edit'])
                     ->name('admin.editCounterparty');
-                Route::post('{counterparty}/edit',[CounterpartyController::class,'update']);
+                Route::post('{counterparty}/edit', [CounterpartyController::class, 'update']);
                 Route::match(['post', 'get'],
                     '{counterparty}/delete', [CounterpartyController::class, 'destroy'])
                     ->name('admin.deleteCounterparty');
@@ -120,7 +120,7 @@ Route::group([
                     ->name('admin.companies');
                 Route::get('add', [CompanyController::class, 'create'])
                     ->name('admin.addCompany');
-                Route::post('add',[CompanyController::class,'store']);
+                Route::post('add', [CompanyController::class, 'store']);
                 Route::get('{company}/edit', [CompanyController::class, 'edit'])
                     ->name('admin.editCompany');
                 Route::post('{company}/edit', [CompanyController::class, 'update']);
@@ -177,9 +177,9 @@ Route::group([
 //                Route::match(['post', 'get'],
 //                    'add/{vehicle?}', [InsuranceController::class, 'add'])
 //                    ->name('admin.addInsurance');
-                Route::get('add/{vehicle?}',[InsuranceController::class, 'create'])
+                Route::get('add/{vehicle?}', [InsuranceController::class, 'create'])
                     ->name('admin.addInsurance');
-                Route::post('add/{vehicle?}', [InsuranceController::class,'store']);
+                Route::post('add/{vehicle?}', [InsuranceController::class, 'store']);
                 Route::get('{insurance}/edit', [InsuranceController::class, 'edit'])
                     ->name('admin.editInsurance');
                 Route::post('{insurance}/edit', [InsuranceController::class, 'update']);
@@ -195,19 +195,19 @@ Route::group([
         ],
             function () {
                 Route::get('/', [VehicleController::class, 'index'])->name('admin.vehicles');
-                Route::get( 'add', [VehicleController::class, 'create'])->name('admin.addVehicle');
-                Route::post( 'add', [VehicleController::class, 'store']);
-                Route::get( '{vehicle}/edit', [VehicleController::class, 'edit'])->name('admin.editVehicle');
-                Route::post( '{vehicle}/edit', [VehicleController::class, 'update']);
+                Route::get('add', [VehicleController::class, 'create'])->name('admin.addVehicle');
+                Route::post('add', [VehicleController::class, 'store']);
+                Route::get('{vehicle}/edit', [VehicleController::class, 'edit'])->name('admin.editVehicle');
+                Route::post('{vehicle}/edit', [VehicleController::class, 'update']);
 
                 Route::match(['post', 'get'], '{vehicle}/delete', [VehicleController::class, 'erase'])->name('admin.deleteVehicle');
                 Route::get('{vehicle}/summary/{page?}', [VehicleController::class, 'vehicleSummary'])->name('admin.vehicleSummary');
-                Route::match(['get','post'], '{vehicle}/attach-agreement', [VehicleController::class, 'attachAgreement'])
+                Route::match(['get', 'post'], '{vehicle}/attach-agreement', [VehicleController::class, 'attachAgreement'])
                     ->name('admin.attachAgreement');
                 Route::get('{vehicle}/detach-agreement/{agreement}', [VehicleController::class, 'detachAgreement'])
                     ->name('admin.detachAgreement');
                 Route::group(['prefix' => 'notes'],
-                    function() {
+                    function () {
                         Route::get('add/{vehicle}', [VehicleNoteController::class, 'create'])
                             ->name('admin.addVehicleNote');
                         Route::post('add/{vehicle}', [VehicleNoteController::class, 'store']);
@@ -219,7 +219,7 @@ Route::group([
 
                     });
                 Route::group(['prefix' => 'documents'],
-                    function() {
+                    function () {
                         Route::get('add/{vehicle}', [DocumentController::class, 'create'])
                             ->name('admin.addVehicleDocument');
                         Route::post('add/{vehicle}', [DocumentController::class, 'store']);
@@ -228,7 +228,7 @@ Route::group([
                         Route::post('edit/{document}', [DocumentController::class, 'update']);
                         Route::get('delete/{document}', [DocumentController::class, 'erase'])
                             ->name('admin.deleteDocument');
-                        Route::get('/preview/{document}', [DocumentController::class,'preview'])
+                        Route::get('/preview/{document}', [DocumentController::class, 'preview'])
                             ->name('admin.documentPreview');
 
                     });
@@ -243,12 +243,12 @@ Route::group([
                     ->name('admin.agreements');
 //                Route::match(['post', 'get'], 'add', [AgreementController::class, 'add'])
 //                    ->name('admin.addAgreement');
-                Route::get( 'add', [AgreementController::class, 'create'])
+                Route::get('add', [AgreementController::class, 'create'])
                     ->name('admin.addAgreement');
-                Route::post( 'add', [AgreementController::class, 'store']);
-                Route::get( '{agreement}/edit', [AgreementController::class, 'edit'])
+                Route::post('add', [AgreementController::class, 'store']);
+                Route::get('{agreement}/edit', [AgreementController::class, 'edit'])
                     ->name('admin.editAgreement');
-                Route::post( '{agreement}/edit', [AgreementController::class, 'update']);
+                Route::post('{agreement}/edit', [AgreementController::class, 'update']);
                 Route::match(['post', 'get'], '{agreement}/delete', [AgreementController::class, 'delete'])
                     ->name('admin.deleteAgreement');
                 Route::get('{agreement}/summary/{page?}', [AgreementController::class, 'summary'])
@@ -260,23 +260,23 @@ Route::group([
 //                Route::match(['get', 'post'], '{agreement}/add-payment', [AgreementPaymentController::class, 'add'])
 //                    ->name('admin.addAgrPayment');
 //                Платежи по договору
-                Route::get( '{agreement}/add-payment', [AgreementPaymentController::class, 'create'])
+                Route::get('{agreement}/add-payment', [AgreementPaymentController::class, 'create'])
                     ->name('admin.addAgrPayment');
-                Route::post( '{agreement}/add-payment', [AgreementPaymentController::class, 'store']);
+                Route::post('{agreement}/add-payment', [AgreementPaymentController::class, 'store']);
 //                Route::match(['get', 'post'], '{agreement}/add-massive-payments', [AgreementPaymentController::class, 'massAddPayments'])
 //                    ->name('admin.massAddPayments');
-                Route::get( '{agreement}/add-massive-payments', [AgreementPaymentController::class, 'createAddPayments'])
+                Route::get('{agreement}/add-massive-payments', [AgreementPaymentController::class, 'createAddPayments'])
                     ->name('admin.massAddPayments');
-                Route::post( '{agreement}/add-massive-payments', [AgreementPaymentController::class, 'storeAddPayments']);
+                Route::post('{agreement}/add-massive-payments', [AgreementPaymentController::class, 'storeAddPayments']);
 //              Route::match(['get', 'post'], '{agreement}/edit-payment/{payment}', [AgreementPaymentController::class, 'edit'])
 //                    ->name('admin.editAgrPayment');
-                Route::get( '{agreement}/edit-payment/{payment}', [AgreementPaymentController::class, 'edit'])
+                Route::get('{agreement}/edit-payment/{payment}', [AgreementPaymentController::class, 'edit'])
                     ->name('admin.editAgrPayment');
-                Route::post( '{agreement}/edit-payment/{payment}', [AgreementPaymentController::class, 'update']);
+                Route::post('{agreement}/edit-payment/{payment}', [AgreementPaymentController::class, 'update']);
 
 //                Route::match(['get', 'post'], '{agreement}/cancel-payments', [AgreementPaymentController::class, 'cancelPayments'])
 //                    ->name('admin.massCancelPayments');
-                Route::post( '{agreement}/delete-payments', [AgreementPaymentController::class, 'massDeletePayments'])
+                Route::post('{agreement}/delete-payments', [AgreementPaymentController::class, 'massDeletePayments'])
                     ->name('admin.massDeletePayments');
                 Route::get('{agreement}/movetoreal/{payment}', [AgreementPaymentController::class, 'toRealPayments'])
                     ->name('admin.movePaymentToReal');
@@ -284,16 +284,15 @@ Route::group([
                     ->name('admin.deleteAgrPayment');
 
                 //Real payments
-                Route::get( '{agreement}/add-real-payment', [RealPaymentController::class, 'create'])
+                Route::get('{agreement}/add-real-payment', [RealPaymentController::class, 'create'])
                     ->name('admin.addRealPayment');
-                Route::post( '{agreement}/add-real-payment', [RealPaymentController::class, 'store']);
-                Route::get( '{agreement}/edit-real-payment/{payment}', [RealPaymentController::class, 'edit'])
+                Route::post('{agreement}/add-real-payment', [RealPaymentController::class, 'store']);
+                Route::get('{agreement}/edit-real-payment/{payment}', [RealPaymentController::class, 'edit'])
                     ->name('admin.editRealPayment');
-                Route::post( '{agreement}/edit-real-payment/{payment}', [RealPaymentController::class, 'update']);
+                Route::post('{agreement}/edit-real-payment/{payment}', [RealPaymentController::class, 'update']);
                 Route::match(['get', 'post'], '{agreement}/delete-real-payment/{payment}', [RealPaymentController::class, 'delete'])
                     ->name('admin.deleteRealPayment');
             }
-
 
 
         );
@@ -323,11 +322,11 @@ Route::group([
             function () {
                 Route::get('load-bank-statement', [BankStatementController::class, 'index'])
                     ->name('admin.loadBankStatement');
-                Route::post('pre-load-file', [BankStatementController::class,'preLoadFile'])
+                Route::post('pre-load-file', [BankStatementController::class, 'preLoadFile'])
                     ->name('admin.preProcessBankStatement');
-                Route::post('transfer-to-real-payments', [BankStatementController::class,'transferToRealPayments'])
+                Route::post('transfer-to-real-payments', [BankStatementController::class, 'transferToRealPayments'])
                     ->name('admin.transferToRealPayments');
-                Route::match(['get','post'],'attach_agreement_to_pbs/{bankStatementPosition}',
+                Route::match(['get', 'post'], 'attach_agreement_to_pbs/{bankStatementPosition}',
                     [BankStatementController::class, 'attachAgreement'])
                     ->name('admin.attachAgrToBS');
                 Route::get('detach_agreement_to_pbs/{bankStatementPosition}',
@@ -354,23 +353,23 @@ Route::group([
             [SettlementReportsController::class, 'showBigSettlement2Report'])
             ->name('user.allSettlements2');
         Route::get('/settlements/nearest-payments',
-            [NearestPaymentsController::class,'showAllAgr'])
+            [NearestPaymentsController::class, 'showAllAgr'])
             ->name('user.nearestPayments');
         Route::get('/settlements/{id}',
             [SettlementReportsController::class, 'showAgrSettlementReport'])
             ->name('user.agreementSettlements');
-        Route::get('profile', [UserProfileController::class,'edit'])
+        Route::get('profile', [UserProfileController::class, 'edit'])
             ->name('user.profileEdit');
-        Route::post('profile', [UserProfileController::class,'update']);
+        Route::post('profile', [UserProfileController::class, 'update']);
         Route::get('/insurances/to-renewal', [InsurancesToRenewalController::class, 'index'])
-        ->name('user.insurancesToRenewal');
-        Route::get('/filepreview/insurance-policy', [\App\Http\Controllers\User\FileDownloadController::class,'previewInsurance'])
+            ->name('user.insurancesToRenewal');
+        Route::get('/filepreview/insurance-policy', [\App\Http\Controllers\User\FileDownloadController::class, 'previewInsurance'])
             ->name('user.filePreview');
     });
 
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
-Route::match(['get', 'post'],'logout', [LoginController::class, 'logout'])->name('logout');
+Route::match(['get', 'post'], 'logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('password/expired', [ExpiredPasswordController::class, 'expired'])
     ->name('password.expired');
 Route::post('password/expired', [ExpiredPasswordController::class, 'postExpired'])

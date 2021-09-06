@@ -6,12 +6,8 @@ namespace App\DataServices;
 
 use App\Models\Agreement;
 use App\Models\AgreementPayment;
-use App\Models\Company;
 use App\Models\RealPayment;
-use App\Models\Vehicle;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Date;
 
 class SettlementsReportsRepo
 {

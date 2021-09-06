@@ -71,7 +71,7 @@ class VehicleController extends Controller
 
     public function detachAgreement(Request $request, Vehicle $vehicle, Agreement $agreement)
     {
-       VehicleDataservice::detachAgreements($vehicle,$agreement);
+        VehicleDataservice::detachAgreements($vehicle, $agreement);
         return redirect()->route('admin.vehicleSummary', ['vehicle' => $vehicle, 'page' => 'agreements']);
     }
 

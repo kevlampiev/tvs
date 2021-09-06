@@ -64,7 +64,7 @@ class RouteServiceProvider extends ServiceProvider
 
     private function mapRoutes($params)
     {
-        collect(File::files(base_path('routes/'.$params['dir'])))->each(function ($file) use ($params) {
+        collect(File::files(base_path('routes/' . $params['dir'])))->each(function ($file) use ($params) {
             Route::prefix($params['prefix'])
                 ->name($params['name'])
                 ->middleware($params['middleware'])
@@ -76,7 +76,7 @@ class RouteServiceProvider extends ServiceProvider
     private function getRouteParameters(): Collection
     {
         return collect([
-            'admin' => ['dir' => 'admin', 'prefix' => 'admin', 'name' => 'admin.', 'middleware' => ['web','is.manager', 'password_expired']],
+            'admin' => ['dir' => 'admin', 'prefix' => 'admin', 'name' => 'admin.', 'middleware' => ['web', 'is.manager', 'password_expired']],
 //            'api' => ['dir' => 'api', 'prefix' => 'api', 'name' => 'api.', 'middleware' => 'api'],
             'web' => ['dir' => 'web', 'prefix' => '', 'name' => '', 'middleware' => 'web'],
         ]);

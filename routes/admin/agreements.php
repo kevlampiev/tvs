@@ -3,27 +3,48 @@
 use App\Http\Controllers\Admin\AgreementController;
 use App\Http\Controllers\Admin\AgreementPaymentController;
 use App\Http\Controllers\Admin\AgreementTypeController;
-use App\Http\Controllers\Admin\BankStatementController;
-use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\CounterpartyController;
-use App\Http\Controllers\Admin\DocumentController;
-use App\Http\Controllers\Admin\HomeController;
-use App\Http\Controllers\Admin\InsuranceCompanyController;
-use App\Http\Controllers\Admin\InsuranceController;
-use App\Http\Controllers\Admin\InsuranceTypesController;
-use App\Http\Controllers\Admin\ManufacturersController;
 use App\Http\Controllers\Admin\RealPaymentController;
-use App\Http\Controllers\Admin\UsersController;
-use App\Http\Controllers\Admin\VehicleController;
-use App\Http\Controllers\Admin\VehicleNoteController;
-use App\Http\Controllers\Admin\VehicleTypeController;
-use App\Http\Controllers\Auth\ExpiredPasswordController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\User\InsurancesToRenewalController;
-use App\Http\Controllers\User\NearestPaymentsController;
-use App\Http\Controllers\User\SettlementReportsController;
-use App\Http\Controllers\User\UserProfileController;
 use Illuminate\Support\Facades\Route;
+
+
+Route::group([
+    'prefix' => 'agrTypes'
+],
+    function () {
+        Route::get('/', [AgreementTypeController::class, 'index'])
+            ->name('agrTypes');
+        Route::get('add', [AgreementTypeController::class, 'create'])
+            ->name('addAgrType');
+        Route::post('add', [AgreementTypeController::class, 'store']);
+        Route::get('{agrType}/edit', [AgreementTypeController::class, 'edit'])
+            ->name('editAgrType');
+        Route::post('{agrType}/edit', [AgreementTypeController::class, 'update']);
+        Route::match(['post', 'get'],
+            '{agrType}/delete', [AgreementTypeController::class, 'destroy'])
+            ->name('deleteAgrType');
+    }
+);
+
+Route::group([
+    'prefix' => 'counterparties'
+],
+    function () {
+        Route::get('/', [CounterpartyController::class, 'index'])
+            ->name('counterparties');
+        Route::get('add', [CounterpartyController::class, 'create'])
+            ->name('addCounterparty');
+        Route::post('add', [CounterpartyController::class, 'store']);
+        Route::get('{counterparty}/edit', [CounterpartyController::class, 'edit'])
+            ->name('editCounterparty');
+        Route::post('{counterparty}/edit', [CounterpartyController::class, 'update']);
+        Route::match(['post', 'get'],
+            '{counterparty}/delete', [CounterpartyController::class, 'destroy'])
+            ->name('deleteCounterparty');
+    }
+);
+
+
 Route::group([
     'prefix' => 'agreements'
 ],

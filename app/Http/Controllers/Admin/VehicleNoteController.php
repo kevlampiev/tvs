@@ -2,19 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataServices\Admin\VehicleDataservice;
 use App\DataServices\Admin\VehicleNotesDataservice;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VehicleNoteRequest;
-use App\Http\Requests\VehicleRequest;
-use App\Models\Agreement;
-use App\Models\Manufacturer;
 use App\Models\Vehicle;
 use App\Models\VehicleNote;
-use App\Models\VehicleType;
-use App\DataServices\VehiclesRepo;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class VehicleNoteController extends Controller
 {

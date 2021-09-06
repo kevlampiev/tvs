@@ -3,7 +3,8 @@
 
 namespace App\DataServices\Admin;
 
-use App\Http\Requests\DocumentRequest;
+use App\Http\Requests\DocumentAddRequest;
+use App\Http\Requests\DocumentEditRequest;
 use App\Models\Agreement;
 use App\Models\Document;
 use App\Models\Insurance;
@@ -51,7 +52,7 @@ class DocumentsDataservice
         if (!empty($request->old())) $document->fill($request->old());
     }
 
-    public static function saveChanges(DocumentRequest $request, Document $document)
+    public static function saveChanges(Request $request, Document $document)
     {
         $document->fill($request->except(['document_file']));
         if (!$document->user_id) $document->user_id = Auth::user()->id;
@@ -64,7 +65,7 @@ class DocumentsDataservice
         $document->save();
     }
 
-    public static function store(DocumentRequest $request)
+    public static function store(DocumentAddRequest $request)
     {
         try {
             $document = new Document();
@@ -76,7 +77,7 @@ class DocumentsDataservice
 
     }
 
-    public static function update(DocumentRequest $request, Document $document)
+    public static function update(DocumentEditRequest $request, Document $document)
     {
         try {
             self::saveChanges($request, $document);

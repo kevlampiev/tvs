@@ -11,7 +11,7 @@ Route::group([
             ->name('addVehicleDocument');
         Route::post('add/{vehicle}', [DocumentController::class, 'store']);
         Route::get('edit/{document}', [DocumentController::class, 'edit'])
-            ->name('editDocument');
+            ->name('editVehicleDocument');
         Route::post('edit/{document}', [DocumentController::class, 'update']);
         Route::get('delete/{document}', [DocumentController::class, 'erase'])
             ->name('deleteDocument');

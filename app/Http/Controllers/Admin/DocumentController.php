@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataServices\Admin\DocumentsDataservice;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\DocumentRequest;
+use App\Http\Requests\DocumentAddRequest;
+use App\Http\Requests\DocumentEditRequest;
 use App\Models\Document;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
@@ -30,7 +31,7 @@ class DocumentController extends Controller
             DocumentsDataservice::provideDocumentEditor($Document, 'admin.addDocument'));
     }
 
-    public function store(DocumentRequest $request)
+    public function store(DocumentAddRequest $request)
     {
         DocumentsDataservice::store($request);
         $route = session('previous_url');
@@ -43,10 +44,12 @@ class DocumentController extends Controller
         if (url()->previous() !== url()->current()) session(['previous_url' => $this->previousUrl()]);
         DocumentsDataservice::edit($request, $Document);
         return view('Admin.document-edit',
-            DocumentsDataservice::provideDocumentEditor($Document, 'admin.editDocument'));
+            DocumentsDataservice::provideDocumentEditor($Document, 'admin.editVehicleDocument'));
     }
 
-    public function update(DocumentRequest $request, Document $Document)
+    //Используется другой Request, подразумевается что файл уже есть на диске,
+    // проверять его присутсвие в форме не обязательно
+    public function update(DocumentEditRequest $request, Document $Document)
     {
         DocumentsDataservice::update($request, $Document);
         $route = session('previous_url');

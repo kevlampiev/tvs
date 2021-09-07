@@ -51,7 +51,6 @@ class SettlementReportsTest extends TestCase
             ->assertSeeText('Всего')
             ->assertSeeText($agreement->agr_number)
             ->assertDontSeeText($agreementClosed->agr_number);
-
     }
 
     /**

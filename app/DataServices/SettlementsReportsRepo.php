@@ -37,7 +37,10 @@ class SettlementsReportsRepo
      */
     public static function getAggPayments($queryDate): object
     {
-        $agreements = Agreement::all();
+        $agreements = Agreement::query()
+            ->where('real_date_close', null)
+            ->orWhere('real_date_close', '>=', $queryDate)
+            ->get();
         $result = [];
         foreach ($agreements as $agreement) {
             $agreement->company = $agreement->company->name;

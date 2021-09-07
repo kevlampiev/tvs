@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\User;
 
+use App\Models\Agreement;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -28,6 +29,16 @@ class SettlementReportsTest extends TestCase
      */
     public function testVisitAuth1()
     {
+        //берем незакрытый договор
+        $agreement = Agreement::query()
+            ->where('real_date_close','=', null)
+            ->inRandomOrder()
+            ->first();
+        //берем закрытый договор
+        $agreementClosed = Agreement::query()
+            ->where('real_date_close','<', now())
+            ->inRandomOrder()
+            ->first();
         //Зайти как простой юзер
         $user = User::query()->inRandomOrder()->first();
         $this->actingAs($user)
@@ -35,7 +46,9 @@ class SettlementReportsTest extends TestCase
             ->assertStatus(200)
             ->assertSeeText('Задолженость по финансовым договорам')
             ->assertSeeText('Контрагент')
-            ->assertSeeText('Всего');
+            ->assertSeeText('Всего')
+            ->assertSeeText($agreement->agr_number)
+            ->assertDontSeeText($agreementClosed->agr_number);
 
     }
 
@@ -46,6 +59,17 @@ class SettlementReportsTest extends TestCase
      */
     public function testVisitAuth2()
     {
+        //берем незакрытый договор
+        $agreement = Agreement::query()
+            ->where('real_date_close','=', null)
+            ->inRandomOrder()
+            ->first();
+        //берем закрытый договор
+        $agreementClosed = Agreement::query()
+            ->where('real_date_close','<', now())
+            ->inRandomOrder()
+            ->first();
+
         //Зайти как простой юзер
         $user = User::query()->inRandomOrder()->first();
         $this->actingAs($user)
@@ -53,8 +77,9 @@ class SettlementReportsTest extends TestCase
             ->assertStatus(200)
             ->assertSeeText('Задолженость по финансовым договорам')
             ->assertSeeText('Компания')
-            ->assertSeeText('Всего');
-
+            ->assertSeeText('Всего')
+            ->assertSeeText($agreement->agr_number)
+            ->assertDontSeeText($agreementClosed->agr_number);
     }
 
 

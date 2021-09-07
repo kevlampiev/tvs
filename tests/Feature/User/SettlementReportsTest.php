@@ -36,9 +36,11 @@ class SettlementReportsTest extends TestCase
             ->first();
         //берем закрытый договор
         $agreementClosed = Agreement::query()
+            ->whereNotNull('real_date_close')
             ->where('real_date_close','<', now())
             ->inRandomOrder()
             ->first();
+
         //Зайти как простой юзер
         $user = User::query()->inRandomOrder()->first();
         $this->actingAs($user)
@@ -66,7 +68,8 @@ class SettlementReportsTest extends TestCase
             ->first();
         //берем закрытый договор
         $agreementClosed = Agreement::query()
-            ->where('real_date_close','<', now())
+            ->whereNotNull('real_date_close')
+            ->where('real_date_close','<=', now())
             ->inRandomOrder()
             ->first();
 

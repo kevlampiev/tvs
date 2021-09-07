@@ -13,7 +13,7 @@ Route::group([
         Route::get('edit/{document}', [DocumentController::class, 'edit'])
             ->name('editVehicleDocument');
         Route::post('edit/{document}', [DocumentController::class, 'update']);
-        Route::get('delete/{document}', [DocumentController::class, 'erase'])
+        Route::get('delete/{document}', [DocumentController::class, 'delete'])
             ->name('deleteDocument');
         Route::get('/preview/{document}', [DocumentController::class, 'preview'])
             ->name('documentPreview');

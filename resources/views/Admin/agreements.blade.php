@@ -51,7 +51,7 @@
                 </thead>
                 <tbody>
                 @forelse($agreements as $index=>$agreement)
-                    <tr>
+                    <tr @if($agreement->real_date_close&&$agreement->real_date_close<=now()) class="text-black-50 agreement-close"@endif>
                         <th scope="row">{{($index+1)}}</th>
                         <td>{{$agreement->name}}</td>
                         <td>{{$agreement->company->name}}</td>
@@ -76,4 +76,13 @@
             {!! $agreements->links() !!}
         </div>
     </div>
+@endsection
+
+
+@section("styles")
+    <style>
+        .agreement-close {
+            text-decoration: line-through;
+        }
+    </style>
 @endsection

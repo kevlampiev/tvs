@@ -11,7 +11,7 @@
     </thead>
     <tbody>
     @forelse($vehicle->agreements as $index => $agreement)
-        <tr>
+        <tr @if($agreement->real_date_close&&$agreement->real_date_close<=now()) class="text-black-50 agreement-close"@endif>
             <th scope="row">{{$index}}</th>
             <td>{{$agreement->agreementType->name}}</td>
             <td>№ {{$agreement->agr_number}} от {{$agreement->date_open}} </td>
@@ -34,3 +34,12 @@
     @endforelse
     </tbody>
 </table>
+
+
+@section("styles")
+    <style>
+        .agreement-close {
+            text-decoration: line-through;
+        }
+    </style>
+@endsection

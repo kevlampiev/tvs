@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\User;
 
+use App\Models\Agreement;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class UpcomingPaymentsTest extends TestCase
@@ -29,6 +29,17 @@ class UpcomingPaymentsTest extends TestCase
     public function testVisitAuth1()
     {
         $user = User::query()->inRandomOrder()->first();
+        //берем незакрытый договор
+        $agreement = Agreement::query()
+            ->where('real_date_close','=', null)
+            ->inRandomOrder()
+            ->first();
+        //берем закрытый договор
+        $agreementClosed = Agreement::query()
+            ->whereNotNull('real_date_close')
+            ->where('real_date_close','<=', now())
+            ->inRandomOrder()
+            ->first();
         $this->actingAs($user)
             ->get(route('user.nearestPayments'))
             ->assertStatus(200)
@@ -38,7 +49,9 @@ class UpcomingPaymentsTest extends TestCase
             ->assertSeeText('Номер и дата')
             ->assertSeeText('Просрочено на')
             ->assertSeeText('Ближайшие платежи по сроку')
-            ->assertSeeText('Всего');
+            ->assertSeeText('Всего')
+            ->assertSeeText($agreement->agr_number)
+            ->assertDontSeeText($agreementClosed->agr_number);
 
     }
 

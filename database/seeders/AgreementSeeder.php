@@ -27,7 +27,7 @@ class AgreementSeeder extends Seeder
             $counterparty_id = DB::table('counterparties')->inRandomOrder()->first()->id;
             $agreement_type_id = DB::table('agreement_types')->inRandomOrder()->first()->id;
             $data[] = [
-                'name' => $faker->word(),
+                'name' => "#".$faker->word(),
                 'company_id' => $company_id,
                 'counterparty_id' => $counterparty_id,
                 'agr_number' => $faker->word(),

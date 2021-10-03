@@ -63,8 +63,10 @@
                                 Страховки
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="nav-link" href="{{route('user.actualInsurancesByInsCompanies')}}">Действующие страховки по страховым компаниям</a>
-                                <a class="nav-link" href="#">Действующие страховки по категориям</a>
+                                <a class="nav-link" href="{{route('user.actualInsurances', ['reportType'=>'byCompanies'])}}">
+                                    Действующие страховки по страховым компаниям</a>
+                                <a class="nav-link" href="{{route('user.actualInsurances', ['reportType'=>'byTypes'])}}">
+                                    Действующие страховки по категориям</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="nav-link" href="{{route('user.insurancesToRenewal')}}">Страховки, требующие срочного оформления</a>
                             </div>

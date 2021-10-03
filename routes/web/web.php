@@ -29,8 +29,8 @@ Route::group([
         Route::get('profile', [UserProfileController::class, 'edit'])
             ->name('user.profileEdit');
         Route::post('profile', [UserProfileController::class, 'update']);
-        Route::get('/insurances/actual/by_ins_companies', [InsurancesController::class, 'index'])
-            ->name('user.actualInsurancesByInsCompanies');
+        Route::get('/insurances/actual/{reportType}', [InsurancesController::class, 'index'])
+            ->name('user.actualInsurances');
         Route::get('/insurances/to-renewal', [InsurancesToRenewalController::class, 'index'])
             ->name('user.insurancesToRenewal');
 

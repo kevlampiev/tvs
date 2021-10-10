@@ -12,8 +12,8 @@ class InsurancesToRenewalDataservice
     {
         $upcomingPeriod = config('constants.upcomingPeriods.insurances');
         $data = collect(DB::select('call ps_insurances_to_renewal(?)', [$upcomingPeriod]));
-        return ['insurancesToRenewal' => $data->where('insurance_company','!=',null)->all(),
-                'uninsuredVehicles' => $data->where('insurance_company','=',null)->all(),
+        return ['insurancesToRenewal' => $data->where('insurance_company', '!=', null)->all(),
+            'uninsuredVehicles' => $data->where('insurance_company', '=', null)->all(),
             'upcomingPeriod' => $upcomingPeriod];
     }
 

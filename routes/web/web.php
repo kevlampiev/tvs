@@ -35,6 +35,8 @@ Route::group([
             ->name('user.actualInsurancesByInsTypes');
         Route::get('/insurances/to-renewal', [InsurancesToRenewalController::class, 'index'])
             ->name('user.insurancesToRenewal');
+        Route::get('/insurances/actual', [InsurancesController::class, 'actualInsurances'])
+            ->name('user.actualInsurances');
 
         Route::get('/filepreview/insurance-policy', [\App\Http\Controllers\User\FileDownloadController::class, 'previewInsurance'])
             ->name('user.filePreview');

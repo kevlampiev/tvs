@@ -12,10 +12,12 @@ class DashboardDataservice
     public static function provideData(): array
     {
         $paymentInfo = self::getUpcomingPayments();
+
         return [
             'data' => json_encode(self::getChartData($paymentInfo), JSON_UNESCAPED_UNICODE),
             'summary' => self::getPaymentsSummary($paymentInfo),
             'runningOutOfIns' => self::getInsurancesData(),
+            'uninsuredVehiclesCount' => self::getUninsuredVehiclesNumber(),
             'notes' => self::getLastNotes(),
             'upcomingInsurancesPeriod' => config('constants.upcomingPeriods.insurances'),
             'upcomingPaymentsPeriod' => config('constants.upcomingPeriods.payments'),
@@ -30,6 +32,12 @@ class DashboardDataservice
         return $data;
     }
 
+
+    private static function getUninsuredVehiclesNumber():int
+    {
+        $row = DB::selectOne('select count(*) as univ from vehicles where id not in (select vehicle_id from insurances)');
+        return (int)$row->univ;
+    }
 
     private static function getUpcomingPayments()
     {

@@ -19,4 +19,9 @@ class InsurancesController extends Controller
                 InsurancesDataservice::provideData(2));
         }
     }
+
+    public function actualInsurances(Request $request)
+    {
+        return view('User.InsuredVehicles',InsurancesDataservice::getActualInsurances());
+    }
 }

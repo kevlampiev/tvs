@@ -1,20 +1,3 @@
-{{--<div class="vehiclesToBeInsured">--}}
-{{--    @forelse($runningOutOfIns as $index=>$el)--}}
-{{--    {{$index + 1}}. {{$el->name}} <br>--}}
-{{--    @empty--}}
-{{--        хоть тут все хорошо--}}
-{{--    @endforelse--}}
-
-{{--</div>--}}
-
-{{--<div class="row">--}}
-{{--    <div class="col-md-9">--}}
-{{--        Всего необходимо оформить страховки на <strong>{{count($runningOutOfIns)}} ед.техники </strong>--}}
-{{--    </div>--}}
-{{--    <div class="col-md-3 text-right">--}}
-{{--        <a href="{{route('user.insurancesToRenewal')}}">Подробнее...</a>--}}
-{{--    </div>--}}
-{{--</div>--}}
 
 <div class="row">
     <div class="col-md-12">
@@ -27,6 +10,17 @@
                 </div>
                 @if(count($runningOutOfIns)>0)
                     <span class="badge bg-primary rounded-pill">{{count($runningOutOfIns)}}</span>
+                @endif
+            </li>
+
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold"><strong>Незастрахованная техника</strong></div>
+                    <p>Общее количество единиц техники без единой страховки</p>
+                    <a href="{{route('user.insurancesToRenewal')}}">Подробнее...</a>
+                </div>
+                @if($uninsuredVehiclesCount>0)
+                    <span class="badge bg-danger rounded-pill">{{$uninsuredVehiclesCount}}</span>
                 @endif
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-start">

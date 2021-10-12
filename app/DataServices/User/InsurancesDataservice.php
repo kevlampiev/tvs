@@ -28,7 +28,7 @@ class InsurancesDataservice
     {
         $data = collect(DB::select('select * from v_all_vehicles_with_insurances vavwi order by insurance_type, date_close desc, vehicle, insurance_company'));
         $insurances = $data->groupBy('insurance_type');
-        return ['insurances'=>$insurances];
+        return ['insurances' => $insurances];
     }
 
 }

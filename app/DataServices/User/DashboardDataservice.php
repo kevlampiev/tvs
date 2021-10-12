@@ -33,7 +33,7 @@ class DashboardDataservice
     }
 
 
-    private static function getUninsuredVehiclesNumber():int
+    private static function getUninsuredVehiclesNumber(): int
     {
         $row = DB::selectOne('select count(*) as univ from vehicles where id not in (select vehicle_id from insurances)');
         return (int)$row->univ;

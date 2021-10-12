@@ -22,6 +22,6 @@ class InsurancesController extends Controller
 
     public function actualInsurances(Request $request)
     {
-        return view('User.InsuredVehicles',InsurancesDataservice::getActualInsurances());
+        return view('User.InsuredVehicles', InsurancesDataservice::getActualInsurances());
     }
 }

@@ -11,19 +11,19 @@
                                 <span class="badge bg-warning rounded-pill">{{$expiringInsurancesCount}}</span>
                             </p>
                         @endif
-                        @if($uninsuredVehiclesCount>0)
-                            <p>
-                                Ни разу не застрахованная техника
-                                <span class="badge bg-danger rounded-pill">{{$uninsuredVehiclesCount}}</span>
-                            </p>
-                        @endif
                         @if($overdueInsurancesCount>0)
                             <p>
                                 Просроченные и непродленные страховки
                                 <span class="badge bg-danger rounded-pill">{{$overdueInsurancesCount}}</span>
                             </p>
                         @endif
-                        @if($uninsuredVehiclesCount==0&&count($runningOutOfIns)&&$overdueInsurancesCount==0)
+                        @if($uninsuredVehiclesCount>0)
+                            <p>
+                                Ни разу не застрахованная техника
+                                <span class="badge bg-danger rounded-pill">{{$uninsuredVehiclesCount}}</span>
+                            </p>
+                        @endif
+                        @if($uninsuredVehiclesCount==0&&$expiringInsuancersCount&&$overdueInsurancesCount==0)
                             <p>
                                 <i>Все идеально ...</i>
                             </p>

@@ -29,7 +29,6 @@
                             </p>
                         @endif
 
-
                     <a href="{{route('user.insurancesToRenewal')}}">Подробнее...</a>
                 </div>
 

@@ -12,10 +12,13 @@ class DashboardDataservice
     public static function provideData(): array
     {
         $paymentInfo = self::getUpcomingPayments();
+
         return [
             'data' => json_encode(self::getChartData($paymentInfo), JSON_UNESCAPED_UNICODE),
             'summary' => self::getPaymentsSummary($paymentInfo),
-            'runningOutOfIns' => self::getInsurancesData(),
+            'expiringInsurancesCount'=> self::getExpiringInsurancesCount(),
+            'overdueInsurancesCount' => self::getOverdueInsurancesCount(),
+            'uninsuredVehiclesCount' => self::getUninsuredVehiclesCount(),
             'notes' => self::getLastNotes(),
             'upcomingInsurancesPeriod' => config('constants.upcomingPeriods.insurances'),
             'upcomingPaymentsPeriod' => config('constants.upcomingPeriods.payments'),
@@ -30,6 +33,28 @@ class DashboardDataservice
         return $data;
     }
 
+
+    private static function getUninsuredVehiclesCount(): int
+    {
+        $row = DB::selectOne('select count(*) as univ from vehicles where id not in (select vehicle_id from insurances)');
+        return (int)$row->univ;
+    }
+
+    private static function getOverdueInsurancesCount(): int
+    {
+        $row = DB::selectOne('select count(*) as odi from v_insurances_most_actual where date_close<current_date ');
+        return (int) $row->odi;
+    }
+
+    private static function getExpiringInsurancesCount(): int
+    {
+        $upcomingPeriod = config('constants.upcomingPeriods.insurances');
+        $row = DB::selectOne(
+            'select count(*) as ei from v_insurances_most_actual
+                        where date_close is not null and
+                              datediff(date_close,current_date) between 0 and ?',[$upcomingPeriod]);
+        return (int) $row->ei;
+    }
 
     private static function getUpcomingPayments()
     {

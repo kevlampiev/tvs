@@ -12,6 +12,8 @@
     <link rel="SHORTCUT ICON" href="{{asset('fehu-runa.png')}}" type="image/x-icon">
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -53,6 +55,23 @@
                                 <a class="nav-link" href="{{route('user.nearestPayments')}}">Предстоящие платежи</a>
                             </div>
                         </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                Страховки
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="nav-link" href="{{route('user.insuredVehicles')}}">Отчет по страхованию техники</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="nav-link" href="{{route('user.actualInsurancesByInsCompanies')}}">Действующие страховки по страховым компаниям</a>
+                                <a class="nav-link" href="{{route('user.actualInsurancesByInsTypes')}}">Действующие страховки по категориям</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="nav-link" href="{{route('user.insurancesToRenewal')}}">Страховки, требующие срочного оформления</a>
+                            </div>
+                        </li>
+
                     @endif
 
                     @if (Auth::user()&&(Auth::user()->role!='user'))

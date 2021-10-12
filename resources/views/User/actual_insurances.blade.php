@@ -52,37 +52,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Техника, которая была не застрахована ни разу
-                    </button>
-                </h2>
-                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <table class="table text-center">
-                            <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Единица техники</th>
-                                <th scope="col" class="text-center"></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($uninsuredVehicles as $index=>$el)
-                                <tr @if(!$el->date_close||$el->date_close<now()) class="text-danger" @endif >
-                                    <th scope="row">{{$index+1}}</th>
-                                    <td>{{$el->vehicle}}</td>
-                                    <td><a href="{{route('admin.vehicleSummary',['vehicle'=>$el->vehicle_id, 'page'=>'insurance_policies'])}}"> &#9776;Карточка </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
         </div>
 
     </div>

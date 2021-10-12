@@ -5,10 +5,10 @@
             <li class="list-group-item d-flex justify-content-between align-items-start">
                 <div class="ms-2 me-auto">
                     <div class="fw-bold"><strong>Страховки</strong></div>
-                        @if(count($runningOutOfIns)>0)
+                        @if($expiringInsurancesCount>0)
                             <p>
                                 Страховки, действие которых заканчивается
-                                <span class="badge bg-warning rounded-pill">{{count($runningOutOfIns)}}</span>
+                                <span class="badge bg-warning rounded-pill">{{$expiringInsurancesCount}}</span>
                             </p>
                         @endif
                         @if($uninsuredVehiclesCount>0)
@@ -17,7 +17,13 @@
                                 <span class="badge bg-danger rounded-pill">{{$uninsuredVehiclesCount}}</span>
                             </p>
                         @endif
-                        @if($uninsuredVehiclesCount==0&&count($runningOutOfIns))
+                        @if($overdueInsurancesCount>0)
+                            <p>
+                                Просроченные и непродленные страховки
+                                <span class="badge bg-danger rounded-pill">{{$overdueInsurancesCount}}</span>
+                            </p>
+                        @endif
+                        @if($uninsuredVehiclesCount==0&&count($runningOutOfIns)&&$overdueInsurancesCount==0)
                             <p>
                                 <i>Все идеально ...</i>
                             </p>

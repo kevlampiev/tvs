@@ -24,3 +24,16 @@ Route::group([
             [BankStatementController::class, 'deleteBankStatemets'])
             ->name('clearBankStatements');
     });
+
+
+Route::group([
+    'prefix' => 'export',
+    'middleware' => 'is.admin'
+],
+    function ()
+    {
+    Route::get('payments',
+        [\App\Http\Controllers\Admin\ExportPaymentsController::class,'export'])
+        ->name('exportAgreementPayments');
+    }
+    );

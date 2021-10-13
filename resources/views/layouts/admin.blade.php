@@ -63,10 +63,13 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
-                    Действия
+                    Экспорт/импорт
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{{route('admin.loadBankStatement')}}">Загрузка выписки</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{route('admin.exportAgreementPayments')}}">Выгрузка платежей по договорам</a>
+                    <a class="dropdown-item" href="#">2</a>
                 </div>
             </li>
         </ul>

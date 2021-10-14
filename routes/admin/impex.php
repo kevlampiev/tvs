@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\BankStatementController;
+use App\Http\Controllers\Admin\ExportAgreementsController;
+use App\Http\Controllers\Admin\ExportInsurancesController;
+use App\Http\Controllers\Admin\ExportPaymentsController;
+use App\Http\Controllers\Admin\ExportVehiclesController;
 use Illuminate\Support\Facades\Route;
 
 Route::group([
@@ -24,3 +28,23 @@ Route::group([
             [BankStatementController::class, 'deleteBankStatemets'])
             ->name('clearBankStatements');
     });
+
+
+Route::group([
+    'prefix' => 'export',
+    'middleware' => 'is.admin'
+],
+    function ()
+    {
+        Route::get('payments',[ExportPaymentsController::class,'exportAgreementPayments'])
+            ->name('exportAgreementPayments');
+        Route::get('real-payments',[ExportPaymentsController::class,'exportRealPayments'])
+            ->name('exportRealPayments');
+        Route::get('vehicles',[ExportVehiclesController::class,'exportVehicles'])
+            ->name('exportVehicles');
+        Route::get('insurances',[ExportInsurancesController::class,'exportInsurances'])
+            ->name('exportInsurances');
+        Route::get('agreements',[ExportAgreementsController::class,'exportAgreements'])
+            ->name('exportAgreements');
+    }
+    );

@@ -25,7 +25,7 @@
             <td>{{$payment->agreement->agreementType->name}}</td>
             <td>{{$payment->agreement->name}}</td>
             <td>{{$payment->agreement->agr_number}}</td>
-            <td>{{$payment->agreement->date_open}}</td>
+            <td>{{\Carbon\Carbon::parse($payment->agreement->date_open)->format('d.m.Y')}}</td>
             <td>{{\Carbon\Carbon::parse($payment->agreement->date_close)->format('d.m.Y')}}</td>
             <td>{{\Carbon\Carbon::parse($payment->agreement->real_date_close)->format('d.m.Y')}}</td>
             <td>

@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\BankStatementController;
+use App\Http\Controllers\Admin\ExportInsurancesController;
 use App\Http\Controllers\Admin\ExportPaymentsController;
+use App\Http\Controllers\Admin\ExportVehiclesController;
 use Illuminate\Support\Facades\Route;
 
 Route::group([
@@ -37,5 +39,9 @@ Route::group([
             ->name('exportAgreementPayments');
         Route::get('real-payments',[ExportPaymentsController::class,'exportRealPayments'])
             ->name('exportRealPayments');
+        Route::get('vehicles',[ExportVehiclesController::class,'exportVehicles'])
+            ->name('exportVehicles');
+        Route::get('insurances',[ExportInsurancesController::class,'exportInsurances'])
+            ->name('exportInsurances');
     }
     );

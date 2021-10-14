@@ -68,7 +68,11 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{{route('admin.loadBankStatement')}}">Загрузка выписки</a>
                     <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{route('admin.exportAgreementPayments')}}">Выгрузка списка</a>
                     <a class="dropdown-item" href="{{route('admin.exportAgreementPayments')}}">Выгрузка платежей по договорам</a>
+                    <a class="dropdown-item" href="{{route('admin.exportRealPayments')}}">Выгрузка реальных платежей</a>
+                    <a class="dropdown-item" href="{{route('admin.exportAgreementPayments')}}">Выгрузка страховок</a>
+                    <a class="dropdown-item" href="{{route('admin.exportAgreementPayments')}}">Выгрузка списка договоров</a>
                     <a class="dropdown-item" href="#">2</a>
                 </div>
             </li>

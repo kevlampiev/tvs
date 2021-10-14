@@ -72,7 +72,7 @@
                     <a class="dropdown-item" href="{{route('admin.exportAgreementPayments')}}">Выгрузка платежей по договорам</a>
                     <a class="dropdown-item" href="{{route('admin.exportRealPayments')}}">Выгрузка реальных платежей</a>
                     <a class="dropdown-item" href="{{route('admin.exportInsurances')}}">Выгрузка страховок</a>
-                    <a class="dropdown-item" href="#">Выгрузка списка договоров</a>
+                    <a class="dropdown-item" href="{{route('admin.exportAgreements')}}">Выгрузка списка договоров</a>
                 </div>
             </li>
         </ul>

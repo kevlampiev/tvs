@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\BankStatementController;
+use App\Http\Controllers\Admin\ExportAgreementsController;
 use App\Http\Controllers\Admin\ExportInsurancesController;
 use App\Http\Controllers\Admin\ExportPaymentsController;
 use App\Http\Controllers\Admin\ExportVehiclesController;
@@ -43,5 +44,7 @@ Route::group([
             ->name('exportVehicles');
         Route::get('insurances',[ExportInsurancesController::class,'exportInsurances'])
             ->name('exportInsurances');
+        Route::get('agreements',[ExportAgreementsController::class,'exportAgreements'])
+            ->name('exportAgreements');
     }
     );

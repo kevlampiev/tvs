@@ -12,7 +12,7 @@
             <a class="nav-link active" data-toggle="tab" href="#main-info">Основная информация</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#documents">Файлы</a>
+            <a class="nav-link" data-toggle="tab" href="#documents">Файлы/Документы</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#vehicles">Приобретенная техника</a>
@@ -33,11 +33,16 @@
             @include('Admin.agreement-summary.agreement-main')
         </div>
 
-        <div class="tab-pane fade" id="files">
+        <div class="tab-pane fade" id="documents">
             <h4>Связанные файлы</h4>
+            <div class="row m-1">
+                <a class="btn btn-outline-primary"
+                   href="{{route('admin.addAgreementDocument',['agreement' => $agreement])}}" >
+                    Добавить документ
+                </a>
+            </div>
             <div class="row">
-                {{--                <a class="btn btn-outline-info"--}}
-                {{--                   href="{{route('admin.agreementAddVehicle', ['agreement'=>$agreement])}}">Добавить единицу техники</a>--}}
+                @include('Admin.agreement-summary.agreement-files')
             </div>
         </div>
 
@@ -61,11 +66,8 @@
             </div>
         </div>
         <div class="tab-pane fade" id="notes">
-            <h4>Заметки по догору у</h4>
-            <div class="row">
-{{--                <a class="btn btn-outline-info"--}}
-{{--                   href="{{route('admin.agreementAddVehicle', ['agreement'=>$agreement])}}">Добавить единицу техники</a>--}}
-            </div>
+            <h4>Заметки по догору </h4>
+
             @include('Admin.agreement-summary.agreement-notes')
         </div>
     </div>
@@ -75,7 +77,9 @@
 @section('scripts')
     <script>
         function autoSelectPage() {
+            alert(document.location.pathname)
             let urlArr = document.location.pathname.split('/')
+
             if (urlArr.length === 6) {
                 let tabName = '[href="#' + urlArr[5] + '"'
                 $(tabName).tab('show')

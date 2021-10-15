@@ -43,6 +43,11 @@ class Agreement extends Model
         return $this->hasMany(RealPayment::class);
     }
 
+    public function notes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(AgreementNote::class);
+    }
+
     public static function rules(): array
     {
         return [

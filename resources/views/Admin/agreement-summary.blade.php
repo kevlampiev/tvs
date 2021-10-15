@@ -12,7 +12,7 @@
             <a class="nav-link active" data-toggle="tab" href="#main-info">Основная информация</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#additions">Допсоглашения</a>
+            <a class="nav-link" data-toggle="tab" href="#documents">Файлы</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#vehicles">Приобретенная техника</a>
@@ -23,6 +23,9 @@
         <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#payments">Расчеты</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#notes">Заметки</a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade show active" id="main-info">
@@ -30,8 +33,12 @@
             @include('Admin.agreement-summary.agreement-main')
         </div>
 
-        <div class="tab-pane fade" id="additions">
-            Тут будут все допсоглашения
+        <div class="tab-pane fade" id="files">
+            <h4>Связанные файлы</h4>
+            <div class="row">
+                {{--                <a class="btn btn-outline-info"--}}
+                {{--                   href="{{route('admin.agreementAddVehicle', ['agreement'=>$agreement])}}">Добавить единицу техники</a>--}}
+            </div>
         </div>
 
         <div class="tab-pane fade" id="vehicles">
@@ -43,7 +50,7 @@
             @include('Admin.agreement-summary.vehicles-table')
         </div>
         <div class="tab-pane fade" id="collaterals">
-            Отзывы...
+            Залоги...
         </div>
         <div class="tab-pane fade" id="payments">
             @php  $payments = $agreement->payments->sortBy('payment_date'); @endphp
@@ -53,7 +60,14 @@
                 @include('Admin.agreement-summary.real-payment-tables')
             </div>
         </div>
-
+        <div class="tab-pane fade" id="notes">
+            <h4>Заметки по догору у</h4>
+            <div class="row">
+{{--                <a class="btn btn-outline-info"--}}
+{{--                   href="{{route('admin.agreementAddVehicle', ['agreement'=>$agreement])}}">Добавить единицу техники</a>--}}
+            </div>
+            @include('Admin.agreement-summary.agreement-notes')
+        </div>
     </div>
 
 @endsection

@@ -6,12 +6,14 @@ use App\DataServices\Admin\DocumentsDataservice;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DocumentAddRequest;
 use App\Http\Requests\DocumentEditRequest;
+use App\Models\Agreement;
 use App\Models\Document;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 
 class DocumentController extends Controller
 {
+
 
     private function previousUrl(): string
     {
@@ -20,13 +22,23 @@ class DocumentController extends Controller
         return $route;
     }
 
-    public function create(Request $request, Vehicle $vehicle)
+    private function storeUrl(int $vehicle = null, int $agreement = null)
     {
-        $params = [
-            'vehicle_id' => $vehicle->id
-        ];
-        $Document = DocumentsDataservice::create($request, $params);
-        if (url()->previous() !== url()->current()) session(['previous_url' => $this->previousUrl()]);
+        if ($vehicle) {
+            session(['previous_url' => route('admin.vehicleSummary', ['vehicle' => $vehicle, 'page' => 'documents'])]);
+        } else {
+            session(['previous_url' => route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'documents'])]);
+        }
+    }
+
+    public function create(Request $request, Vehicle $vehicle, Agreement $agreement)
+    {
+        $Document = DocumentsDataservice::create($request,
+            [
+                'vehicle_id' => $vehicle->id ?? null,
+                'agreement_id' => $agreement->id ?? null,
+            ]);
+        $this->storeUrl($vehicle->id, $agreement->id);
         return view('Admin.document-edit',
             DocumentsDataservice::provideDocumentEditor($Document, 'admin.addDocument'));
     }
@@ -34,17 +46,17 @@ class DocumentController extends Controller
     public function store(DocumentAddRequest $request)
     {
         DocumentsDataservice::store($request);
-        $route = session('previous_url');
+        $route = session()->pull('previous_url');
         return redirect()->to($route);
     }
 
 
-    public function edit(Request $request, Document $Document)
+    public function edit(Request $request, Document $document)
     {
-        if (url()->previous() !== url()->current()) session(['previous_url' => $this->previousUrl()]);
-        DocumentsDataservice::edit($request, $Document);
+        $this->storeUrl($document->vehicle_id, $document->agreement_id);
+        DocumentsDataservice::edit($request, $document);
         return view('Admin.document-edit',
-            DocumentsDataservice::provideDocumentEditor($Document, 'admin.editVehicleDocument'));
+            DocumentsDataservice::provideDocumentEditor($document, 'admin.editVehicleDocument'));
     }
 
     //Используется другой Request, подразумевается что файл уже есть на диске,
@@ -52,7 +64,7 @@ class DocumentController extends Controller
     public function update(DocumentEditRequest $request, Document $Document)
     {
         DocumentsDataservice::update($request, $Document);
-        $route = session('previous_url');
+        $route = session()->pull('previous_url');
         return redirect()->to($route);
     }
 
@@ -65,7 +77,7 @@ class DocumentController extends Controller
     public function delete(Document $Document): \Illuminate\Http\RedirectResponse
     {
         DocumentsDataservice::delete($Document);
-        $route = session('previous_url');
+        $route = session()->pull('previous_url');
         return redirect()->to($route);
     }
 

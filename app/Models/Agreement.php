@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Validation\Rule;
 
 class Agreement extends Model
@@ -28,19 +30,29 @@ class Agreement extends Model
         return $this->belongsTo(Counterparty::class);
     }
 
-    public function vehicles(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function vehicles(): BelongsToMany
     {
         return $this->belongsToMany(Vehicle::class);
     }
 
-    public function payments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function payments(): HasMany
     {
         return $this->hasMany(AgreementPayment::class);
     }
 
-    public function realPayments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function realPayments(): HasMany
     {
         return $this->hasMany(RealPayment::class);
+    }
+
+    public function notes(): HasMany
+    {
+        return $this->hasMany(AgreementNote::class);
+    }
+
+    public function documents(): HasMany
+    {
+        return $this->hasMany(Document::class);
     }
 
     public static function rules(): array

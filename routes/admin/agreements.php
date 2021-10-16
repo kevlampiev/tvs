@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AgreementController;
+use App\Http\Controllers\Admin\AgreementNoteController;
 use App\Http\Controllers\Admin\AgreementPaymentController;
 use App\Http\Controllers\Admin\AgreementTypeController;
 use App\Http\Controllers\Admin\CounterpartyController;
@@ -90,5 +91,18 @@ Route::group([
         Route::post('{agreement}/edit-real-payment/{payment}', [RealPaymentController::class, 'update']);
         Route::match(['get', 'post'], '{agreement}/delete-real-payment/{payment}', [RealPaymentController::class, 'delete'])
             ->name('deleteRealPayment');
+
+        Route::group(['prefix' => 'notes'],
+            function () {
+                Route::get('add/{agreement}', [AgreementNoteController::class, 'create'])
+                    ->name('addAgreementNote');
+                Route::post('add/{agreement}', [AgreementNoteController::class, 'store']);
+                Route::get('edit/{agreementNote}', [AgreementNoteController::class, 'edit'])
+                    ->name('editAgreementNote');
+                Route::post('edit/{agreementNote}', [AgreementNoteController::class, 'update']);
+                Route::get('delete/{agreementNote}', [AgreementNoteController::class, 'erase'])
+                    ->name('deleteAgreementNote');
+
+            });
 
     });

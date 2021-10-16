@@ -4,6 +4,7 @@
 namespace App\DataServices\User;
 
 
+use App\Models\AgreementNote;
 use App\Models\VehicleNote;
 use Illuminate\Support\Facades\DB;
 
@@ -83,6 +84,9 @@ class DashboardDataservice
 
     private static function getLastNotes()
     {
-        return VehicleNote::query()->with('vehicle')->orderByDesc('created_at')->limit(10)->get();
+        $vehiclesNotes = VehicleNote::query()->with('vehicle')->orderByDesc('created_at')->limit(10)->get();
+        $agreementsNotes = AgreementNote:: query()->with('agreement')->orderByDesc('created_at')->limit(10)->get();
+        $commonNotes = $vehiclesNotes->merge($agreementsNotes);
+        return $commonNotes->sortByDesc('created_at');
     }
 }

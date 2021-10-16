@@ -48,7 +48,8 @@ class ExportsAgreementsTest extends TestCase
     {
         $user = User::query()->where('role','<>','user')->inRandomOrder()->first();
         //Не можем войти в список
-        $this->actingAs($user)->get(route('admin.exportAgreements'))
+        $this->actingAs($user)
+            ->get(route('admin.exportAgreements'))
             ->assertStatus(200);
     }
 

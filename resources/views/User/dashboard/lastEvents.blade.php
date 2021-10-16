@@ -2,7 +2,7 @@
     @forelse($notes as $index=>$el)
         <div class="note-block">
             <p>
-                <strong>{{$el->user->name}} {{\Carbon\Carbon::par->created_at}} </strong>
+                <strong>{{$el->user->name}} {{\Carbon\Carbon::parse($el->created_at)->format('d.m.Y h:m')}} </strong>
                 <br>
                 @if($el->vehicle)
                     по единице техники {{$el->vehicle->name}}<br>

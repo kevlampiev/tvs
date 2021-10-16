@@ -25,9 +25,9 @@ class DocumentController extends Controller
     private function storeUrl(int $vehicle = null, int $agreement = null)
     {
         if ($vehicle) {
-            session(['previous_url' => route('admin.vehicleSummary', ['vehicle'=>$vehicle, 'page' => 'documents'])]);
+            session(['previous_url' => route('admin.vehicleSummary', ['vehicle' => $vehicle, 'page' => 'documents'])]);
         } else {
-            session(['previous_url' => route('admin.agreementSummary', ['agreement'=>$agreement, 'page' => 'documents'])]);
+            session(['previous_url' => route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'documents'])]);
         }
     }
 
@@ -35,8 +35,8 @@ class DocumentController extends Controller
     {
         $Document = DocumentsDataservice::create($request,
             [
-            'vehicle_id' => $vehicle->id??null,
-            'agreement_id' => $agreement->id??null,
+                'vehicle_id' => $vehicle->id ?? null,
+                'agreement_id' => $agreement->id ?? null,
             ]);
         $this->storeUrl($vehicle->id, $agreement->id);
         return view('Admin.document-edit',
@@ -53,7 +53,7 @@ class DocumentController extends Controller
 
     public function edit(Request $request, Document $document)
     {
-       $this->storeUrl($document->vehicle_id, $document->agreement_id);
+        $this->storeUrl($document->vehicle_id, $document->agreement_id);
         DocumentsDataservice::edit($request, $document);
         return view('Admin.document-edit',
             DocumentsDataservice::provideDocumentEditor($document, 'admin.editVehicleDocument'));

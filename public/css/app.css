@@ -10002,3 +10002,8 @@ h3 {
     border-color: #dee2e6;
   }
 }
+
+.file-info-container {
+    display: flex;
+    flex-wrap: wrap;
+}

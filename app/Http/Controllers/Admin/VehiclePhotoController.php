@@ -18,7 +18,7 @@ class VehiclePhotoController extends Controller
     public function create(Request $request, Vehicle $vehicle)
     {
         $vehiclePhoto = new VehiclePhoto();
-        $vehiclePhoto->vehicle_id = $vehicle->id;
+        $vehiclePhoto->vehicle_id = $vehicle
         if (!empty($request->old())) $vehiclePhoto->fill($request->old());
         return view('Admin.vehicle-photo-edit', VehiclePhotoDataservice::provideEditor($vehiclePhoto));
     }

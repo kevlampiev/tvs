@@ -5,12 +5,12 @@
 @endsection
 
 @section('content')
-    <h3> @if ($vehiclePhoto->id) Измнение фотографии @else Добавить фотографию @endif</h3>
+    <h3> @if ($vehiclePhoto->id) Измнение фотографии @else Добавить фотографию техники @endif</h3>
     <form
         @if($vehiclePhoto->id)
             action="{{route('admin.editVehiclePhoto', ['vehiclePhoto' =>$vehiclePhoto->id])}}"
         @else
-            action="{{route('admin.addVehiclePhoto', ['vehicle' => $vehiclePhoto->vehicle->id])}}"
+            action="{{route('admin.addVehiclePhoto', ['vehicle' => $vehiclePhoto->vehicle])}}"
         @endif
         method="POST">
         @csrf
@@ -23,7 +23,12 @@
                        id="input-vehicle" name="vehicle" value="{{$vehiclePhoto->vehicle->name}}" disabled>
             </div>
 
-            <img src="{{asset(config('paths.vehicles.get','storage/img/vehicles/').$photo->img_file)}}">
+            @if($vehiclePhoto->img_file)
+                <img src="{{asset(config('paths.vehicles.get','storage/img/vehicles/').$vehiclePhoto->img_file)}}">
+            @else
+                <img src="{{asset(config('paths.vehicles.get','storage/img/no_image_found.jpg'))}}">
+            @endif
+
             <div class="form-group">
                 <label for="description">Комментарий</label>
                 <textarea class="form-control {{$errors->has('comment')?'is-invalid':''}}"

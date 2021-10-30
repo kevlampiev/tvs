@@ -1,6 +1,6 @@
 <div class="row m-1">
     <a class="btn btn-outline-primary"
-       href="{{route('admin.addVehicleDocument',['vehicle'=>$vehicle])}}" >
+       href="{{route('admin.addVehiclePhoto',['vehicle'=>$vehicle])}}" >
         Добавить фотографию
     </a>
 </div>
@@ -11,7 +11,7 @@
     <div class="card m-2" style="width: 18rem;">
         <img src="{{asset(config('paths.vehicles.get','storage/img/vehicles/').$photo->img_file)}}" class="card-img-top" alt="...">
         <div class="card-body">
-            <h5 class="card-title">{{$photo->craeted_at}}</h5>
+            <h5 class="card-title">{{$photo->created_at}}</h5>
             <p class="card-text">{{$photo->comment}}</p>
             <a href="#" class="btn btn-primary">Go somewhere</a>
         </div>

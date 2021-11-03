@@ -24,8 +24,8 @@ class VehiclePhotoDataservice
     public static function provideEditor(VehiclePhoto $vehiclePhoto): array
     {
         return ['vehiclePhoto' => $vehiclePhoto,
-            'route' => ($vehiclePhoto->id) ? route('admin.editVehiclePhoto', ['vehiclePhoto'=>$vehiclePhoto]) :
-                route('admin.addVehiclePhoto', ['vehicle'=>$vehiclePhoto->vehicle_id])];
+            'route' => ($vehiclePhoto->id) ? route('admin.editVehiclePhoto', ['vehiclePhoto' => $vehiclePhoto]) :
+                route('admin.addVehiclePhoto', ['vehicle' => $vehiclePhoto->vehicle_id])];
     }
 
     public static function storeNew(VehiclePhotoAddRequest $request)
@@ -60,7 +60,7 @@ class VehiclePhotoDataservice
     public static function erase(VehiclePhoto $vehiclePhoto)
     {
         try {
-            Storage::delete('public/img/vehicles/'.$vehiclePhoto->img_file);
+            Storage::delete('public/img/vehicles/' . $vehiclePhoto->img_file);
             $vehiclePhoto->delete();
             session()->flash('message', 'Фотография удалена');
         } catch (Error $err) {

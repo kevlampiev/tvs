@@ -46,7 +46,7 @@ class ExportsAgreementsTest extends TestCase
      */
     public function testExportAsManager()
     {
-        $user = User::query()->where('role','<>','user')->inRandomOrder()->first();
+        $user = User::query()->where('role','=','admin')->inRandomOrder()->first();
         //Не можем войти в список
         $this->actingAs($user)
             ->get(route('admin.exportAgreements'))

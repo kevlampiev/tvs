@@ -30,6 +30,9 @@
         <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#notes">Заметки</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#photos">Фотографии</a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade show active" id="main-info">
@@ -60,6 +63,9 @@
         </div>
         <div class="tab-pane fade" id="notes">
             @include('Admin.vehicle-summary.vehicle-notes')
+        </div>
+                <div class="tab-pane fade" id="photos">
+            @include('Admin.vehicle-summary.vehicle-photos')
         </div>
 
     </div>

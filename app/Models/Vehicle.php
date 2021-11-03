@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Validation\Rule;
 
 class Vehicle extends Model
@@ -24,34 +27,39 @@ class Vehicle extends Model
         'purchase_date',
         'sale_date'];
 
-    public function vehicleType(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function vehicleType(): BelongsTo
     {
         return $this->belongsTo(VehicleType::class);
     }
 
-    public function manufacturer(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function manufacturer(): BelongsTo
     {
         return $this->belongsTo(Manufacturer::class);
     }
 
-    public function agreements(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function agreements(): BelongsToMany
     {
         return $this->belongsToMany(Agreement::class);
     }
 
-    public function insurances(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function insurances(): HasMany
     {
         return $this->hasMany(Insurance::class);
     }
 
-    public function notes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function notes(): HasMany
     {
         return $this->hasMany(VehicleNote::class);
     }
 
-    public function documents(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function documents(): HasMany
     {
         return $this->hasMany(Document::class);
+    }
+
+    public function photos(): HasMany
+    {
+        return $this->hasMany(VehiclePhoto::class);
     }
 
     public static function rules(): array

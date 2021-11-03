@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\ManufacturersController;
 use App\Http\Controllers\Admin\VehicleController;
 use App\Http\Controllers\Admin\VehicleNoteController;
 use App\Http\Controllers\Admin\VehicleTypeController;
+use App\Http\Controllers\Admin\VehiclePhotoController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -68,5 +69,16 @@ Route::group([
                 Route::get('delete/{vehicleNote}', [VehicleNoteController::class, 'erase'])
                     ->name('deleteVehicleNote');
 
+            });
+        Route::group(['prefix' => 'photos'],
+            function () {
+                Route::get('add/{vehicle}', [VehiclePhotoController::class, 'create'])
+                    ->name('addVehiclePhoto');
+                Route::post('add/{vehicle}', [VehiclePhotoController::class, 'store']);
+                Route::get('edit/{vehiclePhoto}', [VehiclePhotoController::class, 'edit'])
+                    ->name('editVehiclePhoto');
+                Route::post('edit/{vehiclePhoto}', [VehiclePhotoController::class, 'update']);
+                Route::get('delete/{vehiclePhoto}', [VehiclePhotoController::class, 'erase'])
+                    ->name('deleteVehiclePhoto');
             });
     });

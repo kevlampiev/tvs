@@ -24,9 +24,8 @@ class VehiclePhotoEditRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'vehicle_id' => 'required|exists:vehicles,id',
-            'comment' => 'string|nullable',
-            'img_file' => 'string|required',
+//            'vehicle_id' => 'required|exists:vehicles,id',
+//            'comment' => 'string|nullable',
         ];
     }
 

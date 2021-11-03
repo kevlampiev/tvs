@@ -26,8 +26,7 @@ class VehiclePhotoAddRequest extends FormRequest
         return [
             'vehicle_id' => 'required|exists:vehicles,id',
             'comment' => 'string|nullable',
-            'img_file' => 'string|required',
-            'photo' => 'file|required',
+            'img_file' => 'file|required',
         ];
     }
 
@@ -37,7 +36,6 @@ class VehiclePhotoAddRequest extends FormRequest
             'vehicle_id' => 'Ссылка на единицу техники',
             'comment' => 'Комментарий',
             'img_file' => 'Имя файла',
-            'photo' => 'Файл с фотографией'
         ];
     }
 

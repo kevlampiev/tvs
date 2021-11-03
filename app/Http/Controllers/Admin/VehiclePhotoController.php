@@ -7,6 +7,7 @@ use App\DataServices\Admin\VehiclePhotoDataservice;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VehicleNoteRequest;
 use App\Http\Requests\VehiclePhotoAddRequest;
+use App\Http\Requests\VehiclePhotoEditRequest;
 use App\Models\Vehicle;
 use App\Models\VehicleNote;
 use App\Models\VehiclePhoto;
@@ -18,7 +19,7 @@ class VehiclePhotoController extends Controller
     public function create(Request $request, Vehicle $vehicle)
     {
         $vehiclePhoto = new VehiclePhoto();
-        $vehiclePhoto->vehicle_id = $vehicle
+        $vehiclePhoto->vehicle_id = $vehicle->id;
         if (!empty($request->old())) $vehiclePhoto->fill($request->old());
         return view('Admin.vehicle-photo-edit', VehiclePhotoDataservice::provideEditor($vehiclePhoto));
     }
@@ -29,23 +30,23 @@ class VehiclePhotoController extends Controller
         return redirect()->route('admin.vehicleSummary', ['vehicle' => $vehicle, 'page' => 'photos']);
     }
 
-    public function edit(Request $request, VehicleNote $vehicleNote)
+    public function edit(VehiclePhotoEditRequest $request, VehiclePhoto $vehiclePhoto)
     {
-        if (!empty($request->old())) $vehicleNote->fill($request->old());
-        return view('Admin.vehicle-note-edit', VehicleNotesDataservice::provideEditor($vehicleNote));
+        if (!empty($request->old())) $vehiclePhoto->fill($request->old());
+        return view('Admin.vehicle-photo-edit', VehiclePhotoDataservice::provideEditor($vehiclePhoto));
     }
 
-    public function update(VehicleNoteRequest $request, VehicleNote $vehicleNote): \Illuminate\Http\RedirectResponse
+    public function update(VehiclePhotoEditRequest $request, VehiclePhoto $vehiclePhoto): \Illuminate\Http\RedirectResponse
     {
-        VehicleNotesDataservice::update($request, $vehicleNote);
-        return redirect()->route('admin.vehicleSummary', ['vehicle' => $vehicleNote->vehicle, 'page' => 'notes']);
+        VehiclePhotoDataservice::update($request, $vehiclePhoto);
+        return redirect()->route('admin.vehicleSummary', ['vehicle' => $vehiclePhoto->vehicle, 'page' => 'photos']);
     }
 
-    public function erase(VehicleNote $vehicleNote): \Illuminate\Http\RedirectResponse
+    public function erase(VehiclePhoto $vehiclePhoto): RedirectResponse
     {
-        $vehicleId = $vehicleNote->vehicle->id;
-        VehicleNotesDataservice::erase($vehicleNote);
-        return redirect()->route('admin.vehicleSummary', ['vehicle' => $vehicleId, 'page' => 'notes']);
+        $vehicleId = $vehiclePhoto->vehicle->id;
+        VehiclePhotoDataservice::erase($vehiclePhoto);
+        return redirect()->route('admin.vehicleSummary', ['vehicle' => $vehicleId, 'page' => 'photos']);
     }
 
 

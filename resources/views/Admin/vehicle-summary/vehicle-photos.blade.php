@@ -7,13 +7,16 @@
 
 <div class="file-info-container">
 
-@forelse($vehicle->photos as $photo)
+@forelse($vehicle->photos as $vehiclePhoto)
     <div class="card m-2" style="width: 18rem;">
-        <img src="{{asset(config('paths.vehicles.get','storage/img/vehicles/').$photo->img_file)}}" class="card-img-top" alt="...">
+        <img src="{{asset(config('paths.vehicles.get','storage/img/vehicles/').$vehiclePhoto->img_file)}}" class="card-img-top" alt="...">
         <div class="card-body">
-            <h5 class="card-title">{{$photo->created_at}}</h5>
-            <p class="card-text">{{$photo->comment}}</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <h5 class="card-title">{{$vehiclePhoto->created_at}}</h5>
+            <p class="card-text">{{$vehiclePhoto->comment}}</p>
+            <a href="{{route('admin.editVehiclePhoto', ['vehiclePhoto' => $vehiclePhoto])}}" class="btn btn-outline-primary">Изменить</a>
+            <a href="{{route('admin.deleteVehiclePhoto', ['vehiclePhoto' => $vehiclePhoto])}}"
+               onclick="return confirm('Действительно удалить фотографию?')"
+               class="btn btn-outline-secondary">Удалить</a>
         </div>
     </div>
 @empty

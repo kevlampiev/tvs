@@ -9,7 +9,7 @@
 
 @forelse($vehicle->photos as $vehiclePhoto)
     <div class="card m-2" style="width: 18rem;">
-        <img src="{{asset(config('paths.vehicles.get','storage/img/vehicles/').$vehiclePhoto->img_file)}}" class="card-img-top" alt="...">
+        <img src="{{asset(config('paths.vehicles.get','storage/img/vehicles/').$vehiclePhoto->img_file)}}" class="card-img-top vehicle-img" alt="...">
         <div class="card-body">
             <h5 class="card-title">{{$vehiclePhoto->created_at}}</h5>
             <p class="card-text">{{$vehiclePhoto->comment}}</p>
@@ -29,6 +29,13 @@
 <style>
     .file-info-container {
 
+    }
+    .vehicle-img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        object-position: 50% 50%;
+        overflow: hidden;
     }
 </style>
 @endsection

@@ -16,6 +16,12 @@ use Illuminate\Http\Request;
 
 class VehiclePhotoController extends Controller
 {
+    public function show(Request $request, VehiclePhoto $vehiclePhoto)
+    {
+        return response()
+            ->file(storage_path('app/public/img/vehicles/').$vehiclePhoto->img_file);
+    }
+
     public function create(Request $request, Vehicle $vehicle)
     {
         $vehiclePhoto = new VehiclePhoto();

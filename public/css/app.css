@@ -20493,7 +20493,13 @@ h3 {
 }
 
 .vehicle-photo-img {
-    width: 300px;
     height: 300px;
+}
 
+.vehicle-show-img {
+    width: 278px !important;
+    height: 278px !important;
+    object-fit: cover;
+    object-position: 50% 50%;
+    overflow: hidden;
 }

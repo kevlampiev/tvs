@@ -42,14 +42,13 @@ class CreateMessagesTable extends Migration
      */
     public function down()
     {
-        Schema::table('messages', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);
-            $table->dropForeign(['task_performer_id']);
-            $table->dropForeign(['agreement_id']);
-            $table->dropForeign(['vehicle_id']);
-            $table->dropForeign(['company_id']);
-            $table->dropForeign(['counterparty_id']);
-        });
+//        Schema::table('messages', function (Blueprint $table) {
+//            $table->dropForeign(['user_id']);
+//            $table->dropForeign(['agreement_id']);
+//            $table->dropForeign(['vehicle_id']);
+//            $table->dropForeign(['company_id']);
+//            $table->dropForeign(['counterparty_id']);
+//        });
 
         Schema::dropIfExists('messages');
     }

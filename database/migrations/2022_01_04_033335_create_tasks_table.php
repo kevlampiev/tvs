@@ -21,20 +21,20 @@ class CreateTasksTable extends Migration
             $table->dateTime('start_date')->nullable(false)->comment('дата начала');
             $table->dateTime('due_date')->nullable(false)
                 ->comment('плановая дата окончания');
-            $table->dateTime('terminate_date')->nullable(false)
+            $table->dateTime('terminate_date')->nullable(true)
                 ->comment('дата реального окончания');
             $table->enum('terminate_status', ['complete', 'cancel'])
                 ->nullable(true)->comment('статус закрытия');
             $table->string('subject')->nullable(false)
                 ->comment('название задачи');
-            $table->text('description');
-            $table->unsignedBigInteger('parent_task_id');
-            $table->unsignedBigInteger('agreement_id');
-            $table->unsignedBigInteger('vehicle_id');
-            $table->unsignedBigInteger('company_id');
-            $table->unsignedBigInteger('counterparty_id');
+            $table->text('description')->nullable();
+            $table->unsignedBigInteger('parent_task_id')->nullable();
+            $table->unsignedBigInteger('agreement_id')->nullable();
+            $table->unsignedBigInteger('vehicle_id')->nullable();
+            $table->unsignedBigInteger('company_id')->nullable();
+            $table->unsignedBigInteger('counterparty_id')->nullable();
             $table->enum('importance',['low', 'medium', 'high'])->default('medium');
-            $table->unsignedBigInteger('previous_id');
+            $table->unsignedBigInteger('previous_id')->nullable();
             $table->timestamps();
         });
 

@@ -80,5 +80,7 @@ Route::group([
                 Route::post('edit/{vehiclePhoto}', [VehiclePhotoController::class, 'update']);
                 Route::get('delete/{vehiclePhoto}', [VehiclePhotoController::class, 'erase'])
                     ->name('deleteVehiclePhoto');
+                Route::get('show/{vehiclePhoto}',[VehiclePhotoController::class, 'show'])
+                    ->name('showVehiclePhoto');
             });
     });

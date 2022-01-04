@@ -6,6 +6,7 @@ namespace Tests\Feature\Admin;
 use App\Models\Agreement;
 use App\Models\User;
 use App\Models\Vehicle;
+use App\Models\VehiclePhoto;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
@@ -133,6 +134,32 @@ class VehicleSummaryTest extends TestCase
                 ->get(route('admin.vehicleSummary', ['vehicle' => $vehicle, 'page' => 'notes']))
                 ->assertStatus(200)
                 ->assertSeeText('Нет документов для отображения');
+        }
+    }
+
+    /**
+     * Смотрим на страницу Photos
+     *
+     * @return void
+     */
+    public function testPhotoTab()
+    {
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
+        $vehicle = Vehicle::query()
+            ->whereHas('photos')
+            ->inRandomOrder()->first();
+        if (count($vehicle->photos)!==0) {
+            $response = $this->actingAs($user)
+                ->get(route('admin.vehicleSummary', ['vehicle' => $vehicle, 'page' => 'photos']))
+                ->assertStatus(200)
+                ->assertSee("card-img-top vehicle-show-img m-1");
+        } else {
+            $vehicle = Vehicle::query()
+                ->inRandomOrder()->first();
+            $response = $this->actingAs($user)
+                ->get(route('admin.vehicleSummary', ['vehicle' => $vehicle, 'page' => 'photos']))
+                ->assertStatus(200)
+                ->assertSeeText('Для данной единицы техники нет фотографий');
         }
     }
 

@@ -45,8 +45,17 @@
                 <a class="nav-link" href="{{route('admin.insurances')}}">Страховки</a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('admin.tasks')}}">Задачи</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#"
+                   id="navbarDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Задачи
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{route('admin.tasks')}}">Все задачи</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{route('admin.vehicleTypes')}}">Типы техники</a>
+                </div>
             </li>
 
             <li class="nav-item dropdown">

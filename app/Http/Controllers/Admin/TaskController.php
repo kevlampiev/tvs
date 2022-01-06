@@ -14,6 +14,6 @@ class TaskController extends Controller
             ->where('parent_task_id','=', null)
             ->where('terminate_date','=', null)
             ->get();
-        return view('Admin.tasks', ['tasks' => $tasks]);
+        return view('Admin.tasks.tasks', ['tasks' => $tasks]);
     }
 }

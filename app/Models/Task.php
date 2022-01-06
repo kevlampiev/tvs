@@ -70,10 +70,9 @@ class Task extends Model
 
     }
 
-    //Потенциально сбойный элемент: возможно придется делать owner_key на поле task_performer_id
     public function performer(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'tasks_task_performer_id_foreign');
+        return $this->belongsTo(User::class, 'task_performer_id');
 
     }
 

@@ -70,17 +70,22 @@ class Task extends Model
 
     }
 
-    //Потенциально сбойный элемент: возможно придется делать owner_key на поле task_performer_id
     public function performer(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'tasks_task_performer_id_foreign');
+        return $this->belongsTo(User::class, 'task_performer_id');
 
     }
 
-    public function subTasks():HasMany
+    public function subTasks(bool $hideClosedTasks=true): HasMany
     {
-        return $this->hasMany(Task::class, 'parent_id');
+        $result = $this->hasMany(Task::class, 'parent_task_id');
+        if ($hideClosedTasks) {
+            return $result->where('terminate_date', '=', null);
+        } else {
+            return $result;
+        }
     }
+
 
 
     public function documents():BelongsToMany

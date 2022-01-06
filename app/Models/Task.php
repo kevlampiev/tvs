@@ -76,10 +76,16 @@ class Task extends Model
 
     }
 
-    public function subTasks(): HasMany
+    public function subTasks(bool $hideClosedTasks=true): HasMany
     {
-        return $this->hasMany(Task::class, 'parent_task_id');
+        $result = $this->hasMany(Task::class, 'parent_task_id');
+        if ($hideClosedTasks) {
+            return $result->where('terminate_date', '=', null);
+        } else {
+            return $result;
+        }
     }
+
 
 
     public function documents():BelongsToMany

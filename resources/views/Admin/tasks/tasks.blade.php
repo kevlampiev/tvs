@@ -18,14 +18,16 @@
 
     <div class="row">
         <div class="col-md-12">
+{{--            @dd($hideClosedTasks)--}}
             @foreach($tasks as $task)
-                @if(count($task->subTasks)>0)
+
+                @if(count(collect($task->subTasks($hideClosedTasks)))>0)
                     <details>
                         <summary class="has-child">
                                 @include('Admin.tasks.task-record')
                         </summary>
                         <div class="ml-5">
-                            @if(count($task->subTasks))
+                            @if(count(collect($task->subTasks($hideClosedTasks)))>0)
                                 @include('Admin.tasks.subtasks',['subtasks' => $task->subTasks])
                             @endif
                         </div>
@@ -86,6 +88,11 @@
 
         .importance-low {
             color: #6c757d;
+        }
+
+        .terminated-task {
+            color: #6c757d;
+            text-decoration: line-through;
         }
 
     </style>

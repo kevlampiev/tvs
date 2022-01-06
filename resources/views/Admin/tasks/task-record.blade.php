@@ -2,7 +2,12 @@
         class="importance-high"
       @elseif($task->importance=='low')
         class="importance-low"
-      @endif>
+      @endif
+      @if($task->terminate_date)
+        class="terminated-task"
+      @endif
+>
+
     {{$task->subject}}
         <small><i> &nbsp; Исп:{{$task->performer->name}}
                 &nbsp; Срок:{{\Carbon\Carbon::parse($task->due_date)->format('d.m.Y')}}

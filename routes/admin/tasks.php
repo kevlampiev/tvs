@@ -13,5 +13,9 @@ Route::group([
     function () {
         Route::get('/', [TaskController::class, 'index'])
             ->name('tasks');
+        Route::get('/add', [TaskController::class, 'create'])
+            ->name('addTask');
+        Route::post('/add', [TaskController::class, 'store']);
+
     }
 );

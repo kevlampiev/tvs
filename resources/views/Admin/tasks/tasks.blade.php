@@ -12,7 +12,7 @@
 
     <div class="row">
         <div class="col-mb-2">
-            <a class="btn btn-outline-info" href="{{route('admin.addInsuranceCompany')}}">Добавить новую</a>
+            <a class="btn btn-outline-info" href="{{route('admin.addTask')}}">Добавить новую задачу</a>
         </div>
     </div>
 

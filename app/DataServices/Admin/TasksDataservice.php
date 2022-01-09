@@ -53,8 +53,8 @@ class TasksDataservice
     {
         $task = new Task();
         $task->user_id = Auth::user()->id;
-        $task->start_date = Carbon::now()->toDateString();
-        $task->due_date = Carbon::now()->addDays(7)->toDateString();
+        $task->start_date = Carbon::now();
+        $task->due_date = Carbon::now()->addDays(7);
         $task->importance = 'medium';
         if (!empty($request->old())) $task->fill($request->old());
         return $task;
@@ -80,6 +80,25 @@ class TasksDataservice
             session()->flash('error', 'Не удалось добавить новую задачу');
         }
 
+    }
+
+
+    public static function edit(Request $request, Task $task)
+    {
+
+        if (!empty($request->old())) $task->fill($request->old());
+//        $task->start_date = Carbon::parse($task->start_date)->toDateString();
+//        $task->due_date = Carbon::parse($task->due_date)->toDateString();
+    }
+
+    public static function update(TaskRequest $request, Task $task)
+    {
+        try {
+            self::saveChanges($request, $task);
+            session()->flash('message', 'ЗАдача обновлена');
+        } catch (Error $err) {
+            session()->flash('error', 'Не удалось обновить задачу');
+        }
     }
 
 

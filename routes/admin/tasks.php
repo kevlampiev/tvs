@@ -16,6 +16,9 @@ Route::group([
         Route::get('/add', [TaskController::class, 'create'])
             ->name('addTask');
         Route::post('/add', [TaskController::class, 'store']);
+        Route::get('{task}/edit', [TaskController::class, 'edit'])
+            ->name('editTask');
+        Route::post('{task}/edit', [TaskController::class, 'update']);
 
     }
 );

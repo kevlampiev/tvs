@@ -6,7 +6,7 @@
 
 @section('content')
     <h3> @if ($task->id) Изменение задачи @else Добавить новую задачу @endif</h3>
-    <form action="{{route($route, $task->id)}}" method="POST" enctype="multipart/form-data">
+    <form action="{{$task->id?route('admin.editTask', $task->id):route('admin.addTask')}}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <input type="hidden" name="user_id" value="{{$task->user_id}}">
@@ -33,16 +33,20 @@
                     </div>
                 @endif
 
-            <!-- Полле ввода родительской задачи -->
-
+            <!-- Поле ввода родительской задачи -->
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Родительская задача</span>
                     <select name="parent_task_id"
                             class="form-control {{$errors->has('parent_task_id')?'is-invalid':''}}"
-                            aria-describedby="basic-addon1">
+                            aria-describedby="basic-addon1"
+                            data-live-search="true"
+                    >
+                        <option value="" {{(!$task->parent_task_id) ? 'selected' : ''}}>  </option>
                         @foreach ($tasks as $parentTask)
                             <option
-                                value="{{$parentTask->id}}" {{($parentTask->id == $task->parent_task_id) ? 'selected' : ''}}>
+                                value="{{$parentTask->id}}"
+                                {{($parentTask->id == $task->parent_task_id) ? 'selected' : ''}}
+                            >
                                 {{$parentTask->subject}}
                             </option>
                         @endforeach
@@ -67,12 +71,12 @@
                            class="form-control {{$errors->has('start_date')?'is-invalid':''}}"
                            aria-describedby="start_date"
                            placeholder="Дата начала" name="start_date"
-                           value="{{$task->start_date}}">
+                           value="{{\Carbon\Carbon::parse($task->start_date)->toDateString()}}">
                     <input type="date"
                            class="form-control {{$errors->has('due_date')?'is-invalid':''}}"
                            aria-describedby="due_date"
                            placeholder="Дата завершения" name="due_date"
-                           value="{{$task->due_date}}">
+                           value="{{\Carbon\Carbon::parse($task->due_date)->toDateString()}}">
                 </div>
                 @if ($errors->has('start_date'))
                     <div class="alert alert-danger">
@@ -161,6 +165,112 @@
                         </ul>
                     </div>
                 @endif
+
+                <details>
+                    <summary>
+                        Дополнительные поля
+                    </summary>
+                    <!-- Связанный договор -->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Связанный договор</span>
+                        <select name="agreement_id"
+                                class="form-control {{$errors->has('agreement_id')?'is-invalid':''}}"
+                                aria-describedby="basic-addon1">
+                            <option value="" {{!$task->agreement_id?'selected':''}}>  </option>
+                            @foreach ($agreements as $agreement)
+                                <option
+                                    value="{{$agreement->id}}" {{($agreement->id == $task->agreement_id) ? 'selected' : ''}}>
+                                    {{$agreement->name}} № {{$agreement->agr_number}} от {{$agreement->date_open}}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @if ($errors->has('agreement_id'))
+                        <div class="alert alert-danger">
+                            <ul class="p-0 m-0">
+                                @foreach($errors->get('agreement_id') as $error)
+                                    <li class="m-0 p-0"> {{$error}}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                <!-- Связанная единица техники -->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Связанная единица техники</span>
+                        <select name="vehicle_id"
+                                class="form-control {{$errors->has('vehicle_id')?'is-invalid':''}}"
+                                aria-describedby="basic-addon1">
+                            <option value="" {{!$task->vehicle_id?'selected':''}}>  </option>
+                            @foreach ($vehicles as $vehicle)
+                                <option
+                                    value="{{$vehicle->id}}" {{($vehicle->id == $task->vehicle_id) ? 'selected' : ''}}>
+                                    {{$vehicle->name}}, VIN: {{$vehicle->vin}}, бортовой № {{$vehicle->bort_number}}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @if ($errors->has('vehicle_id'))
+                        <div class="alert alert-danger">
+                            <ul class="p-0 m-0">
+                                @foreach($errors->get('vehicle_id') as $error)
+                                    <li class="m-0 p-0"> {{$error}}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                <!-- Связанная компания -->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Связанная компания группы</span>
+                        <select name="company_id"
+                                class="form-control {{$errors->has('company_id')?'is-invalid':''}}"
+                                aria-describedby="basic-addon1">
+                            <option value="" {{!$task->company_id?'selected':''}}>  </option>
+                            @foreach ($companies as $company)
+                                <option
+                                    value="{{$company->id}}" {{($company->id == $task->company_id) ? 'selected' : ''}}>
+                                    {{$company->name}}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @if ($errors->has('company_id'))
+                        <div class="alert alert-danger">
+                            <ul class="p-0 m-0">
+                                @foreach($errors->get('company_id') as $error)
+                                    <li class="m-0 p-0"> {{$error}}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                <!-- Связанный контрагент -->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Связанный контрагент</span>
+                        <select name="counterparty_id"
+                                class="form-control {{$errors->has('counterparty_id')?'is-invalid':''}}"
+                                aria-describedby="basic-addon1">
+                            <option value="" {{!$task->counterparty_id?'selected':''}}>  </option>
+                            @foreach ($counterparties as $counterparty)
+                                <option
+                                    value="{{$counterparty->id}}" {{($counterparty->id == $task->counterparty_id) ? 'selected' : ''}}>
+                                    {{$counterparty->name}}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @if ($errors->has('counterparty_id'))
+                        <div class="alert alert-danger">
+                            <ul class="p-0 m-0">
+                                @foreach($errors->get('counterparty_id') as $error)
+                                    <li class="m-0 p-0"> {{$error}}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+
+
+                </details>
 
             </div>
         </div>

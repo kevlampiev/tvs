@@ -30,4 +30,20 @@ class TaskController extends Controller
         return redirect()->to($route);
     }
 
+    public function edit(Request $request, Task $task)
+    {
+        if (url()->previous() !== url()->current()) session(['previous_url' => url()->previous()]);
+        TasksDataservice::edit($request, $task);
+        return view('Admin.tasks.task-edit',
+            TasksDataservice::provideEditor($task));
+    }
+
+    public function update(TaskRequest $request, Task $task): \Illuminate\Http\RedirectResponse
+    {
+        TasksDataservice::update($request, $task);
+        $route = session('previous_url');
+        return redirect()->to($route);
+    }
+
+
 }

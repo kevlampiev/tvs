@@ -34,7 +34,7 @@
 
                     </details>
                 @else
-                    <p class="no-childs">{{$task->subject}} </p>
+                    <div class="no-childs">{{$task->subject}} </div>
                 @endif
 
             @endforeach

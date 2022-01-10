@@ -38,11 +38,10 @@ class TasksDataservice
         return ['task' => $task,
             'route' => ($task->id) ? 'admin.addTask' : 'admin.addTask',
             'users' => User::all(),
-            'tasks' => Task::query()->where('parent_task_id','=', null)
-                ->select(['id', 'subject'])->get(),
+            'tasks' => Task::query()->select(['id', 'subject'])->get(),
             'agreements' => Agreement::query()
                 ->select(['id','name', 'agr_number','date_open'])->get(),
-            'vehicles' => Vehicle::query()->select(['id', 'name', 'vin'])->get(),
+            'vehicles' => Vehicle::query()->select(['id', 'name', 'vin', 'bort_number'])->get(),
             'companies' => Company::query()->select(['id', 'name'])->get(),
             'counterparties' => Counterparty::query()->select(['id', 'name'])->get(),
             'importances' => ['low' => 'Низкая', 'medium' => 'Обычная', 'high'=>'Высокая'],

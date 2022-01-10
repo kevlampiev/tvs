@@ -18,6 +18,7 @@ class TaskController extends Controller
 
     public function create(Request $request)
     {
+        if (url()->previous() !== url()->current()) session(['previous_url' => url()->previous()]);
         $task = TasksDataservice::create($request);
         return view('Admin.tasks.task-edit',
             TasksDataservice::provideEditor($task));

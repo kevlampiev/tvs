@@ -18,7 +18,6 @@
 
     <div class="row">
         <div class="col-md-12">
-{{--            @dd($hideClosedTasks)--}}
             @foreach($tasks as $task)
 
                 @if(count(collect($task->subTasks($hideClosedTasks)))>0)
@@ -56,6 +55,7 @@
             border-left: 1px solid #ddd;
             background-color: #f0f0f0;
             position: relative;
+            height: 31px;
         }
 
         .no-childs {
@@ -68,6 +68,7 @@
             border-left: 1px solid #ddd;
             background-color: #f0f0f0;
             position: relative;
+            height: 31px;
         }
 
         .buttons-block {

@@ -9,9 +9,9 @@
             </div>
         </details>
     @else
-        <p class="no-childs">
+        <div class="no-childs">
             @include('Admin.tasks.task-record')
-        </p>
+        </div>
     @endif
 
 @endforeach

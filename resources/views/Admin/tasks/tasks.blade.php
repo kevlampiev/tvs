@@ -12,13 +12,12 @@
 
     <div class="row">
         <div class="col-mb-2">
-            <a class="btn btn-outline-info" href="{{route('admin.addInsuranceCompany')}}">Добавить новую</a>
+            <a class="btn btn-outline-info" href="{{route('admin.addTask')}}">Добавить новую задачу</a>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-12">
-{{--            @dd($hideClosedTasks)--}}
             @foreach($tasks as $task)
 
                 @if(count(collect($task->subTasks($hideClosedTasks)))>0)
@@ -34,7 +33,7 @@
 
                     </details>
                 @else
-                    <p class="no-childs">{{$task->subject}} </p>
+                    <div class="no-childs">{{$task->subject}} </div>
                 @endif
 
             @endforeach
@@ -56,6 +55,7 @@
             border-left: 1px solid #ddd;
             background-color: #f0f0f0;
             position: relative;
+            height: 31px;
         }
 
         .no-childs {
@@ -68,6 +68,7 @@
             border-left: 1px solid #ddd;
             background-color: #f0f0f0;
             position: relative;
+            height: 31px;
         }
 
         .buttons-block {

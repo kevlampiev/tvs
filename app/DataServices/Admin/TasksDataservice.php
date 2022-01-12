@@ -94,7 +94,7 @@ class TasksDataservice
     {
         try {
             self::saveChanges($request, $task);
-            session()->flash('message', 'ЗАдача обновлена');
+            session()->flash('message', 'Задача обновлена');
         } catch (Error $err) {
             session()->flash('error', 'Не удалось обновить задачу');
         }

@@ -41,7 +41,7 @@ class TaskRequest extends FormRequest
     {
         return [
             'task_performer_id' => 'Исполнитель задачи',
-            'start_date' => 'ДАта начала исполнения',
+            'start_date' => 'Дата начала исполнения',
             'due_date' => 'Дата окончания',
             'subject'=>'Описание задачи',
             'description' => 'Дополнительные данные',

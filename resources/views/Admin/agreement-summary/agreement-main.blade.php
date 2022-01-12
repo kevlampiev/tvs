@@ -5,7 +5,7 @@
     </tr>
     <tr>
         <td class="text-right text-black-50">Номер и дата</td>
-        <td class="text-left p-2">№ {{$agreement->agr_number}} от {{$agreement->date_open}}</td>
+        <td class="text-left p-2">№ {{$agreement->agr_number}} от {{\Carbon\Carbon::parse($agreement->date_open)->format('d.m.Y')}}</td>
     </tr>
 
     <tr>
@@ -26,11 +26,11 @@
     </tr>
     <tr>
         <td class="text-right text-black-50">Дата окончания</td>
-        <td class="text-left p-2">{{$agreement->date_close}}</td>
+        <td class="text-left p-2">{{\Carbon\Carbon::parse($agreement->date_close)->format('d.m.Y')}}</td>
     </tr>
     <tr>
         <td class="text-right text-black-50">Реальная дата окончания</td>
-        <td class="text-left p-2">{{$agreement->real_date_close}}</td>
+        <td class="text-left p-2">{{\Carbon\Carbon::parse($agreement->real_date_close)->format('d.m.Y')}}</td>
     </tr>
     <tr>
         <td class="text-right text-black-50">Скан договора</td>

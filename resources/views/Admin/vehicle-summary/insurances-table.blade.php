@@ -1,6 +1,7 @@
 <div class="row">
+    <div class="col-md-12">
     <a class="btn btn-outline-info" href="{{route('admin.addInsurance',['vehicle'=>$vehicle])}}">Новый полис</a>
-</div>
+
 
 <table class="table table-hover">
     <thead>
@@ -49,3 +50,5 @@
     @endforelse
     </tbody>
 </table>
+    </div>
+</div>

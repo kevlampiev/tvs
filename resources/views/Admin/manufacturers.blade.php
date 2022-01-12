@@ -7,15 +7,19 @@
 @section('content')
 
     <div class="row">
+        <div class="col-md-12">
         <h2>Производители</h2>
+        </div>
     </div>
 
     <div class="row">
+        <div class="col-md-12">
         <a class="btn btn-outline-info" href="{{route('admin.addManufacturer')}}">Новый производитель</a>
+        </div>
     </div>
 
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-12">
             <table class="table table-striped">
                 <thead>
                 <tr>

@@ -1,3 +1,9 @@
+<div class="row">
+    <div class="col-md-12">
+    <a class="btn btn-outline-info"
+       href="{{route('admin.attachAgreement', ['vehicle'=>$vehicle])}}">Привязать договор</a>
+
+
 <table class="table table-hover">
     <thead>
     <tr>
@@ -34,7 +40,8 @@
     @endforelse
     </tbody>
 </table>
-
+    </div>
+</div>
 
 @section("styles")
     <style>

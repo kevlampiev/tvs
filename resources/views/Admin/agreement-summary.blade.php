@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <h3>Карточка договора № {{$agreement->agr_number}} от {{$agreement->date_open}}</h3>
+    <h3>Карточка договора № {{$agreement->agr_number}} от {{\Carbon\Carbon::parse($agreement->date_open)->format('d.m.Y')}}</h3>
 
     <ul class="nav nav-tabs">
         <li class="nav-item">
@@ -36,21 +36,24 @@
         <div class="tab-pane fade" id="documents">
             <h4>Связанные файлы</h4>
             <div class="row m-1">
+                <div class="col-md-12">
                 <a class="btn btn-outline-primary"
                    href="{{route('admin.addAgreementDocument',['agreement' => $agreement])}}" >
                     Добавить документ
                 </a>
-            </div>
-            <div class="row">
+
                 @include('Admin.agreement-summary.agreement-files')
+                </div>
             </div>
         </div>
 
         <div class="tab-pane fade" id="vehicles">
             <h4>Техника, приобретаемая по данному договору</h4>
             <div class="row">
+                <div class="col-mb-12">
                 <a class="btn btn-outline-info"
                    href="{{route('admin.agreementAddVehicle', ['agreement'=>$agreement])}}">Добавить единицу техники</a>
+                </div>
             </div>
             @include('Admin.agreement-summary.vehicles-table')
         </div>

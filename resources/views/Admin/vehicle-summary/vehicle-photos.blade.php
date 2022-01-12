@@ -1,8 +1,10 @@
 <div class="row m-1">
-    <a class="btn btn-outline-primary"
+    <div class="col-md-12">
+    <a class="btn btn-outline-info"
        href="{{route('admin.addVehiclePhoto',['vehicle'=>$vehicle])}}" >
         Добавить фотографию
     </a>
+    </div>
 </div>
 
 <div class="file-info-container">

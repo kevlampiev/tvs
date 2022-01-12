@@ -1,6 +1,6 @@
 <div class="row m-1">
-    <a class="btn btn-outline-primary" href="{{route('admin.addAgreementNote', ['agreement'=>$agreement])}}">Добавить заметку</a>
-</div>
+    <div class="col-md-12">
+    <a class="btn btn-outline-info" href="{{route('admin.addAgreementNote', ['agreement'=>$agreement])}}">Добавить заметку</a>
 
 <div class="notes-container">
 
@@ -24,4 +24,7 @@
         <h4>Нет заметок по данному договору</h4>
     @endforelse
 
+</div>
+
+    </div>
 </div>

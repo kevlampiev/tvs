@@ -52,10 +52,7 @@
 
         <div class="tab-pane fade" id="agreements">
             <h4>Договоры покупки техники</h4>
-            <div class="row">
-                <a class="btn btn-outline-info"
-                   href="{{route('admin.attachAgreement', ['vehicle'=>$vehicle])}}">Привязать договор</a>
-            </div>
+
             @include('Admin.vehicle-summary.agreements-table')
         </div>
         <div class="tab-pane fade" id="collaterals">

@@ -1,6 +1,7 @@
 <div class="row m-1">
-    <a class="btn btn-outline-primary" href="{{route('admin.addVehicleNote', ['vehicle'=>$vehicle])}}">Добавить заметку</a>
-</div>
+    <div class="col-md-12">
+    <a class="btn btn-outline-info" href="{{route('admin.addVehicleNote', ['vehicle'=>$vehicle])}}">Добавить заметку</a>
+
 
 <div class="notes-container">
 
@@ -24,4 +25,6 @@
         <h4>Нет заметок по данной единице техники</h4>
     @endforelse
 
+</div>
+    </div>
 </div>

@@ -1,11 +1,12 @@
-<div class="col-md6 p-4">
+<div class="col-md-6 p-4">
     <h4>Платежи в соответствии с договором</h4>
     <div class="row">
+        <div class="col-md-12">
         <a class="btn btn-outline-info mr-2"
            href="{{route('admin.addAgrPayment', ['agreement'=>$agreement])}}">Новый платеж</a>
         <a class="btn btn-outline-info mr-2"
            href="{{route('admin.massAddPayments', ['agreement'=>$agreement])}}">Добавить серию платежей</a>
-
+        </div>
     </div>
 
     <table class="table table-hover">
@@ -21,13 +22,13 @@
         </tr>
         </thead>
         <tbody>
-        @forelse($payments as $index => $payment)
+        @forelse($payments as $payment)
             <tr >
-                <th scope="row">{{$index+1}}</th>
-                <td>{{$payment->payment_date}}</td>
+                <th scope="row">{{$loop->index+1}}</th>
+                <td>{{\Carbon\Carbon::parse($payment->payment_date)->format('d.m.Y')}}</td>
                 <td class="text-right">{{number_format($payment->amount, 2, ',', ' ')}}</td>
                 <td class="text-left">{{$payment->currency}}</td>
-                <td class="text-center">{{$payment->canceled_date}}</td>
+{{--                <td class="text-center">{{$payment->canceled_date}}</td>--}}
                 <td><a href="{{route('admin.editAgrPayment', ['agreement'=>$agreement, 'payment' => $payment])}}">
                         &#9998;Изменить </a></td>
                 <td><a href="{{route('admin.movePaymentToReal', ['agreement'=>$agreement, 'payment' => $payment])}}">

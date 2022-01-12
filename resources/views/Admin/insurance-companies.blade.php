@@ -7,15 +7,19 @@
 @section('content')
 
     <div class="row">
+        <div class="colmd-12">
         <h2>Страховые компании</h2>
+        </div>
     </div>
 
     <div class="row">
+        <div class="col-md-12">
         <a class="btn btn-outline-info" href="{{route('admin.addInsuranceCompany')}}">Добавить новую</a>
+        </div>
     </div>
 
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-12">
             <table class="table table-striped">
                 <thead>
                 <tr>

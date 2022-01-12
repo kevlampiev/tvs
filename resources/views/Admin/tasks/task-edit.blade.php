@@ -12,7 +12,7 @@
         <input type="hidden" name="user_id" value="{{$task->user_id}}">
 
         <div class="row">
-            <div class="col-md10">
+            <div class="col-md-10">
 
                 <!-- Поле ввода имени задачи -->
                 <div class="input-group mb-3">
@@ -168,7 +168,7 @@
                 @endif
 
                 <details>
-                    <summary>
+                    <summary >
                         Дополнительные поля
                     </summary>
                     <!-- Связанный договор -->
@@ -280,12 +280,12 @@
             </div>
         </div>
 
-
+        <div class="mt-10">
         <button type="submit" class="btn btn-primary">
             @if ($task->id)  Изменить @else Добавить @endif
         </button>
         <a class="btn btn-secondary" href="{{session('previous_url', route('admin.tasks'))}}">Отмена</a>
-
+        </div>
     </form>
 
 
@@ -313,3 +313,20 @@
     </script>
 @endsection
 
+
+@section('styles')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    {{--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>--}}
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    {{--    <!-- Latest compiled and minified CSS -->--}}
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
+    {{--    <!-- (Optional) Latest compiled and minified JavaScript translation files -->--}}
+    {{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/i18n/defaults-en_US.js"></script>--}}
+
+
+@endsection

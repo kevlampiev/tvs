@@ -1,8 +1,10 @@
-<div class="col-md6 p-4">
+<div class="col-md-6 p-4">
     <h4>Реальные оплаты</h4>
     <div class="row">
+        <div class="col-md-12">
         <a class="btn btn-outline-info"
            href="{{route('admin.addRealPayment', ['agreement'=>$agreement])}}">Новый платеж</a>
+        </div>
     </div>
 
     <table class="table table-hover">
@@ -17,10 +19,10 @@
         </tr>
         </thead>
         <tbody>
-        @forelse($realPayments as $index => $payment)
+        @forelse($realPayments as $payment)
             <tr>
-                <th scope="row">{{$index+1}}</th>
-                <td>{{$payment->payment_date}}</td>
+                <th scope="row">{{$loop->index+1}}</th>
+                <td>{{\Carbon\Carbon::parse($payment->payment_date)->format('d.m.Y')}}</td>
                 <td class="text-right">{{number_format($payment->amount, 2, ',', ' ')}}</td>
                 <td class="text-left">{{$payment->currency}}</td>
                 <td><a href="{{route('admin.editRealPayment', ['agreement'=>$agreement, 'payment' => $payment])}}">

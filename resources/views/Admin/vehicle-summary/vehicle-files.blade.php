@@ -1,9 +1,9 @@
 <div class="row m-1">
-    <a class="btn btn-outline-primary"
+    <div class="col-md-12">
+    <a class="btn btn-outline-info"
        href="{{route('admin.addVehicleDocument',['vehicle'=>$vehicle])}}" >
         Добавить документ
     </a>
-</div>
 
 <div class="file-info-container">
 
@@ -24,4 +24,7 @@
     @empty
         <p>Нет документов для отображения</p>
     @endforelse
+</div>
+
+    </div>
 </div>

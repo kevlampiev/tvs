@@ -46,5 +46,17 @@ class TaskController extends Controller
         return redirect()->to($route);
     }
 
+    public function markAsDone(Task $task)
+    {
+        TasksDataservice::markAsDone($task);
+        return redirect()->back();
+    }
+
+    public function markAsCanceled(Task $task)
+    {
+        TasksDataservice::markAsCanceled($task);
+        return redirect()->back();
+    }
+
 
 }

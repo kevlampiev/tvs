@@ -19,6 +19,10 @@ Route::group([
         Route::get('{task}/edit', [TaskController::class, 'edit'])
             ->name('editTask');
         Route::post('{task}/edit', [TaskController::class, 'update']);
+        Route::get('{task}/complete', [TaskController::class, 'markAsDone'])
+            ->name('markTaskAsDone');
+        Route::get('{task}/cancel', [TaskController::class, 'markAsCanceled'])
+            ->name('markTaskAsCanceled');
 
     }
 );

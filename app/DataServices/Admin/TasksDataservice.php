@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use Error;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TasksDataservice
 {
@@ -103,7 +104,14 @@ class TasksDataservice
     //Пометить задачу и все ее дочерние задачи, как выполненную
     public static function markAsDone(Task $task)
     {
+        DB::statement('CALL po_mark_task_as_done(?)', [$task->id]);
 
+    }
+
+    //Пометить задачу и все ее дочерние задачи, как отмененную
+    public static function markAsCanceled(Task $task)
+    {
+        DB::statement('CALL po_mark_task_as_canceled(?)', [$task->id]);
 
     }
 

@@ -26,8 +26,10 @@
                         <li><a href="#"> Добавить дочернюю</a></li>
                         @if($task->user_id === Auth::user()->id)
                             <li><a href="{{route('admin.editTask', ['task' => $task])}}" > Изменить</a></li>
-                            <li><a href="#"> Завершить</a></li>
-                            <li><a href="#"> Снять задачу</a></li>
+                            <li><a href="{{route('admin.markTaskAsDone', ['task' => $task])}}"
+                                   onclick="return confirm('Действительно отметить задачу и все дочерние задачи как завершенные?')"> Завершить</a></li>
+                            <li><a href="{{route('admin.markTaskAsCanceled', ['task' => $task])}}"
+                                   onclick="return confirm('Это действие отменит задачу, а таке все дочерние задачи. Продолжить?')"> Снять задачу</a></li>
                       @endif
 
                   </ul>

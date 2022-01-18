@@ -14,8 +14,9 @@ class AgreementPaymentsExport implements FromView
      */
     public function view(): View
     {
-//        $payments = AgreementPayment::all();
-        $payments = DB::select('select ');
+        $payments = AgreementPayment::all();
+        dd($payments);
+//        $payments = DB::select('select ');
         return view('exports.agreement-payments', ['payments' => $payments]);
     }
 }

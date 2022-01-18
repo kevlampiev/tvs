@@ -100,5 +100,13 @@ class TasksDataservice
         }
     }
 
+    //Пометить задачу и все ее дочерние задачи, как выполненную
+    public static function markAsDone(Task $task)
+    {
+
+
+    }
+
+
 
 }

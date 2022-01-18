@@ -27,6 +27,7 @@
                         @if($task->user_id === Auth::user()->id)
                             <li><a href="{{route('admin.editTask', ['task' => $task])}}" > Изменить</a></li>
                             <li><a href="#"> Завершить</a></li>
+                            <li><a href="#"> Снять задачу</a></li>
                       @endif
 
                   </ul>

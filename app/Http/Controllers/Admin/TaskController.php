@@ -24,6 +24,15 @@ class TaskController extends Controller
             TasksDataservice::provideEditor($task));
     }
 
+    public function createSubTask(Request $request, Task $parentTask)
+    {
+        if (url()->previous() !== url()->current()) session(['previous_url' => url()->previous()]);
+        $task = TasksDataservice::createSubTask($request, $parentTask);
+//        dd($parentTask);
+        return view('Admin.tasks.task-edit',
+            TasksDataservice::provideEditor($task));
+    }
+
     public function store(TaskRequest $request): \Illuminate\Http\RedirectResponse
     {
         TasksDataservice::store($request);

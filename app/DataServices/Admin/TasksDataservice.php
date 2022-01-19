@@ -49,13 +49,33 @@ class TasksDataservice
             ];
     }
 
-    public static function create(Request $request): Task
+    private static function createNewTask(array $params): Task
     {
         $task = new Task();
+        $task->fill($params);
         $task->user_id = Auth::user()->id;
         $task->start_date = Carbon::now();
         $task->due_date = Carbon::now()->addDays(7);
         $task->importance = 'medium';
+        return $task;
+
+    }
+
+    public static function create(Request $request): Task
+    {
+        $task = self::createNewTask([]);
+//        $task = new Task();
+//        $task->user_id = Auth::user()->id;
+//        $task->start_date = Carbon::now();
+//        $task->due_date = Carbon::now()->addDays(7);
+//        $task->importance = 'medium';
+        if (!empty($request->old())) $task->fill($request->old());
+        return $task;
+    }
+
+    public static function createSubTask(Request $request, Task $parentTask): Task
+    {
+        $task = self::createNewTask(['parent_task_id' => $parentTask->id]);
         if (!empty($request->old())) $task->fill($request->old());
         return $task;
     }

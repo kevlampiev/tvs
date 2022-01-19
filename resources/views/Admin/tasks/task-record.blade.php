@@ -23,7 +23,7 @@
                       <span class="visually-hidden">Toggle Dropdown</span>
                   </button>
                   <ul class="dropdown-menu">
-                        <li><a href="#"> Добавить дочернюю</a></li>
+                        <li><a href="{{route('admin.addSubTask', ['parentTask' => $task])}}"> Добавить дочернюю</a></li>
                         @if($task->user_id === Auth::user()->id)
                             <li><a href="{{route('admin.editTask', ['task' => $task])}}" > Изменить</a></li>
                             <li><a href="{{route('admin.markTaskAsDone', ['task' => $task])}}"

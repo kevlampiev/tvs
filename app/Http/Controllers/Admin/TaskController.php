@@ -8,6 +8,7 @@ use App\Http\Requests\TaskRequest;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -19,7 +20,7 @@ class TaskController extends Controller
 
     public function viewUserTasks(Request $request, User $user)
     {
-        return view ('Admin.tasks.user-tasks');
+        return view ('Admin.tasks.user-tasks', TasksDataservice::provideUserTasks(Auth::user()));
     }
 
     public function create(Request $request)

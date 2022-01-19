@@ -36,11 +36,19 @@ class TasksDataservice
 
     public static function provideUserTasks(User $user): array
     {
-        return Task::query()
-            ->where('parent_task_id','=', null)
-            ->where('user_id', '=', $user->id)
+        $userAssignments = Task::query()
+            ->where('task_performer_id', '=', $user->id)
             ->where('terminate_date', '=', null)
             ->get();
+        $assignedByUser = Task::query()
+            ->where('user_id', '=', $user->id)
+            ->where('task_performer_id', '<>', $user->id)
+            ->where('terminate_date', '=', null)
+            ->get();
+        return [
+            'userAssignments' => $userAssignments,
+            'assignedByUser' => $assignedByUser,
+        ];
     }
 
     public static function provideEditor(Task $task): array
@@ -73,11 +81,6 @@ class TasksDataservice
     public static function create(Request $request): Task
     {
         $task = self::createNewTask([]);
-//        $task = new Task();
-//        $task->user_id = Auth::user()->id;
-//        $task->start_date = Carbon::now();
-//        $task->due_date = Carbon::now()->addDays(7);
-//        $task->importance = 'medium';
         if (!empty($request->old())) $task->fill($request->old());
         return $task;
     }

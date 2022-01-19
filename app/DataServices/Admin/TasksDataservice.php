@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use Error;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TasksDataservice
 {
@@ -48,13 +49,33 @@ class TasksDataservice
             ];
     }
 
-    public static function create(Request $request): Task
+    private static function createNewTask(array $params): Task
     {
         $task = new Task();
+        $task->fill($params);
         $task->user_id = Auth::user()->id;
         $task->start_date = Carbon::now();
         $task->due_date = Carbon::now()->addDays(7);
         $task->importance = 'medium';
+        return $task;
+
+    }
+
+    public static function create(Request $request): Task
+    {
+        $task = self::createNewTask([]);
+//        $task = new Task();
+//        $task->user_id = Auth::user()->id;
+//        $task->start_date = Carbon::now();
+//        $task->due_date = Carbon::now()->addDays(7);
+//        $task->importance = 'medium';
+        if (!empty($request->old())) $task->fill($request->old());
+        return $task;
+    }
+
+    public static function createSubTask(Request $request, Task $parentTask): Task
+    {
+        $task = self::createNewTask(['parent_task_id' => $parentTask->id]);
         if (!empty($request->old())) $task->fill($request->old());
         return $task;
     }
@@ -99,6 +120,21 @@ class TasksDataservice
             session()->flash('error', 'Не удалось обновить задачу');
         }
     }
+
+    //Пометить задачу и все ее дочерние задачи, как выполненную
+    public static function markAsDone(Task $task)
+    {
+        DB::statement('CALL po_mark_task_as_done(?)', [$task->id]);
+
+    }
+
+    //Пометить задачу и все ее дочерние задачи, как отмененную
+    public static function markAsCanceled(Task $task)
+    {
+        DB::statement('CALL po_mark_task_as_canceled(?)', [$task->id]);
+
+    }
+
 
 
 }

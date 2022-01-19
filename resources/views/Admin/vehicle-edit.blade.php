@@ -10,7 +10,7 @@
         @csrf
 
         <div class="row">
-            <div class="col-md6">
+            <div class="col-md-11">
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Тип техники </span>
                     <select name="vehicle_type_id"
@@ -251,7 +251,7 @@
             </div>
 
             <div class="col-md6 p-3">
-                <h4>Изображение ПТС/ПСМ</h4>
+                <h4>Изображение </h4>
                 <div class="card" style="width: 18rem;">
                     <img
                         @if($vehicle->img_file)

@@ -15,10 +15,16 @@ Route::group([
             ->name('tasks');
         Route::get('/add', [TaskController::class, 'create'])
             ->name('addTask');
+        Route::get('{parentTask}/addSubTask', [TaskController::class, 'createSubTask'])
+            ->name('addSubTask');
         Route::post('/add', [TaskController::class, 'store']);
         Route::get('{task}/edit', [TaskController::class, 'edit'])
             ->name('editTask');
         Route::post('{task}/edit', [TaskController::class, 'update']);
+        Route::get('{task}/complete', [TaskController::class, 'markAsDone'])
+            ->name('markTaskAsDone');
+        Route::get('{task}/cancel', [TaskController::class, 'markAsCanceled'])
+            ->name('markTaskAsCanceled');
 
     }
 );

@@ -14,7 +14,7 @@ class NewIndexForTaskPerformer extends Migration
     public function up()
     {
         Schema::table('tasks', function(Blueprint $table) {
-            $table->index(['task_performer_id']);
+//            $table->index(['task_performer_id']);
 //            $table->foreign('task_performer_id')->on('users')->references('id');
         });
     }

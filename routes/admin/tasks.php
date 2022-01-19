@@ -13,6 +13,8 @@ Route::group([
     function () {
         Route::get('/', [TaskController::class, 'index'])
             ->name('tasks');
+        Route::get('{user}/user-tasks', [TaskController::class, 'viewUserTasks'])
+            ->name('userTasks');
         Route::get('/add', [TaskController::class, 'create'])
             ->name('addTask');
         Route::get('{parentTask}/addSubTask', [TaskController::class, 'createSubTask'])

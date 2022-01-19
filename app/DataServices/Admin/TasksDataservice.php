@@ -34,6 +34,15 @@ class TasksDataservice
         return ['tasks' => $result, 'hideClosedTasks'=>$hideClosedTasks];
     }
 
+    public static function provideUserTasks(User $user): array
+    {
+        return Task::query()
+            ->where('parent_task_id','=', null)
+            ->where('user_id', '=', $user->id)
+            ->where('terminate_date', '=', null)
+            ->get();
+    }
+
     public static function provideEditor(Task $task): array
     {
         return ['task' => $task,
@@ -124,15 +133,23 @@ class TasksDataservice
     //Пометить задачу и все ее дочерние задачи, как выполненную
     public static function markAsDone(Task $task)
     {
-        DB::statement('CALL po_mark_task_as_done(?)', [$task->id]);
-
+        try {
+            DB::statement('CALL po_mark_task_as_done(?)', [$task->id]);
+            session()->flash('message', 'Задача помечена как выполненная');
+        } catch (Error $err) {
+            session()->flash('error', 'Не удалось завершить задачу');
+        }
     }
 
     //Пометить задачу и все ее дочерние задачи, как отмененную
     public static function markAsCanceled(Task $task)
     {
-        DB::statement('CALL po_mark_task_as_canceled(?)', [$task->id]);
-
+        try {
+            DB::statement('CALL po_mark_task_as_canceled(?)', [$task->id]);
+            session()->flash('message', 'Задача отменена');
+        } catch (Error $err) {
+            session()->flash('error', 'Не удалось отменить задачу');
+        }
     }
 
 

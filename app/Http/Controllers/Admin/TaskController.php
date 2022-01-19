@@ -6,6 +6,7 @@ use App\DataServices\Admin\TasksDataservice;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TaskRequest;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -14,6 +15,11 @@ class TaskController extends Controller
     {
         return view('Admin.tasks.tasks',
             TasksDataservice::provideData());
+    }
+
+    public function viewUserTasks(Request $request, User $user)
+    {
+        return view ('Admin.tasks.user-tasks');
     }
 
     public function create(Request $request)

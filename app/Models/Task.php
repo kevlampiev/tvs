@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Validation\Rule;
 
 class Task extends Model
@@ -86,7 +87,10 @@ class Task extends Model
         }
     }
 
-
+    public function parentTask(): HasOne
+    {
+        return $this->HAsOne(Task::class,  'parent_task_id', 'id');
+    }
 
     public function documents():BelongsToMany
     {

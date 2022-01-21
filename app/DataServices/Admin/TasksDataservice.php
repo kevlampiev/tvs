@@ -39,11 +39,15 @@ class TasksDataservice
         $userAssignments = Task::query()
             ->where('task_performer_id', '=', $user->id)
             ->where('terminate_date', '=', null)
+            ->orderBy('user_id')
+            ->orderBy('due_date')
             ->get();
         $assignedByUser = Task::query()
             ->where('user_id', '=', $user->id)
             ->where('task_performer_id', '<>', $user->id)
             ->where('terminate_date', '=', null)
+            ->orderBy('task_performer_id')
+            ->orderBy('due_date')
             ->get();
         return [
             'userAssignments' => $userAssignments,

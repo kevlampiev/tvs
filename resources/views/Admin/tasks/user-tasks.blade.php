@@ -26,6 +26,7 @@
                                     <div class="card-body">
                                         <h5 class="card-title">{{$task->subject}}</h5>
                                         <p class="card-text font-italic text-secondary">{{$task->description}}</p>
+                                        <div class="text-right text-dark"> Срок исполнения: {{\Carbon\Carbon::parse($task->due_date)->format('d.m.Y')}}  Поставил задачу: {{$task->user->name}}</div>
                                     </div>
                                 </div>
 
@@ -47,9 +48,10 @@
                         <div class="card-body">
                             @forelse($assignedByUser as $task)
                                 <div class="card" >
-                                    <div class="card-body">
+                                    <div class="card-body bg-light">
                                         <h5 class="card-title">{{$task->subject}}</h5>
                                         <p class="card-text font-italic text-secondary">{{$task->description}}</p>
+                                        <div class="text-right text-dark"> Срок исполнения: {{\Carbon\Carbon::parse($task->due_date)->format('d.m.Y')}}  Поставил задачу: {{$task->user->name}}</div>
                                     </div>
                                 </div>
 

@@ -25,6 +25,7 @@
                   <ul class="dropdown-menu">
                         <li><a href="{{route('admin.addSubTask', ['parentTask' => $task])}}"> Добавить дочернюю</a></li>
                         @if($task->user_id === Auth::user()->id)
+                            <li><a href="{{route('admin.taskCard', ['task' => $task])}}" > Просмотр карточки</a></li>
                             <li><a href="{{route('admin.editTask', ['task' => $task])}}" > Изменить</a></li>
                             <li><a href="{{route('admin.markTaskAsDone', ['task' => $task])}}"
                                    onclick="return confirm('Действительно отметить задачу и все дочерние задачи как завершенные?')"> Завершить</a></li>
@@ -34,13 +35,6 @@
 
                   </ul>
             </div>
-
-
-{{--            <a href="#"> &#8853; Дочерняя</a>--}}
-{{--            @if($task->user_id === Auth::user()->id)--}}
-{{--                <a href="{{route('admin.editTask', ['task' => $task])}}" > &#9998; Изменить</a>--}}
-{{--                <a href="#"> &#10003; Завершить</a>--}}
-{{--            @endif--}}
         </span>
 
 

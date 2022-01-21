@@ -74,5 +74,10 @@ class TaskController extends Controller
         return redirect()->back();
     }
 
+    public function viewTaskCard(Task $task)
+    {
+        return view('Admin.tasks.task-card', ['task' =>$task]);
+    }
+
 
 }

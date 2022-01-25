@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Message extends Model
 {
@@ -31,6 +33,41 @@ class Message extends Model
             'agreement_id' => 'Договор',
             'vehicle_id' => 'Оборудование',
         ];
+    }
+
+    public function agreement(): BelongsTo
+    {
+        return $this->belongsTo(Agreement::class);
+
+    }
+
+    public function vehicle(): BelongsTo
+    {
+        return $this->belongsTo(Vehicle::class);
+
+    }
+
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class);
+
+    }
+
+    public function counterparty(): BelongsTo
+    {
+        return $this->belongsTo(Counterparty::class);
+
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+
+    }
+
+    public function replies():HasMany
+    {
+        return $this->hasMany(Message::class,'reply_to_message_id', 'id');
     }
 
 

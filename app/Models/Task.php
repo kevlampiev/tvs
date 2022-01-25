@@ -96,4 +96,9 @@ class Task extends Model
     {
         return $this->belongsToMany(Document::class);
     }
+
+    public function messages():HasMany
+    {
+        return $this->hasMany(Message::class);
+    }
 }

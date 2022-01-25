@@ -76,7 +76,7 @@ class TaskController extends Controller
 
     public function viewTaskCard(Task $task)
     {
-        return view('Admin.tasks.task-card', ['task' =>$task]);
+        return view('Admin.tasks.task-summary', ['task' =>$task]);
     }
 
 

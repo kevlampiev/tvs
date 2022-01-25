@@ -29,6 +29,9 @@ Route::group([
             ->name('markTaskAsDone');
         Route::get('{task}/cancel', [TaskController::class, 'markAsCanceled'])
             ->name('markTaskAsCanceled');
+        Route::get('{task}/addMessage', [TaskController::class, 'addMessage'])
+            ->name('addTaskMessage');
+        Route::post('{task}/addMessage', [TaskController::class, 'storeMessage']);
 
     }
 );

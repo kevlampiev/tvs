@@ -4,10 +4,12 @@
 namespace App\DataServices\Admin;
 
 
+use App\Http\Requests\MessageRequest;
 use App\Http\Requests\TaskRequest;
 use App\Models\Agreement;
 use App\Models\Company;
 use App\Models\Counterparty;
+use App\Models\Message;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\Vehicle;
@@ -160,5 +162,28 @@ class TasksDataservice
     }
 
 
+    public static function createTaskMessage(Request $request, Task $task): Message
+    {
+        $message = new Message();
+        $message->fill(['user_id' => Auth::user()->id,
+            'task_id'=> $task->id]);
+        if (!empty($request->old())) $message->fill($request->old());
+        return $message;
+    }
+
+    public static function storeTaskMessage(MessageRequest $request)
+    {
+        try {
+            $message = new Message();
+            $message->fill($request->all());
+//            dd($message);
+            if (!$message->user_id) $message->user_id = Auth::user()->id;
+            $message->created_at = now();
+            $message->save();
+            session()->flash('message', 'Добавлено новое сообщение');
+        } catch (Error $err) {
+            session()->flash('error', 'Не удалось добавить сообщение');
+        }
+    }
 
 }

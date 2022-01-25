@@ -11,6 +11,8 @@ class Message extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public static function rules(): array
     {
         return [

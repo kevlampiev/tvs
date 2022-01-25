@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataServices\Admin\TasksDataservice;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MessageRequest;
 use App\Http\Requests\TaskRequest;
+use App\Models\Message;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -77,6 +79,19 @@ class TaskController extends Controller
     public function viewTaskCard(Task $task)
     {
         return view('Admin.tasks.task-summary', ['task' =>$task]);
+    }
+
+    public function addMessage(Request $request, Task $task)
+    {
+        $message = TasksDataservice::createTaskMessage($request, $task);
+        return view('Admin.messages.message-edit',
+            ['message' => $message, 'task' => $task]);
+    }
+
+    public function storeMessage(MessageRequest $request, Task $task)
+    {
+        TasksDataservice::storeTaskMessage($request);
+        return redirect()->route('admin.taskCard', ['task' => $task]);
     }
 
 

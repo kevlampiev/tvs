@@ -1,4 +1,4 @@
-<span >
+<div>
     <span class="small">
         {{$message->user->name}}  {{\Carbon\Carbon::parse($message->created_at)->format('d.m.Y h:s')}}
     </span>
@@ -6,4 +6,4 @@
             {{$message->description}}
     </span>
     <a href="#">Ответить</a>
-</span>
+</div>

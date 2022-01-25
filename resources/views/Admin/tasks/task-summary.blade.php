@@ -119,7 +119,7 @@
             <h4>Сообщения</h4>
             <div class="card bg-light p-3">
                 <nav class="nav">
-                    <a class="btn btn-outline-info" aria-current="page" href="#">Новое сообщение</a>
+                    <a class="btn btn-outline-info" aria-current="page" href="{{route('admin.addTaskMessage', ['task'=>$task])}}">Новое сообщение</a>
                 </nav>
                 <div>
                     @include('Admin.messages.messages', ['messages' => $task->messages])

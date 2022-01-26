@@ -2,8 +2,6 @@
 
 namespace Tests\Feature\User;
 
-use App\Models\Agreement;
-use App\Models\InsuranceType;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;

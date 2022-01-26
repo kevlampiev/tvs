@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class TaskRequest extends FormRequest
 {
@@ -30,7 +29,7 @@ class TaskRequest extends FormRequest
             'task_performer_id' => 'required|exists:users,id',
             'start_date' => 'required|date',
             'due_date' => 'required|date|after:start_date',
-            'subject'=>'required|string',
+            'subject' => 'required|string',
             'description' => 'string|nullable',
             'parent_task_id' => 'nullable|exists:tasks,id'
         ];
@@ -43,7 +42,7 @@ class TaskRequest extends FormRequest
             'task_performer_id' => 'Исполнитель задачи',
             'start_date' => 'Дата начала исполнения',
             'due_date' => 'Дата окончания',
-            'subject'=>'Описание задачи',
+            'subject' => 'Описание задачи',
             'description' => 'Дополнительные данные',
             'parent_task_id' => 'Родительская задача',
         ];

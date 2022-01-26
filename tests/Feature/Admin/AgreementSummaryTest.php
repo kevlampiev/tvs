@@ -7,7 +7,6 @@ use App\Models\Agreement;
 use App\Models\AgreementNote;
 use App\Models\Document;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class AgreementSummaryTest extends TestCase
@@ -109,7 +108,7 @@ class AgreementSummaryTest extends TestCase
             ->assertSeeText('Новый платеж')
             ->assertSeeText('Добавить серию платежей')
             ->assertSeeText('Реальные оплаты');
-        if ($agreement->payments->count()>0) {
+        if ($agreement->payments->count() > 0) {
             $response->assertSeeText('Удалить все платеж');
         } else {
             $response->assertDontSeeText('Удалить все платеж');
@@ -124,7 +123,7 @@ class AgreementSummaryTest extends TestCase
     public function testDocumentsTab()
     {
         $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
-        $document = Document::query()->where('agreement_id','<>',null)->inRandomOrder()->first();
+        $document = Document::query()->where('agreement_id', '<>', null)->inRandomOrder()->first();
         $agreement = Agreement::find($document->agreement_id);
 
 
@@ -163,7 +162,7 @@ class AgreementSummaryTest extends TestCase
     public function testAddDocumentAsUser()
     {
         $agreement = Agreement::query()->inRandomOrder()->first();
-        $user = User::query()->where('role','=' , 'user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '=', 'user')->inRandomOrder()->first();
 
         $response = $this->actingAs($user)
             ->get(route('admin.addAgreementDocument', ['agreement' => $agreement]))
@@ -171,7 +170,7 @@ class AgreementSummaryTest extends TestCase
             ->assertRedirect(route('home'));
     }
 
-   /**
+    /**
      *Проверяем, что невозможно открыть страницу изменения документа по договору неавторизованному
      *пользователю
      *
@@ -180,7 +179,7 @@ class AgreementSummaryTest extends TestCase
 
     public function testEditDocumentUnauthorized()
     {
-        $document = Document::query()->where('agreement_id','<>', null)
+        $document = Document::query()->where('agreement_id', '<>', null)
             ->inRandomOrder()->first();
 
         $response = $this->get(route('admin.editAgreementDocument', ['document' => $document]))
@@ -196,9 +195,9 @@ class AgreementSummaryTest extends TestCase
 
     public function testEditDocumentAsUser()
     {
-        $document = Document::query()->where('agreement_id','<>', null)
+        $document = Document::query()->where('agreement_id', '<>', null)
             ->inRandomOrder()->first();
-        $user = User::query()->where('role','=' , 'user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '=', 'user')->inRandomOrder()->first();
 
         $response = $this->actingAs($user)
             ->get(route('admin.editAgreementDocument', ['document' => $document]))
@@ -215,7 +214,7 @@ class AgreementSummaryTest extends TestCase
     public function testAddDocumentAsManager()
     {
         $agreement = Agreement::query()->inRandomOrder()->first();
-        $user = User::query()->where('role','<>' , 'user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
 
         $response = $this->actingAs($user)
             ->get(route('admin.addAgreementDocument', ['agreement' => $agreement]))
@@ -236,9 +235,9 @@ class AgreementSummaryTest extends TestCase
 
     public function testEditDocumentAsManager()
     {
-        $document = Document::query()->where('agreement_id','<>', null)
+        $document = Document::query()->where('agreement_id', '<>', null)
             ->inRandomOrder()->first();
-        $user = User::query()->where('role','<>' , 'user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
 
         $response = $this->actingAs($user)
             ->get(route('admin.editAgreementDocument', ['document' => $document]))
@@ -262,7 +261,7 @@ class AgreementSummaryTest extends TestCase
     public function testNotesTab()
     {
         $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
-        $note = AgreementNote::query()->where('agreement_id','<>',null)->inRandomOrder()->first();
+        $note = AgreementNote::query()->where('agreement_id', '<>', null)->inRandomOrder()->first();
         $agreement = Agreement::find($note->agreement_id);
 
 
@@ -273,8 +272,7 @@ class AgreementSummaryTest extends TestCase
             ->assertSeeText('Заметки по догору')
             ->assertSeeText('Добавить заметку')
             ->assertSeeText($note->note_body)
-            ->assertSeeText($note->user->name)
-        ;
+            ->assertSeeText($note->user->name);
     }
 
     /**
@@ -302,7 +300,7 @@ class AgreementSummaryTest extends TestCase
     public function testAddNoteAsUser()
     {
         $agreement = Agreement::query()->inRandomOrder()->first();
-        $user = User::query()->where('role','=' , 'user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '=', 'user')->inRandomOrder()->first();
 
         $response = $this->actingAs($user)
             ->get(route('admin.addAgreementNote', ['agreement' => $agreement]))
@@ -335,7 +333,7 @@ class AgreementSummaryTest extends TestCase
     public function testEditNoteAsUser()
     {
         $note = AgreementNote::query()->inRandomOrder()->first();
-        $user = User::query()->where('role','=' , 'user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '=', 'user')->inRandomOrder()->first();
 
         $response = $this->actingAs($user)
             ->get(route('admin.editAgreementNote', ['agreementNote' => $note]))
@@ -352,7 +350,7 @@ class AgreementSummaryTest extends TestCase
     public function testAddNoteAsManager()
     {
         $agreement = Agreement::query()->inRandomOrder()->first();
-        $user = User::query()->where('role','<>' , 'user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
 
         $response = $this->actingAs($user)
             ->get(route('admin.addAgreementNote', ['agreement' => $agreement]))
@@ -374,7 +372,7 @@ class AgreementSummaryTest extends TestCase
     public function testEditNoteAsManager()
     {
         $note = AgreementNote::query()->inRandomOrder()->first();
-        $user = $note ->user;
+        $user = $note->user;
 
         $response = $this->actingAs($user)
             ->get(route('admin.editAgreementNote', ['agreementNote' => $note]))

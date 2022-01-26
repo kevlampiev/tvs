@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Validation\Rule;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Task extends Model
 {
@@ -21,7 +21,7 @@ class Task extends Model
             'task_performer_id' => 'required|exists:users,id',
             'start_date' => 'required|date',
             'due_date' => 'required|date|after:start_date',
-            'subject'=>'required|string',
+            'subject' => 'required|string',
             'description' => 'string|nullable',
             'parent_task_id' => 'nullable|exists:tasks,id'
         ];
@@ -34,7 +34,7 @@ class Task extends Model
             'task_performer_id' => 'Исполнитель задачи',
             'start_date' => 'ДАта начала исполнения',
             'due_date' => 'Дата окончания',
-            'subject'=>'Описание задачи',
+            'subject' => 'Описание задачи',
             'description' => 'Дополнительные данные',
             'parent_task_id' => 'Родительская задача',
         ];
@@ -55,28 +55,24 @@ class Task extends Model
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
-
     }
 
     public function counterparty(): BelongsTo
     {
         return $this->belongsTo(Counterparty::class);
-
     }
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-
     }
 
     public function performer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'task_performer_id');
-
     }
 
-    public function subTasks(bool $hideClosedTasks=true): HasMany
+    public function subTasks(bool $hideClosedTasks = true): HasMany
     {
         $result = $this->hasMany(Task::class, 'parent_task_id');
         if ($hideClosedTasks) {
@@ -86,10 +82,18 @@ class Task extends Model
         }
     }
 
+    public function parentTask(): HasOne
+    {
+        return $this->HAsOne(Task::class, 'parent_task_id', 'id');
+    }
 
-
-    public function documents():BelongsToMany
+    public function documents(): BelongsToMany
     {
         return $this->belongsToMany(Document::class);
+    }
+
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class);
     }
 }

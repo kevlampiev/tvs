@@ -31,13 +31,13 @@ class UpcomingPaymentsTest extends TestCase
         $user = User::query()->inRandomOrder()->first();
         //берем незакрытый договор
         $agreement = Agreement::query()
-            ->where('real_date_close','=', null)
+            ->where('real_date_close', '=', null)
             ->inRandomOrder()
             ->first();
         //берем закрытый договор
         $agreementClosed = Agreement::query()
             ->whereNotNull('real_date_close')
-            ->where('real_date_close','<=', now())
+            ->where('real_date_close', '<=', now())
             ->inRandomOrder()
             ->first();
         $this->actingAs($user)

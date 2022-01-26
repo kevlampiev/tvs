@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataServices\Admin\TasksDataservice;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MessageRequest;
 use App\Http\Requests\TaskRequest;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -14,6 +17,11 @@ class TaskController extends Controller
     {
         return view('Admin.tasks.tasks',
             TasksDataservice::provideData());
+    }
+
+    public function viewUserTasks(Request $request, User $user)
+    {
+        return view('Admin.tasks.user-tasks', TasksDataservice::provideUserTasks(Auth::user()));
     }
 
     public function create(Request $request)
@@ -65,6 +73,30 @@ class TaskController extends Controller
     {
         TasksDataservice::markAsCanceled($task);
         return redirect()->back();
+    }
+
+    public function markAsRunning(Task $task)
+    {
+        TasksDataservice::markAsRunning($task);
+        return redirect()->back();
+    }
+
+    public function viewTaskCard(Task $task)
+    {
+        return view('Admin.tasks.task-summary', ['task' => $task]);
+    }
+
+    public function addMessage(Request $request, Task $task)
+    {
+        $message = TasksDataservice::createTaskMessage($request, $task);
+        return view('Admin.messages.message-edit',
+            ['message' => $message, 'task' => $task]);
+    }
+
+    public function storeMessage(MessageRequest $request, Task $task)
+    {
+        TasksDataservice::storeTaskMessage($request);
+        return redirect()->route('admin.taskCard', ['task' => $task]);
     }
 
 

@@ -5,9 +5,6 @@ namespace Tests\Feature\Admin;
 
 use App\Models\AgreementType;
 use App\Models\User;
-use App\Models\Vehicle;
-use App\Models\VehicleType;
-use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class AgreementTypesTest extends TestCase

@@ -4,10 +4,12 @@
 namespace App\DataServices\Admin;
 
 
+use App\Http\Requests\MessageRequest;
 use App\Http\Requests\TaskRequest;
 use App\Models\Agreement;
 use App\Models\Company;
 use App\Models\Counterparty;
+use App\Models\Message;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\Vehicle;
@@ -19,19 +21,40 @@ use Illuminate\Support\Facades\DB;
 
 class TasksDataservice
 {
-    public static function provideData(bool $hideClosedTasks=true): array
+    public static function provideData(bool $hideClosedTasks = true): array
     {
         if ($hideClosedTasks) {
             $result = Task::query()
-                ->where('parent_task_id','=', null)
+                ->where('parent_task_id', '=', null)
                 ->where('terminate_date', '=', null)
                 ->get();
         } else {
             $result = Task::query()
-                ->where('parent_task_id','=', null)
+                ->where('parent_task_id', '=', null)
                 ->get();;
         }
-        return ['tasks' => $result, 'hideClosedTasks'=>$hideClosedTasks];
+        return ['tasks' => $result, 'hideClosedTasks' => $hideClosedTasks];
+    }
+
+    public static function provideUserTasks(User $user): array
+    {
+        $userAssignments = Task::query()
+            ->where('task_performer_id', '=', $user->id)
+            ->where('terminate_date', '=', null)
+            ->orderBy('user_id')
+            ->orderBy('due_date')
+            ->get();
+        $assignedByUser = Task::query()
+            ->where('user_id', '=', $user->id)
+            ->where('task_performer_id', '<>', $user->id)
+            ->where('terminate_date', '=', null)
+            ->orderBy('task_performer_id')
+            ->orderBy('due_date')
+            ->get();
+        return [
+            'userAssignments' => $userAssignments,
+            'assignedByUser' => $assignedByUser,
+        ];
     }
 
     public static function provideEditor(Task $task): array
@@ -41,12 +64,12 @@ class TasksDataservice
             'users' => User::all(),
             'tasks' => Task::query()->select(['id', 'subject'])->get(),
             'agreements' => Agreement::query()
-                ->select(['id','name', 'agr_number','date_open'])->get(),
+                ->select(['id', 'name', 'agr_number', 'date_open'])->get(),
             'vehicles' => Vehicle::query()->select(['id', 'name', 'vin', 'bort_number'])->get(),
             'companies' => Company::query()->select(['id', 'name'])->get(),
             'counterparties' => Counterparty::query()->select(['id', 'name'])->get(),
-            'importances' => ['low' => 'Низкая', 'medium' => 'Обычная', 'high'=>'Высокая'],
-            ];
+            'importances' => ['low' => 'Низкая', 'medium' => 'Обычная', 'high' => 'Высокая'],
+        ];
     }
 
     private static function createNewTask(array $params): Task
@@ -64,11 +87,6 @@ class TasksDataservice
     public static function create(Request $request): Task
     {
         $task = self::createNewTask([]);
-//        $task = new Task();
-//        $task->user_id = Auth::user()->id;
-//        $task->start_date = Carbon::now();
-//        $task->due_date = Carbon::now()->addDays(7);
-//        $task->importance = 'medium';
         if (!empty($request->old())) $task->fill($request->old());
         return $task;
     }
@@ -124,17 +142,61 @@ class TasksDataservice
     //Пометить задачу и все ее дочерние задачи, как выполненную
     public static function markAsDone(Task $task)
     {
-        DB::statement('CALL po_mark_task_as_done(?)', [$task->id]);
-
+        try {
+            DB::statement('CALL po_mark_task_as_done(?)', [$task->id]);
+            session()->flash('message', 'Задача помечена как выполненная');
+        } catch (Error $err) {
+            session()->flash('error', 'Не удалось завершить задачу');
+        }
     }
 
     //Пометить задачу и все ее дочерние задачи, как отмененную
     public static function markAsCanceled(Task $task)
     {
-        DB::statement('CALL po_mark_task_as_canceled(?)', [$task->id]);
+        try {
+            DB::statement('CALL po_mark_task_as_canceled(?)', [$task->id]);
+            session()->flash('message', 'Задача отменена');
+        } catch (Error $err) {
+            session()->flash('error', 'Не удалось отменить задачу');
+        }
+    }
 
+    //Пометить задачу и все ее дочерние задачи, как отмененную
+    public static function markAsRunning(Task $task)
+    {
+        try {
+            $task->terminate_date = null;
+            $task->terminate_status = null;
+            $task->save();
+            session()->flash('message', 'Задача восстановлена');
+        } catch (Error $err) {
+            session()->flash('error', 'Не удалось восстановить задачу');
+        }
     }
 
 
+    public static function createTaskMessage(Request $request, Task $task): Message
+    {
+        $message = new Message();
+        $message->fill(['user_id' => Auth::user()->id,
+            'task_id' => $task->id]);
+        if (!empty($request->old())) $message->fill($request->old());
+        return $message;
+    }
+
+    public static function storeTaskMessage(MessageRequest $request)
+    {
+        try {
+            $message = new Message();
+            $message->fill($request->all());
+//            dd($message);
+            if (!$message->user_id) $message->user_id = Auth::user()->id;
+            $message->created_at = now();
+            $message->save();
+            session()->flash('message', 'Добавлено новое сообщение');
+        } catch (Error $err) {
+            session()->flash('error', 'Не удалось добавить сообщение');
+        }
+    }
 
 }

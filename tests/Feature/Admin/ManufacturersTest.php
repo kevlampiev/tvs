@@ -5,9 +5,6 @@ namespace Tests\Feature\Admin;
 
 use App\Models\Manufacturer;
 use App\Models\User;
-use App\Models\Vehicle;
-use App\Models\VehicleType;
-use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class ManufacturersTest extends TestCase

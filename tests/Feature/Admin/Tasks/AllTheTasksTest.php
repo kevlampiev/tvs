@@ -4,10 +4,7 @@ namespace Tests\Feature\Admin\Tasks;
 
 
 use App\Models\Task;
-use App\Models\Insurance;
 use App\Models\User;
-use App\Models\Vehicle;
-use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class AllTheTasksTest extends TestCase
@@ -50,12 +47,12 @@ class AllTheTasksTest extends TestCase
         $response->assertStatus(200)
             ->assertSeeText('Задачи')
             ->assertSeeText('Добавить новую задачу');
-        $task = Task::query()->where('parent_task_id','=', null)
-            ->where('terminate_date','=', null)->inRandomOrder()->first();
+        $task = Task::query()->where('parent_task_id', '=', null)
+            ->where('terminate_date', '=', null)->inRandomOrder()->first();
 
         if ($task) {
             $response->assertSeeText('Управление задачей')
-            ->assertSeeText($task->subject);
+                ->assertSeeText($task->subject);
         } else {
             $response->assertDontSeeText('Управление задачей')
                 ->assertSeeText('Нет записей');

@@ -3,10 +3,8 @@
 namespace Tests\Feature\Admin;
 
 
-use App\Models\Agreement;
 use App\Models\User;
 use App\Models\Vehicle;
-use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class VehiclePhotoAddTest extends TestCase
@@ -48,7 +46,7 @@ class VehiclePhotoAddTest extends TestCase
      */
     public function testAsManager()
     {
-        $user = User::query()->where('role', '<>','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         $vehicle = Vehicle::query()
             ->inRandomOrder()->first();
         $this->actingAs($user)
@@ -58,8 +56,7 @@ class VehiclePhotoAddTest extends TestCase
             ->assertSeeText('Добавить')
             ->assertSeeText('Отмена')
             ->assertSeeText('Комментарий')
-            ->assertSee($vehicle->name)
-        ;
+            ->assertSee($vehicle->name);
     }
 
 

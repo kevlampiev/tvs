@@ -3,7 +3,6 @@
 namespace tests\Feature;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class RootTest extends TestCase

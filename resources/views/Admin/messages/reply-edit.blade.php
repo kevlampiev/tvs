@@ -6,13 +6,15 @@
 
 @section('content')
     <h3> @if ($message->id) Изменение сообщения @else Новое сообщение @endif</h3>
-    <form action="{{$message->id?route('admin.editMessage', $message->id):route('admin.addTaskMessage', ['message' =>$message, 'task' => $task])}}" method="POST" enctype="multipart/form-data">
+    <form
+{{--        action="{{$message->id?route('admin.editMessage', ['message' => $message]):route('admin.messageReply', ['message' => $message])}}"--}}
+        method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row">
             <div class="col-md-10">
-            <h4>по задаче: {{$task->subject}}</h4>
-            <input type="hidden" name="user_id" value="{{$task->user_id}}">
-            <input type="hidden" name="task_id" value="{{$task->id}}">
+            <h4>ответ на сообщение: </h4>
+            <input type="hidden" name="user_id" value="{{$message->user_id}}">
+            <input type="hidden" name="reply_to_message_id" value="{{$message->reply_to_message_id}}">
 
             <!-- Поле ввода описания -->
                 <div class="form-group">
@@ -36,7 +38,7 @@
 
         <div class="mt-10">
             <button type="submit" class="btn btn-primary">
-                @if ($task->id)  Изменить @else Добавить @endif
+                @if ($message->id)  Изменить @else Добавить @endif
             </button>
             <a class="btn btn-secondary" href="{{url()->previous()}}">Отмена</a>
         </div>

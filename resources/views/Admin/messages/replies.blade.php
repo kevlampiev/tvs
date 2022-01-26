@@ -1,6 +1,6 @@
 @foreach($replies as $message)
     @if(count($message->replies)>0)
-        <details>
+        <details open>
             <summary class="has-child">
                 @include('Admin.messages.message-record')
             </summary>
@@ -9,7 +9,7 @@
             </div>
         </details>
     @else
-        <div class="no-childs">
+        <div class="ml-3">
             @include('Admin.messages.message-record')
         </div>
     @endif

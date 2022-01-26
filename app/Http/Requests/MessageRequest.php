@@ -27,9 +27,9 @@ class MessageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required|exists:users,id',
+//            'user_id' => 'required|exists:users,id',
             'subject'=>'nullable|string',
-            'description' => 'string|nullable',
+            'description' => 'required|string',
             'task_id' => 'nullable|exists:tasks,id',
             'reply_to_message_id' => 'nullable|exists:messages,id'
         ];

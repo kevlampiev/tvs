@@ -21,6 +21,7 @@ class AddColumnTaskItToMessages extends Migration
             $table->unsignedBigInteger('company_id')->nullable()->change();
             $table->unsignedBigInteger('counterparty_id')->nullable()->change();
             $table->unsignedBigInteger('reply_to_message_id')->nullable()->change();
+            $table->mediumText('description')->nullable(false)->change();
         });
 
         Schema::table('messages', function (Blueprint $table) {

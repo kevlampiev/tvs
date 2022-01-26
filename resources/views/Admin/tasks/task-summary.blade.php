@@ -137,7 +137,9 @@
 
 @endsection
 
+
 @section('styles')
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
@@ -147,6 +149,24 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+    <style>
+        summary::-webkit-details-marker {
+            display: none
+        }
 
+        summary:before {
+            /*background: url(some-picture);*/
+            float: left;
+            /*height: 20px;*/
+            width: 10px;
+            content: "+";
+        }
+
+        details[open]>summary:before {
+            /*background: url(other-picture);*/
+            content: "-";
+        }
+
+    </style>
 
 @endsection

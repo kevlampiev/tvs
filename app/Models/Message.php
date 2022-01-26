@@ -37,6 +37,12 @@ class Message extends Model
         ];
     }
 
+    public function task(): BelongsTo
+    {
+        return $this->belongsTo(Task::class);
+
+    }
+
     public function agreement(): BelongsTo
     {
         return $this->belongsTo(Agreement::class);

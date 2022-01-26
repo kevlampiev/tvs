@@ -23,11 +23,13 @@
                         <div class="card-body">
                             @forelse($userAssignments as $task)
                                 <div class="card" >
+                                    <a href="{{route('admin.taskCard', ['task' => $task])}}">
                                     <div class="card-body">
                                         <h5 class="card-title">{{$task->subject}}</h5>
                                         <p class="card-text font-italic text-secondary">{{$task->description}}</p>
                                         <div class="text-right text-dark"> Срок исполнения: {{\Carbon\Carbon::parse($task->due_date)->format('d.m.Y')}}  Поставил задачу: {{$task->user->name}}</div>
                                     </div>
+                                    </a>
                                 </div>
 
                             @empty

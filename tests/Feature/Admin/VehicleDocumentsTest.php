@@ -3,12 +3,8 @@
 namespace Tests\Feature\Admin;
 
 
-use App\Models\Counterparty;
 use App\Models\Document;
 use App\Models\User;
-use App\Models\Vehicle;
-use App\Models\VehicleType;
-use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class VehicleDocumentsTest extends TestCase
@@ -21,15 +17,15 @@ class VehicleDocumentsTest extends TestCase
      */
     public function testUnauthorized()
     {
-        $document = Document::query()->where('vehicle_id','<>',null)->first();
+        $document = Document::query()->where('vehicle_id', '<>', null)->first();
         $vehicle = $document->vehicle;
         //Не можем войти в список
-        $this->get(route('admin.addVehicleDocument', ['vehicle'=>$vehicle]))
+        $this->get(route('admin.addVehicleDocument', ['vehicle' => $vehicle]))
             ->assertStatus(302)
             ->assertRedirect('login');
 
         //не проходим на страницу редактирования
-        $this->get(route('admin.editVehicleDocument', ['vehicle'=>$vehicle, 'document' => $document]))
+        $this->get(route('admin.editVehicleDocument', ['vehicle' => $vehicle, 'document' => $document]))
             ->assertStatus(302)
             ->assertRedirect('login');
     }
@@ -42,17 +38,17 @@ class VehicleDocumentsTest extends TestCase
      */
     public function testAsUser()
     {
-        $document = Document::query()->where('vehicle_id','<>',null)->first();
+        $document = Document::query()->where('vehicle_id', '<>', null)->first();
         $vehicle = $document->vehicle;
         //Не можем войти в список
         $user = User::query()->where('role', 'user')->inRandomOrder()->first();
-        $this->actingAs($user)->get(route('admin.addVehicleDocument', ['vehicle'=>$vehicle]))
+        $this->actingAs($user)->get(route('admin.addVehicleDocument', ['vehicle' => $vehicle]))
             ->assertStatus(302)
             ->assertRedirect(route('home'));
 
         //не проходим на страницу добавления
         $this->actingAs($user)
-            ->get(route('admin.editVehicleDocument', ['vehicle'=>$vehicle, 'document' => $document]))
+            ->get(route('admin.editVehicleDocument', ['vehicle' => $vehicle, 'document' => $document]))
             ->assertStatus(302)
             ->assertRedirect(route('home'));
     }
@@ -65,10 +61,10 @@ class VehicleDocumentsTest extends TestCase
     public function testAddVehicleDocument()
     {
         $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
-        $document = Document::query()->where('vehicle_id','<>',null)->first();
+        $document = Document::query()->where('vehicle_id', '<>', null)->first();
         $vehicle = $document->vehicle;
 
-        $this->actingAs($user)->get(route('admin.addVehicleDocument', ['vehicle'=>$vehicle]))
+        $this->actingAs($user)->get(route('admin.addVehicleDocument', ['vehicle' => $vehicle]))
             ->assertStatus(200)
             ->assertSeeText('Добавить новый документ')
             ->assertSeeText('Файл полиса отсутствует')
@@ -87,10 +83,10 @@ class VehicleDocumentsTest extends TestCase
     public function testEditVehicleDocument()
     {
         $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
-        $document = Document::query()->where('vehicle_id','<>',null)->first();
+        $document = Document::query()->where('vehicle_id', '<>', null)->first();
         $vehicle = $document->vehicle;
 
-        $this->actingAs($user)->get(route('admin.editVehicleDocument', ['vehicle'=>$vehicle, 'document' => $document]))
+        $this->actingAs($user)->get(route('admin.editVehicleDocument', ['vehicle' => $vehicle, 'document' => $document]))
             ->assertStatus(200)
             ->assertSeeText('Изменение данных')
             ->assertSeeText('Файл доступен для скачивания')

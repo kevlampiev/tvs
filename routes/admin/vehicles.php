@@ -3,8 +3,8 @@
 use App\Http\Controllers\Admin\ManufacturersController;
 use App\Http\Controllers\Admin\VehicleController;
 use App\Http\Controllers\Admin\VehicleNoteController;
-use App\Http\Controllers\Admin\VehicleTypeController;
 use App\Http\Controllers\Admin\VehiclePhotoController;
+use App\Http\Controllers\Admin\VehicleTypeController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -80,7 +80,7 @@ Route::group([
                 Route::post('edit/{vehiclePhoto}', [VehiclePhotoController::class, 'update']);
                 Route::get('delete/{vehiclePhoto}', [VehiclePhotoController::class, 'erase'])
                     ->name('deleteVehiclePhoto');
-                Route::get('show/{vehiclePhoto}',[VehiclePhotoController::class, 'show'])
+                Route::get('show/{vehiclePhoto}', [VehiclePhotoController::class, 'show'])
                     ->name('showVehiclePhoto');
             });
     });

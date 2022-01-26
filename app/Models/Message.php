@@ -16,7 +16,7 @@ class Message extends Model
     public static function rules(): array
     {
         return [
-            'subject'=>'required|string',
+            'subject' => 'required|string',
             'description' => 'string|nullable',
             'vehicle_id' => 'nullable|exists:vehicles,id',
             'agreement_id' => 'nullable|exists:agreements,id',
@@ -73,9 +73,9 @@ class Message extends Model
 
     }
 
-    public function replies():HasMany
+    public function replies(): HasMany
     {
-        return $this->hasMany(Message::class,'reply_to_message_id', 'id');
+        return $this->hasMany(Message::class, 'reply_to_message_id', 'id');
     }
 
 

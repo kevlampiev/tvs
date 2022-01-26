@@ -3,11 +3,7 @@
 namespace Tests\Feature\Admin;
 
 
-use App\Models\Manufacturer;
 use App\Models\User;
-use App\Models\Vehicle;
-use App\Models\VehicleType;
-use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class ExportsInsuranceTest extends TestCase
@@ -33,12 +29,13 @@ class ExportsInsuranceTest extends TestCase
      */
     public function testExportAsUser()
     {
-        $user = User::query()->where('role','=','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '=', 'user')->inRandomOrder()->first();
         //Не можем войти в список
         $this->actingAs($user)->get(route('admin.exportInsurances'))
             ->assertStatus(302)
             ->assertRedirect(route('home'));
     }
+
     /**
      *Можно скачать с ролью manager или admin
      *
@@ -46,12 +43,11 @@ class ExportsInsuranceTest extends TestCase
      */
     public function testExportAsManager()
     {
-        $user = User::query()->where('role','<>','user')->inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         //Не можем войти в список
         $this->actingAs($user)->get(route('admin.exportInsurances'))
             ->assertStatus(200);
     }
-
 
 
 }

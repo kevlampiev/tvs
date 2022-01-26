@@ -5,7 +5,6 @@ namespace Tests\Feature\Admin;
 
 use App\Models\Agreement;
 use App\Models\User;
-use App\Models\Vehicle;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 

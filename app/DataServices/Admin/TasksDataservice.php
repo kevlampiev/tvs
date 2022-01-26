@@ -21,19 +21,19 @@ use Illuminate\Support\Facades\DB;
 
 class TasksDataservice
 {
-    public static function provideData(bool $hideClosedTasks=true): array
+    public static function provideData(bool $hideClosedTasks = true): array
     {
         if ($hideClosedTasks) {
             $result = Task::query()
-                ->where('parent_task_id','=', null)
+                ->where('parent_task_id', '=', null)
                 ->where('terminate_date', '=', null)
                 ->get();
         } else {
             $result = Task::query()
-                ->where('parent_task_id','=', null)
+                ->where('parent_task_id', '=', null)
                 ->get();;
         }
-        return ['tasks' => $result, 'hideClosedTasks'=>$hideClosedTasks];
+        return ['tasks' => $result, 'hideClosedTasks' => $hideClosedTasks];
     }
 
     public static function provideUserTasks(User $user): array
@@ -64,12 +64,12 @@ class TasksDataservice
             'users' => User::all(),
             'tasks' => Task::query()->select(['id', 'subject'])->get(),
             'agreements' => Agreement::query()
-                ->select(['id','name', 'agr_number','date_open'])->get(),
+                ->select(['id', 'name', 'agr_number', 'date_open'])->get(),
             'vehicles' => Vehicle::query()->select(['id', 'name', 'vin', 'bort_number'])->get(),
             'companies' => Company::query()->select(['id', 'name'])->get(),
             'counterparties' => Counterparty::query()->select(['id', 'name'])->get(),
-            'importances' => ['low' => 'Низкая', 'medium' => 'Обычная', 'high'=>'Высокая'],
-            ];
+            'importances' => ['low' => 'Низкая', 'medium' => 'Обычная', 'high' => 'Высокая'],
+        ];
     }
 
     private static function createNewTask(array $params): Task
@@ -161,12 +161,25 @@ class TasksDataservice
         }
     }
 
+    //Пометить задачу и все ее дочерние задачи, как отмененную
+    public static function markAsRunning(Task $task)
+    {
+        try {
+            $task->terminate_date = null;
+            $task->terminate_status = null;
+            $task->save();
+            session()->flash('message', 'Задача восстановлена');
+        } catch (Error $err) {
+            session()->flash('error', 'Не удалось восстановить задачу');
+        }
+    }
+
 
     public static function createTaskMessage(Request $request, Task $task): Message
     {
         $message = new Message();
         $message->fill(['user_id' => Auth::user()->id,
-            'task_id'=> $task->id]);
+            'task_id' => $task->id]);
         if (!empty($request->old())) $message->fill($request->old());
         return $message;
     }

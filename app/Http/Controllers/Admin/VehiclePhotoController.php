@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataServices\Admin\VehicleNotesDataservice;
 use App\DataServices\Admin\VehiclePhotoDataservice;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\VehicleNoteRequest;
 use App\Http\Requests\VehiclePhotoAddRequest;
 use App\Http\Requests\VehiclePhotoEditRequest;
 use App\Models\Vehicle;
-use App\Models\VehicleNote;
 use App\Models\VehiclePhoto;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,7 +16,7 @@ class VehiclePhotoController extends Controller
     public function show(Request $request, VehiclePhoto $vehiclePhoto)
     {
         return response()
-            ->file(storage_path('app/public/img/vehicles/').$vehiclePhoto->img_file);
+            ->file(storage_path('app/public/img/vehicles/') . $vehiclePhoto->img_file);
     }
 
     public function create(Request $request, Vehicle $vehicle)

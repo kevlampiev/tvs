@@ -34,17 +34,16 @@ Route::group([
     'prefix' => 'export',
     'middleware' => 'is.admin'
 ],
-    function ()
-    {
-        Route::get('payments',[ExportPaymentsController::class,'exportAgreementPayments'])
+    function () {
+        Route::get('payments', [ExportPaymentsController::class, 'exportAgreementPayments'])
             ->name('exportAgreementPayments');
-        Route::get('real-payments',[ExportPaymentsController::class,'exportRealPayments'])
+        Route::get('real-payments', [ExportPaymentsController::class, 'exportRealPayments'])
             ->name('exportRealPayments');
-        Route::get('vehicles',[ExportVehiclesController::class,'exportVehicles'])
+        Route::get('vehicles', [ExportVehiclesController::class, 'exportVehicles'])
             ->name('exportVehicles');
-        Route::get('insurances',[ExportInsurancesController::class,'exportInsurances'])
+        Route::get('insurances', [ExportInsurancesController::class, 'exportInsurances'])
             ->name('exportInsurances');
-        Route::get('agreements',[ExportAgreementsController::class,'exportAgreements'])
+        Route::get('agreements', [ExportAgreementsController::class, 'exportAgreements'])
             ->name('exportAgreements');
     }
-    );
+);

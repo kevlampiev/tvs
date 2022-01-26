@@ -1,8 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\InsuranceCompanyController;
-use App\Http\Controllers\Admin\InsuranceController;
-use App\Http\Controllers\Admin\InsuranceTypesController;
 use App\Http\Controllers\Admin\TaskController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +26,8 @@ Route::group([
             ->name('markTaskAsDone');
         Route::get('{task}/cancel', [TaskController::class, 'markAsCanceled'])
             ->name('markTaskAsCanceled');
+        Route::get('{task}/restore', [TaskController::class, 'markAsRunning'])
+            ->name('markTaskAsRunning');
         Route::get('{task}/addMessage', [TaskController::class, 'addMessage'])
             ->name('addTaskMessage');
         Route::post('{task}/addMessage', [TaskController::class, 'storeMessage']);

@@ -6,8 +6,6 @@ namespace Tests\Feature\Admin;
 use App\Models\User;
 use App\Models\Vehicle;
 use App\Models\VehicleNote;
-use App\Models\VehicleType;
-use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class vehicleNotesTest extends TestCase
@@ -25,7 +23,7 @@ class vehicleNotesTest extends TestCase
         $vehicle = $vehicleNote->vehicle;
 
         //Не можем войти в список
-        $this->get(route('admin.addVehicleNote',['vehicle' => $vehicle]))
+        $this->get(route('admin.addVehicleNote', ['vehicle' => $vehicle]))
             ->assertStatus(302)
             ->assertRedirect('login');
 
@@ -50,7 +48,7 @@ class vehicleNotesTest extends TestCase
 
         //Не можем войти в список
         $this->actingAs($user)
-            ->get(route('admin.addVehicleNote',['vehicle' => $vehicle]))
+            ->get(route('admin.addVehicleNote', ['vehicle' => $vehicle]))
             ->assertStatus(302)
             ->assertRedirect(route('home'));
 
@@ -71,7 +69,7 @@ class vehicleNotesTest extends TestCase
         $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         $vehicle = Vehicle::query()->inRandomOrder()->first();
 
-        $this->actingAs($user)->get(route('admin.addVehicleNote',['vehicle' => $vehicle]))
+        $this->actingAs($user)->get(route('admin.addVehicleNote', ['vehicle' => $vehicle]))
             ->assertStatus(200)
             ->assertSeeText('Добавить заметку')
             ->assertSee($vehicle->name)
@@ -90,7 +88,7 @@ class vehicleNotesTest extends TestCase
         $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         $vehicleNote = VehicleNote::query()->inRandomOrder()->first();
 
-        $this->actingAs($user)->get(route('admin.editVehicleNote',['vehicleNote' => $vehicleNote]))
+        $this->actingAs($user)->get(route('admin.editVehicleNote', ['vehicleNote' => $vehicleNote]))
             ->assertStatus(200)
             ->assertSeeText('Редактирование заметки')
             ->assertSee($vehicleNote->vehicle->name)

@@ -3,18 +3,14 @@
 namespace Tests\Feature\Admin\Tasks;
 
 
-use App\Models\Task;
-use App\Models\Insurance;
 use App\Models\User;
-use App\Models\Vehicle;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class AddTaskTest extends TestCase
 {
 
-    private function createTask(User $user=null):array
+    private function createTask(User $user = null): array
     {
 //        $user = $user??User::query()->inRandomOrder()->first();
 //        $task = new Task();
@@ -28,7 +24,7 @@ class AddTaskTest extends TestCase
 //            ]);
 //        return $task;
 
-        $user = $user??User::query()->inRandomOrder()->first();
+        $user = $user ?? User::query()->inRandomOrder()->first();
         return ['user_id' => $user,
             'task_performer_id' => $user,
             'start_date' => Carbon::now()->toDateString(),
@@ -36,7 +32,7 @@ class AddTaskTest extends TestCase
             'subject' => 'Задача добавлена тестом',
             'description' => 'Задача добавлена тестом',
 
-            ];
+        ];
     }
 
 
@@ -107,7 +103,7 @@ class AddTaskTest extends TestCase
         $response = $this->actingAs($user)->post(route('admin.addTask', $this->createTask($user)));
         $response->assertStatus(302)
             ->assertSessionDoesntHaveErrors()
-        ->assertSessionHas(['message', 'Добавлена новая задача']);
+            ->assertSessionHas(['message', 'Добавлена новая задача']);
 
     }
 

@@ -17,7 +17,7 @@ class MessagesDataservice
         return [];
     }
 
-    public static function createReply(Request $request, Message $message):Message
+    public static function createReply(Request $request, Message $message): Message
     {
         $m = new Message();
         $m->reply_to_message_id = $message->id;

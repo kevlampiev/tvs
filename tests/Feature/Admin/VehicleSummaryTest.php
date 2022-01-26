@@ -3,11 +3,8 @@
 namespace Tests\Feature\Admin;
 
 
-use App\Models\Agreement;
 use App\Models\User;
 use App\Models\Vehicle;
-use App\Models\VehiclePhoto;
-use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class VehicleSummaryTest extends TestCase
@@ -122,7 +119,7 @@ class VehicleSummaryTest extends TestCase
         $vehicle = Vehicle::query()
             ->whereHas('insurances')
             ->inRandomOrder()->first();
-        if (count($vehicle->notes)!==0) {
+        if (count($vehicle->notes) !== 0) {
             $response = $this->actingAs($user)
                 ->get(route('admin.vehicleSummary', ['vehicle' => $vehicle, 'page' => 'notes']))
                 ->assertStatus(200)
@@ -148,7 +145,7 @@ class VehicleSummaryTest extends TestCase
         $vehicle = Vehicle::query()
             ->whereHas('photos')
             ->inRandomOrder()->first();
-        if (count($vehicle->photos)!==0) {
+        if (count($vehicle->photos) !== 0) {
             $response = $this->actingAs($user)
                 ->get(route('admin.vehicleSummary', ['vehicle' => $vehicle, 'page' => 'photos']))
                 ->assertStatus(200)

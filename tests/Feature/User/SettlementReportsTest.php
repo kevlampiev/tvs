@@ -4,7 +4,6 @@ namespace Tests\Feature\User;
 
 use App\Models\Agreement;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class SettlementReportsTest extends TestCase
@@ -31,13 +30,13 @@ class SettlementReportsTest extends TestCase
     {
         //берем незакрытый договор
         $agreement = Agreement::query()
-            ->where('real_date_close','=', null)
+            ->where('real_date_close', '=', null)
             ->inRandomOrder()
             ->first();
         //берем закрытый договор
         $agreementClosed = Agreement::query()
             ->whereNotNull('real_date_close')
-            ->where('real_date_close','<', now())
+            ->where('real_date_close', '<', now())
             ->inRandomOrder()
             ->first();
 
@@ -62,13 +61,13 @@ class SettlementReportsTest extends TestCase
     {
         //берем незакрытый договор
         $agreement = Agreement::query()
-            ->where('real_date_close','=', null)
+            ->where('real_date_close', '=', null)
             ->inRandomOrder()
             ->first();
         //берем закрытый договор
         $agreementClosed = Agreement::query()
             ->whereNotNull('real_date_close')
-            ->where('real_date_close','<=', now())
+            ->where('real_date_close', '<=', now())
             ->inRandomOrder()
             ->first();
 

@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class MessageRequest extends FormRequest
 {
@@ -28,7 +27,7 @@ class MessageRequest extends FormRequest
     {
         return [
 //            'user_id' => 'required|exists:users,id',
-            'subject'=>'nullable|string',
+            'subject' => 'nullable|string',
             'description' => 'required|string',
             'task_id' => 'nullable|exists:tasks,id',
             'reply_to_message_id' => 'nullable|exists:messages,id'
@@ -40,7 +39,7 @@ class MessageRequest extends FormRequest
     {
         return [
             'user_id' => 'пользователь',
-            'subject'=>'Заголовок',
+            'subject' => 'Заголовок',
             'description' => 'Текст сообщения',
             'task_id' => 'Задача',
             'reply_to_message_id' => 'Сообщение на которое дается комментарий'

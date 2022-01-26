@@ -3,10 +3,7 @@
 namespace Tests\Feature\Admin;
 
 
-use App\Models\Agreement;
 use App\Models\User;
-use App\Models\Vehicle;
-use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class LoadBankStatementTest extends TestCase
@@ -31,7 +28,7 @@ class LoadBankStatementTest extends TestCase
      */
     public function testAsUser()
     {
-        $user = User::query()->where('role', '<>','admin')->inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'admin')->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.loadBankStatement'))
             ->assertStatus(302)
             ->assertRedirect(route('home'));
@@ -44,7 +41,7 @@ class LoadBankStatementTest extends TestCase
      */
     public function test_indexPage()
     {
-        $user = User::query()->where('role','=', 'admin')->inRandomOrder()->first();
+        $user = User::query()->where('role', '=', 'admin')->inRandomOrder()->first();
         $response = $this->actingAs($user)->get(route('admin.loadBankStatement'));
         $response->assertStatus(200)
             ->assertSeeText('Загрузка выписки 1С')

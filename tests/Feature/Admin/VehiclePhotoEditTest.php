@@ -3,11 +3,8 @@
 namespace Tests\Feature\Admin;
 
 
-use App\Models\Agreement;
 use App\Models\User;
-use App\Models\Vehicle;
 use App\Models\VehiclePhoto;
-use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class VehiclePhotoEditTest extends TestCase
@@ -19,8 +16,8 @@ class VehiclePhotoEditTest extends TestCase
      */
     public function testUnauthorized()
     {
-        $photo = VehiclePhoto::query()->where('vehicle_id','<>', null)->
-            inRandomOrder()->first();
+        $photo = VehiclePhoto::query()->where('vehicle_id', '<>', null)->
+        inRandomOrder()->first();
         $this->get(route('admin.editVehiclePhoto', ['vehiclePhoto' => $photo]))
             ->assertStatus(302)
             ->assertRedirect(route('login'));
@@ -34,8 +31,8 @@ class VehiclePhotoEditTest extends TestCase
     public function testAsUser()
     {
         $user = User::query()->where('role', 'user')->inRandomOrder()->first();
-        $photo = VehiclePhoto::query()->where('vehicle_id','<>', null)->
-            inRandomOrder()->first();
+        $photo = VehiclePhoto::query()->where('vehicle_id', '<>', null)->
+        inRandomOrder()->first();
         $this->actingAs($user)
             ->get(route('admin.editVehiclePhoto', ['vehiclePhoto' => $photo]))
             ->assertStatus(302)
@@ -49,9 +46,9 @@ class VehiclePhotoEditTest extends TestCase
      */
     public function testAsManager()
     {
-        $user = User::query()->where('role', '<>','user')->inRandomOrder()->first();
-        $photo = VehiclePhoto::query()->where('vehicle_id','<>', null)->
-                    inRandomOrder()->first();
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
+        $photo = VehiclePhoto::query()->where('vehicle_id', '<>', null)->
+        inRandomOrder()->first();
         $this->actingAs($user)
             ->get(route('admin.editVehiclePhoto', ['vehiclePhoto' => $photo]))
             ->assertStatus(200)
@@ -60,8 +57,7 @@ class VehiclePhotoEditTest extends TestCase
             ->assertSeeText('Отмена')
             ->assertSeeText('Комментарий')
             ->assertSee($photo->vehicle->name)
-            ->assertSee($photo->description)
-        ;
+            ->assertSee($photo->description);
     }
 
 

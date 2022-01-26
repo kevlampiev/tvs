@@ -3,7 +3,6 @@
 namespace Tests\Feature\Admin;
 
 
-use App\Models\Agreement;
 use App\Models\Insurance;
 use App\Models\User;
 use App\Models\Vehicle;

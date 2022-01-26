@@ -4,13 +4,9 @@
 namespace App\DataServices\Admin;
 
 
-use App\Http\Requests\VehicleNoteRequest;
 use App\Http\Requests\VehiclePhotoAddRequest;
 use App\Http\Requests\VehiclePhotoEditRequest;
-use App\Models\VehicleNote;
 use App\Models\VehiclePhoto;
-use http\Env\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use PhpParser\Error;
 

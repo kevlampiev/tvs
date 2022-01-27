@@ -36,7 +36,6 @@ class TaskController extends Controller
     {
         if (url()->previous() !== url()->current()) session(['previous_url' => url()->previous()]);
         $task = TasksDataservice::createSubTask($request, $parentTask);
-//        dd($parentTask);
         return view('Admin.tasks.task-edit',
             TasksDataservice::provideEditor($task));
     }

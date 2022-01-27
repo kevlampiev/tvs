@@ -6,15 +6,9 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-6 p-5">
+        <div class="col-md-6">
+            <div class="shadow  p-5">
             <h3> Повестка дня</h3>
-
-{{--            <h4 class="text-danger">  Просроченные задачи <span class="badge bg-danger">{{count($overdueTasks)}}</span> </h4>--}}
-{{--            @include('Admin.dashboard.tasks-list',['tasks'=>$overdueTasks])--}}
-{{--            <h4 class="text-warning">  Задачи на сегодня <span class="badge bg-warning">{{count($todaysTasks)}}</h4>--}}
-{{--            @include('Admin.dashboard.tasks-list',['tasks'=>$todaysTasks])--}}
-{{--            <h4>  Будущие задачи <span class="badge bg-secondary">{{count($futureTasks)}}</h4>--}}
-{{--            @include('Admin.dashboard.tasks-list',['tasks'=>$futureTasks])--}}
 
 
             <div class="accordion" id="accordionPanelsStayOpenExample">
@@ -45,7 +39,7 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="panelsStayOpen-headingThree">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                            Будущие задачи <span class="badge bg-secondary ml-1">{{count($futureTasks)}}
+                            Будущие задачи <span class="badge bg-secondary ml-1">{{count($futureTasks)}}</span>
                         </button>
                     </h2>
                     <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
@@ -55,11 +49,47 @@
                     </div>
                 </div>
             </div>
+            </div>
         </div>
 
 
-        <div class="col-md-6">
+        <div class="col-md-6 ">
+            <div class="shadow p-5">
+                <h3> Последние сообщения </h3>
+                <div class="m-4">
+                    <ul class="list-group list-group-flush">
+                        @foreach($lastMessages as $key=>$message)
+                            <li class="list-group-item">
+                                {{$message->description}}
+                                <span class="small text-secondary">срок {{\Carbon\Carbon::parse($message->created_at)->format('d.m.Y')}}
+                                    автор: {{$message->user->name}}</span>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
 
+
+            </div>
+
+            <div class="shadow p-5">
+                <h3> Нарушение целостности базы данных </h3>
+                <div class="m-4">
+                    Техника с некорректной ценой/датой приобретения <span class="badge bg-danger     ml-1">{{$vehiclesWithoutProperPrices}}</span>
+                </div>
+
+                <div class="m-4">
+                    Техника без страховки <span class="badge bg-danger     ml-1">{{$uninsuredVehiclesCount}}</span>
+                </div>
+
+                <div class="m-4">
+                    Техника без ПТС/ПСМ <span class="badge bg-danger     ml-1">{{$vehiclesWithoutPassport}}</span>
+                </div>
+
+                <div class="m-4">
+                    Техника без договоров <span class="badge bg-danger     ml-1">{{$noAgrVehicles}}</span>
+                </div>
+
+            </div>
         </div>
     </div>
 @endsection

@@ -39,7 +39,7 @@
 
     <tr>
         <td class="text-right text-black-50">Дата приобретения</td>
-        <td class="text-left p-2">{{$vehicle->purchase_date}}</td>
+        <td class="text-left p-2">{{\Carbon\Carbon::parse($vehicle->purchase_date)->format('d.m.Y')}}</td>
     </tr>
 
     <tr>

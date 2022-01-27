@@ -40,6 +40,7 @@
                     <th scope="col">Единица техники</th>
                     <th scope="col">Страховщик</th>
                     <th scope="col">Тип полиса</th>
+                    <th scope="col">Номер полиса</th>
                     <th scope="col">Дата начала</th>
                     <th scope="col">Дата окончания</th>
                     <th scope="col">Страховая сумма</th>
@@ -57,8 +58,9 @@
                         <td>{{$insurance->vehicle->name}}</td>
                         <td>{{$insurance->insuranceCompany->name}}</td>
                         <td>{{$insurance->insuranceType->name}}</td>
-                        <td>{{$insurance->date_open}}</td>
-                        <td>{{$insurance->date_close}}</td>
+                        <td>{{$insurance->policy_number}}</td>
+                        <td>{{ \Carbon\Carbon::parse($insurance->date_open)->format('d.m.Y')}}</td>
+                        <td>{{\Carbon\Carbon::parse($insurance->date_close)->format('d.m.Y')}}</td>
                         <td>{{number_format($insurance->insurance_amount,2)}}</td>
                         <td>{{number_format($insurance->insurance_premium,2)}}</td>
                         <td> @if ($insurance->insurance_amount!=0)

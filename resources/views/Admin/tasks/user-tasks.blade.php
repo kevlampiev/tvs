@@ -21,23 +21,65 @@
 
                     <div id="collapseOne" class="collapse show" aria-labelledby="assignedToMe" data-parent="#accordion">
                         <div class="card-body">
-                            @forelse($userAssignments as $task)
-                                <div class="card" >
-                                    <a href="{{route('admin.taskCard', ['task' => $task])}}">
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{$task->subject}}</h5>
-                                            <p class="card-text font-italic text-secondary">{{$task->description}}</p>
-                                            <div class="text-right text-dark"> Срок исполнения: {{\Carbon\Carbon::parse($task->due_date)->format('d.m.Y')}}  Поставил задачу: {{$task->user->name}}</div>
-                                        </div>
-                                    </a>
-                                </div>
+                            <table class="table ">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Формулировка</th>
+                                    <th scope="col">Срок исполнения</th>
+                                    <th scope="col">Постановщик задачи</th>
+                                </tr>
 
-                            @empty
-                                <i>Нет задач </i>
-                            @endforelse
+                                </thead>
+                                <tbody>
+                                    @forelse($userAssignments as $task)
+                                       <tr
+                                           @if($task->importance=='high')
+                                            class="table-danger"
+                                           @endif
+                                           @if($task->importance=='low')
+                                            class="table-secondary"
+                                           @endif
+                                       >
+                                           <th class="text-center">
+                                                {{$loop->index +1 }}
+                                           </th>
+                                           <td >
+                                               <a href="{{route('admin.taskCard', ['task' => $task])}}">
+                                                   {{$task->subject}}
+                                               </a>
+                                           </td>
+
+                                           <td
+                                               class="text-monospace
+                                                    @if(($task->due_date<\Carbon\Carbon::now())&&(!$task->terminate_date))
+                                                        text-danger
+                                                    @elseif((\Carbon\Carbon::parse($task->due_date)->diffInDays(now())<3)&&(!$task->terminate_date))
+                                                        text-warning
+                                                    @else
+                                                        text-secondary small
+                                                    @endif
+                                                   ">
+                                               до {{\Carbon\Carbon::parse($task->due_date)->format('d.m.Y')}}
+                                           </td>
+                                           <td class="text-secondary small mr-3">
+                                               {{$task->user->name}}
+                                           </td>
+                                       </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="4" class="text-center text-secondary font-italic">
+                                                Нет задач для отображение
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
+
+
                 <div class="card">
                     <div class="card-header" id="myAssignments">
                         <h5 class="mb-0">
@@ -48,20 +90,55 @@
                     </div>
                     <div id="collapseTwo" class="collapse" aria-labelledby="myAssignments" data-parent="#accordion">
                         <div class="card-body">
-                            @forelse($assignedByUser as $task)
-                                <div class="card" >
-                                    <a href="{{route('admin.taskCard', ['task' => $task])}}">
-                                        <div class="card-body bg-light">
-                                            <h5 class="card-title">{{$task->subject}}</h5>
-                                            <p class="card-text font-italic text-secondary">{{$task->description}}</p>
-                                            <div class="text-right text-dark"> Срок исполнения: {{\Carbon\Carbon::parse($task->due_date)->format('d.m.Y')}}  Поставил задачу: {{$task->user->name}}</div>
-                                        </div>
-                                    </a>
-                                </div>
+                            <table class="table table-secondary">
+                                <thead>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Формулировка</th>
+                                    <th scope="col">Срок исполнения</th>
+                                    <th scope="col">Исполнитель</th>
+                                    <th scope="col"></th>
+                                </thead>
+                                <tbody>
+                                @forelse($assignedByUser as $task)
+                                    <tr class="{{$task->importance=='medium'?'table-light':''}}{{$task->importance=='high'?'table-danger':''}}">
+                                        <th>
+                                            {{$loop->index}}
+                                        </th>
+                                        <td>
+                                            <a href="{{route('admin.taskCard', ['task' => $task])}}">
+                                                {{$task->subject}}
+                                            </a>
+                                        </td>
+                                        <td
+                                            class="text-monospace
+                                                    @if(($task->due_date<\Carbon\Carbon::now())&&(!$task->terminate_date))
+                                                        text-danger
+                                                    @elseif((\Carbon\Carbon::parse($task->due_date)->diffInDays(now())<3)&&(!$task->terminate_date))
+                                                        text-warning
+                                                    @else
+                                                        text-secondary small
+                                                    @endif
+                                                ">
+                                            до {{\Carbon\Carbon::parse($task->due_date)->format('d.m.Y')}}
+                                        </td>
+                                        <td class="text-secondary small mr-3">
+                                            {{$task->user->name}}
+                                        </td>
+                                        <td>
 
-                            @empty
-                                <i>Нет задач </i>
-                            @endforelse
+                                        </td>
+                                   </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="5" class="text-center text-secondary font-italic">
+                                            Нет задач для отображение
+                                        </td>
+                                    </tr>
+                                @endforelse
+                                </tbody>
+
+                            </table>
+
                         </div>
                     </div>
                 </div>

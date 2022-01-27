@@ -27,6 +27,7 @@ class InsurancesDataservice
             $searchStr = '%' . str_replace(' ', '%', $filter) . '%';
             $insurances = Insurance::query()
                 ->with('insuranceType')
+                ->where('policy_number', 'like', $searchStr)
                 ->orWhereHas('insuranceCompany', function (Builder $query) use ($searchStr) {
                     $query->where('name', 'like', $searchStr);
                 })

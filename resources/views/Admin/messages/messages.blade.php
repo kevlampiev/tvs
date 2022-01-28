@@ -7,7 +7,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            @foreach($messages as $message)
+            @foreach($messages->where('reply_to_message_id', '=' ,null) as $message)
                 @if(count(collect($message->replies))>0)
                     <details open>
                         <summary>

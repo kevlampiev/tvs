@@ -15,6 +15,11 @@
             <h4>ответ на сообщение: </h4>
             <input type="hidden" name="user_id" value="{{$message->user_id}}">
             <input type="hidden" name="reply_to_message_id" value="{{$message->reply_to_message_id}}">
+            <input type="hidden" name="task_id" value="{{$message->task_id}}">
+{{--                <input type="hidden" name="agreement_id" value="{{$message->task_id}}">--}}
+{{--                <input type="hidden" name="vehicle_id" value="{{$message->task_id}}">--}}
+{{--                <input type="hidden" name="company_id" value="{{$message->company_id}}">--}}
+{{--                <input type="hidden" name="counterparty_id" value="{{$message->counterparty_id}}">--}}
 
             <!-- Поле ввода описания -->
                 <div class="form-group">

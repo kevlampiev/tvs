@@ -60,8 +60,20 @@
                     <ul class="list-group list-group-flush">
                         @foreach($lastMessages as $key=>$message)
                             <li class="list-group-item">
-                                {{$message->description}}
-                                <span class="small text-secondary">срок {{\Carbon\Carbon::parse($message->created_at)->format('d.m.Y')}}
+                                <a class="text-secondary"
+                                    @if($message->task_id)
+                                        href="{{route('admin.taskCard', [$message->task_id])}}"
+                                   @elseif($message->agreement_id)
+                                        href="{{route('admin.agreementSummary', [$message->agreement_id])}}"
+                                   @elseif($message->vehicle_id)
+                                        href="{{route('admin.vehicleSummary', [$message->vehicle_id])}}"
+                                   @else
+
+                                    @endif
+                                >
+                                    {{$message->description}}
+                                </a>
+                                <span class="small text-secondary"> {{\Carbon\Carbon::parse($message->created_at)->format('d.m.Y')}}
                                     автор: {{$message->user->name}}</span>
                             </li>
                         @endforeach
@@ -87,6 +99,10 @@
 
                 <div class="m-4">
                     Техника без договоров <span class="badge bg-danger     ml-1">{{$noAgrVehicles}}</span>
+                </div>
+
+                <div class="m-4">
+                    Техника с повторяющимся VIN <span class="badge bg-danger     ml-1">{{$doubleVIN}}</span>
                 </div>
 
             </div>

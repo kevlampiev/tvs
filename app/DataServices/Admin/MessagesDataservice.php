@@ -21,6 +21,7 @@ class MessagesDataservice
     {
         $m = new Message();
         $m->reply_to_message_id = $message->id;
+        $m->task_id = $message->task_id;
         if (!empty($request->old())) $m->fill($request->old());
         return $m;
     }

@@ -38,7 +38,7 @@ class DashboardDataservice
             ->get();
         $futureTasks = Task::query()->where('task_performer_id', '=', Auth::user()->id)
             ->where('terminate_date', '=', null)
-            ->where('due_date',"=", Carbon::now()->toDate())
+            ->where('due_date',">", Carbon::now()->toDate())
             ->orderBy('user_id')
             ->orderBy('due_date')
             ->get();
@@ -50,7 +50,7 @@ class DashboardDataservice
 
         $noDocsVehicles = DB::select('select id from vehicles where id not in (select distinct vehicle_id from documents)');
         $noAgrVehicles = DB::select('select id from vehicles where id not in (select distinct vehicle_id from agreement_vehicle)');
-
+        $doubleVIN = DB::select('select vin, count(id) from vehicles group by vin having count(vin)>1');
         $lastMessages = Message::query()->orderByDesc('created_at')->limit(15)->get();
 
 
@@ -64,6 +64,7 @@ class DashboardDataservice
             'vehiclesWithoutPassport' => count($noDocsVehicles),
             'lastMessages' => $lastMessages,
             'noAgrVehicles' => count($noAgrVehicles),
+            'doubleVIN' => count($doubleVIN)
         ];
 
     }

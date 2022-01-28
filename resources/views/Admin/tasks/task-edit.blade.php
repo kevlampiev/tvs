@@ -284,7 +284,7 @@
             <button type="submit" class="btn btn-primary">
                 @if ($task->id)  Изменить @else Добавить @endif
             </button>
-            <a class="btn btn-secondary" href="{{session('previous_url', route('admin.tasks'))}}">Отмена</a>
+            <a class="btn btn-secondary" href="{{session('previous_url', route('admin.projects'))}}">Отмена</a>
         </div>
     </form>
 

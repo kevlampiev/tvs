@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\TaskController;
 use Illuminate\Support\Facades\Route;
 
@@ -9,13 +10,13 @@ Route::group([
 ],
     function () {
         Route::get('/', [TaskController::class, 'index'])
-            ->name('tasks');
+            ->name('projects');
         Route::get('{task}/card', [TaskController::class, 'viewTaskCard'])
             ->name('taskCard');
         Route::get('{user}/user-tasks', [TaskController::class, 'viewUserTasks'])
             ->name('userTasks');
-        Route::get('/add', [TaskController::class, 'create'])
-            ->name('addTask');
+        Route::get('/add', [ProjectController::class, 'create'])
+            ->name('addProject');
         Route::get('{parentTask}/addSubTask', [TaskController::class, 'createSubTask'])
             ->name('addSubTask');
         Route::post('/add', [TaskController::class, 'store']);

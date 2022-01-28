@@ -7,38 +7,29 @@
 @section('content')
 
     <div class="row">
-        <h2>Задачи </h2>
+        <h2>Проекты </h2>
     </div>
 
     <div class="row">
         <div class="col-mb-2">
-            <a class="btn btn-outline-info" href="{{route('admin.addTask')}}">Добавить новую задачу</a>
+            <a class="btn btn-outline-info" href="{{route('admin.addProject')}}">Начать новый проект</a>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-md-12">
+
             @foreach($tasks as $task)
+            <div class="col-md-3 m-3 shadow">
+                <div class="card m-3" >
 
-                @if(count(collect($task->subTasks($hideClosedTasks)))>0)
-                    <details>
-                        <summary class="has-child">
-                                @include('Admin.tasks.task-record')
-                        </summary>
-                        <div class="ml-5">
-                            @if(count(collect($task->subTasks($hideClosedTasks)))>0)
-                                @include('Admin.tasks.subtasks',['subtasks' => $task->subTasks])
-                            @endif
-                        </div>
-
-                    </details>
-                @else
-                    <div class="no-childs">{{$task->subject}} </div>
-                @endif
-
+                    <div class="card-body">
+                        <h4 class="card-title">{{$task->subject}}</h4>
+                        <p class="card-text">{{$task->description}}</p>
+                        <a href="{{route('admin.taskCard', ['task' => $task])}}" class="btn btn-outline-info">Карточка проекта</a>
+                    </div>
+                </div>
+            </div>
             @endforeach
-
-        </div>
     </div>
 
 

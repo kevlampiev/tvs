@@ -9,7 +9,11 @@
     <div class="row">
 
         <div class="col-md-11">
-            <h2>Карточка задачи </h2>
+            @if($task->parent_task_id)
+                <h2>Карточка задачи </h2>
+            @else
+                <h2 class="text-uppercase text-dark">Карточка Проекта </h2>
+            @endif
         </div>
         <div class="col-md-1">
             <a href="{{url()->previous()}}">
@@ -22,8 +26,13 @@
         <div class="col-md-6">
             <div class="border-dark bg-light p-4 mb-4">
                 <h4>Основная информация</h4>
-                @include('Admin.tasks.components.commom-info-menu')
-                @include('Admin.tasks.components.common-info-data')
+                @if($task->parent_task_id)
+                  @include('Admin.tasks.components.commom-info-menu')
+                  @include('Admin.tasks.components.common-info-task-data')
+                @else
+                    @include('Admin.tasks.components.common-info-project-data')
+                @endif
+
             </div>
 
             <div class="border-dark bg-light p-4 mb-4">
@@ -44,7 +53,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <a class="btn btn-outline-info" href="{{route('admin.tasks')}}"> К полному списку задач </a>
+            <a class="btn btn-outline-info" href="{{route('admin.projects')}}"> К полному списку задач </a>
 
         </div>
     </div>

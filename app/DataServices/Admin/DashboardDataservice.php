@@ -24,22 +24,21 @@ class DashboardDataservice
 
     public static function provideData():array
     {
-//        dd(Carbon::now()->toDateString());
         $overdueTasks = Task::query()->where('task_performer_id', '=', Auth::user()->id)
             ->where('terminate_date', '=', null)
-            ->where('due_date',"<=", Carbon::now()->toDateString())
+            ->where('due_date',"<", Carbon::now()->toDate())
             ->orderBy('user_id')
             ->orderBy('due_date')
             ->get();
         $todaysTasks = Task::query()->where('task_performer_id', '=', Auth::user()->id)
             ->where('terminate_date', '=', null)
-            ->where('due_date',"=", Carbon::now()->toDateString())
+            ->where('due_date',"=", Carbon::now()->toDate())
             ->orderBy('user_id')
             ->orderBy('due_date')
             ->get();
         $futureTasks = Task::query()->where('task_performer_id', '=', Auth::user()->id)
             ->where('terminate_date', '=', null)
-            ->where('due_date',">", Carbon::now()->toDateString())
+            ->where('due_date',">", Carbon::now()->toDate())
             ->orderBy('user_id')
             ->orderBy('due_date')
             ->get();

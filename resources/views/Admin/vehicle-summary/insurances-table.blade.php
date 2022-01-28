@@ -9,6 +9,7 @@
         <th scope="col">#</th>
         <th scope="col">Тип полиса</th>
         <th scope="col">Страховщик</th>
+        <th scope="col">Номер полиса</th>
         <th scope="col">Дата открытия</th>
         <th scope="col">Дата завершения</th>
         <th scope="col">Файл полиса</th>
@@ -22,8 +23,9 @@
             <th scope="row">{{$index+1}}</th>
             <td>{{$insurance->insuranceType->name}}</td>
             <td>{{$insurance->insuranceCompany->name}}</td>
-            <td>{{$insurance->date_open}}</td>
-            <td>{{$insurance->date_close}}</td>
+            <td>{{$insurance->policy_number}}</td>
+            <td>{{\Carbon\Carbon::parse($insurance->date_open)->format('d.m.Y')}}</td>
+            <td>{{\Carbon\Carbon::parse($insurance->date_close)->format('d.m.Y')}}</td>
 
             <td>
                 @if($insurance->policy_file)

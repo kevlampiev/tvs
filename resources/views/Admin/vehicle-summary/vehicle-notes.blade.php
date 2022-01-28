@@ -8,7 +8,7 @@
     @forelse($notes as $index=>$note)
         <div class="card mb-3">
             <div class="card-header">
-                <strong> {{$note->user->name}} </strong>    {{$note->created_at}}
+                <strong> {{$note->user->name}} </strong>    {{\Carbon\Carbon::parse($note->created_at)->format('d.m.Y')}}
             </div>
             <div class="card-body">
                 <p>{{$note->note_body}}</p>

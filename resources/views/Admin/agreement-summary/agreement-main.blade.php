@@ -28,13 +28,17 @@
         <td class="text-right text-black-50">Дата окончания</td>
         <td class="text-left p-2">{{\Carbon\Carbon::parse($agreement->date_close)->format('d.m.Y')}}</td>
     </tr>
+
+
     <tr>
-        <td class="text-right text-black-50">Реальная дата окончания</td>
-        <td class="text-left p-2">{{\Carbon\Carbon::parse($agreement->real_date_close)->format('d.m.Y')}}</td>
-    </tr>
-    <tr>
-        <td class="text-right text-black-50">Скан договора</td>
-        <td class="text-left p-2">{{$agreement->file_name}}</td>
+        <td class="text-right text-black-50">Статус договора</td>
+        <td class="text-left p-2">
+            @if($agreement->real_date_close)
+                Договора закрыт {{\Carbon\Carbon::parse($agreement->real_date_close)->format('d.m.Y')}}
+            @else
+                Действующий договор
+            @endif
+        </td>
     </tr>
 
     <tr>

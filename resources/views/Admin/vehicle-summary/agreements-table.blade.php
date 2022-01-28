@@ -18,9 +18,9 @@
     <tbody>
     @forelse($vehicle->agreements as $index => $agreement)
         <tr @if($agreement->real_date_close&&$agreement->real_date_close<=now()) class="text-black-50 agreement-close"@endif>
-            <th scope="row">{{$index}}</th>
+            <th scope="row">{{$loop->index+1}}</th>
             <td>{{$agreement->agreementType->name}}</td>
-            <td>№ {{$agreement->agr_number}} от {{$agreement->date_open}} </td>
+            <td>№ {{$agreement->agr_number}} от {{\Carbon\Carbon::parse($agreement->date_open)->format('d.m.Y')}} </td>
             <td>{{$agreement->company->name}}</td>
             <td>{{$agreement->counterparty->name}}</td>
             <td>

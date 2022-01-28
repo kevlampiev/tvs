@@ -22,9 +22,9 @@
             <div class="col-md-3 m-3 shadow">
                 <div class="card m-3" >
 
-                    <div class="card-body">
+                    <div class="card-body ">
                         <h4 class="card-title">{{$task->subject}}</h4>
-                        <p class="card-text">{{$task->description}}</p>
+                        <p class="card-text project-card">{{$task->description}}</p>
                         <a href="{{route('admin.taskCard', ['task' => $task])}}" class="btn btn-outline-info">Карточка проекта</a>
                     </div>
                 </div>
@@ -95,7 +95,10 @@
             color: #6c757d;
             text-decoration: line-through;
         }
-
+         .project-card {
+             height: 150px;
+             overflow-y: hidden;
+         }
     </style>
 
 @endsection

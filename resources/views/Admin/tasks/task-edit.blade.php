@@ -13,6 +13,7 @@
         <div class="row">
             <div class="col-md-10">
 
+
                 <input type="hidden" name="user_id" value="{{$task->user_id}}">
                 <!-- Поле ввода имени задачи -->
                 <div class="input-group mb-3">

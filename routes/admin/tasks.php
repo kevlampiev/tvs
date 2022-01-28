@@ -6,20 +6,31 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group([
+    'prefix'=>'projects',
+],
+    function() {
+        Route::get('/', [TaskController::class, 'index'])
+            ->name('projects');
+        Route::get('/add', [ProjectController::class, 'create'])
+            ->name('addProject');
+        Route::post('/add', [ProjectController::class, 'store'])
+            ->name('addProject');
+    });
+
+
+Route::group([
     'prefix' => 'tasks'
 ],
     function () {
-        Route::get('/', [TaskController::class, 'index'])
-            ->name('projects');
+
         Route::get('{task}/card', [TaskController::class, 'viewTaskCard'])
             ->name('taskCard');
         Route::get('{user}/user-tasks', [TaskController::class, 'viewUserTasks'])
             ->name('userTasks');
-        Route::get('/add', [ProjectController::class, 'create'])
-            ->name('addProject');
         Route::get('{parentTask}/addSubTask', [TaskController::class, 'createSubTask'])
             ->name('addSubTask');
-        Route::post('/add', [TaskController::class, 'store']);
+        Route::post('/add', [TaskController::class, 'store'])
+            ->name('addTask');
         Route::get('{task}/edit', [TaskController::class, 'edit'])
             ->name('editTask');
         Route::post('{task}/edit', [TaskController::class, 'update']);

@@ -15,6 +15,11 @@ Route::group([
             ->name('addProject');
         Route::post('/add', [ProjectController::class, 'store'])
             ->name('addProject');
+        Route::get('{task}/edit', [ProjectController::class, 'edit'])
+            ->name('editProject');
+        Route::post('{task}/edit', [ProjectController::class, 'update']);
+
+
     });
 
 
@@ -40,6 +45,8 @@ Route::group([
             ->name('markTaskAsCanceled');
         Route::get('{task}/restore', [TaskController::class, 'markAsRunning'])
             ->name('markTaskAsRunning');
+        Route::get('{task}/setImportance/{importance}', [TaskController::class, 'setImportance'])
+            ->name('setTaskImportance');
         Route::get('{task}/addMessage', [TaskController::class, 'addMessage'])
             ->name('addTaskMessage');
         Route::post('{task}/addMessage', [TaskController::class, 'storeMessage']);

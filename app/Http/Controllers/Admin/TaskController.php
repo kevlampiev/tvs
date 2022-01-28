@@ -80,6 +80,12 @@ class TaskController extends Controller
         return redirect()->back();
     }
 
+    public function setImportance(Task $task, string $importance)
+    {
+        TasksDataservice::setImportance($task, $importance);
+        return redirect()->back();
+    }
+
     public function viewTaskCard(Task $task)
     {
         return view('Admin.tasks.task-summary', ['task' => $task]);

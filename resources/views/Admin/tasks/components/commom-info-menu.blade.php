@@ -26,9 +26,24 @@
                 Изменить приоритет
             </button>
             <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                <li><a class="dropdown-item text-secondary" href="#">Низкий</a></li>
-                <li><a class="dropdown-item" href="#">Обычный</a></li>
-                <li><a class="dropdown-item text-danger" href="#">Высокий</a></li>
+                <li>
+                    <a class="dropdown-item text-secondary"
+                       href="{{route('admin.setTaskImportance', ['task' => $task, 'importance' => 'low'])}}">
+                        Низкий
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item"
+                       href="{{route('admin.setTaskImportance', ['task' => $task, 'importance' => 'medium'])}}">
+                        Обычный
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item text-danger"
+                       href="{{route('admin.setTaskImportance', ['task' => $task, 'importance' => 'high'])}}">
+                        Высокий
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

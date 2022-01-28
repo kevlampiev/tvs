@@ -175,6 +175,18 @@ class TasksDataservice
         }
     }
 
+    public static function setImportance(Task $task, string $importance)
+    {
+        try {
+            $task->importance = $importance;
+            $task->save();
+            session()->flash('message', 'Приоритет задачи изменен');
+        } catch (Error $err) {
+            session()->flash('error', 'Не удалось изменить приоритет задачи');
+        }
+
+    }
+
 
     public static function createTaskMessage(Request $request, Task $task): Message
     {

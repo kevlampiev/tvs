@@ -26,6 +26,9 @@
                         <h4 class="card-title">{{$task->subject}}</h4>
                         <p class="card-text project-card">{{$task->description}}</p>
                         <a href="{{route('admin.taskCard', ['task' => $task])}}" class="btn btn-outline-info">Карточка проекта</a>
+                        @if($task->user==\Illuminate\Support\Facades\Auth::user())
+                            <a href="{{route('admin.editProject', ['task' => $task])}}" class="btn btn-outline-secondary">Изменить параметры проекта</a>
+                        @endif
                     </div>
                 </div>
             </div>

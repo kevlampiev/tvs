@@ -17,7 +17,7 @@ class AllTheTasksTest extends TestCase
      */
     public function testUnAuthorized()
     {
-        $this->get(route('admin.tasks'))
+        $this->get(route('admin.projects'))
             ->assertStatus(302)
             ->assertRedirect('login');
     }
@@ -30,7 +30,7 @@ class AllTheTasksTest extends TestCase
     public function testAsUser()
     {
         $user = User::query()->where('role', 'user')->inRandomOrder()->first();
-        $this->actingAs($user)->get(route('admin.tasks'))
+        $this->actingAs($user)->get(route('admin.projects'))
             ->assertStatus(302)
             ->assertRedirect(route('home'));
     }
@@ -43,7 +43,7 @@ class AllTheTasksTest extends TestCase
     public function test_indexPage()
     {
         $user = User::query()->where('role', 'manager')->orWhere('role', 'admin')->inRandomOrder()->first();
-        $response = $this->actingAs($user)->get(route('admin.tasks'));
+        $response = $this->actingAs($user)->get(route('admin.projects'));
         $response->assertStatus(200)
             ->assertSeeText('Задачи')
             ->assertSeeText('Добавить новую задачу');

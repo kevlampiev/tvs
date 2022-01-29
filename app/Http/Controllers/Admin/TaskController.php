@@ -15,7 +15,7 @@ class TaskController extends Controller
 {
     public function index(Request $request)
     {
-        return view('Admin.tasks.tasks',
+        return view('Admin.tasks.projects',
             TasksDataservice::provideData());
     }
 
@@ -43,7 +43,7 @@ class TaskController extends Controller
     public function store(TaskRequest $request): \Illuminate\Http\RedirectResponse
     {
         TasksDataservice::store($request);
-        $route = session('previous_url', route('admin.tasks'));
+        $route = session('previous_url', route('admin.projects'));
         return redirect()->to($route);
     }
 
@@ -77,6 +77,12 @@ class TaskController extends Controller
     public function markAsRunning(Task $task)
     {
         TasksDataservice::markAsRunning($task);
+        return redirect()->back();
+    }
+
+    public function setImportance(Task $task, string $importance)
+    {
+        TasksDataservice::setImportance($task, $importance);
         return redirect()->back();
     }
 

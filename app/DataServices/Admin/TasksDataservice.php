@@ -56,34 +56,7 @@ class TasksDataservice
             'assignedByUser' => $assignedByUser,
         ];
     }
-//
-//    public static function provideDashboardTasks():array
-//    {
-//        $overdueTasks = Task::query()->where('task_performer_id', '=', Auth::user()->id)
-//            ->where('terminate_date', '=', null)
-//            ->where('due_date',"<", Carbon::now()->toDate())
-//            ->orderBy('user_id')
-//            ->orderBy('due_date')
-//            ->get();
-//        $todaysTasks = Task::query()->where('task_performer_id', '=', Auth::user()->id)
-//            ->where('terminate_date', '=', null)
-//            ->where('due_date',"=", Carbon::now()->toDate())
-//            ->orderBy('user_id')
-//            ->orderBy('due_date')
-//            ->get();
-//        $futureTasks = Task::query()->where('task_performer_id', '=', Auth::user()->id)
-//            ->where('terminate_date', '=', null)
-//            ->where('due_date',"=", Carbon::now()->toDate())
-//            ->orderBy('user_id')
-//            ->orderBy('due_date')
-//            ->get();
-//        return [
-//            'overdueTasks' =>$overdueTasks,
-//            'todaysTasks' => $todaysTasks,
-//            'futureTasks' => $futureTasks,
-//        ];
-//
-//    }
+
 
     public static function provideEditor(Task $task): array
     {
@@ -200,6 +173,18 @@ class TasksDataservice
         } catch (Error $err) {
             session()->flash('error', 'Не удалось восстановить задачу');
         }
+    }
+
+    public static function setImportance(Task $task, string $importance)
+    {
+        try {
+            $task->importance = $importance;
+            $task->save();
+            session()->flash('message', 'Приоритет задачи изменен');
+        } catch (Error $err) {
+            session()->flash('error', 'Не удалось изменить приоритет задачи');
+        }
+
     }
 
 

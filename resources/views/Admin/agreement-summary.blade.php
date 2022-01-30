@@ -24,6 +24,9 @@
             <a class="nav-link" data-toggle="tab" href="#payments">Расчеты</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#tasks">Задачи</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#notes">Заметки</a>
         </li>
     </ul>
@@ -68,6 +71,14 @@
                 @include('Admin.agreement-summary.real-payment-tables')
             </div>
         </div>
+
+
+        <div class="tab-pane fade" id="tasks">
+            <h4>Задачи по договору </h4>
+
+            @include('Admin.agreement-summary.agreement-tasks')
+        </div>
+
         <div class="tab-pane fade" id="notes">
             <h4>Заметки по догору </h4>
 

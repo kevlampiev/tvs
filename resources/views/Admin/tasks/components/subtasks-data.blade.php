@@ -3,12 +3,20 @@
         <div>
             <div class="pl-2 mb-2">
                 <h5>
-                    <a href="{{route('admin.taskCard', ['task' => $el])}}">
-                        {{$el->subject}}
-                    </a>
+                    @if(count($el->subTasks)==0)
+                        @include('Admin.tasks.task-record', ['task' => $el])
+                    @else
+                        <details>
+                            <summary>
+                                @include('Admin.tasks.task-record', ['task' => $el])
+                            </summary>
+                            <div class="ml-3">
+                                @include('Admin.tasks.subtasks', ['subtasks' =>$el->subTasks])
+                            </div>
+                        </details>
+                    @endif
                 </h5>
-                <p class="text-secondary"><i>Срок
-                        исполнения: {{\Carbon\Carbon::parse($task->due_date)->format('d.m.Y')}}</i></p>
+
             </div>
 
         </div>

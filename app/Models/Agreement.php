@@ -55,6 +55,11 @@ class Agreement extends Model
         return $this->hasMany(Document::class);
     }
 
+    public function tasks(): HasMany
+    {
+        return $this->hasMany(Task::class);
+    }
+
     public static function rules(): array
     {
         return [

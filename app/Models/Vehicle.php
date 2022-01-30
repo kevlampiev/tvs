@@ -52,6 +52,11 @@ class Vehicle extends Model
         return $this->hasMany(VehicleNote::class);
     }
 
+    public function tasks(): HasMany
+    {
+        return $this->hasMany(Task::class);
+    }
+
     public function documents(): HasMany
     {
         return $this->hasMany(Document::class);

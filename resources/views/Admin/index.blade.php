@@ -71,7 +71,7 @@
 
                                     @endif
                                 >
-                                    {{$message->description}}
+                                    {{\Illuminate\Support\Str::limit($message->description,90,$end='...')}}
                                 </a>
                                 <span class="small text-secondary"> {{\Carbon\Carbon::parse($message->created_at)->format('d.m.Y')}}
                                     автор: {{$message->user->name}}</span>

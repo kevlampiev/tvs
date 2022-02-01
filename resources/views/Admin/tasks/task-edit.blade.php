@@ -13,6 +13,7 @@
         <div class="row">
             <div class="col-md-10">
 
+
                 <input type="hidden" name="user_id" value="{{$task->user_id}}">
                 <!-- Поле ввода имени задачи -->
                 <div class="input-group mb-3">
@@ -284,7 +285,7 @@
             <button type="submit" class="btn btn-primary">
                 @if ($task->id)  Изменить @else Добавить @endif
             </button>
-            <a class="btn btn-secondary" href="{{session('previous_url', route('admin.tasks'))}}">Отмена</a>
+            <a class="btn btn-secondary" href="{{session('previous_url', route('admin.projects'))}}">Отмена</a>
         </div>
     </form>
 

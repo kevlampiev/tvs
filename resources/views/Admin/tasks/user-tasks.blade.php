@@ -122,7 +122,7 @@
                                             до {{\Carbon\Carbon::parse($task->due_date)->format('d.m.Y')}}
                                         </td>
                                         <td class="text-secondary small mr-3">
-                                            {{$task->user->name}}
+                                            {{$task->performer->name}}
                                         </td>
                                         <td>
 

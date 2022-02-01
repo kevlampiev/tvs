@@ -28,6 +28,10 @@
         </li>
 
         <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#tasks">Задачи</a>
+        </li>
+
+        <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#notes">Заметки</a>
         </li>
         <li class="nav-item">
@@ -58,6 +62,11 @@
         <div class="tab-pane fade" id="collaterals">
             Залоги
         </div>
+
+        <div class="tab-pane fade" id="tasks">
+            @include('Admin.vehicle-summary.vehicle-tasks')
+        </div>
+
         <div class="tab-pane fade" id="notes">
             @include('Admin.vehicle-summary.vehicle-notes')
         </div>

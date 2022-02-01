@@ -54,7 +54,7 @@
                     Задачи
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{route('admin.tasks')}}">Все задачи</a>
+                    <a class="dropdown-item" href="{{route('admin.projects')}}">Проекты</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{route('admin.userTasks', ['user' =>\Illuminate\Support\Facades\Auth::user()])}}">Мои задачи</a>
                 </div>

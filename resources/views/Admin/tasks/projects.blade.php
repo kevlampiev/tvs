@@ -20,16 +20,14 @@
 
             @foreach($tasks as $task)
             <div class="col-md-3 m-3 shadow">
-                <div class="card m-3" >
-
+                <div class="card m-3" onclick="document.location.href = '{{route('admin.taskCard', ['task' => $task])}}';">
                     <div class="card-body ">
                         <h4 class="card-title">{{$task->subject}}</h4>
-                        <p class="card-text project-card">{{$task->description}}</p>
-                        <a href="{{route('admin.taskCard', ['task' => $task])}}" class="btn btn-outline-info">Карточка проекта</a>
-                        @if($task->user==\Illuminate\Support\Facades\Auth::user())
-                            <a href="{{route('admin.editProject', ['task' => $task])}}" class="btn btn-outline-secondary">Изменить параметры проекта</a>
-                        @endif
+                        <p class="card-text project-card p-4">{{$task->description}}</p>
                     </div>
+                    @if($task->user==\Illuminate\Support\Facades\Auth::user())
+                        <a href="{{route('admin.editProject', ['task' => $task])}}" class="btn btn-outline-secondary">Изменить параметры проекта</a>
+                    @endif
                 </div>
             </div>
             @endforeach

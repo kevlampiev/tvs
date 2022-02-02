@@ -22,32 +22,34 @@ use Illuminate\Support\Facades\DB;
 class DashboardDataservice
 {
 
-    public static function provideData():array
+    public static function provideData(): array
     {
 //        dd(Carbon::now()->toDateString());
         $overdueTasks = Task::query()->where('task_performer_id', '=', Auth::user()->id)
             ->where('terminate_date', '=', null)
-            ->where('due_date',"<", Carbon::now()->toDateString())
+            ->where('due_date', "<", Carbon::now()->toDateString())
+            ->where('parent_task_id', '<>', null)
             ->orderBy('user_id')
             ->orderBy('due_date')
             ->get();
         $todaysTasks = Task::query()->where('task_performer_id', '=', Auth::user()->id)
             ->where('terminate_date', '=', null)
-            ->where('due_date',"=", Carbon::now()->toDateString())
+            ->where('due_date', "=", Carbon::now()->toDateString())
+            ->where('parent_task_id', '<>', null)
             ->orderBy('user_id')
             ->orderBy('due_date')
             ->get();
         $futureTasks = Task::query()->where('task_performer_id', '=', Auth::user()->id)
             ->where('terminate_date', '=', null)
-
-            ->where('due_date',">", Carbon::now()->toDateString())
+            ->where('parent_task_id', '<>', null)
+            ->where('due_date', ">", Carbon::now()->toDateString())
             ->orderBy('user_id')
             ->orderBy('due_date')
             ->get();
 
         $vehiclesWithoutPayment = Vehicle::query()
-            ->where('purchase_date','<',Carbon::parse('01.01.2000'))
-            ->orWhere('price','<',1000)->count();
+            ->where('purchase_date', '<', Carbon::parse('01.01.2000'))
+            ->orWhere('price', '<', 1000)->count();
         $row = DB::select('select id from vehicles where id not in (select vehicle_id from insurances)');
 
         $noDocsVehicles = DB::select('select id from vehicles where id not in (select distinct vehicle_id from documents)');
@@ -57,7 +59,7 @@ class DashboardDataservice
 
 
         return [
-            'overdueTasks' =>$overdueTasks,
+            'overdueTasks' => $overdueTasks,
             'todaysTasks' => $todaysTasks,
             'futureTasks' => $futureTasks,
             'vehiclesWithoutPayment' => $vehiclesWithoutPayment,

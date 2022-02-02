@@ -36,24 +36,34 @@ class TasksDataservice
         return ['tasks' => $result, 'hideClosedTasks' => $hideClosedTasks];
     }
 
-    public static function provideUserTasks(User $user): array
+    public static function provideUserTasks(Request $request, User $user): array
     {
+        $filter = ($request->get('searchStr')) ?? '';
+        $searchStr = '%' . str_replace(' ', '%', $filter) . '%';
+
         $userAssignments = Task::query()
             ->where('task_performer_id', '=', $user->id)
             ->where('terminate_date', '=', null)
+            ->where('parent_task_id', '<>', null)
+            ->where('subject', 'like', $searchStr)
             ->orderBy('user_id')
             ->orderBy('due_date')
             ->get();
+
         $assignedByUser = Task::query()
             ->where('user_id', '=', $user->id)
             ->where('task_performer_id', '<>', $user->id)
             ->where('terminate_date', '=', null)
+            ->where('parent_task_id', '<>', null)
+            ->where('subject', 'like', $searchStr)
             ->orderBy('task_performer_id')
             ->orderBy('due_date')
             ->get();
+
         return [
             'userAssignments' => $userAssignments,
             'assignedByUser' => $assignedByUser,
+            'filter' => $filter
         ];
     }
 

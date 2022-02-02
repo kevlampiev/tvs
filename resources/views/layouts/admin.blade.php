@@ -32,9 +32,7 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="{{route('home')}}">На главную <span class="sr-only">(current)</span></a>
-            </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="{{route('admin.vehicles')}}">Список техники</a>
             </li>
@@ -96,6 +94,9 @@
                     <a class="dropdown-item" href="{{route('admin.exportInsurances')}}">Выгрузка страховок</a>
                     <a class="dropdown-item" href="{{route('admin.exportAgreements')}}">Выгрузка списка договоров</a>
                 </div>
+            </li>
+            <li class="nav-item ml-lg-5 font-italic small">
+                <a class="nav-link" href="{{route('home')}}">Раздел отчетов <span class="sr-only">(current)</span></a>
             </li>
         </ul>
 

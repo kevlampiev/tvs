@@ -76,7 +76,7 @@
 
                     @if (Auth::user()&&(Auth::user()->role!='user'))
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('admin.main')}}">Панель управления</a>
+                            <a class="nav-link font-italic ml-lg-5 " href="{{route('admin.main')}}">Панель управления</a>
                         </li>
                     @endif
 

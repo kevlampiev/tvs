@@ -60,9 +60,21 @@
             </div>
             @include('Admin.agreement-summary.vehicles-table')
         </div>
+
+
         <div class="tab-pane fade" id="collaterals">
-            Залоги...
+            <h4>Техника в залоге по договору</h4>
+            <div class="row m-1">
+                <div class="col-md-12">
+                    <a class="btn btn-outline-info"
+                       href="{{route('admin.agreementAddVehicle', ['agreement'=>$agreement])}}">Добавить залоговую технику
+                    </a>
+                    @include('Admin.agreement-summary.agreement-deposits', ['deposits' => $agreement->deposites]);
+                </div>
+            </div>
         </div>
+
+
         <div class="tab-pane fade" id="payments">
             @php  $payments = $agreement->payments->sortBy('payment_date'); @endphp
             @php  $realPayments = $agreement->realPayments->sortBy('payment_date'); @endphp

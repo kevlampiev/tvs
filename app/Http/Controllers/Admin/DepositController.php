@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use App\Models\Agreement;
 use App\Models\Deposit;
 use Illuminate\Http\Request;
 
@@ -22,7 +24,7 @@ class DepositController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request, Agreement $agreement)
     {
         //
     }

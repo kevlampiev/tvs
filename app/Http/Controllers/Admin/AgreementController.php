@@ -78,4 +78,5 @@ class AgreementController extends Controller
         return redirect()->route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'vehicles']);
     }
 
+
 }

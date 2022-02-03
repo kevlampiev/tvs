@@ -60,6 +60,11 @@ class Agreement extends Model
         return $this->hasMany(Task::class);
     }
 
+    public function deposites(): HasMany
+    {
+        return $this->hasMany(Deposit::class);
+    }
+
     public static function rules(): array
     {
         return [

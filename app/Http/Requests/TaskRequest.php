@@ -28,7 +28,7 @@ class TaskRequest extends FormRequest
         return [
             'task_performer_id' => 'required|exists:users,id',
             'start_date' => 'required|date',
-            'due_date' => 'required|date|after:start_date',
+            'due_date' => 'required|date|after_or_equal:start_date',
             'subject' => 'required|string',
             'description' => 'string|nullable',
             'parent_task_id' => 'nullable|exists:tasks,id'

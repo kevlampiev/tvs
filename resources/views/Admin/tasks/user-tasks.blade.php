@@ -38,7 +38,8 @@
                             <table class="table ">
                                 <thead>
                                 <tr>
-                                    <th scope="col">#</th>
+                                    <th scope="col">№</th>
+                                    <th scope="col">Арт</th>
                                     <th scope="col">Формулировка</th>
                                     <th scope="col">Срок исполнения</th>
                                     <th scope="col">Постановщик задачи</th>
@@ -58,6 +59,9 @@
                                            <th class="text-center">
                                                 {{$loop->index +1 }}
                                            </th>
+                                           <td class="text-secondary small mr-3">
+                                               #{{$task->id}}
+                                           </td>
                                            <td >
                                                <a href="{{route('admin.taskCard', ['task' => $task])}}">
                                                    {{$task->subject}}
@@ -76,6 +80,8 @@
                                                    ">
                                                до {{\Carbon\Carbon::parse($task->due_date)->format('d.m.Y')}}
                                            </td>
+
+
                                            <td class="text-secondary small mr-3">
                                                {{$task->user->name}}
                                            </td>
@@ -106,7 +112,8 @@
                         <div class="card-body">
                             <table class="table table-secondary">
                                 <thead>
-                                    <th scope="col">#</th>
+                                <th scope="col">№</th>
+                                <th scope="col">Арт</th>
                                     <th scope="col">Формулировка</th>
                                     <th scope="col">Срок исполнения</th>
                                     <th scope="col">Исполнитель</th>
@@ -118,6 +125,9 @@
                                         <th>
                                             {{$loop->index}}
                                         </th>
+                                        <td class="text-secondary small mr-3">
+                                            #{{$task->id}}
+                                        </td>
                                         <td>
                                             <a href="{{route('admin.taskCard', ['task' => $task])}}">
                                                 {{$task->subject}}

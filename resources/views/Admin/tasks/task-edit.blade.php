@@ -292,6 +292,15 @@
 
 @endsection
 
+@section('scripts')
+    <script>
+        $('.selectpicker').selectpicker({
+            style: 'btn-info',
+            size: 4
+        });
+    </script>
+@endsection
+
 @section('styles')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 

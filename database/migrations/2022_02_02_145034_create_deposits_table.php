@@ -19,7 +19,7 @@ class CreateDepositsTable extends Migration
             $table->unsignedBigInteger('vehicle_id')->nullable(false);
             $table->date('date_open')->nullable(false);
             $table->date('date_close')->nullable(false);
-            $table->date('real_date_close')->nullable(false);
+            $table->date('real_date_close')->nullable(true);
             $table->string('description')->nullable();
             $table->unsignedBigInteger('user_id')->nullable(false);
             $table->timestamps();

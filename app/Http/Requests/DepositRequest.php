@@ -28,7 +28,7 @@ class DepositRequest extends FormRequest
             'vehicle_id' => 'required|exists:vehicles,id',
             'date_open' => 'required|date',
             'date_close' => 'required|date|after_or_equal:date_open',
-            'real_date_close' => 'required|date|after_or_equal:date_open',
+            'real_date_close' => 'nullable|date|after_or_equal:date_open',
             'description' => 'nullable|string|min:5|max:254',
         ];
     }

@@ -85,7 +85,7 @@
                 @endif
 
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="description">Договор звлогв/комментарий</span>
+                    <span class="input-group-text" id="description">Договор залога/комментарий</span>
                     <input type="text"
                            class="form-control {{$errors->has('description')?'is-invalid':''}}"
                            aria-describedby="description"

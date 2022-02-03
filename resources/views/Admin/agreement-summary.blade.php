@@ -67,9 +67,9 @@
             <div class="row m-1">
                 <div class="col-md-12">
                     <a class="btn btn-outline-info"
-                       href="{{route('admin.agreementAddVehicle', ['agreement'=>$agreement])}}">Добавить залоговую технику
+                       href="{{route('admin.addDeposit', ['agreement'=>$agreement])}}">Добавить залоговую технику
                     </a>
-                    @include('Admin.agreement-summary.agreement-deposits', ['deposits' => $agreement->deposites]);
+                    @include('Admin.agreement-summary.agreement-deposits', ['deposits' => $agreement->deposites])
                 </div>
             </div>
         </div>

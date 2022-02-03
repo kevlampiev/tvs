@@ -10,14 +10,14 @@ class Deposit extends Model
 {
     use HasFactory;
 
-    protected $guarded=[];
+    protected $guarded = [];
 
-    public function agreement():BelongsTo
+    public function agreement(): BelongsTo
     {
         return $this->belongsTo(Agreement::class);
     }
 
-    public function vehicle():BelongsTo
+    public function vehicle(): BelongsTo
     {
         return $this->belongsTo(Vehicle::class);
     }

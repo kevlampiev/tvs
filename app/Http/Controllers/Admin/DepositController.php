@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataServices\Admin\DepositDataservice;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DepositRequest;
 use App\Models\Agreement;
 use App\Models\Deposit;
 use Illuminate\Http\Request;
@@ -22,66 +24,43 @@ class DepositController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create(Request $request, Agreement $agreement)
     {
-        //
+        if (url()->previous() !== url()->current()) session(['previous_url' => url()->previous()]);
+        return view('Admin.agreement-add-deposit',
+            DepositDataservice::provideEditor($request, $agreement));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(DepositRequest $request, Agreement $agreement): \Illuminate\Http\RedirectResponse
     {
-        //
+        DepositDataservice::store($request);
+        $route = session('previous_url', route('admin.agreements'));
+        return redirect()->to($route);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Deposit  $deposit
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Deposit $deposit)
+
+    public function edit(Request $request, Deposit $deposit)
     {
-        //
+        if (url()->previous() !== url()->current()) session(['previous_url' => url()->previous()]);
+        DepositDataservice::edit($request, $deposit);
+        return view('Admin.agreement-add-deposit',
+            DepositDataservice::provideEditor($request, $deposit->agreement, $deposit));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Deposit  $deposit
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Deposit $deposit)
+    public function update(DepositRequest $request, Deposit $deposit): \Illuminate\Http\RedirectResponse
     {
-        //
+        DepositDataservice::update($request, $deposit);
+        $route = session('previous_url');
+        return redirect()->to($route);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Deposit  $deposit
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Deposit $deposit)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Deposit  $deposit
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Deposit $deposit)
+    public function delete(Deposit $deposit): \Illuminate\Http\RedirectResponse
     {
-        //
+        DepositDataservice::delete($deposit);
+        $route = session('previous_url');
+        return redirect()->to($route);
     }
 }

@@ -60,10 +60,12 @@
             @include('Admin.vehicle-summary.agreements-table')
         </div>
         <div class="tab-pane fade" id="collaterals">
-            Залоги
+            <h4>Договора по которым техника передана в залог</h4>
+            @include('Admin.vehicle-summary.vehicle-deposits', ['deposits' => $vehicle->deposits])
         </div>
 
         <div class="tab-pane fade" id="tasks">
+            <h4>Задачи, связанные с техникой</h4>
             @include('Admin.vehicle-summary.vehicle-tasks')
         </div>
 

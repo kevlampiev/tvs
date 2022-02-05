@@ -115,6 +115,38 @@ class AgreementSummaryTest extends TestCase
         }
     }
 
+
+  /**
+     * Смотрим на страницу залогов
+     *
+     * @return void
+     */
+    public function testDepositsTab()
+    {
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
+        $agreement = Agreement::query()
+            ->with('payments')
+            ->inRandomOrder()->first();
+
+        $response = $this->actingAs($user)
+            ->get(route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'deposits']))
+            ->assertStatus(200)
+            ->assertSeeText($agreement->agr_number)
+            ->assertSeeText('Техника в залоге по договору')
+            ->assertSeeText('Добавить залоговую технику')
+            ->assertSeeText('Единица техники')
+            ->assertSeeText('Дата начала залога')
+            ->assertSeeText('Плановая дата окончания залога')
+            ->assertSeeText('Договор/комментарий');
+        if ($agreement->deposites->count() > 0) {
+            $response->assertSeeText('Карточка')
+            ->assertSeeText('Изменить')
+            ->assertSeeText('Удалить');
+        } else {
+            $response->assertDontSeeText('Нет данных для отображения');
+        }
+    }
+
     /**
      * Смотрим на страницу documents
      *

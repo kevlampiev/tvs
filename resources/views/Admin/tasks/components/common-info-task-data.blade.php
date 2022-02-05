@@ -2,6 +2,11 @@
     <table class="table">
         <tbody>
         <tr>
+            <td class="text-right">Идентификатор</td>
+            <td ><i> #{{$task->id}} </i></td>
+        </tr>
+
+        <tr>
             <td class="text-right">Формулировка</td>
             <td class="text-monospace
                                     {{$task->importance=='high'?'text-danger':''}}

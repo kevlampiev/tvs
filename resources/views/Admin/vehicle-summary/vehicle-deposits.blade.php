@@ -1,9 +1,15 @@
+<div class="row m-1">
+    <div class="col-md-12">
+        <a class="btn btn-outline-info"
+           href="{{route('admin.addVehicleToDeposit',['vehicle'=>$vehicle])}}" >
+            Добавить договор по которому техника служит залогом
+        </a>
 
         <table class="table">
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Единица техники</th>
+                <th scope="col">Договор</th>
                 <th scope="col">Дата начала залога</th>
                 <th scope="col">Плановая дата окончания залога</th>
                 <th scope="col">Договор/комментарий</th>
@@ -14,13 +20,18 @@
             </thead>
             <tbody>
             @forelse($deposits as $deposit)
-            <tr @if($deposit->real_date_close) class="text-secondary text-decoration-line-through" @endif>
+                <tr @if($deposit->real_date_close) class="text-secondary text-decoration-line-through" @endif>
                 <th scope="row">{{$loop->index+1}}</th>
-                <td>{{$deposit->vehicle->name}} VIN: {{$deposit->vehicle->vin}}</td>
+                <td>{{$deposit->agreement->name}} № {{$deposit->agreement->agr_number}}
+                    от {{\Carbon\Carbon::parse($deposit->agreement->date_open)->format('d.m.Y')}}</td>
                 <td>{{\Carbon\Carbon::parse($deposit->date_open)->format('d.m.Y')}}</td>
                 <td>{{\Carbon\Carbon::parse($deposit->date_close)->format('d.m.Y')}}</td>
                 <td>{{$deposit->description}}</td>
-                <td><a href="{{route('admin.vehicleSummary',['vehicle'=>$deposit->vehicle])}}"> &#9776;Карточка </a></td>
+                <td>
+                    <a href="{{route('admin.agreementSummary',['agreement'=>$deposit->agreement])}}">
+                        &#9776;Карточка
+                    </a>
+                </td>
                 <td><a href="{{route('admin.editDeposit', ['deposit'=>$deposit])}}">
                         &#9998;Изменить </a>
                 </td>
@@ -38,3 +49,5 @@
 
             </tbody>
         </table>
+    </div>
+</div>

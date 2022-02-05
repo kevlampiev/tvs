@@ -45,18 +45,18 @@ class AllTheTasksTest extends TestCase
         $user = User::query()->where('role', 'manager')->orWhere('role', 'admin')->inRandomOrder()->first();
         $response = $this->actingAs($user)->get(route('admin.projects'));
         $response->assertStatus(200)
-            ->assertSeeText('Задачи')
-            ->assertSeeText('Добавить новую задачу');
+            ->assertSeeText('Проекты')
+            ->assertSeeText('Начать новый проект');
         $task = Task::query()->where('parent_task_id', '=', null)
             ->where('terminate_date', '=', null)->inRandomOrder()->first();
 
-        if ($task) {
-            $response->assertSeeText('Управление задачей')
-                ->assertSeeText($task->subject);
-        } else {
-            $response->assertDontSeeText('Управление задачей')
-                ->assertSeeText('Нет записей');
-        }
+//        if ($task) {
+//            $response->assertSeeText('Управление задачей')
+//                ->assertSeeText($task->subject);
+//        } else {
+//            $response->assertDontSeeText('Управление задачей')
+//                ->assertSeeText('Нет записей');
+//        }
     }
 
 }

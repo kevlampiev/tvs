@@ -46,6 +46,7 @@ class TasksDataservice
             ->where('terminate_date', '=', null)
             ->where('parent_task_id', '<>', null)
             ->where('subject', 'like', $searchStr)
+            ->orWhere('id', 'like', $searchStr)
             ->orderBy('user_id')
             ->orderBy('due_date')
             ->get();
@@ -104,7 +105,12 @@ class TasksDataservice
 
     public static function createSubTask(Request $request, Task $parentTask): Task
     {
-        $task = self::createNewTask(['parent_task_id' => $parentTask->id]);
+        $task = self::createNewTask(['parent_task_id' => $parentTask->id,
+            'agreement_id' => $parentTask->agreement_id,
+            'vehicle_id' => $parentTask->vehicle_id,
+            'company_id' => $parentTask->company_id,
+            'counterparty_id' => $parentTask->counterparty_id,
+        ]);
         if (!empty($request->old())) $task->fill($request->old());
         return $task;
     }

@@ -5,28 +5,20 @@ namespace App\DataServices\Admin;
 
 
 use App\Http\Requests\DepositRequest;
-use App\Http\Requests\MessageRequest;
-use App\Http\Requests\TaskRequest;
 use App\Models\Agreement;
-use App\Models\Company;
-use App\Models\Counterparty;
 use App\Models\Deposit;
-use App\Models\Message;
-use App\Models\Task;
-use App\Models\User;
 use App\Models\Vehicle;
 use Carbon\Carbon;
 use Error;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class DepositDataservice
 {
 
-    public static function provideEditor(Request $request, Agreement $agreement, Deposit $deposit=null): array
+    public static function provideEditor(Request $request, Agreement $agreement, Deposit $deposit = null): array
     {
-        $depo = $deposit??self::create($request, $agreement, null);
+        $depo = $deposit ?? self::create($request, $agreement, null);
         return [
             'deposit' => $depo,
             'agreement' => $agreement,
@@ -34,10 +26,10 @@ class DepositDataservice
         ];
     }
 
-    public static function provideVehicleEditor(Request $request, Vehicle $vehicle, Deposit $deposit=null): array
+    public static function provideVehicleEditor(Request $request, Vehicle $vehicle, Deposit $deposit = null): array
     {
-        $agreement = Agreement::query()->where('real_date_close','<>', null)->first();
-        $depo = $deposit??self::create($request, $agreement, $vehicle);
+        $agreement = Agreement::query()->where('real_date_close', '<>', null)->first();
+        $depo = $deposit ?? self::create($request, $agreement, $vehicle);
         return [
             'deposit' => $depo,
             'agreements' => Agreement::all(),
@@ -45,11 +37,11 @@ class DepositDataservice
     }
 
 
-    public static function create(Request $request, Agreement $agreement, Vehicle $vehicle=null)
+    public static function create(Request $request, Agreement $agreement, Vehicle $vehicle = null)
     {
         $deposit = new Deposit();
-        $deposit->agreement_id = $agreement?$agreement->id:null;
-        $deposit->vehicle_id = $vehicle?$vehicle->id:null;
+        $deposit->agreement_id = $agreement ? $agreement->id : null;
+        $deposit->vehicle_id = $vehicle ? $vehicle->id : null;
         $deposit->date_open = Carbon::now()->toDateString();
         $deposit->date_close = Carbon::now()->addYear()->toDateString();
         if (!empty($request->old())) {

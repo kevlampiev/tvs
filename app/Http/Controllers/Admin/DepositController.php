@@ -34,11 +34,11 @@ class DepositController extends Controller
             DepositDataservice::provideEditor($request, $agreement, null));
     }
 
-     public function createForVehicle(Request $request, Vehicle $vehicle)
+    public function createForVehicle(Request $request, Vehicle $vehicle)
     {
         if (url()->previous() !== url()->current()) session(['previous_url' => url()->previous()]);
         return view('Admin.vehicle-add-deposit',
-            DepositDataservice::provideVehicleEditor($request,  $vehicle));
+            DepositDataservice::provideVehicleEditor($request, $vehicle));
     }
 
     public function store(DepositRequest $request, Agreement $agreement): \Illuminate\Http\RedirectResponse

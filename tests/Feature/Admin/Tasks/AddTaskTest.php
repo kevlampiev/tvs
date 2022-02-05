@@ -3,6 +3,7 @@
 namespace Tests\Feature\Admin\Tasks;
 
 
+use App\Models\Task;
 use App\Models\User;
 use Carbon\Carbon;
 use Tests\TestCase;
@@ -43,7 +44,8 @@ class AddTaskTest extends TestCase
      */
     public function testUnAuthorized()
     {
-        $this->get(route('admin.addTask'))
+        $task = Task::query()->where('terminate_date', '=', null)->inRandomOrder()->first();
+        $this->get(route('admin.addSubTask', ['parentTask'=>$task]))
             ->assertStatus(302)
             ->assertRedirect('login');
     }
@@ -56,7 +58,8 @@ class AddTaskTest extends TestCase
     public function testAsUser()
     {
         $user = User::query()->where('role', 'user')->inRandomOrder()->first();
-        $this->actingAs($user)->get(route('admin.addTask'))
+        $task = Task::query()->where('terminate_date', '=', null)->inRandomOrder()->first();
+        $this->actingAs($user)->get(route('admin.addSubTask', ['parentTask'=>$task]))
             ->assertStatus(302)
             ->assertRedirect(route('home'));
     }
@@ -68,9 +71,10 @@ class AddTaskTest extends TestCase
      */
     public function test_indexPage()
     {
-        $user = User::query()->where('role', 'manager')->orWhere('role', 'admin')->inRandomOrder()->first();
-        $response = $this->actingAs($user)->get(route('admin.addTask'));
-        $response->assertStatus(200)
+        $user = User::query()->where('role', '<>','user')->inRandomOrder()->first();
+        $task = Task::query()->where('terminate_date', '=', null)->inRandomOrder()->first();
+        $this->actingAs($user)->get(route('admin.addSubTask', ['parentTask'=>$task]))
+            ->assertStatus(200)
             ->assertSeeText('Задачи')
             ->assertSeeText('Добавить новую задачу')
             ->assertSeeText('Родительская задача')
@@ -100,6 +104,7 @@ class AddTaskTest extends TestCase
     public function testPost()
     {
         $user = User::query()->where('role', 'manager')->orWhere('role', 'admin')->inRandomOrder()->first();
+
         $response = $this->actingAs($user)->post(route('admin.addTask', $this->createTask($user)));
         $response->assertStatus(302)
             ->assertSessionDoesntHaveErrors()

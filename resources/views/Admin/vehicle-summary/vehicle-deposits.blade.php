@@ -20,7 +20,7 @@
             </thead>
             <tbody>
             @forelse($deposits as $deposit)
-            <tr>
+                <tr @if($deposit->real_date_close) class="text-secondary text-decoration-line-through" @endif>
                 <th scope="row">{{$loop->index+1}}</th>
                 <td>{{$deposit->agreement->name}} № {{$deposit->agreement->agr_number}}
                     от {{\Carbon\Carbon::parse($deposit->agreement->date_open)->format('d.m.Y')}}</td>

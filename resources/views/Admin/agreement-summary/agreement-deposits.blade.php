@@ -14,7 +14,7 @@
             </thead>
             <tbody>
             @forelse($deposits as $deposit)
-            <tr>
+            <tr @if($deposit->real_date_close) class="text-secondary text-decoration-line-through" @endif>
                 <th scope="row">{{$loop->index+1}}</th>
                 <td>{{$deposit->vehicle->name}} VIN: {{$deposit->vehicle->vin}}</td>
                 <td>{{\Carbon\Carbon::parse($deposit->date_open)->format('d.m.Y')}}</td>

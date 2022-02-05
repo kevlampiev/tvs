@@ -29,7 +29,7 @@ class CounterpartyController extends Controller
         if (!empty($request->old())) {
             $counterparty->fill($request->old());
         }
-        return view('Admin.counterparty-edit', [
+        return view('Admin.counterparties.counterparty-edit', [
             'counterparty' => $counterparty,
             'route' => 'admin.addCounterparty',
         ]);

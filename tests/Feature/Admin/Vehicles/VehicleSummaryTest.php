@@ -161,4 +161,37 @@ class VehicleSummaryTest extends TestCase
     }
 
 
+    /**
+     *Тестируем страницу залогов
+     *
+     * @return void
+     */
+    public function testDepositsTab()
+    {
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
+        $vehicle = Vehicle::query()
+            ->inRandomOrder()->first();
+
+        $response = $this->actingAs($user)
+            ->get(route('admin.vehicleSummary', ['vehicle' => $vehicle, 'page' => 'deposits']))
+            ->assertStatus(200)
+            ->assertSeeText($vehicle->name)
+            ->assertSeeText($vehicle->vin)
+            ->assertSeeText('Договора по которым техника передана в залог')
+            ->assertSeeText('Добавить договор по которому техника служит залогом')
+            ->assertSeeText('Договор')
+            ->assertSeeText('Дата начала залога')
+            ->assertSeeText('Плановая дата окончания залога')
+            ->assertSeeText('Договор/комментарий');
+        if ($vehicle->deposits->count() > 0) {
+            $response->assertSeeText('Карточка')
+                ->assertSeeText('Изменить')
+                ->assertSeeText('Удалить');
+        } else {
+            $response->assertDontSeeText('Нет данных для отображения');
+        }
+    }
+
+
+
 }

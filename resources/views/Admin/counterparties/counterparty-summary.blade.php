@@ -40,7 +40,7 @@
 
         <div class="tab-pane fade" id="staff">
             <h4>Сотрудники контрагента</h4>
-{{--            @include('Admin.vehicle-summary.vehicle-files')--}}
+            @include('Admin.counterparties.components.employee-table')
         </div>
 
         <div class="tab-pane fade" id="tasks">

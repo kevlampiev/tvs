@@ -70,23 +70,19 @@ class CounterpartyEmployeeController extends Controller
         ]);
     }
 
-//================================================================================
-//================================================================================
-//=============             Я ТУТ                   ============
-//================================================================================
-//================================================================================
     /**
      * Update the specified resource in storage.
-     * @param ManufacturerRequest $request
-     * @param Counterparty $counterparty
+     * @param CounterpartyEmployeeRequest $request
+     * @param CounterpartyEmployee $employee
      * @return RedirectResponse
      */
-    public function update(ManufacturerRequest $request, Counterparty $counterparty): RedirectResponse
+    public function update(CounterpartyEmployeeRequest $request, CounterpartyEmployee $employee): RedirectResponse
     {
 
-        $counterparty->fill($request->all())->save();
-        session()->flash('message', 'Информация о контрагенте изменена');
-        return redirect()->route('admin.counterparties');
+        $employee->fill($request->all())->save();
+        session()->flash('message', 'Информация о сотруднике контрагента изменена');
+        return redirect()
+            ->route('admin.counterpartyCard', ['counterparty' => $employee->counterparty, 'page'=> 'staff']);
     }
 
     /**
@@ -95,16 +91,12 @@ class CounterpartyEmployeeController extends Controller
      * @param Counterparty $counterparty
      * @return RedirectResponse
      */
-    public function destroy(Counterparty $counterparty): RedirectResponse
+    public function destroy(CounterpartyEmployee $employee): RedirectResponse
     {
-        $counterparty->delete();
-        session()->flash('message', 'Информация о контрагенте удалена');
-        return redirect()->route('admin.counterparties');
-    }
-
-    public function summary(Counterparty $counterparty)
-    {
-        return view('Admin.counterparties.counterparty-summary', ['counterparty' => $counterparty]);
+        $employee->delete();
+        session()->flash('message', 'Информация о сотруднике контрагента удалена');
+        return redirect()
+            ->route('admin.counterpartyCard', ['counterparty' => $employee->counterparty, 'page'=> 'staff']);
     }
 
 }

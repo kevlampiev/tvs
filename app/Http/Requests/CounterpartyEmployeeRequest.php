@@ -1,23 +1,27 @@
 <?php
 
-namespace App\Models;
+namespace App\Http\Requests;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Foundation\Http\FormRequest;
 
-class CounterpartyEmployee extends Model
+class CounterpartyEmployeeRequest extends FormRequest
 {
-    use HasFactory;
-
-    protected $guarded = [];
-
-    public function counterparty():BelongsTo
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
     {
-        return $this->belongsTo(Counterparty::class);
+        return true;
     }
 
-    public static function rules(): array
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules(): array
     {
         return [
             'name' => 'required|string|min:5',
@@ -29,7 +33,7 @@ class CounterpartyEmployee extends Model
         ];
     }
 
-    public static function attributes(): array
+    public function attributes(): array
     {
         return [
             'name' => 'Имя сотрудника',
@@ -40,4 +44,5 @@ class CounterpartyEmployee extends Model
             'description' => 'Дополнительная информация',
         ];
     }
+
 }

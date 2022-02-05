@@ -4,79 +4,77 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataServices\Admin\CounterpartiesDataservice;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CounterpartyEmployeeRequest;
 use App\Http\Requests\ManufacturerRequest;
 use App\Models\Counterparty;
+use App\Models\CounterpartyEmployee;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
-class CounterpartyController extends Controller
+class CounterpartyEmployeeController extends Controller
 {
-    public function index()
-    {
-        return view('Admin.counterparties.counterparties', CounterpartiesDataservice::provideData());
-    }
-
+//    public function index()
+//    {
+//        return view('Admin.counterparties.counterparties', CounterpartiesDataservice::provideData());
+//    }
+//
     /**
      * Show the form for creating a new resource.
      *
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View|\Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(Request $request, Counterparty $counterparty)
     {
-        $counterparty = new Counterparty();
+        $employee = new CounterpartyEmployee();
+        $employee->counterparty_id = $counterparty->id;
         if (!empty($request->old())) {
             $counterparty->fill($request->old());
         }
-        return view('Admin.counterparties.counterparty-edit', [
-            'counterparty' => $counterparty,
-            'route' => 'admin.addCounterparty',
+        return view('Admin.counterparties.counterparty-employee-edit', [
+            'employee' => $employee,
+//            'route' => 'admin.addCounterparty',
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param ManufacturerRequest $request
+     * @param CounterpartyEmployeeRequest $request
      * @return RedirectResponse
      */
-    public function store(ManufacturerRequest $request): RedirectResponse
+    public function store(CounterpartyEmployeeRequest $request): RedirectResponse
     {
-        $counterparty = new Counterparty();
-        $counterparty->fill($request->all())->save();
-        session()->flash('message', 'Добавлена новый контрагент');
-        return redirect()->route('admin.counterparties');
+        $employee = new CounterpartyEmployee();
+        $employee->fill($request->all())->save();
+        session()->flash('message', 'Добавлен новый сотрудник контрагента');
+        return redirect()->route('admin.counterpartySummary', ['counterparty' => $employee->counterparty_id]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param Counterparty $counterparty
-     * @return void
-     */
-    public function show(Counterparty $counterparty)
-    {
-    }
 
     /**
      * Show the form for editing the specified resource.
      * @param Request $request
-     * @param Counterparty $counterparty
+     * @param CounterpartyEmployee $employee
      * @return View
      */
-    public function edit(Request $request, Counterparty $counterparty): View
+    public function edit(Request $request, CounterpartyEmployee $employee): View
     {
         if (!empty($request->old())) {
-            $counterparty->fill($request->old());
+            $employee->fill($request->old());
         }
-        return view('Admin.counterparties.counterparty-edit', [
-            'counterparty' => $counterparty,
-            'route' => 'admin.editCounterparty',
+        return view('Admin.counterparties.counterparty-employee-edit', [
+            'employee' => $employee,
+//            'route' => 'admin.editCounterparty',
         ]);
     }
 
-
+//================================================================================
+//================================================================================
+//=============             Я ТУТ                   ============
+//================================================================================
+//================================================================================
     /**
      * Update the specified resource in storage.
      * @param ManufacturerRequest $request

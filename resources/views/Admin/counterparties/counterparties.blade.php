@@ -25,6 +25,8 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Наименование</th>
+                    <th scope="col">ИНН</th>
+                    <th scope="col">Телефон</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
@@ -34,6 +36,12 @@
                     <tr>
                         <th scope="row">{{$index + 1}}</th>
                         <td>{{$counterparty->name}}</td>
+                        <td>{{$counterparty->inn}}</td>
+                        <td>{{$counterparty->phone}}</td>
+                        <td>
+                            <a href="{{route('admin.counterpartySummary',['counterparty'=>$counterparty])}}">
+                                &#9776;Карточка </a>
+                        </td>
                         <td><a href="{{route('admin.editCounterparty',['counterparty'=>$counterparty])}}"> &#9998;Изменить </a>
                         </td>
                         @if ($counterparty->agreements_count===0)

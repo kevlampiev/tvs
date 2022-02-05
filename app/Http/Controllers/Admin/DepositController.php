@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\DepositRequest;
 use App\Models\Agreement;
 use App\Models\Deposit;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 
 class DepositController extends Controller
@@ -30,7 +31,14 @@ class DepositController extends Controller
     {
         if (url()->previous() !== url()->current()) session(['previous_url' => url()->previous()]);
         return view('Admin.agreement-add-deposit',
-            DepositDataservice::provideEditor($request, $agreement));
+            DepositDataservice::provideEditor($request, $agreement, null));
+    }
+
+    public function createForVehicle(Request $request, Vehicle $vehicle)
+    {
+        if (url()->previous() !== url()->current()) session(['previous_url' => url()->previous()]);
+        return view('Admin.vehicle-add-deposit',
+            DepositDataservice::provideVehicleEditor($request, $vehicle));
     }
 
     public function store(DepositRequest $request, Agreement $agreement): \Illuminate\Http\RedirectResponse

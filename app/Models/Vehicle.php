@@ -67,6 +67,11 @@ class Vehicle extends Model
         return $this->hasMany(VehiclePhoto::class);
     }
 
+    public function deposits(): HasMany
+    {
+        return $this->hasMany(Deposit::class);
+    }
+
     public static function rules(): array
     {
         return [

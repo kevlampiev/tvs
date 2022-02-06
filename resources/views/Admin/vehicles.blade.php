@@ -74,7 +74,7 @@
                 @endforelse
                 </tbody>
             </table>
-            {{$vehicles->links()}}
+            {{$vehicles->appends(request()->input())->links()}}
         </div>
     </div>
 @endsection

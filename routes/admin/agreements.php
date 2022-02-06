@@ -28,25 +28,6 @@ Route::group([
 );
 
 Route::group([
-    'prefix' => 'counterparties'
-],
-    function () {
-        Route::get('/', [CounterpartyController::class, 'index'])
-            ->name('counterparties');
-        Route::get('add', [CounterpartyController::class, 'create'])
-            ->name('addCounterparty');
-        Route::post('add', [CounterpartyController::class, 'store']);
-        Route::get('{counterparty}/edit', [CounterpartyController::class, 'edit'])
-            ->name('editCounterparty');
-        Route::post('{counterparty}/edit', [CounterpartyController::class, 'update']);
-        Route::match(['post', 'get'],
-            '{counterparty}/delete', [CounterpartyController::class, 'destroy'])
-            ->name('deleteCounterparty');
-    }
-);
-
-
-Route::group([
     'prefix' => 'agreements'
 ],
     function () {

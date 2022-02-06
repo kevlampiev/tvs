@@ -73,7 +73,7 @@
                 @endforelse
                 </tbody>
             </table>
-            {!! $agreements->links() !!}
+            {!! $agreements->appends(request()->input())->links() !!}
         </div>
     </div>
 @endsection

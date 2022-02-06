@@ -26,7 +26,7 @@ class CounterpartyEmployeeRequest extends FormRequest
         return [
             'name' => 'required|string|min:5',
             'title' => 'nullable|string|min:5',
-            'counterparty_id' => 'required|exists:counterparties, id',
+            'counterparty_id' => 'required|exists:counterparties,id',
             'email' => 'nullable|email',
             'birthday' => 'nullable|date',
             'description' => 'nullable|string',

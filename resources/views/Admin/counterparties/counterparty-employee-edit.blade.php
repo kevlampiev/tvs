@@ -5,8 +5,10 @@
 @endsection
 
 @section('content')
-    <h3> @if ($employee->id) Редактирование сотрудника @else Добавить нового @endif</h3>
-    <form method="POST">
+    <h3> @if($employee->id) Редактирование сотрудника @else Добавить нового @endif</h3>
+    <form method="POST"
+    action="{{$employee->id?route('admin.editCounterpartyEmployee',['employee'=>$employee]):route('admin.addCounterpartyEmployee',['counterparty'=>$employee->counterparty_id])}}">
+
         @csrf
 
             <input type="hidden" name="counterparty_id" value="{{$employee->counterparty_id}}">
@@ -102,7 +104,7 @@
                 <label for="description">Дополнительная информация</label>
                 <textarea class="form-control {{$errors->has('description')?'is-invalid':''}}"
                           id="description"
-                          rows="13" name="description">{{$employee->description}}</textarea>
+                          rows="5" name="description">{{$employee->description}}</textarea>
             </div>
             @if ($errors->has('description'))
                 <div class="alert alert-danger">

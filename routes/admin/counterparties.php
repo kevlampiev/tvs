@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AgreementNoteController;
 use App\Http\Controllers\Admin\AgreementPaymentController;
 use App\Http\Controllers\Admin\AgreementTypeController;
 use App\Http\Controllers\Admin\CounterpartyController;
+use App\Http\Controllers\Admin\CounterpartyEmployeeController;
 use App\Http\Controllers\Admin\RealPaymentController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,23 @@ Route::group([
             ->name('deleteCounterparty');
         Route::get('{counterparty}/summary', [CounterpartyController::class, 'summary'])
             ->name('counterpartySummary');
+    }
+);
+
+Route::group([
+    'prefix' => 'counterparty-staff'
+],
+    function () {
+        Route::get('{counterparty}/add', [CounterpartyEmployeeController::class, 'create'])
+            ->name('addCounterpartyEmployee');
+        Route::post('{counterparty}/add', [CounterpartyEmployeeController::class, 'store']);
+        Route::get('{employee}/edit', [CounterpartyEmployeeController::class, 'edit'])
+            ->name('editCounterpartyEmployee');
+        Route::post('{employee}/edit', [CounterpartyEmployeeController::class, 'update']);
+        Route::match(['post', 'get'],
+            '{employee}/delete', [CounterpartyEmployeeController::class, 'destroy'])
+            ->name('deleteCounterpartyEmployee');
+
     }
 );
 

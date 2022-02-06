@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataServices\Admin\CounterpartiesDataservice;
+use App\DataServices\Admin\CounterpartyEmployeesDataservice;
+use App\DataServices\Admin\InsurancesDataservice;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CounterpartyEmployeeRequest;
-use App\Http\Requests\ManufacturerRequest;
 use App\Models\Counterparty;
 use App\Models\CounterpartyEmployee;
 use Illuminate\Contracts\View\View;
@@ -14,11 +14,6 @@ use Illuminate\Http\Request;
 
 class CounterpartyEmployeeController extends Controller
 {
-//    public function index()
-//    {
-//        return view('Admin.counterparties.counterparties', CounterpartiesDataservice::provideData());
-//    }
-//
     /**
      * Show the form for creating a new resource.
      *
@@ -27,15 +22,9 @@ class CounterpartyEmployeeController extends Controller
      */
     public function create(Request $request, Counterparty $counterparty)
     {
-        $employee = new CounterpartyEmployee();
-        $employee->counterparty_id = $counterparty->id;
-        if (!empty($request->old())) {
-            $counterparty->fill($request->old());
-        }
-        return view('Admin.counterparties.counterparty-employee-edit', [
-            'employee' => $employee,
-//            'route' => 'admin.addCounterparty',
-        ]);
+        $employee = CounterpartyEmployeesDataservice::create($request, $counterparty);
+        return view('Admin.counterparties.counterparty-employee-edit',
+        CounterpartyEmployeesDataservice::provideEditor($employee));
     }
 
     /**
@@ -46,10 +35,10 @@ class CounterpartyEmployeeController extends Controller
      */
     public function store(CounterpartyEmployeeRequest $request): RedirectResponse
     {
-        $employee = new CounterpartyEmployee();
-        $employee->fill($request->all())->save();
-        session()->flash('message', 'Добавлен новый сотрудник контрагента');
-        return redirect()->route('admin.counterpartySummary', ['counterparty' => $employee->counterparty_id]);
+        CounterpartyEmployeesDataservice::store($request);
+        return redirect()->route('admin.counterpartySummary',
+            ['counterparty' => $request->post('counterparty_id'),
+                'page'=>'staff']);
     }
 
 
@@ -61,13 +50,10 @@ class CounterpartyEmployeeController extends Controller
      */
     public function edit(Request $request, CounterpartyEmployee $employee): View
     {
-        if (!empty($request->old())) {
-            $employee->fill($request->old());
-        }
-        return view('Admin.counterparties.counterparty-employee-edit', [
-            'employee' => $employee,
-//            'route' => 'admin.editCounterparty',
-        ]);
+        CounterpartyEmployeesDataservice::edit($request, $employee);
+        return view('Admin.counterparties.counterparty-employee-edit',
+            CounterpartyEmployeesDataservice::provideEditor($employee)
+        );
     }
 
     /**
@@ -82,7 +68,7 @@ class CounterpartyEmployeeController extends Controller
         $employee->fill($request->all())->save();
         session()->flash('message', 'Информация о сотруднике контрагента изменена');
         return redirect()
-            ->route('admin.counterpartyCard', ['counterparty' => $employee->counterparty, 'page'=> 'staff']);
+            ->route('admin.counterpartySummary', ['counterparty' => $employee->counterparty, 'page'=> 'staff']);
     }
 
     /**
@@ -96,7 +82,7 @@ class CounterpartyEmployeeController extends Controller
         $employee->delete();
         session()->flash('message', 'Информация о сотруднике контрагента удалена');
         return redirect()
-            ->route('admin.counterpartyCard', ['counterparty' => $employee->counterparty, 'page'=> 'staff']);
+            ->route('admin.counterpartySummary', ['counterparty' => $employee->counterparty, 'page'=> 'staff']);
     }
 
 }

@@ -51,3 +51,18 @@
 
     </div>
 @endsection
+
+@section('scripts')
+    <script>
+        function autoSelectPage() {
+            let urlArr = document.location.pathname.split('/')
+            if (urlArr.length === 6) {
+                let tabName = '[href="#' + urlArr[5] + '"'
+                $(tabName).tab('show')
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", autoSelectPage);
+    </script>
+
+@endsection

@@ -14,7 +14,7 @@ class CounterpartyController extends Controller
 {
     public function index()
     {
-        return view('Admin.counterparties', CounterpartiesDataservice::provideData());
+        return view('Admin.counterparties.counterparties', CounterpartiesDataservice::provideData());
     }
 
     /**
@@ -29,7 +29,7 @@ class CounterpartyController extends Controller
         if (!empty($request->old())) {
             $counterparty->fill($request->old());
         }
-        return view('Admin.counterparty-edit', [
+        return view('Admin.counterparties.counterparty-edit', [
             'counterparty' => $counterparty,
             'route' => 'admin.addCounterparty',
         ]);
@@ -70,7 +70,7 @@ class CounterpartyController extends Controller
         if (!empty($request->old())) {
             $counterparty->fill($request->old());
         }
-        return view('Admin.counterparty-edit', [
+        return view('Admin.counterparties.counterparty-edit', [
             'counterparty' => $counterparty,
             'route' => 'admin.editCounterparty',
         ]);
@@ -102,6 +102,11 @@ class CounterpartyController extends Controller
         $counterparty->delete();
         session()->flash('message', 'Информация о контрагенте удалена');
         return redirect()->route('admin.counterparties');
+    }
+
+    public function summary(Counterparty $counterparty)
+    {
+        return view('Admin.counterparties.counterparty-summary', ['counterparty' => $counterparty]);
     }
 
 }

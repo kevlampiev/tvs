@@ -89,7 +89,7 @@
                 @endforelse
                 </tbody>
             </table>
-            {!! $insurances->links() !!}
+            {!! $insurances->appends(request()->input())->links() !!}
         </div>
     </div>
 @endsection

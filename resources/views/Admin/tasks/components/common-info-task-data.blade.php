@@ -96,7 +96,11 @@
         @if($task->counterparty_id)
             <tr>
                 <td class="text-right">Связанный контрагент</td>
-                <td class="text-monospace"><i> {{$task->counterparty->name}} </i></td>
+                <td class="text-monospace"><i>
+                        <a href="{{route('admin.counterpartySummary', ['counterparty' => $task->counterparty])}}">
+                                {{$task->counterparty->name}}
+                        </a>
+                    </i></td>
             </tr>
         @endif
         @if($task->company_id)

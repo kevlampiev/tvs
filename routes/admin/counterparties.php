@@ -25,7 +25,7 @@ Route::group([
         Route::match(['post', 'get'],
             '{counterparty}/delete', [CounterpartyController::class, 'destroy'])
             ->name('deleteCounterparty');
-        Route::get('{counterparty}/summary', [CounterpartyController::class, 'summary'])
+        Route::get('{counterparty}/summary/{page?}', [CounterpartyController::class, 'summary'])
             ->name('counterpartySummary');
     }
 );

@@ -12,7 +12,7 @@ class CounterpartyEmployee extends Model
 
     protected $guarded = [];
 
-    public function counterparty():BelongsTo
+    public function counterparty(): BelongsTo
     {
         return $this->belongsTo(Counterparty::class);
     }

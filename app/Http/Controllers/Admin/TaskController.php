@@ -21,6 +21,7 @@ class TaskController extends Controller
 
     public function viewUserTasks(Request $request, User $user)
     {
+
         return view('Admin.tasks.user-tasks', TasksDataservice::provideUserTasks($request, Auth::user()));
     }
 

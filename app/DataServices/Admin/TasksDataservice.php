@@ -45,8 +45,10 @@ class TasksDataservice
             ->where('task_performer_id', '=', $user->id)
             ->where('terminate_date', '=', null)
             ->where('parent_task_id', '<>', null)
-            ->where('subject', 'like', $searchStr)
-            ->orWhere('id', 'like', $searchStr)
+            ->where(function($query, $searchStr) {
+                              $query->where('subject', 'like', $searchStr)
+                                  ->orWhere('id', 'like', $searchStr);
+            })
             ->orderBy('user_id')
             ->orderBy('due_date')
             ->get();
@@ -56,7 +58,10 @@ class TasksDataservice
             ->where('task_performer_id', '<>', $user->id)
             ->where('terminate_date', '=', null)
             ->where('parent_task_id', '<>', null)
-            ->where('subject', 'like', $searchStr)
+            ->where(function($query, $searchStr) {
+                $query->where('subject', 'like', $searchStr)
+                    ->orWhere('id', 'like', $searchStr);
+            })
             ->orderBy('task_performer_id')
             ->orderBy('due_date')
             ->get();

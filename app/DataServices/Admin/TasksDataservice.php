@@ -61,10 +61,8 @@ class TasksDataservice
             ->get();
 
         return [
-            'userAssignments' => $userAssignments->where('subject', 'like', $searchStr)
-                ->orWhere('id', 'like', $searchStr),
-            'assignedByUser' => $assignedByUser->where('subject', 'like', $searchStr)
-                ->orWhere('id', 'like', $searchStr),
+            'userAssignments' => $userAssignments,
+            'assignedByUser' => $assignedByUser,
             'filter' => $filter
         ];
     }

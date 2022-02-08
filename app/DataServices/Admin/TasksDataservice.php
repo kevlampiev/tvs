@@ -6,6 +6,7 @@ namespace App\DataServices\Admin;
 
 use App\Http\Requests\MessageRequest;
 use App\Http\Requests\TaskRequest;
+use App\Mail\NewTaskAppeared;
 use App\Models\Agreement;
 use App\Models\Company;
 use App\Models\Counterparty;
@@ -18,6 +19,7 @@ use Error;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class TasksDataservice
 {
@@ -129,6 +131,10 @@ class TasksDataservice
         try {
             $task = new Task();
             self::saveChanges($request, $task);
+            if($task->user_id != $task->task_performer_id) {
+                Mail::to($task->performer->email)
+                    ->send(new NewTaskAppeared($task));
+            }
             session()->flash('message', 'Добавлена новая задача');
         } catch (Error $err) {
             session()->flash('error', 'Не удалось добавить новую задачу');

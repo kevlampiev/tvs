@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('MAIL_MAILER', 'smtp'),
+    'default' => env('MAIL_MAILER', 'failover'),
 
     /*
     |--------------------------------------------------------------------------
@@ -51,6 +51,9 @@ return [
 
         'mailgun' => [
             'transport' => 'mailgun',
+            'domain' => env('MAILGUN_DOMAIN', 'sandbox0444e319fd674396a4a3501eb24f63a9.mailgun.org'),
+            'secret' => env('MAILGUN_SECRET', '3334915cb17ba680c9e43edfac9bbcc4-d2cc48bc-c06cff61'),
+//            'endpoint' => env('MAILGUN_ENDPOINT', 'api.eu.mailgun.net'),
         ],
 
         'postmark' => [
@@ -70,6 +73,13 @@ return [
         'array' => [
             'transport' => 'array',
         ],
+
+        'transport' => 'failover',
+        'mailers' => [
+            'postmark',
+            'mailgun',
+            'sendmail',
+        ],
     ],
 
     /*
@@ -84,8 +94,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'donotreply@kuzbass-mayning.ru'),
+        'name' => env('MAIL_FROM_NAME', 'Кузбасс Майнинг'),
     ],
 
     /*

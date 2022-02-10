@@ -126,18 +126,16 @@ class TasksDataservice
         $task->save();
     }
 
-    public static function store(TaskRequest $request)
+    public static function store(TaskRequest $request): ?Task
     {
         try {
             $task = new Task();
             self::saveChanges($request, $task);
-            if($task->user_id != $task->task_performer_id) {
-                Mail::to($task->performer->email)
-                    ->send(new NewTaskAppeared($task));
-            }
             session()->flash('message', 'Добавлена новая задача');
+            return $task;
         } catch (Error $err) {
             session()->flash('error', 'Не удалось добавить новую задачу');
+            return null;
         }
 
     }

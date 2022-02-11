@@ -32,13 +32,7 @@ class UserCreated extends Mailable
     public function build()
     {
         return $this->view('Admin.emails.new-user-created', ['user' => $this->user])
-            ->subject('Вам поставлена новая задача');
+            ->subject('Вам предоставлен доступ к порталу Кузбасс Майнинг');
     }
-//    public function build()
-//    {
-//        $view=$this->view('Admin.emails.new-user-created', ['user' => $this->user]);
-//        dd($view);
-//        return $this->view('Admin.emails.new-user-created', ['user' => $this->user])
-//            ->subject('Вы подключены к порталу Кузбасс Майнинг');;
-//    }
+
 }

@@ -6,10 +6,12 @@ use App\DataServices\Admin\TasksDataservice;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MessageRequest;
 use App\Http\Requests\TaskRequest;
+use App\Mail\NewTaskAppeared;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class TaskController extends Controller
 {
@@ -43,7 +45,11 @@ class TaskController extends Controller
 
     public function store(TaskRequest $request): \Illuminate\Http\RedirectResponse
     {
-        TasksDataservice::store($request);
+        $task = TasksDataservice::store($request);
+        if($task->user_id != $task->task_performer_id) {
+            Mail::to($task->performer->email)
+                ->queue(new NewTaskAppeared($task));
+        }
         $route = session('previous_url', route('admin.projects'));
         return redirect()->to($route);
     }

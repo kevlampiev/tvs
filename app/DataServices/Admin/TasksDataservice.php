@@ -6,6 +6,7 @@ namespace App\DataServices\Admin;
 
 use App\Http\Requests\MessageRequest;
 use App\Http\Requests\TaskRequest;
+use App\Mail\NewTaskAppeared;
 use App\Models\Agreement;
 use App\Models\Company;
 use App\Models\Counterparty;
@@ -18,6 +19,7 @@ use Error;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class TasksDataservice
 {
@@ -124,14 +126,16 @@ class TasksDataservice
         $task->save();
     }
 
-    public static function store(TaskRequest $request)
+    public static function store(TaskRequest $request): ?Task
     {
         try {
             $task = new Task();
             self::saveChanges($request, $task);
             session()->flash('message', 'Добавлена новая задача');
+            return $task;
         } catch (Error $err) {
             session()->flash('error', 'Не удалось добавить новую задачу');
+            return null;
         }
 
     }

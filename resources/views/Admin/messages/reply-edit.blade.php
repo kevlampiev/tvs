@@ -7,7 +7,6 @@
 @section('content')
     <h3> @if ($message->id) Изменение сообщения @else Новое сообщение @endif</h3>
     <form
-{{--        action="{{$message->id?route('admin.editMessage', ['message' => $message]):route('admin.messageReply', ['message' => $message])}}"--}}
         method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row">
@@ -16,14 +15,9 @@
             <input type="hidden" name="user_id" value="{{$message->user_id}}">
             <input type="hidden" name="reply_to_message_id" value="{{$message->reply_to_message_id}}">
             <input type="hidden" name="task_id" value="{{$message->task_id}}">
-{{--                <input type="hidden" name="agreement_id" value="{{$message->task_id}}">--}}
-{{--                <input type="hidden" name="vehicle_id" value="{{$message->task_id}}">--}}
-{{--                <input type="hidden" name="company_id" value="{{$message->company_id}}">--}}
-{{--                <input type="hidden" name="counterparty_id" value="{{$message->counterparty_id}}">--}}
 
             <!-- Поле ввода описания -->
                 <div class="form-group">
-{{--                    <label for="description">Текс сообщения</label>--}}
                     <textarea class="form-control {{$errors->has('description')?'is-invalid':''}}"
                               id="description"
                               rows="6" name="description">{{$message->description}}</textarea>
@@ -63,5 +57,23 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 
+
+@endsection
+
+
+@section('scripts')
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+
+    <script>
+        let options ={
+            filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+            filebrowserImageUloadUrl: '/laravel-filemanager/upload?type=Images&_token=',
+            filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+            filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
+        }
+        CKEDITOR.replace('description', options)
+    </script>
 
 @endsection

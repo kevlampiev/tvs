@@ -55,7 +55,11 @@
                 @forelse($insurances as $index=>$insurance)
                     <tr>
                         <th scope="row">{{($index+1)}}</th>
-                        <td>{{$insurance->vehicle->name}}</td>
+                        <td>
+                            <a href="{{route('admin.vehicleSummary',['vehicle'=>$insurance->vehicle])}}">
+                                {{$insurance->vehicle->name}}
+                            </a>
+                        </td>
                         <td>{{$insurance->insuranceCompany->name}}</td>
                         <td>{{$insurance->insuranceType->name}}</td>
                         <td>{{$insurance->policy_number}}</td>

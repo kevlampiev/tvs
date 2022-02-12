@@ -10,6 +10,7 @@ use App\Mail\NewTaskAppeared;
 use App\Models\Agreement;
 use App\Models\Company;
 use App\Models\Counterparty;
+use App\Models\Document;
 use App\Models\Message;
 use App\Models\Task;
 use App\Models\User;
@@ -228,6 +229,36 @@ class TasksDataservice
             session()->flash('message', 'Добавлено новое сообщение');
         } catch (Error $err) {
             session()->flash('error', 'Не удалось добавить сообщение');
+        }
+    }
+
+
+    public static function createTaskDocument(Request $request, Task $task): Document
+    {
+        $document = new Document();
+        $document->fill(['user_id' => Auth::user()->id,
+            'task_id' => $task->id,
+            'agreement_id' => $task->agreement_id,
+            'vehicle_id'=> $task->vehicle_id]);
+        if (!empty($request->old())) $document->fill($request->old());
+        return $document;
+    }
+
+    public static function storeTaskDocument(MessageRequest $request)
+    {
+        try {
+            $document = new Document();
+            $document->fill($request->except('document_file'));
+            if (!$document->user_id) $document->user_id = Auth::user()->id;
+            $document->created_at = now();
+            if ($request->file('document_file')) {
+                $file_path = $request->file('document_file')->store(config('paths.documents.put', '/public/documents'));
+                $document->file_name = basename($file_path);
+            }
+            $document->save();
+            session()->flash('message', 'Добавлен новый документ по задаче');
+        } catch (Error $err) {
+            session()->flash('error', 'Не удалось добавить документ');
         }
     }
 

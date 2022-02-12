@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\UserCreated;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class UsersController extends Controller
 {
@@ -21,6 +23,7 @@ class UsersController extends Controller
             $user->fill($request->all());
             $user->password = \Illuminate\Support\Facades\Hash::make('12345678');
             $user->save();
+            Mail::to($user->email)->queue(new UserCreated($user));
             return redirect()->route('admin.users');
         } else {
             return view('Admin/user-edit', [

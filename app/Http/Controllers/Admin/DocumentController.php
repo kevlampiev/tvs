@@ -38,7 +38,8 @@ class DocumentController extends Controller
                 'vehicle_id' => $vehicle->id ?? null,
                 'agreement_id' => $agreement->id ?? null,
             ]);
-        $this->storeUrl($vehicle->id, $agreement->id);
+//        $this->storeUrl($vehicle->id, $agreement->id);
+        if(url()->current() != url()->previous()) session(['previous_url' => url()->previous()]);
         return view('Admin.document-edit',
             DocumentsDataservice::provideDocumentEditor($Document, 'admin.addDocument'));
     }
@@ -53,7 +54,8 @@ class DocumentController extends Controller
 
     public function edit(Request $request, Document $document)
     {
-        $this->storeUrl($document->vehicle_id, $document->agreement_id);
+//        $this->storeUrl($document->vehicle_id, $document->agreement_id);
+        if(url()->current() != url()->previous()) session(['previous_url' => url()->previous()]);
         DocumentsDataservice::edit($request, $document);
         return view('Admin.document-edit',
             DocumentsDataservice::provideDocumentEditor($document, 'admin.editVehicleDocument'));
@@ -77,8 +79,8 @@ class DocumentController extends Controller
     public function delete(Document $Document): \Illuminate\Http\RedirectResponse
     {
         DocumentsDataservice::delete($Document);
-        $route = session()->pull('previous_url');
-        return redirect()->to($route);
+//        $route = session()->pull('previous_url');
+        return redirect()->back();
     }
 
 

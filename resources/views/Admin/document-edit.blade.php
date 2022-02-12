@@ -11,6 +11,9 @@
 
             <div class="row">
                 <div class="col-md-12">
+{{--                    связанная задача --}}
+                    <input type="hidden" name="task_id" value="{{$document->task_id}}">
+
 {{--                    Связанная техника--}}
                     @if($document->vehicle_id)
                     <div class="input-group mb-3">

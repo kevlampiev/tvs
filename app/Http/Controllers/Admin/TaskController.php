@@ -111,5 +111,18 @@ class TaskController extends Controller
         return redirect()->route('admin.taskCard', ['task' => $task]);
     }
 
+    public function addDocument(Request $request, Task $task)
+    {
+        $document = TasksDataservice::createTaskDocument($request, $task);
+        return view('Admin.tasks.task-document-edit',
+            ['document' => $document ]);
+    }
+
+    public function storeDocument(MessageRequest $request, Task $task)
+    {
+        TasksDataservice::storeTaskDocument($request);
+        return redirect()->route('admin.taskCard', ['task' => $task]);
+    }
+
 
 }

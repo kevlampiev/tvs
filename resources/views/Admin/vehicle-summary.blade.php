@@ -100,7 +100,6 @@
 @section('scripts')
     <script>
         function autoSelectPage() {
-            alert(document.location.pathname)
             let urlArr = document.location.pathname.split('/')
             if (urlArr.length === 6) {
                 let tabName = '[href="#' + urlArr[5] + '"'

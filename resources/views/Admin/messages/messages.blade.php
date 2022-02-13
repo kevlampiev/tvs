@@ -10,7 +10,7 @@
             @foreach($messages->where('reply_to_message_id', '=' ,null) as $message)
                 @if(count(collect($message->replies))>0)
                     <details open>
-                        <summary>
+                        <summary class="ml-2">
                             @include('Admin.messages.message-record')
                         </summary>
                         <div class="ml-5">
@@ -19,7 +19,7 @@
 
                     </details>
                 @else
-                    <div class="ml-3">
+                    <div class="ml-2">
                         @include('Admin.messages.message-record')
                     </div>
                 @endif

@@ -39,7 +39,7 @@ class DocumentController extends Controller
                 'agreement_id' => $agreement->id ?? null,
             ]);
 //        $this->storeUrl($vehicle->id, $agreement->id);
-        if(url()->current() != url()->previous()) session(['previous_url' => url()->previous()]);
+        if (url()->current() != url()->previous()) session(['previous_url' => url()->previous()]);
         return view('Admin.document-edit',
             DocumentsDataservice::provideDocumentEditor($Document, 'admin.addDocument'));
     }
@@ -55,7 +55,7 @@ class DocumentController extends Controller
     public function edit(Request $request, Document $document)
     {
 //        $this->storeUrl($document->vehicle_id, $document->agreement_id);
-        if(url()->current() != url()->previous()) session(['previous_url' => url()->previous()]);
+        if (url()->current() != url()->previous()) session(['previous_url' => url()->previous()]);
         DocumentsDataservice::edit($request, $document);
         return view('Admin.document-edit',
             DocumentsDataservice::provideDocumentEditor($document, 'admin.editVehicleDocument'));

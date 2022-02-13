@@ -14,5 +14,7 @@ Route::group([
         Route::get('{message}/edit', [MessageController::class, 'edit'])
             ->name('messageEdit');
         Route::post('{message}/edit', [MessageController::class, 'update']);
+        Route::get('{message}/delete', [MessageController::class, 'delete'])
+        ->name('messageDelete');
     }
 );

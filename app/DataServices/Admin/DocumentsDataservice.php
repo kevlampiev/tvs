@@ -11,6 +11,7 @@ use App\Models\Insurance;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class DocumentsDataservice
 {
@@ -59,6 +60,7 @@ class DocumentsDataservice
         if ($document->id) $document->updated_at = now();
         else $document->created_at = now();
         if ($request->file('document_file')) {
+            Storage::delete('public/documents/' . $document->file_name);
             $file_path = $request->file('document_file')->store(config('paths.documents.put', '/public/documents'));
             $document->file_name = basename($file_path);
         }
@@ -87,10 +89,10 @@ class DocumentsDataservice
         }
     }
 
-    //TODO Надо еще и файл удалать при удалении записи о нем
     public static function delete(Document $document)
     {
         try {
+            Storage::delete('public/documents/' . $document->file_name);
             $document->delete();
             session()->flash('message', 'Документ удален');
         } catch (Error $err) {

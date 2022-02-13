@@ -18,8 +18,6 @@ Route::group([
         Route::get('{task}/edit', [ProjectController::class, 'edit'])
             ->name('editProject');
         Route::post('{task}/edit', [ProjectController::class, 'update']);
-
-
     });
 
 
@@ -50,6 +48,9 @@ Route::group([
         Route::get('{task}/addMessage', [TaskController::class, 'addMessage'])
             ->name('addTaskMessage');
         Route::post('{task}/addMessage', [TaskController::class, 'storeMessage']);
+        Route::get('{task}/addDocument', [TaskController::class, 'addDocument'])
+            ->name('addTaskDocument');
+        Route::post('{task}/addDocument', [TaskController::class, 'storeDocument']);
 
     }
 );

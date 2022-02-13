@@ -32,10 +32,16 @@ class MessageController extends Controller
 
     public function edit(Request $request, Message $message)
     {
-//        if (url()->previous() !== url()->current()) session(['previous_url' => url()->previous()]);
-//        MessagesDataservice::edit($request, $message);
-//        return view('Admin.messages.message-edit',
-//            MessagesDataservice::provideEditor($message));
+        if (url()->previous() !== url()->current()) session(['previous_url' => url()->previous()]);
+        MessagesDataservice::edit($request, $message);
+        if ($message->reply_to_message_if) {
+            return view('Admin.messages.reply-edit',
+                MessagesDataservice::provideEditor($message));
+        } else {
+            return view('Admin.messages.message-edit',
+                MessagesDataservice::provideEditor($message));
+        }
+
     }
 
     public function update(MessageRequest $request, Message $message): \Illuminate\Http\RedirectResponse
@@ -43,5 +49,12 @@ class MessageController extends Controller
         MessagesDataservice::update($request, $message);
         $route = session('previous_url');
         return redirect()->to($route);
+    }
+
+
+    public function delete(Message $message): \Illuminate\Http\RedirectResponse
+    {
+        MessagesDataservice::delete($message);
+        return redirect()->back();
     }
 }

@@ -17,12 +17,19 @@ class MessagesDataservice
         return [];
     }
 
+    public static function provideEditor(Message $message): array
+    {
+        return ['message' => $message,
+            'task' => $message->task];
+    }
+
     public static function createReply(Request $request, Message $message): Message
     {
         $m = new Message();
         $m->reply_to_message_id = $message->id;
         $m->task_id = $message->task_id;
         $m->user_id = Auth::user()->id;
+//        dd($message->user->name);
         if (!empty($request->old())) $m->fill($request->old());
         return $m;
     }
@@ -30,7 +37,7 @@ class MessagesDataservice
     public static function saveChanges(MessageRequest $request, Message $message)
     {
         $message->fill($request->all());
-        if (!$message->user_id) $message->user_id = Auth::user()->id;
+        $message->user_id = Auth::user()->id;
         if ($message->id) $message->updated_at = now();
         else $message->created_at = now();
         $message->save();
@@ -61,6 +68,20 @@ class MessagesDataservice
             session()->flash('message', 'Сообщение обновлено');
         } catch (Error $err) {
             session()->flash('error', 'Не удалось обновить сообщение');
+        }
+    }
+
+    public static function delete(Message $message)
+    {
+        try {
+            if (count($message->replies) == 0) {
+                $message->delete();
+                session()->flash('message', 'Сообщение удалено');
+            } else {
+                session()->flash('error', 'Невозможно удалить сообщения, на которые есть ответы');
+            }
+        } catch (Error $err) {
+            session()->flash('error', 'Не удалось удалить сообщение');
         }
     }
 

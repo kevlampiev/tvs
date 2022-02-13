@@ -43,10 +43,17 @@
         </div>
 
         <div class="col-md-6 border-dark bg-light p-4 mb-4">
-            <h4>Сообщения</h4>
-            @include('Admin.tasks.components.messages-menu')
-            <div class="card bg-light">
-                @include('Admin.messages.messages', ['messages' => $task->messages])
+            <div class="border-dark bg-light p-4 mb-4">
+                <h4>Документы по задаче</h4>
+                @include('Admin.tasks.components.documents-menu')
+                @include('Admin.tasks.components.documents-data')
+            </div>
+            <div class="border-dark bg-light p-4 mb-4">
+                <h4>Сообщения</h4>
+                @include('Admin.tasks.components.messages-menu')
+                <div class="card bg-light">
+                    @include('Admin.messages.messages', ['messages' => $task->messages])
+                </div>
             </div>
         </div>
     </div>

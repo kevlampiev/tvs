@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -87,9 +86,9 @@ class Task extends Model
         return $this->HAsOne(Task::class, 'parent_task_id', 'id');
     }
 
-    public function documents(): BelongsToMany
+    public function documents(): HasMany
     {
-        return $this->belongsToMany(Document::class);
+        return $this->hasMany(Document::class);
     }
 
     public function messages(): HasMany

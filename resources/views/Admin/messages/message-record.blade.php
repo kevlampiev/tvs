@@ -11,5 +11,17 @@
         <a href="{{route('admin.messageReply', ['message'=>$message])}}" class="btn btn-outline-secondary">
             <i class="fa fa-reply" aria-hidden="true"></i> Ответить
         </a>
+        @if($message->user->id == Auth::user()->id)
+            <a href="{{route('admin.messageEdit', ['message'=>$message])}}" class="btn btn-outline-secondary">
+                <i class="bi bi-pencil"></i>  Изменить
+            </a>
+            @if(count($message->replies)==0)
+                <a href="{{route('admin.messageDelete', ['message'=>$message])}}"
+                   onclick="return confirm('Вы действительно хотите удалить это сообщение?')"
+                   class="btn btn-outline-secondary">
+                    <i class="bi bi-trash"></i> Удалить
+                </a>
+            @endif
+        @endif
     </div>
 </div>

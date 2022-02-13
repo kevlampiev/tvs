@@ -6,12 +6,14 @@
 
 @section('content')
     <h3> @if ($message->id) Изменение сообщения @else Новое сообщение @endif</h3>
-    <form action="{{$message->id?route('admin.editMessage', $message->id):route('admin.addTaskMessage', ['message' =>$message, 'task' => $task])}}" method="POST" enctype="multipart/form-data">
+    <form
+{{--        action="{{$message->id?route('admin.editMessage', $message->id):route('admin.addTaskMessage', ['message' =>$message, 'task' => $task])}}" --}}
+        method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row">
             <div class="col-md-10">
             <h4>по задаче: {{$task->subject}}</h4>
-            <input type="hidden" name="user_id" value="{{$task->user_id}}">
+            <input type="hidden" name="user_id" value="{{$message->user_id}}">
             <input type="hidden" name="task_id" value="{{$task->id}}">
 
             <!-- Поле ввода описания -->

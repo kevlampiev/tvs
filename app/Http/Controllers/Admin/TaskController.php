@@ -46,7 +46,7 @@ class TaskController extends Controller
     public function store(TaskRequest $request): \Illuminate\Http\RedirectResponse
     {
         $task = TasksDataservice::store($request);
-        if($task->user_id != $task->task_performer_id) {
+        if ($task->user_id != $task->task_performer_id) {
             Mail::to($task->performer->email)
                 ->queue(new NewTaskAppeared($task));
         }
@@ -115,7 +115,7 @@ class TaskController extends Controller
     {
         $document = TasksDataservice::createTaskDocument($request, $task);
         return view('Admin.tasks.task-document-edit',
-            ['document' => $document ]);
+            ['document' => $document]);
     }
 
     public function storeDocument(MessageRequest $request, Task $task)

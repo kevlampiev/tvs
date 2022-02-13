@@ -6,7 +6,6 @@ namespace App\DataServices\Admin;
 
 use App\Http\Requests\MessageRequest;
 use App\Http\Requests\TaskRequest;
-use App\Mail\NewTaskAppeared;
 use App\Models\Agreement;
 use App\Models\Company;
 use App\Models\Counterparty;
@@ -20,7 +19,6 @@ use Error;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 
 class TasksDataservice
 {
@@ -239,7 +237,7 @@ class TasksDataservice
         $document->fill(['user_id' => Auth::user()->id,
             'task_id' => $task->id,
             'agreement_id' => $task->agreement_id,
-            'vehicle_id'=> $task->vehicle_id]);
+            'vehicle_id' => $task->vehicle_id]);
         if (!empty($request->old())) $document->fill($request->old());
         return $document;
     }

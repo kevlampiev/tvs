@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataServices\Admin\AgreementsDataservice;
 use App\DataServices\AgreementsRepo;
+use App\Events\RealTimeMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AgreementRequest;
 use App\Models\Agreement;
@@ -14,11 +15,13 @@ class AgreementController extends Controller
 {
     public function index(Request $request)
     {
+
         return view('Admin.agreements', AgreementsDataservice::index($request));
     }
 
     public function create(Request $request)
     {
+        event(new RealTimeMessage('Начинваем создавать новый договор'));
         $agreement = AgreementsDataservice::create($request);
         return view('Admin.agreement-edit',
             AgreementsDataservice::provideAgreementEditor($agreement, 'admin.addAgreement'));

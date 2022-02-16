@@ -5,6 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+{{--    <meta name="csrf-token" content="{{ csrf_token() }}">--}}
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}" type="text/css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
@@ -16,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     @yield("styles")
-    <script src="{{ mix('js/app.js') }}"></script>
+    <script src="{{asset('js/app.js')}}"></script>
 </head>
 <body>
 
@@ -108,7 +109,7 @@
     </ul>
 </nav>
 
-<div class="container-fluid m-3">
+<div class="container-fluid m-3" id="app">
 
     @if(session()->has('message'))
         <div class="alert alert-success">
@@ -125,11 +126,48 @@
     @yield('content')
 </div>
 
-{{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>--}}
-{{--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>--}}
-{{--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>--}}
-
 @yield('scripts')
+
+{{--Всплывающее диалоговое окно правом нижнем углу экрана--}}
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+{{--            <img src="..." class="rounded me-2" alt="...">--}}
+            <strong class="me-auto">Сообщение сервера</strong>
+            <small>11 мин назад</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button>
+        </div>
+        <div class="toast-body">
+            Тут будет текст сообщения
+        </div>
+        <a class="btn btn-primary btn-sm">Посмотреть</a>
+{{--        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="toast">Закрыть</button>--}}
+    </div>
+</div>
+
+<script>
+    Echo.private('user.{{auth()->user()->id}}')
+        .listenToAll((e, data) => {showServerMessage(data)});
+        // .listenToAll( (e, data) => console.log(data));
+
+    Echo.channel('common')
+        .listen('RealTimeMessage', (e) => console.log('RealTimeMessage: ' + e.message));
+
+
+    function showServerMessage(data)
+    {
+        console.log(data)
+        let toastWindow = document.getElementById('liveToast')
+        toastWindow.querySelector('.toast-body').innerHTML = data.message
+        let toast = new bootstrap.Toast(toastWindow)
+        // console.log('Im inside')
+        toast.show()
+
+    }
+
+
+</script>
 </body>
 </html>
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataServices\Admin\TasksDataservice;
+use App\Events\NewCommentToTheTaskReceived;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MessageRequest;
 use App\Http\Requests\TaskRequest;
@@ -108,6 +109,8 @@ class TaskController extends Controller
     public function storeMessage(MessageRequest $request, Task $task)
     {
         TasksDataservice::storeTaskMessage($request);
+        $user = auth()->user();
+        NewCommentToTheTaskReceived::dispatch($user, $task);
         return redirect()->route('admin.taskCard', ['task' => $task]);
     }
 

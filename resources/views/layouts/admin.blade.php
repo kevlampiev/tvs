@@ -129,45 +129,8 @@
 @yield('scripts')
 
 {{--Всплывающее диалоговое окно правом нижнем углу экрана--}}
+@include('Admin.dashboard.toasts')
 
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-{{--            <img src="..." class="rounded me-2" alt="...">--}}
-            <strong class="me-auto">Сообщение сервера</strong>
-            <small>11 мин назад</small>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button>
-        </div>
-        <div class="toast-body">
-            Тут будет текст сообщения
-        </div>
-        <a class="btn btn-primary btn-sm">Посмотреть</a>
-{{--        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="toast">Закрыть</button>--}}
-    </div>
-</div>
-
-<script>
-    Echo.private('user.{{auth()->user()->id}}')
-        .listenToAll((e, data) => {showServerMessage(data)});
-        // .listenToAll( (e, data) => console.log(data));
-
-    Echo.channel('common')
-        .listen('RealTimeMessage', (e) => console.log('RealTimeMessage: ' + e.message));
-
-
-    function showServerMessage(data)
-    {
-        console.log(data)
-        let toastWindow = document.getElementById('liveToast')
-        toastWindow.querySelector('.toast-body').innerHTML = data.message
-        let toast = new bootstrap.Toast(toastWindow)
-        // console.log('Im inside')
-        toast.show()
-
-    }
-
-
-</script>
 </body>
 </html>
 

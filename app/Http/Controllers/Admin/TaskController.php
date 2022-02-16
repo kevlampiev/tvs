@@ -109,8 +109,15 @@ class TaskController extends Controller
     public function storeMessage(MessageRequest $request, Task $task)
     {
         TasksDataservice::storeTaskMessage($request);
-        $user = auth()->user();
-        NewCommentToTheTaskReceived::dispatch($user, $task);
+        //TODO Пеоренести этого говнокод в отдельный сервис. Подумать о стркутуре таких сервисов
+        //оповещаем только того юзера, который НЕ ОСТАВЛЯЛ этот комментарий
+        if (auth()->user()->id != $task->user->id) {
+            NewCommentToTheTaskReceived::dispatch($task->user, $task);
+        }
+        if (auth()->user()->id != $task->performer->id) {
+            NewCommentToTheTaskReceived::dispatch($task->performer, $task);
+        }
+        //а еще могут быть подписчики ..... и их тоже надо уведомить
         return redirect()->route('admin.taskCard', ['task' => $task]);
     }
 

@@ -10,12 +10,21 @@ use App\Http\Requests\TaskRequest;
 use App\Mail\NewTaskAppeared;
 use App\Models\Task;
 use App\Models\User;
+use App\NotificationServices\NewCommentNotificationSocketsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class TaskController extends Controller
 {
+
+//    public NewCommentNotificationSocketsService $notificator;
+//
+//    public function __construct(NewCommentNotificationSocketsService $newCommentNotificationSocketsService)
+//    {
+//        $this->notificator = $newCommentNotificationSocketsService;
+//    }
+
     public function index(Request $request)
     {
         return view('Admin.tasks.projects',
@@ -111,12 +120,13 @@ class TaskController extends Controller
         TasksDataservice::storeTaskMessage($request);
         //TODO Пеоренести этого говнокод в отдельный сервис. Подумать о стркутуре таких сервисов
         //оповещаем только того юзера, который НЕ ОСТАВЛЯЛ этот комментарий
-        if (auth()->user()->id != $task->user->id) {
-            NewCommentToTheTaskReceived::dispatch($task->user, $task);
-        }
-        if (auth()->user()->id != $task->performer->id) {
-            NewCommentToTheTaskReceived::dispatch($task->performer, $task);
-        }
+//        if (auth()->user()->id != $task->user->id) {
+//            NewCommentToTheTaskReceived::dispatch($task->user, $task);
+//        }
+//        if (auth()->user()->id != $task->performer->id) {
+//            NewCommentToTheTaskReceived::dispatch($task->performer, $task);
+//        }
+        (new NewCommentNotificationSocketsService($task))->handle();
         //а еще могут быть подписчики ..... и их тоже надо уведомить
         return redirect()->route('admin.taskCard', ['task' => $task]);
     }

@@ -51,7 +51,7 @@
                 </thead>
                 <tbody>
                 @forelse($agreements as $index=>$agreement)
-                    <tr @if($agreement->real_date_close&&$agreement->real_date_close<=now()) class="text-black-50 agreement-close"@endif>
+                    <tr @if($agreement->real_date_close&&$agreement->real_date_close<=now()) class="text-light text-decoration-line-through"@endif>
                         <th scope="row">{{($index+1)}}</th>
                         <td>{{$agreement->name}}</td>
                         <td>{{$agreement->company->name}}</td>
@@ -78,20 +78,3 @@
     </div>
 @endsection
 
-
-@section("styles")
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
-    <style>
-        .agreement-close {
-            text-decoration: line-through;
-        }
-    </style>
-@endsection

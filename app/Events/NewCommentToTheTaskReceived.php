@@ -18,7 +18,7 @@ class NewCommentToTheTaskReceived implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public int $userId;
+    public $channel;
     public $message;
     public $routeToRedirect;
     public $task;
@@ -29,9 +29,9 @@ class NewCommentToTheTaskReceived implements ShouldBroadcast
      * @param User $user
      * @param Task $task
      */
-    public function __construct(User $user, Task $task)
+    public function __construct(string $channel, Task $task)
     {
-        $this->userId = $user->id;
+        $this->channel = $channel;
         $this->task = $task;
         $this->message =  "Поступил комментарий по задаче ".$task->subject;
         $this->routeToRedirect = route('admin.taskCard', ['task' =>$task]);
@@ -44,7 +44,7 @@ class NewCommentToTheTaskReceived implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel("user.{$this->userId}");
+        return new PrivateChannel($this->channel);
     }
 
     public function broadcastAs()

@@ -6,6 +6,7 @@ namespace App\NotificationServices;
 
 use App\Events\NewCommentToTheTaskReceived;
 use App\Models\Task;
+use App\Models\User;
 
 class NewCommentNotificationSocketsService implements NotificationSocketInterface
 {
@@ -19,9 +20,9 @@ class NewCommentNotificationSocketsService implements NotificationSocketInterfac
     public function getChannelList():array
     {
         $result = [];
-//        if (auth()->user()->id != $this->task->user_id) $result[] = "user.{$this->task->user->id}";
-//        if (auth()->user()->id != $this->task->task_performer_id) $result[] = "user.{$this->task->performer->id}";
-        $result[] = "user.1";
+        $pId = auth()->user()->id;
+        if ($pId !== $this->task->user->id) $result[] = "user.{$this->task->user->id}";
+        if ($pId !== $this->task->performer->id) $result[] = "user.{$this->task->performer->id}";
         return $result;
     }
 

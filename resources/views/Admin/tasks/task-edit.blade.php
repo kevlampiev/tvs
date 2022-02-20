@@ -38,7 +38,7 @@
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Родительская задача</span>
                     <select name="parent_task_id"
-                            class="form-control selectpicker {{$errors->has('parent_task_id')?'is-invalid':''}}"
+                            class="form-control {{$errors->has('parent_task_id')?'is-invalid':''}}"
                             aria-describedby="basic-addon1"
                             data-live-search="true"
                     >
@@ -147,7 +147,7 @@
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Исполнитель задачи</span>
                     <select name="task_performer_id"
-                            class="form-control selectpicker {{$errors->has('user_id')?'is-invalid':''}}"
+                            class="form-control {{$errors->has('user_id')?'is-invalid':''}}"
                             aria-describedby="basic-addon1"
                             data-live-search="true">
                         @foreach ($users as $user)
@@ -176,7 +176,7 @@
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Связанный договор</span>
                         <select name="agreement_id"
-                                class="form-control selectpicker {{$errors->has('agreement_id')?'is-invalid':''}}"
+                                class="form-control {{$errors->has('agreement_id')?'is-invalid':''}}"
                                 aria-describedby="basic-addon1"
                                 data-live-search="true">
                             <option value="" {{!$task->agreement_id?'selected':''}}>  </option>
@@ -202,7 +202,7 @@
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Связанная единица техники</span>
                         <select name="vehicle_id"
-                                class="form-control selectpicker {{$errors->has('vehicle_id')?'is-invalid':''}}"
+                                class="form-control {{$errors->has('vehicle_id')?'is-invalid':''}}"
                                 aria-describedby="basic-addon1"
                                 data-live-search="true">
                             <option value="" {{!$task->vehicle_id?'selected':''}}>  </option>
@@ -227,7 +227,7 @@
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Связанная компания группы</span>
                         <select name="company_id"
-                                class="form-control selectpicker {{$errors->has('company_id')?'is-invalid':''}}"
+                                class="form-control {{$errors->has('company_id')?'is-invalid':''}}"
                                 aria-describedby="basic-addon1"
                                 data-live-search="true">
                             <option value="" {{!$task->company_id?'selected':''}}>  </option>
@@ -252,7 +252,7 @@
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Связанный контрагент</span>
                         <select name="counterparty_id"
-                                class="form-control selectpicker {{$errors->has('counterparty_id')?'is-invalid':''}}"
+                                class="form-control {{$errors->has('counterparty_id')?'is-invalid':''}}"
                                 aria-describedby="basic-addon1"
                                 data-live-search="true">
                             <option value="" {{!$task->counterparty_id?'selected':''}}>  </option>
@@ -293,12 +293,12 @@
 @endsection
 
 @section('scripts')
-    <script>
-        $('.selectpicker').selectpicker({
-            style: 'btn-info',
-            size: 4
-        });
-    </script>
+{{--    <script>--}}
+{{--        $('.selectpicker').selectpicker({--}}
+{{--            style: 'btn-info',--}}
+{{--            size: 4--}}
+{{--        });--}}
+{{--    </script>--}}
 @endsection
 
 @section('styles')

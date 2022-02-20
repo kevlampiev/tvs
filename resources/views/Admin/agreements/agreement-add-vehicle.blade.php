@@ -14,7 +14,8 @@
 
                 <div class="input-group mb-3">
                     <label for="vehicles"></label>
-                    <select name="vehicle_id" class="form-control selectpicker" id="vehicles" data-live-search="true">
+{{--                    <select name="vehicle_id" class="form-control selectpicker" id="vehicles" data-live-search="true">--}}
+                    <select name="vehicle_id" class="form-control" id="vehicles" data-live-search="true">
                         @foreach ($vehicles as $vehicle)
                             <option
                                 value="{{$vehicle->id}}" {{($vehicle->id == $agreement->company_id) ? 'selected' : ''}}>

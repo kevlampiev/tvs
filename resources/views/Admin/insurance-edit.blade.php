@@ -30,9 +30,12 @@
 
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="vehicles">Единица техники </span>
+{{--                        <select name="vehicle_id"--}}
+{{--                                class="form-control selectpicker {{$errors->has('vehicle_id')?'is-invalid':''}}"--}}
+{{--                                aria-describedby="vehicles">--}}
                         <select name="vehicle_id"
-                                class="form-control selectpicker {{$errors->has('vehicle_id')?'is-invalid':''}}"
-                                aria-describedby="vehicles">
+                            class="form-control {{$errors->has('vehicle_id')?'is-invalid':''}}"
+                            aria-describedby="vehicles">
                             @foreach ($vehicles as $vehicle)
                                 <option
                                     value="{{$vehicle->id}}" {{($vehicle->id == $insurance->vehicle_id) ? 'selected' : ''}}>

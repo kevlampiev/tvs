@@ -5,16 +5,12 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-{{--    <meta name="csrf-token" content="{{ csrf_token() }}">--}}
+
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}" type="text/css">
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
     @yield("styles")
-    <script src="{{asset('js/app.js')}}"></script>
+
 </head>
 <body>
 
@@ -106,6 +102,7 @@
                 <!-- Authentication Links -->
                 @include('layouts.components.user-data-group')
             </ul>
+
         </div>
     </div>
 </nav>
@@ -125,9 +122,12 @@
         </div>
     @endif
 
-    @yield('content')
-</div>
+        <div id="app">
+            @yield('content')
+        </div>
 
+</div>
+<script src="{{asset('js/app.js')}}" ></script>
 @yield('scripts')
 
 {{--Всплывающее диалоговое окно правом нижнем углу экрана--}}

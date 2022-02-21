@@ -54,6 +54,7 @@
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="counterparties">Контрагент </span>
                         <select name="counterparty_id"
+                                id="counterparties"
                                 class="form-control {{$errors->has('counterparty_id')?'is-invalid':''}}"
                                 aria-describedby="counterparties">
                             @foreach ($counterparties as $counterparty)
@@ -256,3 +257,5 @@
 
 
 @endsection
+
+

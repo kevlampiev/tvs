@@ -15,7 +15,7 @@
                 <div class="input-group mb-3">
                     <label for="vehicles">Договор</label>
 {{--                    <select name="agreement_id" class="form-control selectpicker" id="vehicles" data-live-search="true">--}}
-                    <select name="agreement_id" class="form-control" id="vehicles" data-live-search="true">
+                    <select name="agreement_id" class="form-control" id="agreements" data-live-search="true">
                         @foreach ($agreements as $agreement)
                             <option
                                 value="{{$agreement->id}}" {{($agreement->id == $deposit->agreement_id) ? 'selected' : ''}}>
@@ -121,11 +121,13 @@
 @endsection
 
 @section('scripts')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <script>
-        $('.selectpicker').selectpicker({
-            style: 'btn-info',
-            size: 4
-        });
+        $(document).ready(function() {
+            $('#agreements').select2();
+        })
     </script>
 @endsection
 

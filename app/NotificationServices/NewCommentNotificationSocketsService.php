@@ -28,7 +28,6 @@ class NewCommentNotificationSocketsService implements NotificationSocketInterfac
 
     public function handle()
     {
-
         foreach($this->getChannelList() as $channel) {
             NewCommentToTheTaskReceived::dispatch($channel, $this->task);
         }

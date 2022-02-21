@@ -7,6 +7,7 @@ use App\Events\NewCommentToTheTaskReceived;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MessageRequest;
 use App\Models\Message;
+use App\NotificationServices\NewReplyNotificationSocketsService;
 use Illuminate\Http\Request;
 
 class MessageController extends Controller
@@ -27,21 +28,7 @@ class MessageController extends Controller
     public function store(MessageRequest $request, Message $message): \Illuminate\Http\RedirectResponse
     {
         MessagesDataservice::store($request);
-
-        //TODO Пеоренести этого говнокод в отдельный сервис. Подумать о стркутуре таких сервисов
-        //оповещаем только того юзера, который НЕ ОСТАВЛЯЛ этот комментарий
-//        $task=$message->task;
-//        while(!$task) {
-//            $message = $message->reply_o
-//            $task = $m->task;
-//        }
-//        if (auth()->user()->id != $task->user->id) {
-//            NewCommentToTheTaskReceived::dispatch($task->user, $task);
-//        }
-//        if (auth()->user()->id != $task->performer->id) {
-//            NewCommentToTheTaskReceived::dispatch($task->performer, $task);
-//        }
-        //а еще могут быть подписчики ..... и их тоже надо уведомить
+        (new NewReplyNotificationSocketsService($message))->handle();
         $route = session('previous_url');
         return redirect()->to($route);
     }

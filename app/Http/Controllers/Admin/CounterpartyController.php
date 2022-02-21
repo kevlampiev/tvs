@@ -10,11 +10,12 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
+
 class CounterpartyController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('Admin.counterparties.counterparties', CounterpartiesDataservice::provideData());
+        return view('Admin.counterparties.counterparties', CounterpartiesDataservice::index($request));
     }
 
     /**

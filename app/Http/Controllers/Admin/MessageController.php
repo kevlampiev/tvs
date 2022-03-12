@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataServices\Admin\MessagesDataservice;
+use App\Events\NewCommentToTheTaskReceived;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MessageRequest;
 use App\Models\Message;
+use App\NotificationServices\NewReplyNotificationSocketsService;
 use Illuminate\Http\Request;
 
 class MessageController extends Controller
@@ -26,6 +28,7 @@ class MessageController extends Controller
     public function store(MessageRequest $request, Message $message): \Illuminate\Http\RedirectResponse
     {
         MessagesDataservice::store($request);
+        (new NewReplyNotificationSocketsService($message))->handle();
         $route = session('previous_url');
         return redirect()->to($route);
     }

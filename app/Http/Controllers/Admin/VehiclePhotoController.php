@@ -24,7 +24,7 @@ class VehiclePhotoController extends Controller
         $vehiclePhoto = new VehiclePhoto();
         $vehiclePhoto->vehicle_id = $vehicle->id;
         if (!empty($request->old())) $vehiclePhoto->fill($request->old());
-        return view('Admin.vehicle-photo-edit', VehiclePhotoDataservice::provideEditor($vehiclePhoto));
+        return view('Admin.vehicles.vehicle-photo-edit', VehiclePhotoDataservice::provideEditor($vehiclePhoto));
     }
 
     public function store(VehiclePhotoAddRequest $request, Vehicle $vehicle): RedirectResponse

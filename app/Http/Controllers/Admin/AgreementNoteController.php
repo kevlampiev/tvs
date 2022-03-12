@@ -17,7 +17,7 @@ class AgreementNoteController extends Controller
         $agreementNote = new AgreementNote();
         $agreementNote->agreement_id = $agreement->id;
         if (!empty($request->old())) $agreementNote->fill($request->old());
-        return view('Admin.agreement-note-edit', AgreementNotesDataservice::provideEditor($agreementNote));
+        return view('Admin.agreements.agreement-note-edit', AgreementNotesDataservice::provideEditor($agreementNote));
     }
 
     public function store(AgreementNoteRequest $request, Agreement $agreement): RedirectResponse
@@ -29,7 +29,7 @@ class AgreementNoteController extends Controller
     public function edit(Request $request, AgreementNote $agreementNote)
     {
         if (!empty($request->old())) $agreementNote->fill($request->old());
-        return view('Admin.agreement-note-edit', AgreementNotesDataservice::provideEditor($agreementNote));
+        return view('Admin.agreements.agreement-note-edit', AgreementNotesDataservice::provideEditor($agreementNote));
     }
 
     public function update(AgreementNoteRequest $request, AgreementNote $agreementNote): RedirectResponse

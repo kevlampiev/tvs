@@ -71,7 +71,7 @@
 
                                     @endif
                                 >
-                                    {{$message->description}}
+                                    {!! strip_tags($message->description) !!}
                                 </a>
                                 <span class="small text-secondary"> {{\Carbon\Carbon::parse($message->created_at)->format('d.m.Y')}}
                                     автор: {{$message->user->name}}</span>

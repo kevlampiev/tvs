@@ -88,10 +88,14 @@
             <!-- Поле ввода исполнителя -->
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Руководитель проекта</span>
+{{--                    <select name="task_performer_id"--}}
+{{--                            class="form-control selectpicker {{$errors->has('user_id')?'is-invalid':''}}"--}}
+{{--                            aria-describedby="basic-addon1"--}}
+{{--                            data-live-search="true">--}}
                     <select name="task_performer_id"
-                            class="form-control selectpicker {{$errors->has('user_id')?'is-invalid':''}}"
-                            aria-describedby="basic-addon1"
-                            data-live-search="true">
+                        class="form-control {{$errors->has('user_id')?'is-invalid':''}}"
+                        aria-describedby="basic-addon1"
+                        data-live-search="true">
                         @foreach ($users as $user)
                         <option
                             value="{{$user->id}}" {{($user->id == $task->task_performer_id) ? 'selected' : ''}}>

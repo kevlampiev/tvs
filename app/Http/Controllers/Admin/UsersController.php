@@ -60,7 +60,7 @@ class UsersController extends Controller
     {
         return view('Admin.user.user-summary',
             ['user' => $user,
-            ]);
+            ]);пше
     }
 
     public function setTempPassword(Request $request, User $user)

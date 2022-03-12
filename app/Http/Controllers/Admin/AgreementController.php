@@ -21,7 +21,7 @@ class AgreementController extends Controller
 
     public function create(Request $request)
     {
-        event(new RealTimeMessage('Начинваем создавать новый договор'));
+        //event(new RealTimeMessage('Начинваем создавать новый договор'));
         $agreement = AgreementsDataservice::create($request);
         return view('Admin.agreements.agreement-edit',
             AgreementsDataservice::provideAgreementEditor($agreement, 'admin.addAgreement'));

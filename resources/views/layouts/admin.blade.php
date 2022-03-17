@@ -94,8 +94,9 @@
                     <a class="nav-link" href="{{route('home')}}">Раздел отчетов <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="глобальный поиск ..." aria-label="Search">
+            <form class="d-flex" method="GET" action="{{route('admin.globalSearch')}}">
+                <input class="form-control me-2" type="search" placeholder="глобальный поиск ..." aria-label="Search"
+                name="globalSearch" >
                 <button class="btn btn-outline-info" type="submit">Искать</button>
             </form>
             <ul class="navbar-nav ml-auto">

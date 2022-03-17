@@ -45,8 +45,8 @@
                 @empty
                     <p>Нет записей</p>
                 @endforelse
-                </tbody>
-            </table>
+
+                    {!! $searchResults->appends(request()->input())->links() !!}
         </div>
     </div>
 @endsection

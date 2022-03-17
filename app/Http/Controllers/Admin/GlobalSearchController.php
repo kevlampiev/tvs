@@ -13,7 +13,7 @@ class GlobalSearchController extends Controller
 {
     public function index(Request $request)
     {
-        $filter = $request->get('globalSearch')??"";
+        $filter = $request->get('globalSearch');
         return view('Admin.big-search-results', GlobalSearchDataService::provideData($filter));
     }
 

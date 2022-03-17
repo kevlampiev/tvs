@@ -2,6 +2,8 @@
 
 namespace App\DataServices\Admin;
 
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
 
 class GlobalSearchDataService
@@ -9,7 +11,9 @@ class GlobalSearchDataService
     public static function provideData(string $filter): array
     {
         $searchString ='%'.str_replace(' ','%', $filter).'%';
-        $data = collect(DB::select('SELECT * from v_all_entities_searching_view where entity_text like ?',[$searchString]));
+        $data = DB::table('v_all_entities_searching_view')
+            ->where('entity_text','like', $searchString)
+            ->paginate(7);
         return ['searchResults' => $data, 'globalSearchStr' => $filter];
     }
 }

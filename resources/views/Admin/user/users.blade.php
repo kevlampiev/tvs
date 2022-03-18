@@ -30,6 +30,7 @@
                     <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -39,7 +40,11 @@
                         <td>{{$user->name}}</td>
                         <td>{{$user->email}}</td>
                         <td>{{$user->role}}</td>
-                        <td><a href="{{route('admin.editUser', ['user' => $user])}}"> &#9998;Изменить </a>
+                        <td>
+                            <a href="{{route('admin.userSummary', ['user' => $user])}}"> &#9776;Карточка </a>
+                        </td>
+                        <td>
+                            <a href="{{route('admin.editUser', ['user' => $user])}}"> &#9998;Изменить </a>
                         </td>
                         <td> @if (Auth::user()->id!==$user->id)
                                 <a href="{{route('admin.setTempPassword',['user' => $user])}}"> &#9998;Сменить

@@ -15,7 +15,7 @@ class AgreementPaymentController extends Controller
     public function create(Request $request, Agreement $agreement)
     {
         $payment = AgreementPaymentsDataservice::create($request, $agreement);
-        return view('Admin.agreement-payment-edit', ['payment' => $payment]);
+        return view('Admin.agreements.agreement-payment-edit', ['payment' => $payment]);
     }
 
     public function store(AgreementPaymentRequest $request, Agreement $agreement)
@@ -28,7 +28,7 @@ class AgreementPaymentController extends Controller
     public function edit(Request $request, Agreement $agreement, AgreementPayment $payment)
     {
         AgreementPaymentsDataservice::edit($request, $payment);
-        return view('Admin.agreement-payment-edit',
+        return view('Admin.agreements.agreement-payment-edit',
             ['payment' => $payment]);
     }
 
@@ -52,7 +52,7 @@ class AgreementPaymentController extends Controller
      */
     public function createAddPayments(Request $request, Agreement $agreement)
     {
-        return view('Admin/agreement-mass-payment', ['agreement' => $agreement]);
+        return view('Admin.agreements.agreement-mass-payment', ['agreement' => $agreement]);
     }
 
     /**

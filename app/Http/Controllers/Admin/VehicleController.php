@@ -14,14 +14,14 @@ class VehicleController extends Controller
 {
     public function index(Request $request)
     {
-        return view('Admin.vehicles', VehicleDataservice::index($request));
+        return view('Admin.vehicles.vehicles', VehicleDataservice::index($request));
     }
 
     public function create(Request $request)
     {
         $vehicle = new Vehicle();
         if (!empty($request->old())) $vehicle->fill($request->old());
-        return view('Admin/vehicle-edit', VehicleDataservice::provideEditorForm($vehicle));
+        return view('Admin.vehicles.vehicle-edit', VehicleDataservice::provideEditorForm($vehicle));
     }
 
     public function store(VehicleRequest $request)
@@ -34,7 +34,7 @@ class VehicleController extends Controller
     {
         if (url()->previous() !== url()->current()) session(['previous_url' => url()->previous()]);
         if (!empty($request->old())) $vehicle->fill($request->old());
-        return view('Admin/vehicle-edit', VehicleDataservice::provideEditorForm($vehicle));
+        return view('Admin.vehicles.vehicle-edit', VehicleDataservice::provideEditorForm($vehicle));
     }
 
     public function update(VehicleRequest $request, Vehicle $vehicle)
@@ -52,7 +52,7 @@ class VehicleController extends Controller
 
     public function vehicleSummary(Vehicle $vehicle)
     {
-        return view('Admin/vehicle-summary',
+        return view('Admin.vehicles.vehicle-summary',
             ['vehicle' => $vehicle,
                 'notes' => VehicleNote::where('vehicle_id', '=', $vehicle->id)->with('user')->orderByDesc('created_at')->get(),
             ]);
@@ -64,7 +64,7 @@ class VehicleController extends Controller
             VehicleDataservice::attachAgreement($request, $vehicle);
             return redirect()->route('admin.vehicleSummary', ['vehicle' => $vehicle, 'page' => 'agreements']);
         } else {
-            return view('Admin/vehicle-add-agreement',
+            return view('Admin.vehicles.vehicle-add-agreement',
                 VehicleDataservice::provideAddAgreementView($vehicle));
         }
     }

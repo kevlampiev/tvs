@@ -21,7 +21,7 @@
             @endif
         </div>
     @empty
-        <h4>Нет заметок по данному договору</h4>
+        <p class="font-italic text-secondary">Нет заметок по договору</p>
     @endforelse
 
 </div>

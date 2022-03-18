@@ -73,6 +73,11 @@ class Message extends Model
 
     }
 
+//    public function parentMessage(): BelongsTo
+//    {
+//        return $this->belongsTo(Message::class, 'id', 'reply_to_message_id');
+//    }
+
     public function replies(): HasMany
     {
         return $this->hasMany(Message::class, 'reply_to_message_id', 'id');

@@ -14,7 +14,8 @@
 
                 <div class="input-group mb-3">
                     <label for="vehicles"></label>
-                    <select name="vehicle_id" class="form-control selectpicker" id="vehicles" data-live-search="true">
+{{--                    <select name="vehicle_id" class="form-control selectpicker" id="vehicles" data-live-search="true">--}}
+                    <select name="vehicle_id" class="form-control" id="vehicles" data-live-search="true">
                         @foreach ($vehicles as $vehicle)
                             <option
                                 value="{{$vehicle->id}}" {{($vehicle->id == $agreement->company_id) ? 'selected' : ''}}>
@@ -40,27 +41,12 @@
 @endsection
 
 @section('scripts')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <script>
-        $('.selectpicker').selectpicker({
-            style: 'btn-info',
-            size: 4
-        });
+        $(document).ready(function() {
+            $('#vehicles').select2();
+        })
     </script>
-@endsection
-
-
-@section('styles')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
-
-    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/i18n/defaults-en_US.js"></script>
-
 @endsection

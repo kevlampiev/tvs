@@ -16,7 +16,8 @@
         @csrf
         <div class="input-group mb-3">
             <label for="agreements"></label>
-            <select name="agreement_id" class="form-control selectpicker" id="agreements" data-live-search="true">
+{{--            <select name="agreement_id" class="form-control selectpicker" id="agreements" data-live-search="true">--}}
+            <select name="agreement_id" class="form-control" id="agreements" data-live-search="true">
                 @foreach ($agreements as $agreement)
                     <option
                         value="{{$agreement->id}}" {{($agreement->id == $bankStatementPosition->agreement_id) ? 'selected' : ''}}>

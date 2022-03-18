@@ -38,7 +38,8 @@
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Родительская задача</span>
                     <select name="parent_task_id"
-                            class="form-control selectpicker {{$errors->has('parent_task_id')?'is-invalid':''}}"
+                            id="parent-tasks-select"
+                            class="form-control {{$errors->has('parent_task_id')?'is-invalid':''}}"
                             aria-describedby="basic-addon1"
                             data-live-search="true"
                     >
@@ -147,7 +148,8 @@
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Исполнитель задачи</span>
                     <select name="task_performer_id"
-                            class="form-control selectpicker {{$errors->has('user_id')?'is-invalid':''}}"
+                            id="user-select"
+                            class="form-control {{$errors->has('user_id')?'is-invalid':''}}"
                             aria-describedby="basic-addon1"
                             data-live-search="true">
                         @foreach ($users as $user)
@@ -168,6 +170,7 @@
                     </div>
                 @endif
 
+
                 <details>
                     <summary >
                         Дополнительные поля
@@ -176,9 +179,11 @@
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Связанный договор</span>
                         <select name="agreement_id"
-                                class="form-control selectpicker {{$errors->has('agreement_id')?'is-invalid':''}}"
+                                id="agreement-select"
+                                class="form-control js-select2 {{$errors->has('agreement_id')?'is-invalid':''}}"
                                 aria-describedby="basic-addon1"
-                                data-live-search="true">
+                                data-live-search="true"
+                                style="width: 100%;">
                             <option value="" {{!$task->agreement_id?'selected':''}}>  </option>
                             @foreach ($agreements as $agreement)
                                 <option
@@ -202,9 +207,11 @@
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Связанная единица техники</span>
                         <select name="vehicle_id"
-                                class="form-control selectpicker {{$errors->has('vehicle_id')?'is-invalid':''}}"
+                                id="vehicle-select"
+                                class="form-control {{$errors->has('vehicle_id')?'is-invalid':''}}"
                                 aria-describedby="basic-addon1"
-                                data-live-search="true">
+                                data-live-search="true"
+                                style="width: 100%;">
                             <option value="" {{!$task->vehicle_id?'selected':''}}>  </option>
                             @foreach ($vehicles as $vehicle)
                                 <option
@@ -227,9 +234,11 @@
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Связанная компания группы</span>
                         <select name="company_id"
-                                class="form-control selectpicker {{$errors->has('company_id')?'is-invalid':''}}"
+                                id="company-select"
+                                class="form-control {{$errors->has('company_id')?'is-invalid':''}}"
                                 aria-describedby="basic-addon1"
-                                data-live-search="true">
+                                data-live-search="true"
+                                style="width: 100%;">
                             <option value="" {{!$task->company_id?'selected':''}}>  </option>
                             @foreach ($companies as $company)
                                 <option
@@ -252,9 +261,11 @@
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Связанный контрагент</span>
                         <select name="counterparty_id"
-                                class="form-control selectpicker {{$errors->has('counterparty_id')?'is-invalid':''}}"
+                                id="counterparty-select"
+                                class="form-control {{$errors->has('counterparty_id')?'is-invalid':''}}"
                                 aria-describedby="basic-addon1"
-                                data-live-search="true">
+                                data-live-search="true"
+                                style="width: 100%;">
                             <option value="" {{!$task->counterparty_id?'selected':''}}>  </option>
                             @foreach ($counterparties as $counterparty)
                                 <option
@@ -293,11 +304,18 @@
 @endsection
 
 @section('scripts')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <script>
-        $('.selectpicker').selectpicker({
-            style: 'btn-info',
-            size: 4
-        });
+        $(document).ready(function() {
+            $('#user-select').select2();
+            $('#agreement-select').select2();
+            $('#vehicle-select').select2();
+            $('#company-select').select2();
+            $('#counterparty-select').select2();
+            $('#parent-tasks-select').select2();
+        })
     </script>
 @endsection
 

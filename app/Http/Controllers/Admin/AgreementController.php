@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataServices\Admin\AgreementsDataservice;
 use App\DataServices\AgreementsRepo;
+use App\Events\RealTimeMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AgreementRequest;
 use App\Models\Agreement;
@@ -14,13 +15,15 @@ class AgreementController extends Controller
 {
     public function index(Request $request)
     {
-        return view('Admin.agreements', AgreementsDataservice::index($request));
+
+        return view('Admin.agreements.agreements', AgreementsDataservice::index($request));
     }
 
     public function create(Request $request)
     {
+        //event(new RealTimeMessage('Начинваем создавать новый договор'));
         $agreement = AgreementsDataservice::create($request);
-        return view('Admin.agreement-edit',
+        return view('Admin.agreements.agreement-edit',
             AgreementsDataservice::provideAgreementEditor($agreement, 'admin.addAgreement'));
     }
 
@@ -36,7 +39,7 @@ class AgreementController extends Controller
     {
         if (url()->previous() !== url()->current()) session(['previous_url' => url()->previous()]);
         AgreementsDataservice::edit($request, $agreement);
-        return view('Admin.agreement-edit',
+        return view('Admin.agreements.agreement-edit',
             AgreementsDataservice::provideAgreementEditor($agreement, 'admin.editAgreement'));
     }
 
@@ -58,7 +61,7 @@ class AgreementController extends Controller
     public function summary(Agreement $agreement)
     {
         $agreement->payments()->orderBy('payment_date');
-        return view('Admin/agreement-summary', ['agreement' => $agreement]);
+        return view('Admin.agreements.agreement-summary', ['agreement' => $agreement]);
     }
 
     public function addVehicle(Request $request, Agreement $agreement, Vehicle $vehicle)
@@ -67,7 +70,7 @@ class AgreementController extends Controller
             AgreementsDataservice::addVehicle($request, $agreement);
             return redirect()->route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'vehicles']);
         } else {
-            return view('Admin/agreement-add-vehicle',
+            return view('Admin.agreements.agreement-add-vehicle',
                 AgreementsRepo::provideAddVehicleView($agreement));
         }
     }

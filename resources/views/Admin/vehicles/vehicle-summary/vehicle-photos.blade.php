@@ -12,7 +12,8 @@
 @forelse($vehicle->photos as $vehiclePhoto)
     <div class="card m-2" style="width: 18rem;">
         <a href="{{route('admin.showVehiclePhoto', ['vehiclePhoto' => $vehiclePhoto])}}">
-            <img src="{{asset(config('paths.vehicles.get','storage/img/vehicles/').$vehiclePhoto->img_file)}}" class="card-img-top vehicle-show-img m-1" alt="...">
+            <img src="{{asset(config('paths.vehicles.get','storage/img/vehicles/').$vehiclePhoto->img_file)}}"
+                 class="card-img-top vehicle-show-img m-1" alt="...">
         </a>
         <div class="card-body">
             <h5 class="card-title">{{$vehiclePhoto->created_at}}</h5>

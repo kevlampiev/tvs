@@ -1,35 +1,33 @@
 @extends('layouts.admin')
 
 @section('title')
-    Администратор|Добавить данные о залоге
+    Администратор|Добавить технику к договору
 @endsection
 
 @section('content')
-    <h3> Передать технику а залог</h3>
+    <h3> Добавить технику в залог по договору {{$agreement->agr_num}} от {{$agreement->date_open}}</h3>
     <form method="POST">
         @csrf
         <div class="row">
             <div class="col-md-11">
 
-                <input type="hidden" name="vehicle_id" value="{{$deposit->vehicle_id}}">
+                <input type="hidden" name="agreement_id" value="{{$agreement->id}}">
                 <div class="input-group mb-3">
-                    <label for="vehicles">Договор</label>
-                    <select name="agreement_id" class="form-control selectpicker" id="vehicles" data-live-search="true">
-                        @foreach ($agreements as $agreement)
+                    <label for="vehicles">Единица техники</label>
+                    <select name="vehicle_id" class="form-control" id="vehicles" data-live-search="true">
+                        @foreach ($vehicles as $vehicle)
                             <option
-                                value="{{$agreement->id}}" {{($agreement->id == $deposit->agreement_id) ? 'selected' : ''}}>
-                                {{$agreement->name}} №{{$agreement->agr_number}}
-                                от {{\Carbon\Carbon::parse($agreement->date_open)->format('d.m.Y')}}
-                                 заключен между {{$agreement->company->name}} и
-                                {{$agreement->counterparty->name}}
+                                value="{{$vehicle->id}}" {{($vehicle->id == $deposit->vehicle_id) ? 'selected' : ''}}>
+                                {{$vehicle->name}} модель:{{$vehicle->model}} номер:{{$vehicle->bort_number}}
+                                VIN:{{$vehicle->vin}}
                             </option>
                         @endforeach
                     </select>
                 </div>
-                @if ($errors->has('agreement_id'))
+                @if ($errors->has('vehicle_id'))
                     <div class="alert alert-danger">
                         <ul class="p-0 m-0">
-                            @foreach($errors->get('agreement_id') as $error)
+                            @foreach($errors->get('vehicle_id') as $error)
                                 <li class="m-0 p-0"> {{$error}}</li>
                             @endforeach
                         </ul>
@@ -111,7 +109,7 @@
         <button type="submit" class="btn btn-primary">
             Добавить
         </button>
-        <a class="btn btn-secondary" href="{{route('admin.vehicleSummary',['vehicle'=>$deposit->vehicle_id])}}">Отмена</a>
+        <a class="btn btn-secondary" href="{{route('admin.agreementSummary',['agreement'=>$agreement])}}">Отмена</a>
 
 
     </form>
@@ -120,27 +118,12 @@
 @endsection
 
 @section('scripts')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <script>
-        $('.selectpicker').selectpicker({
-            style: 'btn-info',
-            size: 4
-        });
+        $(document).ready(function() {
+            $('#vehicles').select2();
+        })
     </script>
-@endsection
-
-
-@section('styles')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
-
-    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/i18n/defaults-en_US.js"></script>
-
 @endsection

@@ -39,7 +39,7 @@
                  @if($vehiclePhoto->img_file)
                     src="{{asset(config('paths.vehicles.get','storage/img/vehicles/').$vehiclePhoto->img_file)}}"
                  @else
-                 src="https://st.depositphotos.com/1987177/3470/v/950/depositphotos_34700099-stock-illustration-no-photo-available-or-missing.jpg"
+                 src="{{asset('noimg.png')}}"
                  @endif
                  onclick="document.getElementById('inputGroupFile01').click()">
 

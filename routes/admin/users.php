@@ -17,4 +17,6 @@ Route::group([
             ->name('deleteUser');
         Route::match(['get', 'post'], '{user}/setTmpPswd', [UsersController::class, 'setTempPassword'])
             ->name('setTempPassword');
+        Route::get('{user}/summary', [UsersController::class,'userSummary'])
+            ->name('userSummary');
     });

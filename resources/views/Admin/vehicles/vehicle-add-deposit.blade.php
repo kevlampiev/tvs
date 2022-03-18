@@ -1,33 +1,36 @@
 @extends('layouts.admin')
 
 @section('title')
-    Администратор|Добавить технику к договору
+    Администратор|Добавить данные о залоге
 @endsection
 
 @section('content')
-    <h3> Добавить технику в залог по договору {{$agreement->agr_num}} от {{$agreement->date_open}}</h3>
+    <h3> Передать технику а залог</h3>
     <form method="POST">
         @csrf
         <div class="row">
             <div class="col-md-11">
 
-                <input type="hidden" name="agreement_id" value="{{$agreement->id}}">
+                <input type="hidden" name="vehicle_id" value="{{$deposit->vehicle_id}}">
                 <div class="input-group mb-3">
-                    <label for="vehicles">Единица техники</label>
-                    <select name="vehicle_id" class="form-control selectpicker" id="vehicles" data-live-search="true">
-                        @foreach ($vehicles as $vehicle)
+                    <label for="vehicles">Договор</label>
+{{--                    <select name="agreement_id" class="form-control selectpicker" id="vehicles" data-live-search="true">--}}
+                    <select name="agreement_id" class="form-control" id="agreements" data-live-search="true">
+                        @foreach ($agreements as $agreement)
                             <option
-                                value="{{$vehicle->id}}" {{($vehicle->id == $deposit->vehicle_id) ? 'selected' : ''}}>
-                                {{$vehicle->name}} модель:{{$vehicle->model}} номер:{{$vehicle->bort_number}}
-                                VIN:{{$vehicle->vin}}
+                                value="{{$agreement->id}}" {{($agreement->id == $deposit->agreement_id) ? 'selected' : ''}}>
+                                {{$agreement->name}} №{{$agreement->agr_number}}
+                                от {{\Carbon\Carbon::parse($agreement->date_open)->format('d.m.Y')}}
+                                 заключен между {{$agreement->company->name}} и
+                                {{$agreement->counterparty->name}}
                             </option>
                         @endforeach
                     </select>
                 </div>
-                @if ($errors->has('vehicle_id'))
+                @if ($errors->has('agreement_id'))
                     <div class="alert alert-danger">
                         <ul class="p-0 m-0">
-                            @foreach($errors->get('vehicle_id') as $error)
+                            @foreach($errors->get('agreement_id') as $error)
                                 <li class="m-0 p-0"> {{$error}}</li>
                             @endforeach
                         </ul>
@@ -109,7 +112,7 @@
         <button type="submit" class="btn btn-primary">
             Добавить
         </button>
-        <a class="btn btn-secondary" href="{{route('admin.agreementSummary',['agreement'=>$agreement])}}">Отмена</a>
+        <a class="btn btn-secondary" href="{{route('admin.vehicleSummary',['vehicle'=>$deposit->vehicle_id])}}">Отмена</a>
 
 
     </form>
@@ -118,11 +121,13 @@
 @endsection
 
 @section('scripts')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <script>
-        $('.selectpicker').selectpicker({
-            style: 'btn-info',
-            size: 4
-        });
+        $(document).ready(function() {
+            $('#agreements').select2();
+        })
     </script>
 @endsection
 

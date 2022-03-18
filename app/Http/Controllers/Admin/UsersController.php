@@ -13,7 +13,7 @@ class UsersController extends Controller
 {
     public function index(Request $request)
     {
-        return view('Admin.users', ['users' => User::query()->orderBy('name')->get(), 'filter' => '']);
+        return view('Admin.user.users', ['users' => User::query()->orderBy('name')->get(), 'filter' => '']);
     }
 
     public function add(Request $request)
@@ -26,7 +26,7 @@ class UsersController extends Controller
             Mail::to($user->email)->queue(new UserCreated($user));
             return redirect()->route('admin.users');
         } else {
-            return view('Admin/user-edit', [
+            return view('Admin.user.user-edit', [
                 'user' => $user,
                 'route' => 'admin.addUser',
             ]);
@@ -40,7 +40,7 @@ class UsersController extends Controller
             $user->save();
             return redirect()->route('admin.users');
         } else {
-            return view('Admin/user-edit', [
+            return view('Admin.user.user-edit', [
                 'user' => $user,
                 'route' => 'admin.editUser',
             ]);
@@ -56,6 +56,15 @@ class UsersController extends Controller
         return redirect()->route('admin.users');
     }
 
+    public function userSummary(User $user)
+    {
+        return view('Admin.user.user-summary',
+            ['user' => $user,
+
+            ]);
+
+    }
+
     public function setTempPassword(Request $request, User $user)
     {
         if (Auth::user()->id == $user->id) {
@@ -68,7 +77,7 @@ class UsersController extends Controller
             $user->save();
             return redirect()->route('admin.users')->with('message', 'Временный пароль установлен');
         } else {
-            return view('Admin.user-setTempPassword', ['user' => $user]);
+            return view('Admin.user.user-setTempPassword', ['user' => $user]);
         }
     }
 

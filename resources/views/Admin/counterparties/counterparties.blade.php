@@ -12,10 +12,24 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-12">
-        <a class="btn btn-outline-info" href="{{route('admin.addCounterparty')}}">Новый контрагент</a>
+    @if ($filter!=='')
+        <div class="alert alert-primary" role="alert">
+            Установлен фильтр по имени " <strong> {{$filter}} </strong> "
         </div>
+    @endif
+
+    <div class="row">
+        <div class="col-md-6">
+            <a class="btn btn-outline-info" href="{{route('admin.addCounterparty')}}">Новый Контрагент</a>
+        </div>
+        <div class="col-md-6">
+            <form class="form-inline my-2 my-lg-0" method="GET">
+                <input class="form-control mr-sm-2" type="search" placeholder="Поиск контрагента" aria-label="Search" name="searchStr"
+                       value="{{isset($filter)?$filter:''}}">
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Поиск</button>
+            </form>
+        </div>
+
     </div>
 
     <div class="row">

@@ -3,18 +3,28 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataServices\Admin\TasksDataservice;
+use App\Events\NewCommentToTheTaskReceived;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MessageRequest;
 use App\Http\Requests\TaskRequest;
 use App\Mail\NewTaskAppeared;
 use App\Models\Task;
 use App\Models\User;
+use App\NotificationServices\NewCommentNotificationSocketsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class TaskController extends Controller
 {
+
+//    public NewCommentNotificationSocketsService $notificator;
+//
+//    public function __construct(NewCommentNotificationSocketsService $newCommentNotificationSocketsService)
+//    {
+//        $this->notificator = $newCommentNotificationSocketsService;
+//    }
+
     public function index(Request $request)
     {
         return view('Admin.tasks.projects',
@@ -108,6 +118,7 @@ class TaskController extends Controller
     public function storeMessage(MessageRequest $request, Task $task)
     {
         TasksDataservice::storeTaskMessage($request);
+        (new NewCommentNotificationSocketsService($task))->handle();
         return redirect()->route('admin.taskCard', ['task' => $task]);
     }
 

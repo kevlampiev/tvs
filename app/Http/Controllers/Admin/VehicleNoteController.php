@@ -28,7 +28,7 @@ class VehicleNoteController extends Controller
     public function edit(Request $request, VehicleNote $vehicleNote)
     {
         if (!empty($request->old())) $vehicleNote->fill($request->old());
-        return view('Admin.vehicle-note-edit', VehicleNotesDataservice::provideEditor($vehicleNote));
+        return view('Admin.vehicles.vehicle-note-edit', VehicleNotesDataservice::provideEditor($vehicleNote));
     }
 
     public function update(VehicleNoteRequest $request, VehicleNote $vehicleNote): \Illuminate\Http\RedirectResponse

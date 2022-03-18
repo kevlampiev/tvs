@@ -74,7 +74,7 @@ class CounterpartiesTest extends TestCase
         $this->actingAs($user)->get(route('admin.counterparties'))
             ->assertStatus(200)
             ->assertSeeText('Реестр контрагентов')
-            ->assertSeeText('Новый контрагент')
+            ->assertSeeText('Новый Контрагент')
             ->assertSeeText('Наименование')
             ->assertSeeText('Изменить')
             ->assertSeeText('Удалить')

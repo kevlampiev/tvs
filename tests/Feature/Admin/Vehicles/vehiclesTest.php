@@ -47,7 +47,7 @@ class vehiclesTest extends TestCase
         $response = $this->actingAs($user)->get(route('admin.vehicles'));
         $response->assertStatus(200)
             ->assertSeeText('Справочники')
-            ->assertSeeText('Список техники')
+            ->assertSeeText('Техника в наличии')
             ->assertSeeText('Новая единица');
         $dataCount = DB::table('vehicles')->count();
         if ($dataCount > 0) {

@@ -14,6 +14,7 @@ use App\NotificationServices\NewCommentNotificationSocketsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use PhpParser\Error;
 
 class TaskController extends Controller
 {
@@ -118,7 +119,11 @@ class TaskController extends Controller
     public function storeMessage(MessageRequest $request, Task $task)
     {
         TasksDataservice::storeTaskMessage($request);
-        (new NewCommentNotificationSocketsService($task))->handle();
+//        try {
+//             (new NewCommentNotificationSocketsService($task))->handle();
+//        } catch (Error $e) {
+//            session()->flash('error', 'Не удалось отправить сообщение о новом комментарии к  задаче получателю');
+//        }
         return redirect()->route('admin.taskCard', ['task' => $task]);
     }
 

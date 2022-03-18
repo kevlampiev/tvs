@@ -51,7 +51,7 @@ class RootTest extends TestCase
             ->assertStatus(200)
             ->assertSeeText('Состояние расчетов')
             ->assertSee('chart') //есть график
-            ->assertSeeText('Панель управления');
+            ->assertSeeText('Панель')->assertSeeText('управления');
     }
 
 
@@ -69,7 +69,8 @@ class RootTest extends TestCase
             ->assertStatus(200)
             ->assertSeeText('Состояние расчетов')
             ->assertSee('chart') //есть график
-            ->assertSeeText('Панель управления');
+            ->assertSeeText('Панель')
+            ->assertSeeText(' управления');
     }
 
 }

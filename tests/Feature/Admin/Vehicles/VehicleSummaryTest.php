@@ -130,7 +130,7 @@ class VehicleSummaryTest extends TestCase
             $response = $this->actingAs($user)
                 ->get(route('admin.vehicleSummary', ['vehicle' => $vehicle, 'page' => 'notes']))
                 ->assertStatus(200)
-                ->assertSeeText('Нет документов для отображения');
+                ->assertSeeText('Нет заметок по данной единице техники');
         }
     }
 
@@ -187,9 +187,10 @@ class VehicleSummaryTest extends TestCase
             $response->assertSeeText('Карточка')
                 ->assertSeeText('Изменить')
                 ->assertSeeText('Удалить');
-        } else {
-            $response->assertDontSeeText('Нет данных для отображения');
         }
+//        else {
+//            $response->assertDontSeeText('Нет данных для отображения');
+//        }
     }
 
 

@@ -28,11 +28,11 @@ class MessageController extends Controller
     public function store(MessageRequest $request, Message $message): \Illuminate\Http\RedirectResponse
     {
         MessagesDataservice::store($request);
-        try {
-            (new NewReplyNotificationSocketsService($message))->handle();
-        } catch (Error $e) {
-            session()->flash('error', 'Не удалось отправить сообщение о новом комментарии к  задаче получателю');
-        }
+    //        try {
+    //            (new NewReplyNotificationSocketsService($message))->handle();
+    //        } catch (Error $e) {
+    //            session()->flash('error', 'Не удалось отправить сообщение о новом комментарии к  задаче получателю');
+    //        }
 
         $route = session('previous_url');
         return redirect()->to($route);

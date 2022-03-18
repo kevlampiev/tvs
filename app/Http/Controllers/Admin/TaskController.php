@@ -119,11 +119,11 @@ class TaskController extends Controller
     public function storeMessage(MessageRequest $request, Task $task)
     {
         TasksDataservice::storeTaskMessage($request);
-        try {
-             (new NewCommentNotificationSocketsService($task))->handle();
-        } catch (Error $e) {
-            session()->flash('error', 'Не удалось отправить сообщение о новом комментарии к  задаче получателю');
-        }
+//        try {
+//             (new NewCommentNotificationSocketsService($task))->handle();
+//        } catch (Error $e) {
+//            session()->flash('error', 'Не удалось отправить сообщение о новом комментарии к  задаче получателю');
+//        }
         return redirect()->route('admin.taskCard', ['task' => $task]);
     }
 

@@ -47,6 +47,7 @@ class TasksDataservice
             ->where('terminate_date', '=', null)
             ->where('parent_task_id', '<>', null)
             ->where('subject', 'like', $searchStr)
+            ->where('hidden_task','<>',true)
             ->orderBy('user_id')
             ->orderBy('due_date')
             ->get();
@@ -117,7 +118,11 @@ class TasksDataservice
 
     public static function saveChanges(TaskRequest $request, Task $task)
     {
+
+
         $task->fill($request->all());
+        $task->hidden_task= $request->has('hidden_task')?1:0;
+
         if (!$task->user_id) $task->user_id = Auth::user()->id;
         if ($task->id) $task->updated_at = now();
         else $task->created_at = now();
@@ -142,10 +147,7 @@ class TasksDataservice
 
     public static function edit(Request $request, Task $task)
     {
-
         if (!empty($request->old())) $task->fill($request->old());
-//        $task->start_date = Carbon::parse($task->start_date)->toDateString();
-//        $task->due_date = Carbon::parse($task->due_date)->toDateString();
     }
 
     public static function update(TaskRequest $request, Task $task)

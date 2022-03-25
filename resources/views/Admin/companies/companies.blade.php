@@ -28,6 +28,7 @@
                     <th scope="col">Код</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -36,6 +37,7 @@
                         <th scope="row">{{$index+1}}</th>
                         <td>{{$company->name}}</td>
                         <td>{{$company->code}}</td>
+                        <td><a href="{{route('admin.companySummary',['company'=>$company])}}"> &#9776;Карточка </a>
                         <td><a href="{{route('admin.editCompany',['company'=>$company])}}"> &#9998;Изменить </a>
                         </td>
                         @if ($company->agreements_count===0)

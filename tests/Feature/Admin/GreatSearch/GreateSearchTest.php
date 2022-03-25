@@ -7,7 +7,7 @@ use App\Models\Manufacturer;
 use App\Models\User;
 use Tests\TestCase;
 
-class GreateSearchTest extends TestCase
+class GreatSearchTest extends TestCase
 {
 
     /**
@@ -46,8 +46,7 @@ class GreateSearchTest extends TestCase
     public function testList()
     {
         $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
-        $manufacturer = Manufacturer::query()->inRandomOrder()->first();
-        $url = route('admin.globalSearch').'?globalSearch=%&page=1';
+        $url = route('admin.globalSearch').'?globalSearch=%25';
         $this->actingAs($user)->get($url)
             ->assertStatus(200)
         ->assertSeeText('Результаты поиска');

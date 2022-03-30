@@ -1,35 +1,33 @@
 <?php
 
-namespace Tests\Feature\Admin;
+namespace Tests\Feature\Admin\Companies;
 
 
 use App\Models\Company;
+use App\Models\PowerOfAttorney;
 use App\Models\User;
 use Tests\TestCase;
+use function route;
 
 class CompaniesTest extends TestCase
 {
 
     /**
-     *Тестируем невозможность входа без авторизации
+     *Тестируем невозможность добавления новой доверенности или редактирования текущей без регистрации
      *
      * @return void
      */
     public function testUnauthorized()
     {
-        //Не можем войти в список
-        $this->get(route('admin.companies'))
-            ->assertStatus(302)
-            ->assertRedirect('login');
-
-        //не проходим на страницу добавления
-        $this->get(route('admin.addCompany'))
+        $company = Company::query()->inRandomOrder()->first();
+        //Не можем открыть окно добавления новой доверенности
+        $this->get(route('admin.addPOA', ['company' => $company]))
             ->assertStatus(302)
             ->assertRedirect('login');
 
         //не проходим на страницу редактирования
-        $company = Company::query()->inRandomOrder()->first();
-        $this->get(route('admin.editCompany', ['company' => $company]))
+        $powerOfAttorney = PowerOfAttorney::query()->inRandomOrder()->first();
+        $this->get(route('admin.editPOA', ['powerOfAttorney' => $powerOfAttorney]))
             ->assertStatus(302)
             ->assertRedirect('login');
     }

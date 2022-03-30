@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Company extends Model
 {
@@ -11,9 +12,14 @@ class Company extends Model
 
     protected $fillable = ['name', 'code'];
 
-    public function agreements(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function agreements(): HasMany
     {
         return $this->hasMany(Agreement::class);
+    }
+
+    public function poas():hasMany
+    {
+        return $this->hasMany(PowerOfAttorney::class);
     }
 
     public static function rules(): array

@@ -14,7 +14,7 @@ class CompanyController extends Controller
 {
     public function index()
     {
-        return view('Admin.companies', CompaniesDataservice::provideData());
+        return view('Admin.companies.companies', CompaniesDataservice::provideData());
     }
 
     /**
@@ -29,7 +29,7 @@ class CompanyController extends Controller
         if (!empty($request->old())) {
             $company->fill($request->old());
         }
-        return view('Admin.company-edit', [
+        return view('Admin.companies.company-edit', [
             'company' => $company,
             'route' => 'admin.addCompany',
         ]);
@@ -70,7 +70,7 @@ class CompanyController extends Controller
         if (!empty($request->old())) {
             $company->fill($request->old());
         }
-        return view('Admin.company-edit', [
+        return view('Admin.companies.company-edit', [
             'company' => $company,
             'route' => 'admin.editCompany',
         ]);
@@ -102,5 +102,10 @@ class CompanyController extends Controller
         $company->delete();
         session()->flash('message', 'Информация о компании удалена');
         return redirect()->route('admin.companies');
+    }
+
+    public function summary(Company $company)
+    {
+        return view('Admin.companies.company-summary', ['company'=>$company]);
     }
 }

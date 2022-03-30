@@ -285,6 +285,13 @@
                         </div>
                     @endif
 
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="{{$task->hidden_task}}" id="flexCheckIndeterminate" name="hidden_task"
+                        {{old('hidden_task')==1||$task->hidden_task==1?'checked="checked"' : ''}}>
+                        <label class="form-check-label" for="flexCheckIndeterminate">
+                            Скрыть задачу из списков задач пользователей
+                        </label>
+                    </div>
 
 
                 </details>

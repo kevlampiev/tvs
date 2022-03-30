@@ -35,7 +35,7 @@ class IndexTest extends TestCase
         $this->actingAs($user)
             ->get(route('admin.main'))
             ->assertStatus(200)
-            ->assertSeeText('Список техники')
+            ->assertSeeText('Техника')
             ->assertSeeText('Договоры')
             ->assertSeeText('Справочники');
     }
@@ -46,7 +46,7 @@ class IndexTest extends TestCase
         $this->actingAs($user)
             ->get(route('admin.main'))
             ->assertStatus(200)
-            ->assertSeeText('Список техники')
+            ->assertSeeText('Техника')
             ->assertSeeText('Договоры')
             ->assertSeeText('Справочники');
     }

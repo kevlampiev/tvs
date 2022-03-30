@@ -1,12 +1,15 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
+//Font awesome
+@import "node_modules/font-awesome/scss/font-awesome.scss";
+
 // Variables
 @import 'variables';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
-
+@import '~bootstrap-icons/font/bootstrap-icons';
 @import url(https://fonts.googleapis.com/css?family=Nunito);
 
 @import "~noty/src/noty.scss";
@@ -10024,4 +10027,5 @@ a.text-dark:hover, a.text-dark:focus {
 .vehicle-show-img {
     width: 250px;
     height: 250px;
+    object-fit: contain ;
 }

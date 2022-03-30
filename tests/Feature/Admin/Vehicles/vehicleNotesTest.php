@@ -85,10 +85,10 @@ class vehicleNotesTest extends TestCase
      */
     public function testEditVehicleNote()
     {
-        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
+//        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
         $vehicleNote = VehicleNote::query()->inRandomOrder()->first();
 
-        $this->actingAs($user)->get(route('admin.editVehicleNote', ['vehicleNote' => $vehicleNote]))
+        $this->actingAs($vehicleNote->user)->get(route('admin.editVehicleNote', ['vehicleNote' => $vehicleNote]))
             ->assertStatus(200)
             ->assertSeeText('Редактирование заметки')
             ->assertSee($vehicleNote->vehicle->name)

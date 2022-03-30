@@ -35,7 +35,7 @@ class TaskCardTest extends TestCase
         $user = User::query()->where('role', 'user')->inRandomOrder()->first();
         $this->actingAs($user)->get(route('admin.taskCard', ['task' => $task]))
             ->assertStatus(302)
-            ->assertRedirect('login');
+            ->assertRedirect('/');
     }
 
 
@@ -49,7 +49,7 @@ class TaskCardTest extends TestCase
         $user = User::query()->where('role', 'manager')->orWhere('role', 'admin')->inRandomOrder()->first();
         $response = $this->actingAs($user)->get(route('admin.taskCard', ['task' => $task]));
         $response->assertStatus(200)
-            ->assertSeeText('КАРТОЧКА ПРОЕКТА')
+            ->assertSeeText('Карточка Проекта')
             ->assertSeeText('Основная информация')
             ->assertSeeText('Дочерние задачи')
             ->assertSeeText($task->subject)

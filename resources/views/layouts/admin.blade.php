@@ -8,6 +8,7 @@
 
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" type="text/css">
 
     @yield("styles")
 
@@ -94,8 +95,9 @@
                     <a class="nav-link" href="{{route('home')}}">Раздел отчетов <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="глобальный поиск ..." aria-label="Search">
+            <form class="d-flex" method="GET" action="{{route('admin.globalSearch')}}">
+                <input class="form-control me-2" type="search" placeholder="глобальный поиск ..." aria-label="Search"
+                name="globalSearch" >
                 <button class="btn btn-outline-info" type="submit">Искать</button>
             </form>
             <ul class="navbar-nav ml-auto">
@@ -104,8 +106,27 @@
             </ul>
 
         </div>
+
     </div>
 </nav>
+        <div class="d-none d-lg-block pt-2 pl-lg-4">
+            <a class="btn btn-outline-secondary mr-1 border-0" href="{{route('admin.vehicles')}}">
+                <i class="bi bi-truck"></i> Техника
+            </a>
+
+            <a class="btn btn-outline-secondary mr-1 border-0" href="{{route('admin.agreements')}}">
+                <i class="bi bi-files"></i> Договоры
+            </a>
+
+            <a class="btn btn-outline-secondary mr-1 border-0"
+               href="{{route('admin.userTasks', ['user' => auth()->user()])}}">
+                <i class="bi bi-list-task"></i> Мои задачи
+            </a>
+            <a class="btn btn-outline-secondary mr-1 border-0"
+               href="{{route('admin.counterparties')}}">
+                <i class="bi bi-people"></i> Контрагенты
+            </a>
+        </div>
 
 
 <div class="container-fluid m-3" id="app">

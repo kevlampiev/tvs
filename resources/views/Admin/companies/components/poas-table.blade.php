@@ -13,6 +13,7 @@
             <thead>
             <tr>
                 <th scope="col">№</th>
+                <th scope="col">Номер доверенности</th>
                 <th scope="col">Кому выдана доверенность</th>
                 <th scope="col">Краткое описание</th>
                 <th scope="col">Дата начала</th>
@@ -23,7 +24,11 @@
             </thead>
             <tbody>
             @forelse($company->poas as $poa)
-                <tr>
+                <tr
+                    @if ($poa->date_close<now())
+                          class="text-secondary text-decoration-line-through"
+                    @endif
+                >
                     <th scope="row">{{$loop->index+1}}</th>
                     <td>{{$poa->poa_number}}</td>
                     <td>{{$poa->issued_for}}</td>

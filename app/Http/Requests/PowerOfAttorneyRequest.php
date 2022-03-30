@@ -30,7 +30,7 @@ class PowerOfAttorneyRequest extends FormRequest
             'issued_for' => 'required|string|min:3',
             'poa_number' => 'nullable|string',
             'subject' => 'required|string|min:10',
-            'description' => 'string|nullable',
+            'description' => 'string|required',
             'date_open' => 'required|date',
             'date_close' => 'required|date|after_or_equal:date_open',
         ];

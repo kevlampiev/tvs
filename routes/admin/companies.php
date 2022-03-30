@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AgreementTypeController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\CounterpartyController;
 use App\Http\Controllers\Admin\CounterpartyEmployeeController;
+use App\Http\Controllers\Admin\PowerOfAttorneyController;
 use App\Http\Controllers\Admin\RealPaymentController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,8 +28,19 @@ Route::group([
             ->name('deleteCompany');
         Route::get('{company}/summary/{page?}', [CompanyController::class, 'summary'])
             ->name('companySummary');
-
     }
-
 );
 
+Route::group(
+    ['prefix' => 'poa'],
+    function () {
+        Route::get('{company}/add', [PowerOfAttorneyController::class, 'create'])
+            ->name('addPOA');
+        Route::post('{company}/add', [PowerOfAttorneyController::class, 'store']);
+        Route::get('{powerOfAttorney}/edit', [PowerOfAttorneyController::class, 'edit'])
+            ->name('editPOA');
+        Route::post('{powerOfAttorney}/edit', [PowerOfAttorneyController::class, 'update']);
+        Route::match(['get', 'post'], '{powerOfAttorney}/delete', [PowerOfAttorneyController::class, 'erase'])
+            ->name('deletePOA');
+    }
+);

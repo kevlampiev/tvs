@@ -22,8 +22,10 @@ class CreateTablePOA extends Migration
             $table->text('description')->comment('текст доверенности');
             $table->date('date_open')->default(today());
             $table->date('date_close')->nullale(false);
+            $table->unsignedBigInteger('user_id')->nullale(false);
             $table->timestamps();
             $table->foreign('company_id')->on('companies')->references('id');
+            $table->foreign('user_id')->on('users')->references('id');
         });
     }
 

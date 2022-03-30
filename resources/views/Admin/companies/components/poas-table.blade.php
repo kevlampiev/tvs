@@ -1,9 +1,9 @@
 <div class="row">
     <div class="col-md-12">
-{{--        <a class="btn btn-outline-info"--}}
-{{--           href="{{route('admin.addCounterpartyEmployee', ['counterparty' => $counterparty])}}">--}}
-{{--            Добавить Доверенность--}}
-{{--        </a>--}}
+        <a class="btn btn-outline-info"
+           href="{{route('admin.addPOA', ['company' => $company])}}">
+            Добавить Доверенность
+        </a>
     </div>
 </div>
 
@@ -31,15 +31,15 @@
                     <td>{{$poa->date_open}}</td>
                     <td>{{$poa->date_close}}</td>
                     <td>
-{{--                        <a href="{{route('admin.editCounterpartyEmployee', ['employee' => $employee])}}">--}}
-{{--                            &#9776;Изменить--}}
-{{--                        </a>--}}
+                        <a href="{{route('admin.editPOA', ['powerOfAttorney' => $poa])}}">
+                            &#9776;Изменить
+                        </a>
                     </td>
                     <td>
-{{--                        <a href="{{route('admin.deleteCounterpartyEmployee', ['employee' => $employee])}}"--}}
-{{--                        onclick="return confirm('Действительно удалить запись о сотруднике контргагента?')">--}}
-{{--                            &#10008;Удалить--}}
-{{--                        </a>--}}
+                        <a href="{{route('admin.deletePOA', ['powerOfAttorney' => $poa])}}"
+                        onclick="return confirm('Действительно удалить доверенность?')">
+                            &#10008;Удалить
+                        </a>
                     </td>
                 </tr>
             @empty

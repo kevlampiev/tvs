@@ -27,13 +27,23 @@
                                         <a class="text-decoration-none text-secondary font-weight-bold" href="{{route('admin.vehicleSummary', ['vehicle'=>$el->id])}}">Техника</a>
                                           @break
                                   @case('message')
-                                          Сообщение
+                                        @if ($el->id)
+                                            <a class="text-decoration-none text-secondary font-weight-bold" href="{{route('admin.taskCard', ['task'=>$el->id])}}">Сообщение</a>
+                                        @else
+                                            Сообщение
+                                        @endif
                                           @break
                                   @case('vehicle_none')
                                           Заметка
                                           @break
                                   @case('agreement_none')
                                           Заметка
+                                          @break
+                                  @case('employee')
+                                          Сотрудник
+                                          @break
+                                  @case('document')
+                                          Документ
                                           @break
                                   @default Прочее
                         @endswitch

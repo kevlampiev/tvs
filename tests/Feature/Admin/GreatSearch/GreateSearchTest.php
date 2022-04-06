@@ -3,8 +3,12 @@
 namespace Tests\Feature\Admin;
 
 
+use App\Models\Agreement;
 use App\Models\Manufacturer;
+use App\Models\Message;
+use App\Models\Task;
 use App\Models\User;
+use App\Models\Vehicle;
 use Tests\TestCase;
 
 class GreatSearchTest extends TestCase
@@ -39,7 +43,7 @@ class GreatSearchTest extends TestCase
     }
 
     /**
-     *Тестируем страницу войдя под правильным логином и паролем
+     *Тестируем страницу поиска войдя под правильным логином и паролем
      *
      * @return void
      */
@@ -52,39 +56,74 @@ class GreatSearchTest extends TestCase
         ->assertSeeText('Результаты поиска');
     }
 
-
     /**
-     *Тестируем страницу добавления войдя под правильным логином и паролем
+     *Тестируем возможность поиска задачи
      *
      * @return void
      */
-    public function testAddManufacturer()
+    public function testSearchTask()
     {
         $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
-        $this->actingAs($user)->get(route('admin.addManufacturer'))
+        $task = Task::query()->inRandomOrder()->first();
+        $searchStr = str_replace(' ', '+', $task->subject);
+        $url = route('admin.globalSearch').'?globalSearch='.$searchStr;
+        $this->actingAs($user)->get($url)
             ->assertStatus(200)
-            ->assertSeeText('Добавить нового производителя')
-            ->assertSeeText('Наименование производителя')
-            ->assertSeeText('Добавить')
-            ->assertSeeText('Отмена');
+        ->assertSeeText('Результаты поиска')
+        ->assertSeeText($task->subject);
     }
 
     /**
-     *Тестируем страницу добавления войдя под правильным логином и паролем
+     *Тестируем возможность поиска сообщения
      *
      * @return void
      */
-    public function testEditManufacturer()
+    public function testSearchMessage()
     {
         $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
-        $manufacturer = Manufacturer::query()->inRandomOrder()->first();
-        $this->actingAs($user)->get(route('admin.editManufacturer', ['manufacturer' => $manufacturer]))
+        $message = Message::query()->inRandomOrder()->first();
+        $searchStr = str_replace(' ', '+', $message->subject);
+        $url = route('admin.globalSearch').'?globalSearch='.$searchStr;
+        $this->actingAs($user)->get($url)
             ->assertStatus(200)
-            ->assertSeeText('Редактирование производителя')
-            ->assertSeeText('Изменить')
-            ->assertSeeText('Отмена')
-            ->assertSeeText('Наименование производителя')
-            ->assertSee($manufacturer->name);
+        ->assertSeeText('Результаты поиска')
+        ->assertSeeText($message->subject);
     }
+
+    /**
+     *Тестируем возможность поиска техники
+     *
+     * @return void
+     */
+    public function testSearchVehicle()
+    {
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
+        $vehicle = Vehicle::query()->inRandomOrder()->first();
+        $searchStr = str_replace(' ', '+', $vehicle->name);
+        $url = route('admin.globalSearch').'?globalSearch='.$searchStr;
+        $this->actingAs($user)->get($url)
+            ->assertStatus(200)
+        ->assertSeeText('Результаты поиска')
+        ->assertSeeText($vehicle->name);
+    }
+
+    /**
+     *Тестируем возможность поиска договора
+     *
+     * @return void
+     */
+    public function testSearchAgreement()
+    {
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
+        $agreement = Agreement::query()->inRandomOrder()->first();
+        $searchStr = str_replace(' ', '+', $agreement->agr_number);
+        $url = route('admin.globalSearch').'?globalSearch='.$searchStr;
+        $this->actingAs($user)->get($url)
+            ->assertStatus(200)
+        ->assertSeeText('Результаты поиска')
+        ->assertSeeText($agreement->agr_number);
+    }
+
+
 
 }

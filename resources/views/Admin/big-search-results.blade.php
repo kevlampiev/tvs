@@ -27,13 +27,35 @@
                                         <a class="text-decoration-none text-secondary font-weight-bold" href="{{route('admin.vehicleSummary', ['vehicle'=>$el->id])}}">Техника</a>
                                           @break
                                   @case('message')
-                                          Сообщение
+                                        @if ($el->id)
+                                            <a class="text-decoration-none text-secondary font-weight-bold" href="{{route('admin.taskCard', ['task'=>$el->id])}}">Сообщение</a>
+                                        @else
+                                            Сообщение
+                                        @endif
                                           @break
                                   @case('vehicle_none')
-                                          Заметка
+                                        <a class="text-decoration-none text-secondary font-weight-bold"
+                                           href="{{route('admin.vehicleSummary', ['vehicle'=>$el->id, 'page' =>'notes'])}}">
+                                            Заметка по технике
+                                        </a>
                                           @break
                                   @case('agreement_none')
-                                          Заметка
+                                        <a class="text-decoration-none text-secondary font-weight-bold"
+                                           href="{{route('admin.agreementSummary', ['agreement'=>$el->id, 'page' =>'notes'])}}">
+                                            Заметка по договору
+                                        </a>
+                                          @break
+                                  @case('employee')
+                                        <a class="text-decoration-none text-secondary font-weight-bold"
+                                           href="{{route('admin.counterpartySummary', ['counterparty'=>$el->id])}}">
+                                            Сотрудник контрагента
+                                        </a>
+                                          @break
+                                  @case('document')
+                                            <a class="text-decoration-none text-secondary font-weight-bold"
+                                               href="{{route('admin.documentPreview', ['document'=>$el->id])}}">
+                                                Документ
+                                            </a>
                                           @break
                                   @default Прочее
                         @endswitch

@@ -6,6 +6,7 @@ namespace Tests\Feature\Admin;
 use App\Models\Agreement;
 use App\Models\AgreementNote;
 use App\Models\Document;
+use App\Models\GuaranteeLegalEntity;
 use App\Models\User;
 use Tests\TestCase;
 
@@ -415,6 +416,29 @@ class AgreementSummaryTest extends TestCase
             ->assertSee($note->note_body)
             ->assertSeeText('Изменить')
             ->assertSeeText('Отмена');
+    }
+
+
+    /**
+     * Смотрим на главную страницу спика гарантий по договору
+     *
+     * @return void
+     */
+    public function testGuaranteesList()
+    {
+        $user = User::query()->where('role', '<>', 'user')->inRandomOrder()->first();
+        $guarantee = GuaranteeLegalEntity::query()
+            ->inRandomOrder()->first();
+        $agreement = $guarantee->agreement;
+
+        $this->actingAs($user)
+            ->get(route('admin.agreementSummary', ['agreement' => $agreement, 'page' => 'guarantees']))
+            ->assertStatus(200)
+            ->assertSeeText($agreement->agr_number)
+            ->assertSeeText($agreement->agreementType->name)
+            ->assertSeeText($agreement->company->name)
+            ->assertSeeText($agreement->counterparty->name)
+            ->assertSeeText($guarantee->guarantor->name);
     }
 
 

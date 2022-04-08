@@ -51,6 +51,16 @@
                 Залог
             </button>
             <button class="nav-link"
+                    id="guarantees-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#guarantees"
+                    type="button"
+                    role="tab"
+                    aria-controls="guarantees"
+                    aria-selected="true">
+                Поручительства
+            </button>
+            <button class="nav-link"
                     id="payments-tab"
                     data-bs-toggle="tab"
                     data-bs-target="#payments"
@@ -126,12 +136,25 @@
             </div>
         </div>
 
+        <div class="tab-pane fade" id="guarantees" role="tabpanel" aria-labelledby="guarantees-tab">
+            <h4>Полученные поручительства по договору</h4>
+            <div class="row m-1">
+                <div class="col-md-12">
+                    <a class="btn btn-outline-info"
+                       href="{{route('admin.addGuaranteeLE', ['agreement'=>$agreement])}}">
+                        Добавить поручительство компании
+                    </a>
+                    @include('Admin.agreements.agreement-summary.agreement-guarantees', ['guarantees' => $agreement->guarantees])
+                </div>
+            </div>
+        </div>
+
         <div class="tab-pane fade" id="payments" role="tabpanel" aria-labelledby="payments-tab">
-            @php  $payments = $agreement->payments->sortBy('payment_date'); @endphp
-            @php  $realPayments = $agreement->realPayments->sortBy('payment_date'); @endphp
+{{--            @php  $payments = $agreement->payments->sortBy('payment_date'); @endphp--}}
+{{--            @php  $realPayments = $agreement->realPayments->sortBy('payment_date'); @endphp--}}
             <div class="row">
-                @include('Admin.agreements.agreement-summary.payment-tables')
-                @include('Admin.agreements.agreement-summary.real-payment-tables')
+                @include('Admin.agreements.agreement-summary.payment-tables', ['payments' =>$agreement->payments->sortBy('payment_date')])
+                @include('Admin.agreements.agreement-summary.real-payment-tables', ['realPayments' =>$agreement->realPayments->sortBy('payment_date')])
             </div>
         </div>
 

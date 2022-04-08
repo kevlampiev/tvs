@@ -65,6 +65,11 @@ class Agreement extends Model
         return $this->hasMany(Deposit::class);
     }
 
+    public function guaranteesLegalEntity(): HasMany
+    {
+        return $this->hasMany(GuaranteeLegalEntity::class);
+    }
+
     public static function rules(): array
     {
         return [

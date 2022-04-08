@@ -19,7 +19,7 @@ class GuaranteeLegalEntity extends Model
         return $this->belongsTo(Agreement::class);
     }
 
-    public function company():HasOne
+    public function guarantor():HasOne
     {
         return $this->hasOne(Company::class,'id', 'guarantor_id');
     }

@@ -6,13 +6,15 @@
 
 @section('content')
     <h3> @if ($guarantee->id) Изменение данных поручительства@else Добавить новое поручительство по договору @endif</h3>
-    <form method="POST">
+    <form method="POST"
+          action="{{!$guarantee->id?route('admin.addGuaranteeLE',['agreement'=>$guarantee->agreement]):
+                            route('admin.editGuaranteeLE',['guarantee'=>$guarantee])}}">
         @csrf
             <div class="row">
                 <div class="col-md-6">
                     <div class="input-group mb-3">
-                        <input type="hidden" name="id">
-                        <input type="hidden" name="agreement_id">
+                        <input type="hidden" name="id" value="{{$guarantee->id}}">
+                        <input type="hidden" name="agreement_id" value="{{$guarantee->agreement_id}}">
                     </div>
                     @if ($errors->has('agreement_id'))
                         <div class="alert alert-danger">
@@ -27,7 +29,7 @@
 {{--                    Компания - гарант --}}
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="companies">Компания-гарант </span>
-                        <select name="company_id"
+                        <select name="guarantor_id"
                                 class="form-control {{$errors->has('guarantor_id')?'is-invalid':''}}"
                                 aria-describedby="companies">
                             @foreach ($companies as $company)

@@ -50,6 +50,7 @@ class GuaranteesLegalEntitysDataService // implements DataServiceInterface
             ]);
         if (!empty($request->old())) {
             $guarantee->fill($request->old());
+
         }
         return $guarantee;
     }
@@ -79,7 +80,7 @@ class GuaranteesLegalEntitysDataService // implements DataServiceInterface
     {
         try {
             self::saveChanges($request, $guarantee);
-            session()->flash('message', 'Данные о поручительстве');
+            session()->flash('message', 'Данные о поручительстве изменены');
         } catch (Error $err) {
             session()->flash('error', 'Не удалось обновить данные поручительства');
         }

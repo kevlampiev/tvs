@@ -15,7 +15,7 @@ Route::group([
             ->name('editGuaranteeLE');
         Route::post('{guarantee}/edit', [GuaranteeLegalEntityController::class, 'update']);
         Route::match(['post', 'get'],
-            '{guarantee}/delete', [GuaranteeLegalEntityController::class, 'destroy'])
+            '{guarantee}/delete', [GuaranteeLegalEntityController::class, 'erase'])
             ->name('deleteGuaranteeLE');
     }
 );

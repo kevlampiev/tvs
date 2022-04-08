@@ -24,11 +24,10 @@ class GuaranteeLegalEntityController extends Controller
 
     public function store(GuaranteeLegalEntityRequest $request)
     {
-        dd($request);
         GuaranteesLegalEntitysDataService::store($request);
         return redirect()->route('admin.agreementSummary' ,
             ['agreement' => $request->get('agreement_id'),
-                'page' => 'guaranties']);
+                'page' => 'guarantees']);
     }
 
     public function edit(Request $request, GuaranteeLegalEntity $guarantee)

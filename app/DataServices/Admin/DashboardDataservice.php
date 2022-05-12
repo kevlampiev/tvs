@@ -4,65 +4,94 @@
 namespace App\DataServices\Admin;
 
 
+use App\Models\AgreementNote;
 use App\Models\Message;
 use App\Models\Task;
 use App\Models\Vehicle;
+use App\Models\VehicleNote;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class DashboardDataservice
 {
-
     public static function provideData(): array
     {
-//        dd(Carbon::now()->toDateString());
-        $overdueTasks = Task::query()->where('task_performer_id', '=', Auth::user()->id)
-            ->where('terminate_date', '=', null)
-            ->where('due_date', "<", Carbon::now()->toDateString())
-            ->where('parent_task_id', '<>', null)
-            ->orderBy('user_id')
-            ->orderBy('due_date')
-            ->get();
-        $todaysTasks = Task::query()->where('task_performer_id', '=', Auth::user()->id)
-            ->where('terminate_date', '=', null)
-            ->where('due_date', "=", Carbon::now()->toDateString())
-            ->where('parent_task_id', '<>', null)
-            ->orderBy('user_id')
-            ->orderBy('due_date')
-            ->get();
-        $futureTasks = Task::query()->where('task_performer_id', '=', Auth::user()->id)
-            ->where('terminate_date', '=', null)
-            ->where('parent_task_id', '<>', null)
-            ->where('due_date', ">", Carbon::now()->toDateString())
-            ->orderBy('user_id')
-            ->orderBy('due_date')
-            ->get();
-
-        $vehiclesWithoutPayment = Vehicle::query()
-            ->where('purchase_date', '<', Carbon::parse('01.01.2000'))
-            ->orWhere('price', '<', 1000)->count();
-        $row = DB::select('select id from vehicles where id not in (select vehicle_id from insurances)');
-
-        $noDocsVehicles = DB::select('select id from vehicles where id not in (select distinct vehicle_id from documents)');
-        $noAgrVehicles = DB::select('select id from vehicles where id not in (select distinct vehicle_id from agreement_vehicle)');
-        $doubleVIN = DB::select('select vin, count(id) from vehicles group by vin having count(vin)>1');
-        $lastMessages = Message::query()->orderByDesc('created_at')->limit(15)->get();
-
+        $paymentInfo = self::getUpcomingPayments();
 
         return [
-            'overdueTasks' => $overdueTasks,
-            'todaysTasks' => $todaysTasks,
-            'futureTasks' => $futureTasks,
-            'vehiclesWithoutPayment' => $vehiclesWithoutPayment,
-            'vehiclesWithoutProperPrices' => $vehiclesWithoutPayment,
-            'uninsuredVehiclesCount' => (count($row)),
-            'vehiclesWithoutPassport' => count($noDocsVehicles),
-            'lastMessages' => $lastMessages,
-            'noAgrVehicles' => count($noAgrVehicles),
-            'doubleVIN' => count($doubleVIN)
+            'data' => json_encode(self::getChartData($paymentInfo), JSON_UNESCAPED_UNICODE),
+            'summary' => self::getPaymentsSummary($paymentInfo),
+            'expiringInsurancesCount' => self::getExpiringInsurancesCount(),
+            'overdueInsurancesCount' => self::getOverdueInsurancesCount(),
+            'uninsuredVehiclesCount' => self::getUninsuredVehiclesCount(),
+            'notes' => self::getLastNotes(),
+            'upcomingInsurancesPeriod' => config('constants.upcomingPeriods.insurances'),
+            'upcomingPaymentsPeriod' => config('constants.upcomingPeriods.payments'),
         ];
 
     }
 
+    private static function getInsurancesData()
+    {
+        $upcomingPeriod = config('constants.upcomingPeriods.insurances');
+        $data = DB::select('call insurance_to_made_by_today(?)', [$upcomingPeriod]);
+        return $data;
+    }
+
+
+    private static function getUninsuredVehiclesCount(): int
+    {
+        $row = DB::selectOne('select count(*) as univ from vehicles where id not in (select vehicle_id from insurances)');
+        return (int)$row->univ;
+    }
+
+    private static function getOverdueInsurancesCount(): int
+    {
+        $row = DB::selectOne('select count(*) as odi from v_insurances_most_actual where date_close<current_date ');
+        return (int)$row->odi;
+    }
+
+    private static function getExpiringInsurancesCount(): int
+    {
+        $upcomingPeriod = config('constants.upcomingPeriods.insurances');
+        $row = DB::selectOne(
+            'select count(*) as ei from v_insurances_most_actual
+                        where date_close is not null and
+                              datediff(date_close,current_date) between 0 and ?', [$upcomingPeriod]);
+        return (int)$row->ei;
+    }
+
+    private static function getUpcomingPayments()
+    {
+        $upcomingPeriod = config('constants.upcomingPeriods.payments');
+        $data = DB::select('CALL settlements_by_date(?)', [$upcomingPeriod]);
+        return collect($data);
+    }
+
+    private static function getChartData($paymentInfo): array
+    {
+        $data = [];
+        $data[] = ['Компания', 'Просрочено, млн', 'Срочные платежи, млн'];
+        foreach ($paymentInfo as $payment) {
+            $data[] = [$payment->company, max($payment->overdue / 10 ** 6, 0), max($payment->upcoming / 10 ** 6, 0)];
+        }
+        return $data;
+    }
+
+    private static function getPaymentsSummary($paymentInfo)
+    {
+        return (object)[
+            'overdue' => $paymentInfo->sum('overdue') / 10 ** 6,
+            'upcoming' => $paymentInfo->sum('upcoming') / 10 ** 6,
+        ];
+    }
+
+    private static function getLastNotes()
+    {
+        $vehiclesNotes = VehicleNote::query()->with('vehicle')->orderByDesc('created_at')->limit(10)->get();
+        $agreementsNotes = AgreementNote:: query()->with('agreement')->orderByDesc('created_at')->limit(10)->get();
+        $commonNotes = $vehiclesNotes->merge($agreementsNotes);
+        return $commonNotes->sortByDesc('created_at');
+    }
 }

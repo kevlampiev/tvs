@@ -9,12 +9,12 @@
             <div class="col-md-6">
                 <div class="shadow p-3 mb-5 bg-white rounded dashBoardBlock">
                     <h4 class="m-auto">Предстоящие платежи ({{$upcomingPaymentsPeriod}} дн.) </h4>
-                    @include('User.dashboard.upcoming-payments');
+                    @include('Admin.dashboard.upcoming-payments');
                 </div>
 
                 <div class="shadow p-3 mb-5 bg-white rounded dashBoardBlock">
                     <h4 class="m-auto">Ближайшие задачи ({{$upcomingInsurancesPeriod}} дн.) </h4>
-                    @include('User.dashboard.upcoming-events-list')
+                    @include('Admin.dashboard.upcoming-events-list')
                 </div>
 
             </div>
@@ -24,7 +24,7 @@
 
                 <div class="shadow p-3 mb-5 bg-white rounded dashBoardBlockLong">
                     <h4 class="m-auto">Последние события </h4>
-                    @include('User.dashboard.lastEvents')
+                    @include('Admin.dashboard.lastEvents')
                 </div>
             </div>
 

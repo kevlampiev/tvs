@@ -14,29 +14,29 @@ Route::group([
     'middleware' => ['auth', 'password_expired']
 ],
     function () {
-        Route::get('/settlements/all-v1',
-            [SettlementReportsController::class, 'showBigSettlementReport'])
-            ->name('user.allSettlements');
-        Route::get('/settlements/all-v2',
-            [SettlementReportsController::class, 'showBigSettlement2Report'])
-            ->name('user.allSettlements2');
-        Route::get('/settlements/nearest-payments',
-            [NearestPaymentsController::class, 'showAllAgr'])
-            ->name('user.nearestPayments');
-        Route::get('/settlements/{id}',
-            [SettlementReportsController::class, 'showAgrSettlementReport'])
-            ->name('user.agreementSettlements');
-        Route::get('profile', [UserProfileController::class, 'edit'])
-            ->name('user.profileEdit');
-        Route::post('profile', [UserProfileController::class, 'update']);
-        Route::get('/insurances/actual/by_ins_companies', [InsurancesController::class, 'index'])
-            ->name('user.actualInsurancesByInsCompanies');
-        Route::get('/insurances/actual/by_ins_types', [InsurancesController::class, 'index'])
-            ->name('user.actualInsurancesByInsTypes');
-        Route::get('/insurances/to-renewal', [InsurancesToRenewalController::class, 'index'])
-            ->name('user.insurancesToRenewal');
-        Route::get('/insurances/insuredVehicles', [InsurancesController::class, 'actualInsurances'])
-            ->name('user.insuredVehicles');
+//        Route::get('/settlements/all-v1',
+//            [SettlementReportsController::class, 'showBigSettlementReport'])
+//            ->name('user.allSettlements');
+//        Route::get('/settlements/all-v2',
+//            [SettlementReportsController::class, 'showBigSettlement2Report'])
+//            ->name('user.allSettlements2');
+//        Route::get('/settlements/nearest-payments',
+//            [NearestPaymentsController::class, 'showAllAgr'])
+//            ->name('user.nearestPayments');
+//        Route::get('/settlements/{id}',
+//            [SettlementReportsController::class, 'showAgrSettlementReport'])
+//            ->name('user.agreementSettlements');
+//        Route::get('profile', [UserProfileController::class, 'edit'])
+//            ->name('user.profileEdit');
+//        Route::post('profile', [UserProfileController::class, 'update']);
+//        Route::get('/insurances/actual/by_ins_companies', [InsurancesController::class, 'index'])
+//            ->name('user.actualInsurancesByInsCompanies');
+//        Route::get('/insurances/actual/by_ins_types', [InsurancesController::class, 'index'])
+//            ->name('user.actualInsurancesByInsTypes');
+//        Route::get('/insurances/to-renewal', [InsurancesToRenewalController::class, 'index'])
+//            ->name('user.insurancesToRenewal');
+//        Route::get('/insurances/insuredVehicles', [InsurancesController::class, 'actualInsurances'])
+//            ->name('user.insuredVehicles');
 
         Route::get('/filepreview/insurance-policy', [\App\Http\Controllers\User\FileDownloadController::class, 'previewInsurance'])
             ->name('user.filePreview');

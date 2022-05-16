@@ -26,9 +26,9 @@ Route::group([
 //        Route::get('/settlements/{id}',
 //            [SettlementReportsController::class, 'showAgrSettlementReport'])
 //            ->name('user.agreementSettlements');
-//        Route::get('profile', [UserProfileController::class, 'edit'])
-//            ->name('user.profileEdit');
-//        Route::post('profile', [UserProfileController::class, 'update']);
+        Route::get('profile', [UserProfileController::class, 'edit'])
+            ->name('user.profileEdit');
+        Route::post('profile', [UserProfileController::class, 'update']);
 //        Route::get('/insurances/actual/by_ins_companies', [InsurancesController::class, 'index'])
 //            ->name('user.actualInsurancesByInsCompanies');
 //        Route::get('/insurances/actual/by_ins_types', [InsurancesController::class, 'index'])

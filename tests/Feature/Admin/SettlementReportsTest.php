@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\User;
+namespace Tests\Feature\Admin;
 
 use App\Models\Agreement;
 use App\Models\User;
@@ -16,9 +16,22 @@ class SettlementReportsTest extends TestCase
     public function testVisitAsGuest()
     {
         //Заход без логина
-        $response = $this->get(route('user.allSettlements'));
+        $response = $this->get(route('admin.allSettlements'));
         $response->assertStatus(302)
             ->assertRedirect('login');
+    }
+
+    /**
+     * Попытка зайти на сайт в качестве простого user'a.
+     *
+     * @return void
+     */
+    public function testVisitAsUser()
+    {
+        $user = User::query()->where('role','=', 'user')->inRandomOrder()->first();
+        $response = $this->actingAs($user)->get(route('admin.allSettlements'));
+        $response->assertStatus(302)
+            ->assertRedirect(route('home'));
     }
 
     /**
@@ -41,9 +54,9 @@ class SettlementReportsTest extends TestCase
             ->first();
 
         //Зайти как простой юзер
-        $user = User::query()->inRandomOrder()->first();
+        $user = User::query()->where('role','<>','user')->inRandomOrder()->first();
         $this->actingAs($user)
-            ->get(route('user.allSettlements'))
+            ->get(route('admin.allSettlements'))
             ->assertStatus(200)
             ->assertSeeText('Задолженость по финансовым договорам')
             ->assertSeeText('Контрагент')
@@ -74,7 +87,7 @@ class SettlementReportsTest extends TestCase
         //Зайти как простой юзер
         $user = User::query()->inRandomOrder()->first();
         $this->actingAs($user)
-            ->get(route('user.allSettlements2'))
+            ->get(route('admin.allSettlements2'))
             ->assertStatus(200)
             ->assertSeeText('Задолженость по финансовым договорам')
             ->assertSeeText('Компания')

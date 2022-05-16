@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\User;
+namespace Tests\Feature\Admin;
 
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -16,9 +16,22 @@ class InsuredVehiclesTest extends TestCase
     public function testVisitAsGuest()
     {
         //Заход без логина
-        $response = $this->get(route('user.insuredVehicles'));
+        $response = $this->get(route('admin.insuredVehicles'));
         $response->assertStatus(302)
             ->assertRedirect('login');
+    }
+
+    /**
+     * Попытка посетить страницу в качесте простого user'a
+     *
+     * @return void
+     */
+    public function testVisitAsUser()
+    {
+        $user = User::query()->where('role', '=', 'user')->inRandomOrder()->first();
+        $response = $this->actingAs($user)->get(route('admin.insuredVehicles'));
+        $response->assertStatus(302)
+            ->assertRedirect(route('home'));
     }
 
     /**
@@ -28,10 +41,10 @@ class InsuredVehiclesTest extends TestCase
      */
     public function testVisitAuth()
     {
-        $user = User::query()->inRandomOrder()->first();
+        $user = User::query()->where('role','<>','user')->inRandomOrder()->first();
         $insurance = DB::selectOne('select * from v_insurances_most_actual order by rand() limit 1');
         $this->actingAs($user)
-            ->get(route('user.insuredVehicles'))
+            ->get(route('admin.insuredVehicles'))
             ->assertStatus(200)
             ->assertSeeText('Отчет о состоянии страхования техники')
             ->assertSeeText($insurance->vehicle)

@@ -29,15 +29,58 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" href="{{route('admin.vehicles')}}">Техника</a>
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link active" href="{{route('admin.vehicles')}}">Техника</a>--}}
+{{--                </li>--}}
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#"
+                       id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Техника
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href=href="{{route('admin.vehicles')}}">Список техники</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item disabled" href="#">Отчет по состоянию техники</a></li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('admin.agreements')}}">Договоры</a>
+
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#"
+                       id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Договоры/расчеты
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item"  href="{{route('admin.agreements')}}">Договоры</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item"   href="{{route('admin.allSettlements')}}">Состояние расчетов по компаниям</a></li>
+                        <li><a class="dropdown-item"   href="{{route('admin.allSettlements2')}}">Состояние расчетов по контрагентам</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item"   href="{{route('admin.nearestPayments')}}">Предстоящие платежи</a></li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('admin.insurances')}}">Страховки</a>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#"
+                       id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Страховки
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item"  href="{{route('admin.insurances')}}">Перечень страховок</a></li>
+                        <li><a class="dropdown-item" href="{{route('admin.insuredVehicles')}}">Отчет по страхованию техники </a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{{route('admin.actualInsurancesByInsCompanies')}}">Действующие
+                            страховки по страховым компаниям</a></li>
+                        <li><a class="dropdown-item" href="{{route('admin.actualInsurancesByInsTypes')}}">Действующие
+                            страховки по категориям</a></li>
+                        <div class="dropdown-divider"></div>
+                        <li><a class="dropdown-item" href="{{route('admin.insurancesToRenewal')}}">Страховки,
+                            требующие срочного оформления</a></li>
+
+                    </ul>
                 </li>
+
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

@@ -29,7 +29,7 @@
                             </p>
                         @endif
 
-                    <a href="{{route('user.insurancesToRenewal')}}">Подробнее...</a>
+                    <a href="{{route('admin.insurancesToRenewal')}}">Подробнее...</a>
                 </div>
 
             </li>

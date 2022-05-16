@@ -7,7 +7,7 @@
         Всего: <strong>{{number_format($summary->upcoming + $summary->overdue,1)}} млн</strong>
     </div>
     <div class="col-md-3 text-right">
-        <a href="{{route('user.nearestPayments')}}">Подробнее...</a>
+        <a href="{{route('admin.nearestPayments')}}">Подробнее...</a>
     </div>
 
 </div>

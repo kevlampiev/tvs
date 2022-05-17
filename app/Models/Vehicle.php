@@ -72,6 +72,11 @@ class Vehicle extends Model
         return $this->hasMany(Deposit::class);
     }
 
+    public function incidents():HasMany
+    {
+        return $this->hasMany(VehicleIncident::class);
+    }
+
     public static function rules(): array
     {
         return [

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ManufacturersController;
 use App\Http\Controllers\Admin\VehicleController;
+use App\Http\Controllers\Admin\VehicleIncidentController;
 use App\Http\Controllers\Admin\VehicleNoteController;
 use App\Http\Controllers\Admin\VehiclePhotoController;
 use App\Http\Controllers\Admin\VehicleTypeController;
@@ -83,4 +84,18 @@ Route::group([
                 Route::get('show/{vehiclePhoto}', [VehiclePhotoController::class, 'show'])
                     ->name('showVehiclePhoto');
             });
+
+        Route::group(['prefix' => 'incidents'],
+            function () {
+                Route::get('add/{vehicle}', [VehicleIncidentController::class, 'create'])
+                    ->name('addVehicleIncident');
+                Route::post('add/{vehicle}', [VehicleIncidentController::class, 'store']);
+                Route::get('edit/{vehicleIncident}', [VehicleIncidentController::class, 'edit'])
+                    ->name('editVehicleIncident');
+                Route::post('edit/{vehicleIncident}', [VehicleIncidentController::class, 'update']);
+                Route::get('delete/{vehicleIncident}', [VehicleIncidentController::class, 'erase'])
+                    ->name('deleteVehicleIncident');
+
+            });
+
     });

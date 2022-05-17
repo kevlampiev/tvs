@@ -180,6 +180,12 @@
         </div>
     @endif
 
+    @if(count(auth()->user()->unreadNotifications)>0)
+        <div class="alert alert-info">
+            <a href="{{route('admin.main')}}">&#9993; Для Вас есть новые уведомления </a>
+        </div>
+    @endif
+
     @if(session()->has('error'))
         <div class="alert alert-danger">
             {{ session()->get('error') }}

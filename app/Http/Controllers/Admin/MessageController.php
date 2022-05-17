@@ -7,6 +7,7 @@ use App\Events\NewCommentToTheTaskReceived;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MessageRequest;
 use App\Models\Message;
+use App\Notifications\TaskCommented;
 use App\NotificationServices\NewReplyNotificationSocketsService;
 use Illuminate\Http\Request;
 
@@ -33,7 +34,15 @@ class MessageController extends Controller
     //        } catch (Error $e) {
     //            session()->flash('error', 'Не удалось отправить сообщение о новом комментарии к  задаче получателю');
     //        }
+        $task=$message->task;
+        $mess = $message;
+        while(!$task) {
+            $mess = $mess->parentMessage;
+            $task = $mess->task;
+        }
 
+        if ($message->user_id !== $task->user_id) $task->user->notify(new TaskCommented($task));
+        if ($message->user_id !== $task->task_performer_id) $task->performer->notify(new TaskCommented($task));
         $route = session('previous_url');
         return redirect()->to($route);
     }

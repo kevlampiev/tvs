@@ -106,7 +106,23 @@
             </button>
         </li>
 
+        <li class="nav-item" role="presentation">
+            <button class="nav-link"
+                    id="incidents-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#incidents"
+                    type="button"
+                    role="tab"
+                    aria-controls="incidents"
+                    aria-selected="false">
+                Инциденты/происшествия
+            </button>
+        </li>
+
     </ul>
+
+{{--    Ниже идет содержитмое вкладок--}}
+
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="main" role="tabpanel" aria-labelledby="main-tab">
             <h4>Основные данные</h4>
@@ -140,6 +156,11 @@
         <div class="tab-pane fade" id="photos" role="tabpanel" aria-labelledby="photos-tab">
             <h4>Фотографии техники</h4>
             @include('Admin.vehicles.vehicle-summary.vehicle-photos')
+        </div>
+
+        <div class="tab-pane fade" id="incidents" role="tabpanel" aria-labelledby="incidents-tab">
+            <h4>Инциденты/аварии/происшествия</h4>
+            @include('Admin.vehicles.vehicle-summary.vehicle-incidents')
         </div>
     </div>
 

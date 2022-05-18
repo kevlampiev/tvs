@@ -39,7 +39,7 @@
                         Техника
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href=href="{{route('admin.vehicles')}}">Список техники</a></li>
+                        <li><a class="dropdown-item" href="{{route('admin.vehicles')}}">Список техники</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item disabled" href="#">Отчет по состоянию техники</a></li>
                     </ul>

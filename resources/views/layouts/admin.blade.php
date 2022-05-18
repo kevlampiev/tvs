@@ -183,6 +183,7 @@
     @if(count(auth()->user()->unreadNotifications)>0)
         <div class="alert alert-info">
             <a href="{{route('admin.main')}}">&#9993; Для Вас есть новые уведомления </a>
+            <span class="badge bg-info">{{count(auth()->user()->unreadNotifications)}}</span>
         </div>
     @endif
 

@@ -39,7 +39,7 @@
                         Техника
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href=href="{{route('admin.vehicles')}}">Список техники</a></li>
+                        <li><a class="dropdown-item" href="{{route('admin.vehicles')}}">Список техники</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item disabled" href="#">Отчет по состоянию техники</a></li>
                     </ul>
@@ -177,6 +177,13 @@
     @if(session()->has('message'))
         <div class="alert alert-success">
             {{ session()->get('message') }}
+        </div>
+    @endif
+
+    @if(count(auth()->user()->unreadNotifications)>0)
+        <div class="alert alert-info">
+            <a href="{{route('admin.main')}}">&#9993; Для Вас есть новые уведомления </a>
+            <span class="badge bg-info">{{count(auth()->user()->unreadNotifications)}}</span>
         </div>
     @endif
 

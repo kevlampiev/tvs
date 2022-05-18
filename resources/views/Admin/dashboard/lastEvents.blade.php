@@ -1,24 +1,18 @@
-<div>
-    @forelse($notes as $index=>$el)
-        <div class="note-block">
-            <p>
-                <strong>{{$el->user->name}} {{\Carbon\Carbon::parse($el->created_at)->format('d.m.Y h:m')}} </strong>
-                <br>
-                @if($el->vehicle)
-                    по единице техники {{$el->vehicle->name}}<br>
-                @endif
-                @if($el->agreement)
-                    по договору {{$el->agreement->name}} № {{$el->agreement->agr_number}} от
-                    {{\Carbon\Carbon::parse($el->agreement->date_open)->format('d.m.Y')}}
-                    <br>
-                @endif
+@if (count(auth()->user()->unreadNotifications)>0)
+    <a class="position-absolute top-0 end-0 btn btn-sm btn-info" href="{{route('markAllNotificationsAsRead')}}"> Пометить все как прочитанные </a>
+@endif
 
-                    <i>{{$el->note_body}}</i>
-            </p>
+<div>
+    @forelse(auth()->user()->notifications->take(15) as $el)
+
+        <div class="p-2 m-1 {{!$el->read_at?'border border-info font-weight-bold':'border border-light text-muted'}}" >
+            <a href="{{route('readNotification', ['id' => $el->id] )}}"> {{$el->data['subject']}} </a>
+            <i>От пользователя {{$el->data['sender']??"Anonymous "}} {{\Carbon\Carbon::parse($el->created_at)->format('d.m.Y h:m')}} <i>
+
         </div>
 
     @empty
-        нет событий
+        список уведомлений пуст
     @endforelse
 
 </div>

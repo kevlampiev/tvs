@@ -7,7 +7,8 @@ use App\Events\NewCommentToTheTaskReceived;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MessageRequest;
 use App\Models\Message;
-use App\NotificationServices\NewReplyNotificationSocketsService;
+use App\Notifications\TaskCommented;
+use App\NotificationServices\NewMessageNotificationSocketsService;
 use Illuminate\Http\Request;
 
 class MessageController extends Controller
@@ -29,11 +30,20 @@ class MessageController extends Controller
     {
         MessagesDataservice::store($request);
     //        try {
-    //            (new NewReplyNotificationSocketsService($message))->handle();
+    //            (new NewMessageNotificationSocketsService($message))->handle();
     //        } catch (Error $e) {
     //            session()->flash('error', 'Не удалось отправить сообщение о новом комментарии к  задаче получателю');
     //        }
-
+//        $task=$message->task;
+//        $mess = $message;
+//        while(!$task) {
+//            $mess = $mess->parentMessage;
+//            $task = $mess->task;
+//        }
+//
+//        if ($message->user_id !== $task->user_id) $task->user->notify(new TaskCommented($task));
+//        if ($message->user_id !== $task->task_performer_id) $task->performer->notify(new TaskCommented($task));
+        NewMessageNotificationSocketsService::notify($message);
         $route = session('previous_url');
         return redirect()->to($route);
     }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\ExpiredPasswordController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\InsurancesController;
 use App\Http\Controllers\User\InsurancesToRenewalController;
 use App\Http\Controllers\User\NearestPaymentsController;
@@ -14,29 +15,9 @@ Route::group([
     'middleware' => ['auth', 'password_expired']
 ],
     function () {
-//        Route::get('/settlements/all-v1',
-//            [SettlementReportsController::class, 'showBigSettlementReport'])
-//            ->name('user.allSettlements');
-//        Route::get('/settlements/all-v2',
-//            [SettlementReportsController::class, 'showBigSettlement2Report'])
-//            ->name('user.allSettlements2');
-//        Route::get('/settlements/nearest-payments',
-//            [NearestPaymentsController::class, 'showAllAgr'])
-//            ->name('user.nearestPayments');
-//        Route::get('/settlements/{id}',
-//            [SettlementReportsController::class, 'showAgrSettlementReport'])
-//            ->name('user.agreementSettlements');
         Route::get('profile', [UserProfileController::class, 'edit'])
             ->name('user.profileEdit');
         Route::post('profile', [UserProfileController::class, 'update']);
-//        Route::get('/insurances/actual/by_ins_companies', [InsurancesController::class, 'index'])
-//            ->name('user.actualInsurancesByInsCompanies');
-//        Route::get('/insurances/actual/by_ins_types', [InsurancesController::class, 'index'])
-//            ->name('user.actualInsurancesByInsTypes');
-//        Route::get('/insurances/to-renewal', [InsurancesToRenewalController::class, 'index'])
-//            ->name('user.insurancesToRenewal');
-//        Route::get('/insurances/insuredVehicles', [InsurancesController::class, 'actualInsurances'])
-//            ->name('user.insuredVehicles');
 
         Route::get('/filepreview/insurance-policy', [\App\Http\Controllers\User\FileDownloadController::class, 'previewInsurance'])
             ->name('user.filePreview');
@@ -51,4 +32,6 @@ Route::get('password/expired', [ExpiredPasswordController::class, 'expired'])
 Route::post('password/expired', [ExpiredPasswordController::class, 'postExpired'])
     ->name('password.postExpired');
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware(['auth', 'password_expired']);
+Route::get('/', [HomeController::class, 'index'])->name('home')->middleware(['auth', 'password_expired']);
+Route::get('notification/{id}', [HomeController::class, 'readNotification'])->name('readNotification')->middleware(['auth', 'password_expired']);
+Route::get('notifications/markAllAsRead', [HomeController::class, 'markAllNotificationsAsRead'])->name('markAllNotificationsAsRead')->middleware(['auth', 'password_expired']);

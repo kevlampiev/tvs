@@ -10,6 +10,7 @@ use App\Http\Requests\TaskRequest;
 use App\Mail\NewTaskAppeared;
 use App\Models\Task;
 use App\Models\User;
+use App\Notifications\TaskCommented;
 use App\NotificationServices\NewCommentNotificationSocketsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -119,11 +120,10 @@ class TaskController extends Controller
     public function storeMessage(MessageRequest $request, Task $task)
     {
         TasksDataservice::storeTaskMessage($request);
-//        try {
-//             (new NewCommentNotificationSocketsService($task))->handle();
-//        } catch (Error $e) {
-//            session()->flash('error', 'Не удалось отправить сообщение о новом комментарии к  задаче получателю');
-//        }
+
+            if (Auth::user()->id !== $task->user_id) $task->user->notify(new TaskCommented($task));
+            if (Auth::user()->id !== $task->task_performer_id) $task->performer->notify(new TaskCommented($task));
+
         return redirect()->route('admin.taskCard', ['task' => $task]);
     }
 

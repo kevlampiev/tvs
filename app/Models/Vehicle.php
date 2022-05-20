@@ -77,6 +77,11 @@ class Vehicle extends Model
         return $this->hasMany(VehicleIncident::class);
     }
 
+    public function conditions():HasMany
+    {
+        return $this->hasMany(VehicleCondition::class);
+    }
+
     public static function rules(): array
     {
         return [

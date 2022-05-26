@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ManufacturersController;
+use App\Http\Controllers\Admin\VehicleConditionController;
 use App\Http\Controllers\Admin\VehicleController;
 use App\Http\Controllers\Admin\VehicleIncidentController;
 use App\Http\Controllers\Admin\VehicleNoteController;
@@ -95,6 +96,18 @@ Route::group([
                 Route::post('edit/{vehicleIncident}', [VehicleIncidentController::class, 'update']);
                 Route::get('delete/{vehicleIncident}', [VehicleIncidentController::class, 'erase'])
                     ->name('deleteVehicleIncident');
+
+            });
+        Route::group(['prefix' => 'conditions'],
+            function () {
+                Route::get('add/{vehicle}', [VehicleConditionController::class, 'create'])
+                    ->name('addVehicleCondition');
+                Route::post('add/{vehicle}', [VehicleConditionController::class, 'store']);
+                Route::get('edit/{vehicleCondition}', [VehicleConditionController::class, 'edit'])
+                    ->name('editVehicleCondition');
+                Route::post('edit/{vehicleCondition}', [VehicleConditionController::class, 'update']);
+                Route::get('delete/{vehicleCondition}', [VehicleConditionController::class, 'erase'])
+                    ->name('deleteVehicleCondition');
 
             });
 

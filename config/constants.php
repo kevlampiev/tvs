@@ -14,6 +14,7 @@
 return [
     'currencies' => ['RUR', 'USD', 'EUR', 'CNY', 'YPN'],
     'userRoles' => ['user', 'manager', 'admin'],
+    'vehicleConditions' => ['operable' => 'рабочее состояние', 'repair' =>'в ремонте', 'ruined' =>'восстановлению не подлежит'],
     'upcomingPeriods' => ['payments' => env('PAYMENTS_UPCOMING', 14),
         'insurances' => env('INSURANCES_UPCOMING', 14),
     ]

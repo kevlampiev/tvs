@@ -119,6 +119,19 @@
             </button>
         </li>
 
+        <li class="nav-item" role="presentation">
+            <button class="nav-link"
+                    id="conditions-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#conditions"
+                    type="button"
+                    role="tab"
+                    aria-controls="conditions"
+                    aria-selected="false">
+                Состояние/ремонты
+            </button>
+        </li>
+
     </ul>
 
 {{--    Ниже идет содержитмое вкладок--}}
@@ -162,6 +175,12 @@
             <h4>Инциденты/аварии/происшествия</h4>
             @include('Admin.vehicles.vehicle-summary.vehicle-incidents')
         </div>
+
+        <div class="tab-pane fade" id="conditions" role="tabpanel" aria-labelledby="conditions-tab">
+            <h4>Состояние/ремонты</h4>
+            @include('Admin.vehicles.vehicle-summary.vehicle-conditions')
+        </div>
+
     </div>
 
 @endsection

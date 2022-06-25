@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataServices\Admin\AgreementTypesDataservice;
+use App\DataServices\Admin\VehicleLocationsDataservice;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AgreementTypeRequest;
 use App\Models\AgreementType;
@@ -14,7 +14,7 @@ class AgreementTypeController extends Controller
 {
     public function index(Request $request)
     {
-        return view('Admin.agreement-types', AgreementTypesDataservice::provideData());
+        return view('Admin.agreement-types', VehicleLocationsDataservice::provideData());
     }
 
     /**

@@ -16,7 +16,8 @@
 
     <div class="row">
         <div class="col-md-12">
-        <a class="btn btn-outline-info" href="{{route('admin.addCompany')}}">Добавить компанию</a>
+{{--        <a class="btn btn-outline-info" href="{{route('admin.addCompany')}}">Добавить компанию</a>--}}
+        <a class="btn btn-outline-info" href="#">Добавить место дисклокации</a>
         </div>
     </div>
 
@@ -27,18 +28,19 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Наименование</th>
-                    <th scope="col">Код</th>
+                    <th scope="col">Адрес</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($companies as $index=>$company)
+                @forelse($vehicleLocations as $index=>$location)
                     <tr>
                         <th scope="row">{{$index+1}}</th>
-                        <td>{{$company->name}}</td>
-                        <td>{{$company->code}}</td>
+                        <td>{{$location->name}}</td>
+                        <td>{{$location->address}}</td>
+{{--                        TODO заменить на реальные пути редактирования и удаления  --}}
                         <td><a href="{{route('admin.companySummary',['company'=>$company])}}"> &#9776;Карточка </a>
                         <td><a href="{{route('admin.editCompany',['company'=>$company])}}"> &#9998;Изменить </a>
                         </td>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataServices\Admin\VehicleLocationsDataservice;
 use App\Models\VehicleLocation;
 use Illuminate\Http\Request;
 
@@ -10,11 +11,12 @@ class VehicleLocationController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        return view('Admin.vehicle-locations.vehicle-locations',
+            ['vehicleLocations' => VehicleLocation::query()->orderBy('name')->get()]);
     }
 
     /**

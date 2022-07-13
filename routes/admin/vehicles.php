@@ -45,6 +45,15 @@ Route::group([
 
 
 Route::group([
+    'prefix' => 'locations'
+],
+    function () {
+        Route::get('/',[\App\Http\Controllers\VehicleLocationController::class, 'index'])
+        ->name('locations');
+    }
+);
+
+Route::group([
     'prefix' => 'vehicles'
 ],
     function () {

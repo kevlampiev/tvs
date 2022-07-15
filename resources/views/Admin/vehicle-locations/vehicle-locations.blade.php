@@ -16,7 +16,7 @@
     <div class="row">
         <div class="col-md-12">
 {{--        <a class="btn btn-outline-info" href="{{route('admin.addCompany')}}">Добавить компанию</a>--}}
-        <a class="btn btn-outline-info" href="#">Добавить место дисклокации</a>
+        <a class="btn btn-outline-info" href="{{route('admin.addLocation')}}">Добавить место дислокации</a>
         </div>
     </div>
 
@@ -40,18 +40,25 @@
                         <td>{{$location->name}}</td>
                         <td>{{$location->address}}</td>
 {{--                        TODO заменить на реальные пути редактирования и удаления  --}}
-                        <td><a href="{{route('admin.companySummary',['company'=>$company])}}"> &#9776;Карточка </a>
-                        <td><a href="{{route('admin.editCompany',['company'=>$company])}}"> &#9998;Изменить </a>
+{{--                        <td><a href="{{route('admin.companySummary',['company'=>$company])}}"> &#9776;Карточка </a>--}}
+                        <td>
+                            <a href="{{route('admin.editLocation',['location'=>$location])}}"> &#9998;Изменить </a>
                         </td>
-                        @if ($company->agreements_count===0)
-                            <td>
-                                <a href="{{route('admin.deleteCompany',['company'=>$company])}}"
-                                   onclick="return confirm('Действительно удалить данные о компании?')"
-                                > &#10008;Удалить </a>
-                            </td>
-                        @else
-                            <td><p class="text-muted">&#10008;Удалить </p></td>
-                        @endif
+{{--                        @if ($company->agreements_count===0)--}}
+{{--                            <td>--}}
+{{--                                <a href="{{route('admin.deleteCompany',['company'=>$company])}}"--}}
+{{--                                   onclick="return confirm('Действительно удалить данные о компании?')"--}}
+{{--                                > &#10008;Удалить </a>--}}
+{{--                            </td>--}}
+{{--                        @else--}}
+{{--                            <td><p class="text-muted">&#10008;Удалить </p></td>--}}
+{{--                        @endif--}}
+                        <td>
+                            <a href="{{route('admin.deleteLocation',['location'=>$location])}}"
+                            onclick="return confirm('Действительно удалить данные о местоположениях техники?')">
+                                &#10008;Удалить
+                            </a>
+                        </td>
                     </tr>
                 @empty
                     <td colspan="5">Нет записей</td>

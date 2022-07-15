@@ -11,4 +11,6 @@ class VehicleLocation extends Model
 
     protected $guarded = [];
 
+
+
 }

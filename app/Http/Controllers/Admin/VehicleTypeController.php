@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\DataServices\Admin\VehicleTypesDataservice;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VehicleLocationRequest;
+use App\Http\Requests\VehicleTypeRequest;
 use App\Models\VehicleType;
 use Illuminate\Http\Request;
 
@@ -76,7 +77,7 @@ class VehicleTypeController extends Controller
      * @param VehicleType $type
      * @return \Illuminate\Contracts\View\View
      */
-    public function edit(VehicleLocationRequest $request, VehicleType $vehicleType): \Illuminate\Contracts\View\View
+    public function edit(Request $request, VehicleType $vehicleType): \Illuminate\Contracts\View\View
     {
         if (!empty($request->old())) {
             $vehicleType->fill($request->old());
@@ -94,7 +95,7 @@ class VehicleTypeController extends Controller
      * @param VehicleType $type
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(VehicleLocationRequest $request, VehicleType $vehicleType): \Illuminate\Http\RedirectResponse
+    public function update(VehicleTypeRequest $request, VehicleType $vehicleType): \Illuminate\Http\RedirectResponse
     {
 
         $vehicleType->fill($request->all())->save();

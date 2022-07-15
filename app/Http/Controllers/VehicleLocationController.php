@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\DataServices\Admin\VehicleLocationsDataservice;
+use App\Http\Requests\VehicleLocationRequest;
 use App\Models\VehicleLocation;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class VehicleLocationController extends Controller
@@ -22,22 +24,24 @@ class VehicleLocationController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+       $location = VehicleLocationsDataservice::create($request);
+       return view('Admin.vehicle-locations.vehicle-location-edit', VehicleLocationsDataservice::provideData($location));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(VehicleLocationRequest $request): RedirectResponse
     {
-        //
+        VehicleLocationsDataservice::store($request);
+        return redirect()->to(route('admin.locations'));
     }
 
     /**
@@ -55,11 +59,14 @@ class VehicleLocationController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\VehicleLocation  $vehicleLocation
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function edit(VehicleLocation $vehicleLocation)
+    public function edit(Request $request, VehicleLocation $location)
     {
-        //
+
+        VehicleLocationsDataservice::edit($request, $location);
+        return view('Admin.vehicle-locations.vehicle-location-edit',
+            VehicleLocationsDataservice::provideData($location));
     }
 
     /**
@@ -67,21 +74,23 @@ class VehicleLocationController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\VehicleLocation  $vehicleLocation
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function update(Request $request, VehicleLocation $vehicleLocation)
+    public function update(VehicleLocationRequest $request, VehicleLocation $location)
     {
-        //
+        VehicleLocationsDataservice::update($request, $location);
+        return redirect()->to(route('admin.locations'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\VehicleLocation  $vehicleLocation
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function destroy(VehicleLocation $vehicleLocation)
+    public function destroy(VehicleLocation $location)
     {
-        //
+        VehicleLocationsDataservice::delete($location);
+        return redirect()->back();
     }
 }

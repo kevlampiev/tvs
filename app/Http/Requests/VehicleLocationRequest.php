@@ -24,7 +24,7 @@ class VehicleLocationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'string|required|unique:App\Models\VehicleLocation,name',
+            'name' => 'string|required',
             'address' => 'string'
         ];
     }

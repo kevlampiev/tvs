@@ -12,9 +12,10 @@ use Illuminate\Http\Request;
 
 class VehicleLocationsDataservice
 {
-    public static function provideData(): array
+    public static function provideData(VehicleLocation $location): array
     {
-        return ['agrTypes' => AgreementType::withCount('agreements')->orderBy('name')->get(), 'filter' => ''];
+        return ['location' => $location,
+            'route' => ($location->id)?route('admin.editLocation',['location' => $location]):route('admin.addLocation')];
     }
 
 

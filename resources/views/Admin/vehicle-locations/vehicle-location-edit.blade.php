@@ -6,9 +6,13 @@
 
 @section('content')
     <h3> @if ($location->id) Редактирование местонахождения техники @else Добавить новое местонахождение @endif</h3>
-    <form method="POST">
+    <form method="POST" action="{{$route}}">
         @csrf
         <form>
+
+            <input type="hidden" id="id" name="id"
+                   value="{{$location->id}}">
+
             <div class="form-group">
                 <label for="inputType">Наименование</label>
                 <input type="text"

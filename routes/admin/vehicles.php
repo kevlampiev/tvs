@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\VehicleIncidentController;
 use App\Http\Controllers\Admin\VehicleNoteController;
 use App\Http\Controllers\Admin\VehiclePhotoController;
 use App\Http\Controllers\Admin\VehicleTypeController;
+use App\Http\Controllers\VehicleLocationController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -48,8 +49,16 @@ Route::group([
     'prefix' => 'locations'
 ],
     function () {
-        Route::get('/',[\App\Http\Controllers\VehicleLocationController::class, 'index'])
+        Route::get('/',[VehicleLocationController::class, 'index'])
         ->name('locations');
+        Route::get('/add', [VehicleLocationController::class, 'create'])
+            ->name('addLocation');
+        Route::post('/add', [VehicleLocationController::class, 'store']);
+        Route::get('/{location}/edit', [VehicleLocationController::class, 'edit'])
+            ->name('editLocation');
+        Route::post('/{location}/edit', [VehicleLocationController::class, 'update']);
+        Route::match(['get', 'post'], '{location}/delete', [VehicleLocationController::class, 'destroy'])
+            ->name('deleteLocation');
     }
 );
 

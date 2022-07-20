@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\DataServices\Admin\VehicleLocationsDataservice;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\VehicleLocationRequest;
 use App\Models\VehicleLocation;
 use Illuminate\Http\RedirectResponse;

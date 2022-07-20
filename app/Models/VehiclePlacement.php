@@ -14,11 +14,11 @@ class VehiclePlacement extends Model
 
     public function vehicle():HasOne
     {
-        return $this->hasOne(Vehicle::class);
+        return $this->hasOne(Vehicle::class, 'id' , 'vehicle_id');
     }
 
     public function location():HasOne
     {
-        return $this->hasOne(VehicleLocation::class);
+        return $this->hasOne(VehicleLocation::class, 'id', 'location_id');
     }
 }

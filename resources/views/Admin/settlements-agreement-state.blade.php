@@ -12,6 +12,9 @@
                 @include('Admin.agreements.agreement-summary.agreement-main')
             </div>
             <div class="col-md-6">
+
+                <a href="{{route('admin.agreementSummary', ['agreement'=>$agreement])}}"
+                class ="btn btn-outline-secondary">&#8801;Карточка договора</a>
                 <table class="table">
                     <thead>
                     <tr>

@@ -2,7 +2,6 @@
 
 
 @section('content')
-    {{--    @dd($data)--}}
 
     <div class="container-fluid">
         <div class="row justify-content-center">
@@ -61,7 +60,9 @@
                                 <td class="text-right">{{number_format($el->must_be_payed_by_date - $el->payed,2)}}  </td>
                                 <td class="text-right">{{number_format($el->must_be_payed_by_date - $el->payed,2)}}  </td>
                                 <td class="text-left">
-                                    <a href="{{route('admin.agreementSettlements', ['id'=>$el->id])}}">&#8801;Детально</a>
+                                    <a href="{{route('admin.agreementSummary', ['agreement'=>$el->id, 'page'=>'payments'])}}">
+                                        &#8801;Карточка договора
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach

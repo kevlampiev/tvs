@@ -121,6 +121,19 @@
 
         <li class="nav-item" role="presentation">
             <button class="nav-link"
+                    id="placements-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#placements"
+                    type="button"
+                    role="tab"
+                    aria-controls="placement"
+                    aria-selected="false">
+                История местонахождений
+            </button>
+        </li>
+
+        <li class="nav-item" role="presentation">
+            <button class="nav-link"
                     id="conditions-tab"
                     data-bs-toggle="tab"
                     data-bs-target="#conditions"
@@ -174,6 +187,11 @@
         <div class="tab-pane fade" id="incidents" role="tabpanel" aria-labelledby="incidents-tab">
             <h4>Инциденты/аварии/происшествия</h4>
             @include('Admin.vehicles.vehicle-summary.vehicle-incidents')
+        </div>
+
+        <div class="tab-pane fade" id="placements" role="tabpanel" aria-labelledby="placements-tab">
+            <h4>Местонахождения техники</h4>
+            @include('Admin.vehicles.vehicle-summary.placements-table')
         </div>
 
         <div class="tab-pane fade" id="conditions" role="tabpanel" aria-labelledby="conditions-tab">

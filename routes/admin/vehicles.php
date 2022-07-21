@@ -4,8 +4,10 @@ use App\Http\Controllers\Admin\ManufacturersController;
 use App\Http\Controllers\Admin\VehicleConditionController;
 use App\Http\Controllers\Admin\VehicleController;
 use App\Http\Controllers\Admin\VehicleIncidentController;
+use App\Http\Controllers\Admin\VehicleLocationController;
 use App\Http\Controllers\Admin\VehicleNoteController;
 use App\Http\Controllers\Admin\VehiclePhotoController;
+use App\Http\Controllers\Admin\VehiclePlacementController;
 use App\Http\Controllers\Admin\VehicleTypeController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,6 +45,35 @@ Route::group([
     }
 );
 
+
+Route::group([
+    'prefix' => 'locations'
+],
+    function () {
+        Route::get('/',[VehicleLocationController::class, 'index'])
+        ->name('locations');
+        Route::get('/add', [VehicleLocationController::class, 'create'])
+            ->name('addLocation');
+        Route::post('/add', [VehicleLocationController::class, 'store']);
+        Route::get('/{location}/edit', [VehicleLocationController::class, 'edit'])
+            ->name('editLocation');
+        Route::post('/{location}/edit', [VehicleLocationController::class, 'update']);
+        Route::match(['get', 'post'], '{location}/delete', [VehicleLocationController::class, 'destroy'])
+            ->name('deleteLocation');
+    }
+);
+
+Route::group(['prefix'=>'placements'],
+    function () {
+        Route::get('{vehicle}/add', [VehiclePlacementController::class, 'create'])->name('addPlacement');
+        Route::post('{vehicle}/add', [VehiclePlacementController::class, 'store']);
+        Route::get('{placement}/edit', [VehiclePlacementController::class, 'edit'])
+            ->name('editPlacement');
+        Route::post('{placement}/edit', [VehiclePlacementController::class, 'update']);
+        Route::match(['get','post'], '{placement}/delete}',[VehiclePlacementController::class, 'destroy'])
+            ->name('deletePlacement');
+    }
+);
 
 Route::group([
     'prefix' => 'vehicles'

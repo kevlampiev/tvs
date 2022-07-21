@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataServices\Admin\AgreementTypesDataservice;
+use App\DataServices\Admin\VehicleLocationsDataservice;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AgreementTypeRequest;
 use App\Models\AgreementType;

@@ -105,6 +105,7 @@
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="{{route('admin.vehicleTypes')}}">Типы техники</a></li>
                         <li><a class="dropdown-item" href="{{route('admin.manufacturers')}}">Производители</a></li>
+                        <li><a class="dropdown-item" href="{{route('admin.locations')}}">Местонахождения техники</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="{{route('admin.agrTypes')}}">Типы договоров</a></li>
                         <li><a class="dropdown-item" href="{{route('admin.counterparties')}}">Контрагенты</a></li>

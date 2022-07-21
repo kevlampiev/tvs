@@ -5,25 +5,25 @@
             <li class="list-group-item d-flex justify-content-between align-items-start">
                 <div class="ms-2 me-auto">
                     <div class="fw-bold"><strong>Страховки</strong></div>
-                        @if($expiringInsurancesCount>0)
+                        @if(isset($expiringInsurancesCount)&&$expiringInsurancesCount>0)
                             <p>
                                 Страховки, действие которых заканчивается
                                 <span class="badge bg-warning rounded-pill">{{$expiringInsurancesCount}}</span>
                             </p>
                         @endif
-                        @if($overdueInsurancesCount>0)
+                        @if(isset($overdueInsurancesCount)&&$overdueInsurancesCount>0)
                             <p>
                                 Просроченные и непродленные страховки
                                 <span class="badge bg-danger rounded-pill">{{$overdueInsurancesCount}}</span>
                             </p>
                         @endif
-                        @if($uninsuredVehiclesCount>0)
+                        @if(isset($uninsuredVehiclesCount)&&$uninsuredVehiclesCount>0)
                             <p>
                                 Ни разу не застрахованная техника
                                 <span class="badge bg-danger rounded-pill">{{$uninsuredVehiclesCount}}</span>
                             </p>
                         @endif
-                        @if($uninsuredVehiclesCount==0&&$expiringInsuancersCount&&$overdueInsurancesCount==0)
+                        @if(isset($uninsuredVehiclesCount)&&$uninsuredVehiclesCount==0&&isset($expiringInsuancersCount)&&$expiringInsuancersCount&&isset($overdueInsurancesCount)&&$overdueInsurancesCount==0)
                             <p>
                                 <i>Все идеально ...</i>
                             </p>
